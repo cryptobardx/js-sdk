@@ -1,5 +1,15 @@
 # storybook-theme-tool
 
+## 3.0.3
+
+### Patch Changes
+
+- ccfcda8: publish
+- publish
+- Updated dependencies [ccfcda8]
+- Updated dependencies
+  - @orderly.network/ui@3.0.3
+
 ## 3.0.3-alpha.0
 
 ### Patch Changes

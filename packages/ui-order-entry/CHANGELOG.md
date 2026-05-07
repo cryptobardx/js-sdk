@@ -1,5 +1,25 @@
 # @orderly.network/ui-order-entry
 
+## 3.0.3
+
+### Patch Changes
+
+- ccfcda8: publish
+- publish
+- Updated dependencies [ccfcda8]
+- Updated dependencies
+  - @orderly.network/react-app@3.0.3
+  - @orderly.network/hooks@3.0.3
+  - @orderly.network/i18n@3.0.3
+  - @orderly.network/perp@5.0.3
+  - @orderly.network/types@3.0.3
+  - @orderly.network/ui@3.0.3
+  - @orderly.network/ui-connector@3.0.3
+  - @orderly.network/ui-leverage@3.0.3
+  - @orderly.network/ui-scaffold@3.0.3
+  - @orderly.network/ui-tpsl@3.0.3
+  - @orderly.network/utils@3.0.3
+
 ## 3.0.3-alpha.0
 
 ### Patch Changes

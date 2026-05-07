@@ -1,5 +1,12 @@
 # @orderly.network/i18n
 
+## 3.0.3
+
+### Patch Changes
+
+- ccfcda8: publish
+- publish
+
 ## 3.0.3-alpha.0
 
 ### Patch Changes
