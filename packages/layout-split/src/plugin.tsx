@@ -1,5 +1,4 @@
 /// <reference types="@orderly.network/trading-next" />
-import React from "react";
 import type { LayoutStrategy } from "@orderly.network/layout-core";
 import type { OrderlySDK } from "@orderly.network/ui";
 import { createInterceptor } from "@orderly.network/ui";
@@ -32,6 +31,7 @@ const PLUGIN_VERSION = "1.0.0";
 export function registerLayoutSplitPlugin(
   options: LayoutSplitPluginOptions = {},
 ): (SDK: OrderlySDK) => void {
+  void options;
   return (SDK: OrderlySDK) => {
     SDK.registerPlugin({
       id: PLUGIN_ID,

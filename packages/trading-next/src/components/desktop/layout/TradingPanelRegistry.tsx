@@ -107,11 +107,17 @@ export function createTradingPanelRegistry(
     { node: React.ReactNode; props?: Record<string, unknown> }
   >();
 
-  // symbolInfoBar
+  // symbolInfoBar — min-height reserves baseline; omit fixed height; flex column so full-width bar stacks predictably.
   panels.set(TRADING_PANEL_IDS.SYMBOL_INFO_BAR, {
     node: (
       <div
-        style={{ minHeight: symbolInfoBarHeight, height: symbolInfoBarHeight }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: symbolInfoBarHeight,
+          height: symbolInfoBarHeight,
+          width: "100%",
+        }}
       >
         <SymbolInfoBarFullWidget
           symbol={symbol}

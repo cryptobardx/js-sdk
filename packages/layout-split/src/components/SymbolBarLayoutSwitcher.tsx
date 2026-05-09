@@ -59,9 +59,9 @@ const LayoutSwitchButton: React.FC<LayoutSwitchButtonProps> = ({
       <Flex
         justify={position === "right" ? "end" : "start"}
         className={cn(
-          "oui-w-[148px] oui-h-[100px]",
-          "oui-bg-base-10 oui-rounded-[10px]",
-          "oui-border-[4px] oui-border-base-5 group-hover:oui-border-primary-light",
+          "oui-h-[100px] oui-w-[148px]",
+          "oui-rounded-[10px] oui-bg-base-10",
+          "oui-border-4 oui-border-base-5 group-hover:oui-border-primary-light",
           layout === position && "!oui-border-primary-light",
         )}
       >
@@ -117,7 +117,7 @@ const LayoutSwitchButton: React.FC<LayoutSwitchButtonProps> = ({
         onMouseLeave={() => setHoveredMarket(null)}
         className="oui-group"
       >
-        <Flex justify="center" className="oui-w-[148px] oui-h-[100px]">
+        <Flex justify="center" className="oui-h-[100px] oui-w-[148px]">
           {position === "left" && (
             <MarketLeftIcon isSelected={isSelected} isHovered={isHovered} />
           )}

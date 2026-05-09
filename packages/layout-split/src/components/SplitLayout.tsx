@@ -125,7 +125,7 @@ export function SplitLayout({
       });
       onSizeChange?.(sizesAsStrings);
     },
-    [onSizeChange, count],
+    [onSizeChange, count, sizes],
   );
 
   if (count === 0) return <></>;
