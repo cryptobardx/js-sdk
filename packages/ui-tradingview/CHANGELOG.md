@@ -1,5 +1,22 @@
 # @orderly.network/ui-tradingview
 
+## 3.0.4-alpha.2
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/react-app@3.0.4-alpha.2
+  - @orderly.network/hooks@3.0.4-alpha.2
+  - @orderly.network/i18n@3.0.4-alpha.2
+  - @orderly.network/net@3.0.4-alpha.2
+  - @orderly.network/plugin-core@3.0.4-alpha.2
+  - @orderly.network/types@3.0.4-alpha.2
+  - @orderly.network/ui@3.0.4-alpha.2
+  - @orderly.network/ui-connector@3.0.4-alpha.2
+  - @orderly.network/ui-positions@3.0.4-alpha.2
+  - @orderly.network/utils@3.0.4-alpha.2
+
 ## 3.0.4-alpha.1
 
 ### Patch Changes

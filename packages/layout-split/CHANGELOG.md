@@ -1,5 +1,19 @@
 # @orderly.network/layout-split
 
+## 2.0.4-alpha.2
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/hooks@3.0.4-alpha.2
+  - @orderly.network/i18n@3.0.4-alpha.2
+  - @orderly.network/layout-core@2.0.4-alpha.2
+  - @orderly.network/markets@3.0.4-alpha.2
+  - @orderly.network/trading-next@3.0.4-alpha.2
+  - @orderly.network/types@3.0.4-alpha.2
+  - @orderly.network/ui@3.0.4-alpha.2
+
 ## 2.0.4-alpha.1
 
 ### Patch Changes
