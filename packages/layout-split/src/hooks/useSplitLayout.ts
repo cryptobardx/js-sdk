@@ -4,7 +4,7 @@
  * Mirrors the layout computation logic from trading.script.tsx but for the layout-split plugin.
  * Computes sizes via localStorage persistence and returns layout state values.
  */
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useLocalStorage, useMediaQuery } from "@orderly.network/hooks";
 import { TRADING_PANEL_IDS } from "@orderly.network/layout-core";
 import type { SplitLayoutBreakpointKey } from "../types";
@@ -27,7 +27,8 @@ export const DATA_LIST_MAX_HEIGHT = 800;
 export const DATA_LIST_INITIAL_HEIGHT = 350;
 
 export const SPACE = 8;
-export const SYMBOL_INFO_BAR_HEIGHT = 54;
+/** Baseline reservation for symbol info chrome (aligned with trading-next DesktopLayout sans countdown). */
+export const SYMBOL_INFO_BAR_HEIGHT = 56;
 
 // Storage keys
 const ORDERLY_ORDER_ENTRY_SIDE_MARKETS_LAYOUT =
@@ -411,7 +412,6 @@ export function useSplitLayout(
     initialLayout = "right",
     initialMarketLayout = "left",
     canTrade = true,
-    isFirstTimeDeposit = false,
   } = options;
 
   // Media queries
@@ -486,40 +486,6 @@ export function useSplitLayout(
   const [extraHeight, setExtraHeight] = useLocalStorage(
     ORDERLY_ORDER_ENTRY_EXTRA_HEIGHT,
     0,
-  );
-
-  // Extra height handler
-  const onTradingviewAndOrderbookDragging = useCallback(
-    (preSize: number, nextSize: number, boxHeight: number) => {
-      if (!boxHeight) return;
-
-      const splitTradingviewHeight = (boxHeight * preSize) / 100;
-      const splitOrderbookHeight = (boxHeight * nextSize) / 100;
-
-      const tradingviewHeight = Math.min(
-        Math.max(splitTradingviewHeight, TRADINGVIEW_MIN_HEIGHT),
-        max2XL ? 1200 : 600,
-      );
-
-      const orderbookHeight = Math.min(
-        Math.max(splitOrderbookHeight, ORDERBOOK_MIN_HEIGHT),
-        ORDERBOOK_MAX_HEIGHT,
-      );
-
-      if (splitOrderbookHeight >= orderbookHeight) {
-        const offset = splitOrderbookHeight - orderbookHeight;
-        setExtraHeight(Math.max(0, (extraHeight as number) - offset));
-      } else if (
-        tradingviewHeight + orderbookHeight <
-        (max2XL ? 1200 : 600) + ORDERBOOK_MAX_HEIGHT
-      ) {
-        const height =
-          tradingviewHeight + orderbookHeight + SPACE + SYMBOL_INFO_BAR_HEIGHT;
-        const offset = Math.max(0, height - 0); // orderEntryHeight would be needed here
-        setExtraHeight((extraHeight as number) + offset);
-      }
-    },
-    [max2XL, extraHeight, setExtraHeight],
   );
 
   // Trading view max height

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   SPLIT_BREAKPOINT_ORDER,
   DEFAULT_SPLIT_BREAKPOINTS,
@@ -48,11 +48,12 @@ export function useBreakpointFromWidth(
 
   useEffect(() => {
     const el = containerRef.current;
+    // Initial measurement + observer: width must sync to DOM after mount.
+    /* eslint-disable-next-line react-hooks/set-state-in-effect -- ResizeObserver needs baseline width before subscribe */
+    updateWidth();
     if (!el) {
-      updateWidth();
       return;
     }
-    setWidth(el.offsetWidth);
     const ro = new ResizeObserver(() => updateWidth());
     ro.observe(el);
     return () => ro.disconnect();

@@ -50,6 +50,7 @@ export function SplitPresetProvider({
   );
 }
 
+/* eslint-disable-next-line react-refresh/only-export-components -- hook co-located with provider */
 export function useSplitPresetContext(): SplitPresetContextValue | null {
   return useContext(SplitPresetContext);
 }

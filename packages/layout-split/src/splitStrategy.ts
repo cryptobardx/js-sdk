@@ -1,6 +1,6 @@
 import type { LayoutStrategy } from "@orderly.network/layout-core";
 import { SplitRenderer } from "./SplitRenderer";
-import type { SplitLayoutModel, SplitLayoutNode } from "./types";
+import type { SplitLayoutModel } from "./types";
 import {
   createDefaultSplitLayout,
   serializeSplitLayout,
