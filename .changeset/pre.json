@@ -49,6 +49,7 @@
     "@orderly.network/web3-provider-ethers": "3.0.3"
   },
   "changesets": [
-    "ninety-jars-love"
+    "ninety-jars-love",
+    "wise-spies-think"
   ]
 }

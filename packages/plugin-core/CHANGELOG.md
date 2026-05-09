@@ -1,5 +1,15 @@
 # @orderly.network/plugin-core
 
+## 3.0.4-alpha.1
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/core@3.0.4-alpha.1
+  - @orderly.network/types@3.0.4-alpha.1
+  - @orderly.network/utils@3.0.4-alpha.1
+
 ## 3.0.4-alpha.0
 
 ### Patch Changes

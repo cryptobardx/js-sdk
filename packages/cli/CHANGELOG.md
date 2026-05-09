@@ -1,5 +1,11 @@
 # @orderly.network/devkit
 
+## 1.0.4-alpha.1
+
+### Patch Changes
+
+- publish
+
 ## 1.0.4-alpha.0
 
 ### Patch Changes
