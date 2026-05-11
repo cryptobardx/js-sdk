@@ -106,7 +106,7 @@ export const ChainMenu = (props: UseChainMenuScriptReturn) => {
         height="10"
         viewBox="0 0 10 10"
         xmlns="http://www.w3.org/2000/svg"
-        className="oui-absolute oui-right-0 oui-bottom-0"
+        className="oui-absolute oui-end-0 oui-bottom-0"
       >
         <defs>
           <linearGradient

@@ -504,7 +504,7 @@ const OutlinkIcon: React.FC = () => {
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="oui-absolute oui-right-0 oui-top-0 group-hover:oui-invisible"
+        className="oui-absolute oui-end-0 oui-top-0 group-hover:oui-invisible"
       >
         <path
           className="oui-fill-base-contrast-20"
@@ -519,7 +519,7 @@ const OutlinkIcon: React.FC = () => {
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="oui-invisible oui-absolute oui-right-0 oui-top-0 group-hover:oui-visible"
+        className="oui-invisible oui-absolute oui-end-0 oui-top-0 group-hover:oui-visible"
       >
         <path
           d="M14.159 17.492a3.333 3.333 0 0 0 3.333-3.333V5.826a3.333 3.333 0 0 0-3.333-3.334H5.826a3.333 3.333 0 0 0-3.334 3.334v8.333a3.333 3.333 0 0 0 3.334 3.333zm-6.667-4.166a.85.85 0 0 1-.599-.235.86.86 0 0 1 0-1.198l3.333-3.333-1.9-1.901h5v5l-1.901-1.9L8.09 13.09a.84.84 0 0 1-.599.235"

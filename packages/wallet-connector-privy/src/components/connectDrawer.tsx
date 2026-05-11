@@ -109,8 +109,8 @@ export function ConnectDrawer(props: {
           "!oui-p-4  !oui-bg-base-9 !oui-border !oui-border-solid !oui-border-line-12",
 
           isMobile
-            ? "oui-inset-y-0 oui-right-0 oui-w-[280px] oui-rounded-none !oui-bg-base-8"
-            : "!oui-bottom-[30px] oui-right-3 oui-top-[48px] !oui-h-auto oui-w-[300px] oui-overflow-hidden oui-rounded-[16px] !oui-bg-base-9 ",
+            ? "oui-inset-y-0 oui-end-0 oui-w-[280px] oui-rounded-none !oui-bg-base-8"
+            : "!oui-bottom-[30px] oui-end-3 oui-top-[48px] !oui-h-auto oui-w-[300px] oui-overflow-hidden oui-rounded-[16px] !oui-bg-base-9 ",
         ),
       }}
       contentProps={{ side: "right", closeable: false }}

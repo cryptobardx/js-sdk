@@ -76,7 +76,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           input: cn("oui-mb-1 oui-mt-5 oui-h-5", props?.classNames?.input),
           // prefix: cn(props.classNames?.prefix),
           suffix: cn(
-            "oui-absolute oui-right-0 oui-top-0 oui-justify-start oui-py-2 oui-text-2xs oui-text-base-contrast-36",
+            "oui-absolute oui-end-0 oui-top-0 oui-justify-start oui-py-2 oui-text-2xs oui-text-base-contrast-36",
             props.classNames?.suffix,
           ),
         }}

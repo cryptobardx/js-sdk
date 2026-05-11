@@ -124,7 +124,7 @@ export const AccountItem = (props: AccountItemProps) => {
       {isCurrent && (
         <div
           className={cn(
-            "oui-absolute -oui-right-[1px] -oui-top-[1px] oui-leading-3",
+            "oui-absolute -oui-end-[1px] -oui-top-[1px] oui-leading-3",
             "oui-text-[10px] oui-font-semibold oui-text-base-10",
             "oui-rounded-[6px] oui-rounded-br-none oui-rounded-tl-none oui-bg-[rgb(var(--oui-gradient-brand-start))] oui-py-0.5 oui-pl-1 oui-pr-[5px]",
           )}

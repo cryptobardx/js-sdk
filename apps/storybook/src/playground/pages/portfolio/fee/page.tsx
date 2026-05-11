@@ -256,7 +256,7 @@ const FeeTierPage: React.FC = () => {
           gapX={3}
           itemAlign={"center"}
           justify={"between"}
-          className="oui-fixed oui-bottom-0 oui-left-0 oui-right-0 oui-pb-[env(safe-area-inset-bottom)]"
+          className="oui-fixed oui-bottom-0 oui-left-0 oui-end-0 oui-pb-[env(safe-area-inset-bottom)]"
         >
           <TradingBtn size="md" fullWidth />
           <StakeBtn size="md" fullWidth />

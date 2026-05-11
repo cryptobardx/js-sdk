@@ -125,7 +125,7 @@ const QuantityDistributionHint: FC<QuantityDistributionHintProps> = (props) => {
               intensity={type === item.type ? 500 : 600}
               width={78}
               p={2}
-              className="oui-cursor-pointer oui-rounded-l"
+              className="oui-cursor-pointer oui-rounded-s"
               onClick={() => {
                 setType(item.type);
               }}
@@ -142,10 +142,10 @@ const QuantityDistributionHint: FC<QuantityDistributionHintProps> = (props) => {
           intensity={500}
           width="100%"
           className={cn(
-            "oui-rounded-r",
-            type === DistributionType.FLAT && "oui-rounded-bl",
-            type === DistributionType.ASCENDING && "oui-rounded-l",
-            type === DistributionType.DESCENDING && "oui-rounded-tl",
+            "oui-rounded-e",
+            type === DistributionType.FLAT && "oui-rounded-es",
+            type === DistributionType.ASCENDING && "oui-rounded-s",
+            type === DistributionType.DESCENDING && "oui-rounded-ss",
           )}
         >
           <div>{currentContent?.formula}</div>
@@ -213,7 +213,7 @@ const QuantityDistribution: FC<QuantityDistributionProps> = (props) => {
               className={cn(
                 "oui-quantityDistribution-option-label",
                 "oui-text-2xs",
-                "oui-ml-1",
+                "oui-ms-1",
                 "oui-whitespace-nowrap oui-break-normal",
               )}
             >

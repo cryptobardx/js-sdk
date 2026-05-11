@@ -142,7 +142,7 @@ export const TradingSortablePanel: FC<
         <button
           {...attributes}
           {...listeners}
-          className="oui-absolute oui-right-0 oui-top-4 oui-cursor-move oui-py-1"
+          className="oui-absolute oui-end-0 oui-top-4 oui-cursor-move oui-py-1"
           style={{ touchAction: "none" }}
           ref={setActivatorNodeRef}
         >

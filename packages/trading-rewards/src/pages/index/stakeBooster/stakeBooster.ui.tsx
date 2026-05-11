@@ -1,12 +1,12 @@
 import { FC, ReactNode } from "react";
+import { useTranslation } from "@orderly.network/i18n";
 import { Flex, Text } from "@orderly.network/ui";
-import { JumpIcon } from "../components/jumpIcon";
+import { commify, commifyOptional } from "@orderly.network/utils";
 import { EsOrderlyIcon } from "../components/esOrderlyIcon";
+import { JumpIcon } from "../components/jumpIcon";
 import { OrderlyIcon } from "../components/orderlyIcon";
 import { RocketIcon } from "../components/rocket";
 import { StakeBoosterReturns } from "./stakeBooster.script";
-import { commify, commifyOptional } from "@orderly.network/utils";
-import { useTranslation } from "@orderly.network/i18n";
 
 export const StakeBooster: FC<StakeBoosterReturns> = (props) => {
   const { t } = useTranslation();
@@ -39,7 +39,7 @@ export const StakeBooster: FC<StakeBoosterReturns> = (props) => {
           value={props.curEpochEstimate?.est_avg_stake}
           icon={
             <div className="oui-flex oui-w-[32px] oui-h-[20px] oui-relative">
-              <div className="oui-absolute oui-right-0 oui-top-0">
+              <div className="oui-absolute oui-end-0 oui-top-0">
                 <EsOrderlyIcon />
               </div>
               <div className="oui-absolute oui-left-0 oui-top-0 ">

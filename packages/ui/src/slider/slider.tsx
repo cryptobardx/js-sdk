@@ -39,7 +39,7 @@ const sliderVariants = tv({
       "oui-relative oui-h-[8px] oui-w-full oui-grow oui-overflow-hidden oui-rounded-full",
 
     trackInner:
-      "oui-absolute oui-left-0 oui-right-0 oui-h-[2px] oui-top-[3px]  oui-pointer-events-none oui-bg-base-2",
+      "oui-absolute oui-left-0 oui-end-0 oui-h-[2px] oui-top-[3px]  oui-pointer-events-none oui-bg-base-2",
     range:
       "oui-absolute oui-h-[2px] oui-top-[3px] oui-bg-primary data-[disabled]:oui-bg-base-2",
     mark: "oui-absolute oui-top-[1px] oui-w-[6px] oui-h-[6px] oui-rounded oui-border oui-border-base-2 oui-bg-base-6 oui-pointer-events-none oui-translate-x-[-50%]",

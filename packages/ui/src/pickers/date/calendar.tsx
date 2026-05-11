@@ -1,7 +1,6 @@
 import { DayPicker } from "react-day-picker";
-
-import { ChevronLeftIcon, ChevronRightIcon } from "../../icon";
 import { cnBase } from "tailwind-variants";
+import { ChevronLeftIcon, ChevronRightIcon } from "../../icon";
 import { useLocale } from "../../locale";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
@@ -27,10 +26,10 @@ function Calendar({
         caption_label: "oui-text-sm oui-font-medium ",
         nav: "oui-space-x-1 oui-flex oui-items-center",
         nav_button: cnBase(
-          "oui-h-7 oui-w-7 oui-bg-transparent oui-p-0 oui-opacity-50 hover:oui-opacity-100"
+          "oui-h-7 oui-w-7 oui-bg-transparent oui-p-0 oui-opacity-50 hover:oui-opacity-100",
         ),
         nav_button_previous: "oui-absolute oui-left-1",
-        nav_button_next: "oui-absolute oui-right-1",
+        nav_button_next: "oui-absolute oui-end-1",
         table: "oui-w-full oui-border-collapse oui-space-y-1",
         head_row: "oui-flex",
         head_cell:
@@ -40,11 +39,11 @@ function Calendar({
           "oui-relative oui-day-cell oui-p-0 oui-text-center oui-text-2xs focus-within:oui-relative focus-within:oui-z-20 [&:has([aria-selected])]:oui-bg-base-4 [&:has([aria-selected].day-outside)]:oui-bg-base-4/50 [&:has([aria-selected].day-range-end)]:oui-rounded-r-md",
           props.mode === "range"
             ? "[&:has(>.oui-day-range-end)]:oui-rounded-r-md [&:has(>.oui-day-range-start)]:oui-rounded-l-md first:[&:has([aria-selected])]:oui-rounded-l-md last:[&:has([aria-selected])]:oui-rounded-r-md"
-            : "[&:has([aria-selected])]:oui-rounded-md"
+            : "[&:has([aria-selected])]:oui-rounded-md",
         ),
         day: cnBase(
           //   buttonVariants({ variant: "ghost" }),
-          "oui-h-7 oui-w-7 oui-p-0 oui-rounded-md oui-font-normal aria-selected:oui-opacity-100 oui-text-base-contrast-80 hover:oui-bg-base-5"
+          "oui-h-7 oui-w-7 oui-p-0 oui-rounded-md oui-font-normal aria-selected:oui-opacity-100 oui-text-base-contrast-80 hover:oui-bg-base-5",
         ),
         day_range_start:
           "day-range-start  oui-bg-primary-darken oui-text-base-contrast-80 hover:oui-bg-primary-darken",

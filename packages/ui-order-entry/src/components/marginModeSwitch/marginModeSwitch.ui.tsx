@@ -215,7 +215,7 @@ const OptionCard: FC<{
       {props.isCurrent ? (
         <div
           className={cn(
-            "oui-absolute -oui-right-px -oui-top-px",
+            "oui-absolute -oui-end-px -oui-top-px",
             "oui-rounded-bl-md oui-rounded-tr-md",
             "oui-bg-[#38e2fe] oui-px-1 oui-py-0.5",
           )}

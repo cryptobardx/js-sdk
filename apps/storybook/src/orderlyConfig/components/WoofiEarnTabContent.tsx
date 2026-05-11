@@ -30,7 +30,7 @@ const WoofiEarnRowItem = (props: {
           <img
             src={item.token_logo}
             alt={item.symbol}
-            className="oui-w-6 oui-h-6 oui-absolute oui-bottom-0 oui-right-0 oui-rounded-full"
+            className="oui-w-6 oui-h-6 oui-absolute oui-bottom-0 oui-end-0 oui-rounded-full"
           />
           <img
             src={item.network_logo}

@@ -166,11 +166,11 @@ export const AddWalletDialog: FC<AddWalletDialogProps> = ({
             onValueChange={onAddressChange}
             autoFocus
             color={showBorderDanger ? "danger" : undefined}
-            className={cn("oui-bg-base-6 oui-bg-transparent")}
+            className="oui-bg-base-6"
             classNames={{ input: "oui-text-base-contrast" }}
             suffix={
               address && (
-                <Box className="oui-ml-2.5 oui-mr-2 oui-cursor-pointer">
+                <Box className="oui-ms-2.5 oui-me-2 oui-cursor-pointer">
                   <CloseRoundFillIcon
                     size={16}
                     onClick={onClear}

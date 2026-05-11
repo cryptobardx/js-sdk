@@ -378,7 +378,7 @@ const DropdownMenu: FC<
         {props.children}
       </Flex>
       <button
-        className="oui-absolute oui-right-1 oui-top-1"
+        className="oui-absolute oui-end-1 oui-top-1"
         onClick={props.onSetTop}
       >
         <svg

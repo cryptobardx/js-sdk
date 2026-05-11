@@ -53,9 +53,9 @@ const ScanQRCodeContent: FC<ScanQRCodeProps> = (props) => {
         <>
           <LineGradient />
           <RadiusGradient className="oui-absolute oui-left-[-1.5px] oui-top-[-1.5px]" />
-          <RadiusGradient className="oui-absolute oui-right-[-1.5px] oui-top-[-1.5px] oui-rotate-90" />
+          <RadiusGradient className="oui-absolute oui-end-[-1.5px] oui-top-[-1.5px] oui-rotate-90" />
           <RadiusGradient className="oui-absolute oui-bottom-[-1.5px] oui-left-[-1.5px] -oui-rotate-90" />
-          <RadiusGradient className="oui-absolute oui-bottom-[-1.5px] oui-right-[-1.5px] -oui-rotate-180" />
+          <RadiusGradient className="oui-absolute oui-bottom-[-1.5px] oui-end-[-1.5px] -oui-rotate-180" />
         </>
       </Box>
 

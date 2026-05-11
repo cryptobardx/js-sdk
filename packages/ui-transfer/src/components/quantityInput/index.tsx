@@ -133,7 +133,7 @@ export const QuantityInput: FC<QuantityInputProps> = (props) => {
   );
 
   const suffix = (
-    <div className="oui-absolute oui-right-0">
+    <div className="oui-absolute oui-end-0">
       <Select.tokens
         open={selectOpen}
         onOpenChange={setOpen}

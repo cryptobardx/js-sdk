@@ -134,7 +134,7 @@ export const Slippage: FC<SlippageProps> = (props) => {
               "oui-h-[40px] oui-w-[74px]",
             ),
             input: "oui-text-base-contrast",
-            additional: "oui-pl-1",
+            additional: "oui-ps-1",
             suffix: "oui-text-base-contrast-36",
           }}
         />

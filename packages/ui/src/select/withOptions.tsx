@@ -46,7 +46,7 @@ export const defaultOptionRenderer = (
           height={4}
           gradient="brand"
           r="full"
-          className="oui-absolute oui-right-2 oui-top-1/2 -oui-translate-y-1/2"
+          className="oui-absolute oui-end-2 oui-top-1/2 -oui-translate-y-1/2"
         />
       )}
     </SelectItem>

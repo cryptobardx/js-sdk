@@ -9,11 +9,11 @@ import React, {
   ReactElement,
   useMemo,
   useCallback,
-  useSyncExternalStore,
 } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { cnBase, VariantProps } from "tailwind-variants";
 import { Flex } from "../flex";
+import { useDocumentDirection } from "../hooks";
 import { useOrderlyTheme } from "../provider/orderlyThemeContext";
 import { ScrollIndicator } from "../scrollIndicator";
 import {
@@ -46,44 +46,10 @@ interface TabsContextState {
 
 const TabsContext = createContext<TabsContextState>({} as TabsContextState);
 
-/**
- * Keeps tab list + roving focus in sync when `dir` is omitted (Radix defaults to `ltr` otherwise).
- */
-function subscribeDocumentDir(listener: () => void) {
-  if (typeof document === "undefined") {
-    return () => {};
-  }
-  const observer = new MutationObserver(listener);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["dir"],
-  });
-  return () => observer.disconnect();
-}
-
-/** Normalized `document.documentElement` direction for Radix Tabs (`dir` absent on `html` → `ltr`). */
-function snapshotDocumentDir(): "ltr" | "rtl" {
-  if (typeof document === "undefined") {
-    return "ltr";
-  }
-  const raw = document.documentElement.getAttribute("dir");
-  return raw?.toLowerCase() === "rtl" ? "rtl" : "ltr";
-}
-
-/**
- * When `dir` is omitted on `Tabs`, Radix falls back to `ltr`; mirror `document.documentElement` instead.
- *
- * @param propDir Explicit `Tabs`/`TabsPrimitive.Root` `dir`. When unset, reads `document.documentElement.dir`.
- */
 function useResolvedTabsDir(
   propDir: React.ComponentProps<typeof TabsPrimitive.Root>["dir"],
 ): NonNullable<React.ComponentProps<typeof TabsPrimitive.Root>["dir"]> {
-  const fromDocument = useSyncExternalStore<"ltr" | "rtl">(
-    subscribeDocumentDir,
-    snapshotDocumentDir,
-    () => "ltr",
-  );
-
+  const fromDocument = useDocumentDirection();
   return propDir ?? fromDocument;
 }
 

@@ -35,7 +35,7 @@ const sheetVariants = tv({
         "oui-inset-x-0 oui-bottom-0 oui-rounded-t-2xl data-[state=closed]:oui-slide-out-to-bottom data-[state=open]:oui-slide-in-from-bottom",
       left: "oui-inset-y-0 oui-left-0 oui-h-full oui-w-3/4 data-[state=closed]:oui-slide-out-to-left data-[state=open]:oui-slide-in-from-left sm:oui-max-w-sm",
       right:
-        "oui-inset-y-0 oui-right-0 oui-h-full oui-w-3/4 oui-border-l data-[state=closed]:oui-slide-out-to-right data-[state=open]:oui-slide-in-from-right sm:oui-max-w-sm",
+        "oui-inset-y-0 oui-end-0 oui-h-full oui-w-3/4 oui-border-l data-[state=closed]:oui-slide-out-to-right data-[state=open]:oui-slide-in-from-right sm:oui-max-w-sm",
     },
   },
   defaultVariants: {
@@ -85,7 +85,7 @@ const SheetContent = React.forwardRef<
         {closeable && (
           <SheetPrimitive.Close
             className={cnBase(
-              "oui-sheet-close-btn oui-ring-offset-base-700 focus:oui-ring-ring oui-absolute oui-right-4 oui-top-4 oui-z-10 oui-rounded-sm oui-transition-opacity focus:oui-outline-none focus:oui-ring-2 focus:oui-ring-offset-2 active:oui-outline-none focus:orderly-outline-none disabled:oui-pointer-events-none data-[state=open]:oui-bg-secondary",
+              "oui-sheet-close-btn oui-ring-offset-base-700 focus:oui-ring-ring oui-absolute oui-end-4 oui-top-4 oui-z-10 oui-rounded-sm oui-transition-opacity focus:oui-outline-none focus:oui-ring-2 focus:oui-ring-offset-2 active:oui-outline-none focus:orderly-outline-none disabled:oui-pointer-events-none data-[state=open]:oui-bg-secondary",
               props?.closeClassName,
             )}
           >

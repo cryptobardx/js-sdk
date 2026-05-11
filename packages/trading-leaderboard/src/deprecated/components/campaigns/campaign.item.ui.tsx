@@ -154,7 +154,7 @@ const PriceTag = ({ price, active }: { price: string; active?: boolean }) => {
     <div
       className={cn([
         "oui-flex oui-h-[18px] oui-items-center oui-gap-0.5 oui-rounded-lg oui-bg-warning/70 oui-px-1 oui-py-0.5 oui-backdrop-blur-[2px]",
-        "oui-absolute oui-right-1 oui-top-1 oui-z-10 oui-flex oui-items-center",
+        "oui-absolute oui-end-1 oui-top-1 oui-z-10 oui-flex oui-items-center",
         active ? "oui-opacity-100" : "oui-opacity-60",
       ])}
     >

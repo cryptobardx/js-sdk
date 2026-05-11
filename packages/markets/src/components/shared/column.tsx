@@ -210,7 +210,7 @@ export function getLastAnd24hPercentageColumn(
       const actions = (
         <div
           className={cn(
-            "oui-absolute oui-right-0 oui-top-[6.5px]",
+            "oui-absolute oui-end-0 oui-top-[6.5px]",
             "oui-hidden group-hover:oui-block",
           )}
         >

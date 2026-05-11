@@ -201,6 +201,7 @@ export const TradingviewUI = forwardRef<
     openChartSetting,
     openChartIndicators,
     onFullScreenChange,
+    direction = "ltr",
   } = props;
 
   const { isMobile } = useScreen();
@@ -208,6 +209,7 @@ export const TradingviewUI = forwardRef<
   return (
     <div
       ref={ref}
+      dir={direction}
       className={cn(
         "oui-tradingview-root oui-relative oui-size-full",
         props.classNames?.root,
@@ -217,6 +219,7 @@ export const TradingviewUI = forwardRef<
         <NoTradingview />
       ) : (
         <div
+          dir={direction}
           className={cn(
             "oui-absolute oui-inset-0 oui-z-[1] oui-flex oui-flex-col",
             props.classNames?.content,

@@ -81,7 +81,7 @@ export const AvailableQuantity: FC<AvailableQuantityProps> = (props) => {
         </Text.numeral>
       </Text>
 
-      <Flex gapX={2} itemAlign="center" className="oui-ml-auto">
+      <Flex gapX={2} itemAlign="center" className="oui-ms-auto">
         <Flex gapX={1} itemAlign="center">
           {props.tooltipContent ? (
             isMobile ? (

@@ -71,8 +71,8 @@ const selectVariants = tv(
         "oui-items-center",
         "oui-rounded-sm",
         "oui-py-1",
-        "oui-pl-2",
-        "oui-pr-8",
+        "oui-ps-2",
+        "oui-pe-8",
         "oui-text-sm",
         "oui-text-base-contrast-54",
         "oui-outline-none",
@@ -315,7 +315,7 @@ const SelectItem = React.forwardRef<
   const { item } = selectVariants({ size });
   return (
     <SelectPrimitive.Item ref={ref} className={item({ className })} {...props}>
-      {/* <span className="oui-absolute oui-right-2 oui-flex vh-3.5 oui-w-3.5 oui-items-center oui-justify-center">
+      {/* <span className="oui-absolute oui-end-2 oui-flex vh-3.5 oui-w-3.5 oui-items-center oui-justify-center">
         <SelectPrimitive.ItemIndicator>
           <CheckIcon size={16} />
         </SelectPrimitive.ItemIndicator>

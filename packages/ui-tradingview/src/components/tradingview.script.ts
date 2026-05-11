@@ -16,7 +16,13 @@ import {
   OrderType,
   TradingviewFullscreenKey,
 } from "@orderly.network/types";
-import { modal, toast, useOrderlyTheme, useScreen } from "@orderly.network/ui";
+import {
+  modal,
+  toast,
+  useDocumentDirection,
+  useOrderlyTheme,
+  useScreen,
+} from "@orderly.network/ui";
 import { Decimal } from "@orderly.network/utils";
 import { useCssVariables } from "../hooks/useCssVariables";
 import getBrokerAdapter from "../tradingviewAdapter/broker/getBrokerAdapter";
@@ -74,6 +80,7 @@ export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
   } = props;
 
   const localeCode = useLocaleCode();
+  const direction = useDocumentDirection();
   const { isMobile } = useScreen();
   const { currentTheme } = useOrderlyTheme();
   const theme = props.theme ?? currentTheme?.mode ?? "dark";
@@ -345,6 +352,7 @@ export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
         autosize: true,
         symbol: withExchangePrefix(symbol!),
         locale: typeof locale === "function" ? locale(localeCode) : locale,
+        direction,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         container: chartRef.current,
         libraryPath: libraryPath,
@@ -401,6 +409,7 @@ export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
     loadingScreen,
     toolbarBg,
     customIndicatorsGetter,
+    direction,
   ]);
 
   useEffect(() => {
@@ -466,6 +475,7 @@ export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
     symbol,
     onFullScreenChange,
     classNames,
+    direction,
     fullscreen,
   };
 }

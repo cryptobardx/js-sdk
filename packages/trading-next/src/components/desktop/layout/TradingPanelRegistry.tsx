@@ -136,12 +136,12 @@ export function createTradingPanelRegistry(
       classNames={{
         root: cn(
           tradingViewFullScreen
-            ? "!oui-absolute oui-top-0 oui-left-0 oui-right-0 oui-bottom-0 oui-z-[40] oui-bg-base-10"
+            ? "!oui-absolute oui-top-0 oui-left-0 oui-end-0 oui-bottom-0 oui-z-[40] oui-bg-base-10"
             : "oui-z-1",
         ),
         content: cn(
           tradingViewFullScreen
-            ? "oui-top-3 oui-bottom-3 oui-left-3 oui-right-3 oui-bg-base-9 oui-rounded-[16px] oui-overflow-hidden"
+            ? "oui-top-3 oui-bottom-3 oui-left-3 oui-end-3 oui-bg-base-9 oui-rounded-[16px] oui-overflow-hidden"
             : "",
         ),
       }}

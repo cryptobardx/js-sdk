@@ -433,7 +433,7 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = (props) => {
         "oui-flex oui-w-[80px] oui-items-center",
         "oui-absolute oui-inset-y-0 oui-rounded-l",
         leading && "oui-left-0 oui-pl-1",
-        tailing && "oui-right-0 oui-rotate-180 oui-pr-1",
+        tailing && "oui-end-0 oui-rotate-180 oui-pr-1",
       )}
     >
       <ArrowLeftIcon className="oui-text-base-contrast-54 hover:oui-text-base-contrast-80" />

@@ -28,26 +28,26 @@ export const ScrolButton: FC<ScrolButtonProps> = (props) => {
         "oui-group oui-flex",
         "oui-absolute oui-top-0 oui-bottom-0",
         leading && "oui-left-0 oui-flex-row-reverse",
-        tailing && "oui-right-0"
+        tailing && "oui-end-0",
       )}
     >
       <div
         className={cnBase(
           "oui-w-6 oui-h-full",
           "oui-bg-[linear-gradient(90deg,rgba(var(--oui-color-base-9)_/_0)_0%,rgba(var(--oui-color-base-9)_/_1)_100%)]",
-          leading && "oui-rotate-180"
+          leading && "oui-rotate-180",
         )}
       />
       <div
         className={cnBase(
           "oui-flex oui-justify-center oui-items-center",
-          "oui-w-3 oui-bg-base-9 oui-h-full"
+          "oui-w-3 oui-bg-base-9 oui-h-full",
         )}
       >
         <ArrowRightIcon
           className={cnBase(
             "oui-text-base-contrast-54 group-hover:oui-text-base-contrast",
-            leading && "oui-rotate-180"
+            leading && "oui-rotate-180",
           )}
         />
       </div>
