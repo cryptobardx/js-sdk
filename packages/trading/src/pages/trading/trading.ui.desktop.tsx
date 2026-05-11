@@ -356,6 +356,7 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (props) => {
     <SideMarketsWidget
       symbol={props.symbol}
       onSymbolChange={props.onSymbolChange}
+      panelSize={panelSize}
     />
   );
 
