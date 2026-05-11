@@ -1,11 +1,11 @@
 import { useMemo } from "react";
+import { arSA, enUS, zhCN, ja, es, ko, vi, de, fr, nl } from "date-fns/locale";
 import {
   useTranslation,
   useLocaleCode,
   LocaleEnum,
 } from "@orderly.network/i18n";
 import { Locale } from "@orderly.network/ui";
-import { enUS, zhCN, ja, es, ko, vi, de, fr, nl } from "date-fns/locale";
 
 export function useUILocale() {
   const { t } = useTranslation();
@@ -14,6 +14,7 @@ export function useUILocale() {
   return useMemo<Locale>(() => {
     const calendarLocale = {
       [LocaleEnum.en]: enUS,
+      [LocaleEnum.ar]: arSA,
       [LocaleEnum.zh]: zhCN,
       // [LocaleEnum.ja]: ja,
       // [LocaleEnum.es]: es,

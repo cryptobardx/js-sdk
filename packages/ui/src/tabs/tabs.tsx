@@ -9,6 +9,7 @@ import React, {
   ReactElement,
   useMemo,
   useCallback,
+  useSyncExternalStore,
 } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { cnBase, VariantProps } from "tailwind-variants";
@@ -45,6 +46,47 @@ interface TabsContextState {
 
 const TabsContext = createContext<TabsContextState>({} as TabsContextState);
 
+/**
+ * Keeps tab list + roving focus in sync when `dir` is omitted (Radix defaults to `ltr` otherwise).
+ */
+function subscribeDocumentDir(listener: () => void) {
+  if (typeof document === "undefined") {
+    return () => {};
+  }
+  const observer = new MutationObserver(listener);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["dir"],
+  });
+  return () => observer.disconnect();
+}
+
+/** Normalized `document.documentElement` direction for Radix Tabs (`dir` absent on `html` → `ltr`). */
+function snapshotDocumentDir(): "ltr" | "rtl" {
+  if (typeof document === "undefined") {
+    return "ltr";
+  }
+  const raw = document.documentElement.getAttribute("dir");
+  return raw?.toLowerCase() === "rtl" ? "rtl" : "ltr";
+}
+
+/**
+ * When `dir` is omitted on `Tabs`, Radix falls back to `ltr`; mirror `document.documentElement` instead.
+ *
+ * @param propDir Explicit `Tabs`/`TabsPrimitive.Root` `dir`. When unset, reads `document.documentElement.dir`.
+ */
+function useResolvedTabsDir(
+  propDir: React.ComponentProps<typeof TabsPrimitive.Root>["dir"],
+): NonNullable<React.ComponentProps<typeof TabsPrimitive.Root>["dir"]> {
+  const fromDocument = useSyncExternalStore<"ltr" | "rtl">(
+    subscribeDocumentDir,
+    snapshotDocumentDir,
+    () => "ltr",
+  );
+
+  return propDir ?? fromDocument;
+}
+
 type TabsProps<T = string> = {
   defaultValue?: T;
   value?: T;
@@ -71,8 +113,12 @@ const Tabs: FC<TabsProps> = (props) => {
     variant,
     showScrollIndicator,
     value,
+    dir: dirProp,
     ...rest
   } = props;
+
+  /** Tab bar layout + keyboard nav: honor explicit `dir` or fall back to the document (`html`). */
+  const dir = useResolvedTabsDir(dirProp);
 
   const tabsOverrides = getComponentTheme("tabs", {
     variant: variant ?? "contained",
@@ -141,7 +187,7 @@ const Tabs: FC<TabsProps> = (props) => {
   return (
     <TabsContext.Provider value={memoizedValue}>
       {props.children}
-      <TabsBase value={value} {...rest}>
+      <TabsBase value={value} {...rest} dir={dir}>
         <Flex
           justify="between"
           itemAlign="center"

@@ -2,6 +2,20 @@ import { LocaleEnum } from "./constant";
 import i18n from "./i18n";
 import type { LocaleCode } from "./types";
 
+export const isRTLDirectionLanguage = (lang?: string) =>
+  /^ar(?:-|$)/i.test(lang ?? "");
+
+export const syncDocumentDirection = (lang?: string) => {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  document.documentElement.setAttribute(
+    "dir",
+    isRTLDirectionLanguage(lang) ? "rtl" : "ltr",
+  );
+};
+
 /**
  * transform browser language to you given i18n locale codes
  * @param lang - browser language

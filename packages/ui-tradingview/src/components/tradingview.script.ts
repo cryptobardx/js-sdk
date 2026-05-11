@@ -50,7 +50,9 @@ const defaultLocale = (localeCode: LocaleCode) => {
     ? "id_ID"
     : localeCode === "tc"
       ? "zh_TW"
-      : localeCode;
+      : localeCode === "ar"
+        ? "ar"
+        : localeCode;
 };
 
 export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
