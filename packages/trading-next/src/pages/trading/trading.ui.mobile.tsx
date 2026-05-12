@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo } from "react";
-import { useGetRwaSymbolInfo } from "@orderly.network/hooks";
+import { useBadgeBySymbol, useGetRwaSymbolInfo } from "@orderly.network/hooks";
 import { useTranslation } from "@orderly.network/i18n";
 import {
   MarketsSheetWidget,
+  SymbolInfoBarRiskNotice,
   SymbolInfoBarWidget,
 } from "@orderly.network/markets";
 import {
@@ -55,6 +56,15 @@ export const MobileLayout: React.FC<TradingState> = (props) => {
   const { t } = useTranslation();
 
   const { isRwa, open, closeTimeInterval } = useGetRwaSymbolInfo(props.symbol);
+  const { brokerId, brokerName, brokerNameRaw, displayName } = useBadgeBySymbol(
+    props.symbol,
+  );
+  const isCommunityListed = Boolean(brokerId ?? brokerName);
+  const baseFromSymbol = props.symbol?.split("_")[1] ?? props.symbol ?? "";
+  const symbolWithBroker =
+    brokerName != null
+      ? `${baseFromSymbol}-${brokerNameRaw}`
+      : (displayName ?? props.symbol ?? "");
 
   useEffect(() => {
     if (isRwa && !open) {
@@ -98,7 +108,7 @@ export const MobileLayout: React.FC<TradingState> = (props) => {
         <Countdown timeInterval={closeTimeInterval} />
       </Flex>
     );
-  }, [isRwa, open, closeTimeInterval]);
+  }, [isRwa, open, closeTimeInterval, t]);
 
   const symbolInfoBar = (
     <SymbolInfoBarWidget
@@ -151,8 +161,18 @@ export const MobileLayout: React.FC<TradingState> = (props) => {
     />
   );
 
+  /** Community-listed symbols: show broker risk strip above the symbol bar. */
   const topBar = (
-    <Box intensity={900} className="oui-rounded-xl" mx={1} px={3} py={2}>
+    <Box>
+      <Flex mx={1}>
+        <SymbolInfoBarRiskNotice
+          visible={isCommunityListed}
+          symbolWithBroker={symbolWithBroker}
+          brokerName={brokerNameRaw ?? brokerName ?? ""}
+          autoHeight
+          className="oui-my-1"
+        />
+      </Flex>
       {symbolInfoBar}
       <SimpleSheet
         open={props.openMarketsSheet}

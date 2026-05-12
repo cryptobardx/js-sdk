@@ -114,7 +114,7 @@ export const CollapsiblePanel: React.FC<CollapsiblePanelProps> = ({
   return (
     <div
       className={cn(
-        "oui-flex oui-flex-col oui-gap-y-5 oui-overflow-hidden oui-rounded-2xl oui-bg-base-9 oui-w-full oui-h-full",
+        "oui-flex oui-size-full oui-flex-col oui-gap-y-5 oui-overflow-hidden oui-rounded-2xl oui-bg-base-9",
         className,
       )}
       style={computedStyle}

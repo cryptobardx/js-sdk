@@ -29,7 +29,29 @@ const LazyMarketsListWidget = React.lazy(() =>
 
 export type ExpandMarketsProps = ExpandMarketsScriptReturn;
 
-const cls = "oui-h-full";
+/** Root classes for MarketsList DataTable so the scroll area can flex inside tab panels. */
+const expandListTableClassNames = {
+  root: cn(
+    "oui-expandMarkets-list",
+    /** min-w-0: flex/grid descendants may shrink so table-fixed + w-full respect parent width. */
+    "oui-flex oui-min-h-0 oui-w-full oui-min-w-0 oui-max-w-full oui-flex-1 oui-flex-col",
+  ),
+  scroll: cn("oui-min-h-0 oui-w-full oui-min-w-0 oui-max-w-full oui-flex-1"),
+} as const;
+
+/**
+ * Wraps lazy list content so Suspense participates in height (flex item), not only intrinsic height.
+ * TabsContent stays a simple flex-1 min-h-0 slot; flex column lives here to avoid Radix/layout conflicts.
+ */
+const ExpandMarketsListPanel: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
+  <div className="oui-flex oui-size-full oui-min-h-0 oui-min-w-0 oui-flex-col">
+    <div className="oui-flex oui-min-h-0 oui-w-full oui-min-w-0 oui-flex-1 oui-flex-col oui-overflow-hidden">
+      {children}
+    </div>
+  </div>
+);
 
 export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
   const { activeTab, onTabChange, tabSort, onTabSort } = props;
@@ -42,15 +64,16 @@ export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
   const renderBuiltInContent = (type: string) => {
     const tabType = type as MarketsTabName;
     return (
-      <div className={cls}>
+      <ExpandMarketsListPanel>
         <React.Suspense fallback={null}>
           <LazyMarketsListWidget
             type={tabType}
             initialSort={tabSort[type]}
             onSort={onTabSort(tabType)}
             tableClassNames={{
-              root: "oui-expandMarkets-list",
+              root: expandListTableClassNames.root,
               scroll: cn(
+                expandListTableClassNames.scroll,
                 "oui-px-1",
                 tabType === MarketsTabName.Favorites ? "oui-pb-9" : "oui-pb-2",
               ),
@@ -64,7 +87,7 @@ export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
             })}
           />
         </React.Suspense>
-      </div>
+      </ExpandMarketsListPanel>
     );
   };
 
@@ -74,25 +97,34 @@ export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
         storageKey="orderly_expand_markets_community_sel_sub_tab"
         classNames={{
           tabsList: "oui-px-3 oui-pt-1 oui-pb-2",
-          tabsContent: "oui-h-full",
+          tabsListContainer: "oui-shrink-0",
+          tabsContent:
+            "oui-min-h-0 oui-min-w-0 oui-w-full oui-flex-1 oui-overflow-hidden",
         }}
-        className={cn("oui-expandMarkets-community-tabs", cls)}
+        className={cn(
+          "oui-expandMarkets-community-tabs",
+          "oui-flex oui-size-full oui-min-h-0 oui-min-w-0 oui-flex-col",
+        )}
         showScrollIndicator
         renderPanel={(selected) => (
-          <div className={cls}>
+          <ExpandMarketsListPanel>
             <React.Suspense fallback={null}>
               <LazyMarketsListWidget
                 type={MarketsTabName.All}
                 initialSort={tabSort[MarketsTabName.Community]}
                 onSort={onTabSort(MarketsTabName.Community)}
                 tableClassNames={{
-                  root: "oui-expandMarkets-list",
-                  scroll: cn("oui-px-1", "oui-pb-2"),
+                  root: expandListTableClassNames.root,
+                  scroll: cn(
+                    expandListTableClassNames.scroll,
+                    "oui-px-1",
+                    "oui-pb-2",
+                  ),
                 }}
                 dataFilter={createCommunityBrokerFilter(selected)}
               />
             </React.Suspense>
-          </div>
+          </ExpandMarketsListPanel>
         )}
       />
     );
@@ -100,7 +132,7 @@ export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
 
   const renderCustomContent = (key: string) => {
     return (
-      <div className={cls}>
+      <ExpandMarketsListPanel>
         <React.Suspense fallback={null}>
           <LazyMarketsListWidget
             type={MarketsTabName.All}
@@ -108,12 +140,16 @@ export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
             initialSort={tabSort[key]}
             onSort={onTabSort(key as MarketsTabName)}
             tableClassNames={{
-              root: "oui-expandMarkets-list",
-              scroll: cn("oui-px-1", "oui-pb-2"),
+              root: expandListTableClassNames.root,
+              scroll: cn(
+                expandListTableClassNames.scroll,
+                "oui-px-1",
+                "oui-pb-2",
+              ),
             }}
           />
         </React.Suspense>
-      </div>
+      </ExpandMarketsListPanel>
     );
   };
 
@@ -121,7 +157,8 @@ export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
     <Box
       className={cn(
         "oui-markets-expandMarkets",
-        "oui-overflow-hidden oui-font-semibold",
+        /** Search row + tabs/list: second row minmax(0,1fr) passes a bounded height into Tabs. */
+        "oui-grid oui-size-full oui-min-h-0 oui-min-w-0 oui-grid-rows-[auto_minmax(0,1fr)] oui-overflow-hidden oui-font-semibold",
       )}
       height="100%"
     >
@@ -138,11 +175,18 @@ export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
         value={activeTab}
         onValueChange={onTabChange}
         classNames={{
+          /** Keep tab row from shrinking when Tabs root is a column flex container. */
+          tabsListContainer: "oui-shrink-0",
           tabsList: cn("oui-my-[6px]"),
-          tabsContent: "oui-h-full",
+          /** Occupy remaining height under triggers; inner ExpandMarketsListPanel supplies flex column. */
+          tabsContent:
+            "oui-min-h-0 oui-min-w-0 oui-w-full oui-flex-1 oui-overflow-hidden",
           scrollIndicator: "oui-mx-3",
         }}
-        className={cn("oui-expandMarkets-tabs", cls)}
+        className={cn(
+          "oui-expandMarkets-tabs",
+          "oui-flex oui-size-full oui-min-h-0 oui-min-w-0 oui-flex-col",
+        )}
         showScrollIndicator
       >
         {tabs?.map((tab, index) => {

@@ -1,5 +1,61 @@
 # @orderly.network/default-evm-adapter
 
+## 3.0.4-alpha.3
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/core@3.0.4-alpha.3
+  - @orderly.network/types@3.0.4-alpha.3
+
+## 3.0.4-alpha.2
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/core@3.0.4-alpha.2
+  - @orderly.network/types@3.0.4-alpha.2
+
+## 3.0.4-alpha.1
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/core@3.0.4-alpha.1
+  - @orderly.network/types@3.0.4-alpha.1
+
+## 3.0.4-alpha.0
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/core@3.0.4-alpha.0
+  - @orderly.network/types@3.0.4-alpha.0
+
+## 3.0.3
+
+### Patch Changes
+
+- ccfcda8: publish
+- publish
+- Updated dependencies [ccfcda8]
+- Updated dependencies
+  - @orderly.network/core@3.0.3
+  - @orderly.network/types@3.0.3
+
+## 3.0.3-alpha.0
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/core@3.0.3-alpha.0
+  - @orderly.network/types@3.0.3-alpha.0
+
 ## 3.0.2
 
 ### Patch Changes

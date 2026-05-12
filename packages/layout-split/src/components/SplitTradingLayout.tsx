@@ -12,6 +12,7 @@
 import React, {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -26,8 +27,6 @@ import {
   DragOverlay,
   type DragStartEvent,
   type DragEndEvent,
-  type Modifier,
-  type ClientRect,
 } from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import {
@@ -58,6 +57,7 @@ import {
   DATA_LIST_INITIAL_HEIGHT,
   DATA_LIST_MAX_HEIGHT,
   SPACE,
+  SYMBOL_INFO_BAR_HEIGHT,
 } from "../hooks/useSplitLayout";
 import { TradingSortablePanel } from "./TradingSortablePanel";
 import { TradingSplitLayout } from "./TradingSplitLayout";
@@ -89,6 +89,22 @@ const DEFAULT_SORTABLE_ITEMS = [
   TRADING_PANEL_IDS.ASSETS,
   TRADING_PANEL_IDS.ORDER_ENTRY,
 ];
+
+/**
+ * Sortable column class names per registry id (and legacy short keys used in stored order).
+ */
+function orderEntrySortablePanelClassName(id: string): string | undefined {
+  if (id === TRADING_PANEL_IDS.MARGIN || id === "margin") {
+    return "oui-trading-riskRate-container";
+  }
+  if (id === TRADING_PANEL_IDS.ASSETS || id === "assets") {
+    return "oui-trading-assetsView-container oui-border oui-border-line-12";
+  }
+  if (id === TRADING_PANEL_IDS.ORDER_ENTRY || id === "orderEntry") {
+    return "oui-trading-orderEntry-container";
+  }
+  return undefined;
+}
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -146,22 +162,6 @@ const dropAnimationConfig = {
   },
 };
 
-/**
- * DnD modifier: scale the dragged item slightly to indicate it is being dragged.
- */
-const scaleModifier: Modifier = ({
-  transform,
-  draggingNodeRect,
-}: {
-  transform: Transform;
-  draggingNodeRect: ClientRect | null;
-}) => {
-  if (draggingNodeRect) {
-    return { ...transform, scaleX: 2.05, scaleY: 2.05 };
-  }
-  return transform;
-};
-
 // ─── Component ───────────────────────────────────────────────────────────────
 
 /**
@@ -183,8 +183,6 @@ export function SplitTradingLayout(
     max2XL,
     max4XL,
     horizontalDraggable,
-    panelSize,
-    setPanelSize,
     marketsWidth,
     mainSplitSize,
     setMainSplitSize,
@@ -196,25 +194,42 @@ export function SplitTradingLayout(
     setDataListSplitHeightSM,
     orderBookSplitHeightSM,
     setOrderbookSplitHeightSM,
-    tradingviewMaxHeight: tradindviewMaxHeight,
+    tradingviewMaxHeight,
     extraHeight,
     setExtraHeight,
     dataListHeight: dataListMinHeight,
-    symbolInfoBarHeight,
   } = useSplitLayout();
+
+  /**
+   * Live height of symbol-info chrome (panel + padding box). ResizeObserver keeps split max-heights aligned when
+   * community-listing banners or countdown increase row count — fixed constants mis-sized the chart/data-list split.
+   */
+  const symbolInfoBarChromeRef = useRef<React.ElementRef<typeof Box>>(null);
+  const [symbolBarChromeHeight, setSymbolBarChromeHeight] = useState(
+    SYMBOL_INFO_BAR_HEIGHT,
+  );
+
+  useLayoutEffect(() => {
+    const el = symbolInfoBarChromeRef.current;
+    if (!el) return;
+    const sync = (): void => {
+      const next = el.getBoundingClientRect().height;
+      if (!(Number.isFinite(next) && next > 0)) return;
+      setSymbolBarChromeHeight((prev) =>
+        Math.round(Math.abs(prev - next)) >= 1 ? Math.round(next) : prev,
+      );
+    };
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(el);
+    return (): void => observer.disconnect();
+  }, []);
 
   /** TradingView fullscreen state — shared via localStorage with ui-tradingview. */
   const [tradingViewFullScreen] = useLocalStorage(
     TradingviewFullscreenKey,
     false,
   );
-
-  // ── Markets animation state ───────────────────────────────────────────────
-  const [animating, setAnimating] = useState(false);
-  const onPanelSizeChange = (size: "small" | "middle" | "large") => {
-    setPanelSize(size);
-    setAnimating(true);
-  };
 
   // ── DnD sortable state for order-entry panels (persisted) ─────────────────
   const [sortableItems, setSortableItems] = useLocalStorage<string[]>(
@@ -223,8 +238,10 @@ export function SplitTradingLayout(
   );
 
   // ── Refs for split containers and order entry measurement ─────────────────
-  const tradingviewAndOrderbookSplitRef = useRef<any>(null);
-  const max2XLSplitRef = useRef<any>(null);
+  const tradingviewAndOrderbookSplitRef =
+    useRef<React.ElementRef<typeof TradingSplitLayout>>(null);
+  const max2XLSplitRef =
+    useRef<React.ElementRef<typeof TradingSplitLayout>>(null);
   const orderEntryViewRef = useRef<HTMLDivElement>(null);
   const [orderEntryHeight, setOrderEntryHeight] = useState(0);
 
@@ -294,16 +311,16 @@ export function SplitTradingLayout(
   const minScreenHeight = useMemo(() => {
     return tradingViewFullScreen
       ? 0
-      : symbolInfoBarHeight +
+      : symbolBarChromeHeight +
           ORDERBOOK_MAX_HEIGHT +
           DATA_LIST_INITIAL_HEIGHT +
           SPACE * 4;
-  }, [tradingViewFullScreen, symbolInfoBarHeight]);
+  }, [tradingViewFullScreen, symbolBarChromeHeight]);
 
   const minScreenHeightSM =
     TOP_BAR_HEIGHT +
     BOTTOM_BAR_HEIGHT +
-    symbolInfoBarHeight +
+    symbolBarChromeHeight +
     TRADINGVIEW_MIN_HEIGHT +
     ORDERBOOK_MIN_HEIGHT +
     dataListMinHeight +
@@ -350,24 +367,26 @@ export function SplitTradingLayout(
       width={marketsWidth}
       style={{ minWidth: marketsWidth }}
       className="oui-trading-markets-container oui-transition-all oui-duration-150"
-      onTransitionEnd={() => setAnimating(false)}
     >
-      {!animating && marketLayout === "left" && marketsWidget}
+      {marketLayout === "left" && marketsWidget}
     </Box>
   );
 
-  const symbolInfoBarView = (
-    <Box
-      className="oui-trading-symbolInfoBar-container"
-      intensity={900}
-      r="2xl"
-      px={3}
-      width="100%"
-      style={{ minHeight: symbolInfoBarHeight, height: symbolInfoBarHeight }}
-    >
-      {getPanel(TRADING_PANEL_IDS.SYMBOL_INFO_BAR)}
-    </Box>
-  );
+  // const symbolInfoBarView = (
+  //   <Box
+  //     ref={symbolInfoBarChromeRef}
+  //     className="oui-trading-symbolInfoBar-container"
+  //     intensity={900}
+  //     r="2xl"
+  //     px={3}
+  //     width="100%"
+  //     style={{ flexShrink: 0 }}
+  //   >
+  //     {getPanel(TRADING_PANEL_IDS.SYMBOL_INFO_BAR)}
+  //   </Box>
+  // );
+
+  const symbolInfoBarView = getPanel(TRADING_PANEL_IDS.SYMBOL_INFO_BAR);
 
   const tradingviewWidget = getPanel(TRADING_PANEL_IDS.TRADING_VIEW);
 
@@ -439,18 +458,7 @@ export function SplitTradingLayout(
           key={id}
           id={id}
           showIndicator={showPositionIcon}
-          className={cn(
-            id === TRADING_PANEL_IDS.MARGIN && "oui-trading-riskRate-container",
-            id === TRADING_PANEL_IDS.ASSETS &&
-              "oui-trading-assetsView-container oui-border oui-border-line-12",
-            id === TRADING_PANEL_IDS.ORDER_ENTRY &&
-              "oui-trading-orderEntry-container",
-            // Support legacy short-name keys
-            id === "margin" && "oui-trading-riskRate-container",
-            id === "assets" &&
-              "oui-trading-assetsView-container oui-border oui-border-line-12",
-            id === "orderEntry" && "oui-trading-orderEntry-container",
-          )}
+          className={orderEntrySortablePanelClassName(id)}
         >
           {getPanel(id)}
         </TradingSortablePanel>
@@ -508,7 +516,7 @@ export function SplitTradingLayout(
   const mainView = (
     <Flex
       direction="column"
-      className="oui-flex-1 oui-overflow-hidden"
+      className="oui-min-h-0 oui-flex-1 oui-overflow-hidden"
       gap={2}
       style={{
         minWidth: max4XL
@@ -520,11 +528,18 @@ export function SplitTradingLayout(
       }}
     >
       {symbolInfoBarView}
+      {/*
+       * Do not use maxHeight: calc(100% - symbolBarPx): the symbol row is already flex item 1.
+       * Subtracting bar height from 100% double-counts and expands the Split under the risk banner.
+       */}
       <TradingSplitLayout
         style={{
-          maxHeight: `calc(100% - ${symbolInfoBarHeight}px - ${SPACE}px)`,
+          flex: 1,
+          minHeight: 0,
+          width: "100%",
+          overflow: "hidden",
         }}
-        className="oui-w-full"
+        className="oui-flex oui-min-h-0 oui-w-full oui-flex-1 oui-overflow-hidden"
         mode="vertical"
         onSizeChange={setDataListSplitSize}
       >
@@ -602,15 +617,15 @@ export function SplitTradingLayout(
                 )}
                 style={{
                   minHeight: Math.max(
-                    symbolInfoBarHeight +
+                    symbolBarChromeHeight +
                       TRADINGVIEW_MIN_HEIGHT +
                       ORDERBOOK_MIN_HEIGHT +
                       SPACE * 2,
                     orderEntryHeight,
                   ),
                   maxHeight:
-                    symbolInfoBarHeight +
-                    tradindviewMaxHeight +
+                    symbolBarChromeHeight +
+                    tradingviewMaxHeight +
                     ORDERBOOK_MAX_HEIGHT +
                     SPACE * 2,
                 }}
@@ -618,24 +633,28 @@ export function SplitTradingLayout(
                 {/* Chart + orderbook column */}
                 <Flex
                   height="100%"
-                  className="oui-w-[calc(100%_-_280px_-_12px)] oui-flex-1"
+                  className="oui-min-h-0 oui-w-[calc(100%_-_280px_-_12px)] oui-flex-1"
                   direction="column"
                   gapY={2}
                 >
                   {symbolInfoBarView}
+                  {/*
+                   * flex-1 + minHeight:0 consumes space below symbol bar without height="100%",
+                   * which overlaps the taller risk-banner row inside the same column.
+                   */}
                   <Flex
                     width="100%"
-                    height="100%"
                     gapX={2}
                     itemAlign="stretch"
                     style={{
+                      flex: 1,
                       minHeight:
                         TRADINGVIEW_MIN_HEIGHT + ORDERBOOK_MIN_HEIGHT + SPACE,
                       maxHeight:
-                        tradindviewMaxHeight + ORDERBOOK_MAX_HEIGHT + SPACE,
+                        tradingviewMaxHeight + ORDERBOOK_MAX_HEIGHT + SPACE,
                     }}
                     className={cn(
-                      "oui-flex-1",
+                      "oui-min-h-0 oui-flex-1",
                       layout === "left" && "oui-flex-row-reverse",
                     )}
                   >
@@ -651,7 +670,7 @@ export function SplitTradingLayout(
                             ORDERBOOK_MIN_HEIGHT +
                             SPACE,
                           maxHeight:
-                            tradindviewMaxHeight + ORDERBOOK_MAX_HEIGHT + SPACE,
+                            tradingviewMaxHeight + ORDERBOOK_MAX_HEIGHT + SPACE,
                         }}
                       >
                         {marketsWidget}
@@ -672,7 +691,7 @@ export function SplitTradingLayout(
                         r="2xl"
                         style={{
                           minHeight: TRADINGVIEW_MIN_HEIGHT,
-                          maxHeight: tradindviewMaxHeight,
+                          maxHeight: tradingviewMaxHeight,
                           height: 1200,
                         }}
                       >

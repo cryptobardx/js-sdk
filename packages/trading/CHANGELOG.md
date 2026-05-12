@@ -1,5 +1,157 @@
 # @orderly.network/trading
 
+## 3.0.4-alpha.3
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/react-app@3.0.4-alpha.3
+  - @orderly.network/hooks@3.0.4-alpha.3
+  - @orderly.network/i18n@3.0.4-alpha.3
+  - @orderly.network/markets@3.0.4-alpha.3
+  - @orderly.network/portfolio@3.0.4-alpha.3
+  - @orderly.network/types@3.0.4-alpha.3
+  - @orderly.network/ui@3.0.4-alpha.3
+  - @orderly.network/ui-chain-selector@3.0.4-alpha.3
+  - @orderly.network/ui-connector@3.0.4-alpha.3
+  - @orderly.network/ui-leverage@3.0.4-alpha.3
+  - @orderly.network/ui-order-entry@3.0.4-alpha.3
+  - @orderly.network/ui-orders@3.0.4-alpha.3
+  - @orderly.network/ui-positions@3.0.4-alpha.3
+  - @orderly.network/ui-scaffold@3.0.4-alpha.3
+  - @orderly.network/ui-share@3.0.4-alpha.3
+  - @orderly.network/ui-tradingview@3.0.4-alpha.3
+  - @orderly.network/ui-transfer@3.0.4-alpha.3
+  - @orderly.network/utils@3.0.4-alpha.3
+
+## 3.0.4-alpha.2
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/react-app@3.0.4-alpha.2
+  - @orderly.network/hooks@3.0.4-alpha.2
+  - @orderly.network/i18n@3.0.4-alpha.2
+  - @orderly.network/markets@3.0.4-alpha.2
+  - @orderly.network/portfolio@3.0.4-alpha.2
+  - @orderly.network/types@3.0.4-alpha.2
+  - @orderly.network/ui@3.0.4-alpha.2
+  - @orderly.network/ui-chain-selector@3.0.4-alpha.2
+  - @orderly.network/ui-connector@3.0.4-alpha.2
+  - @orderly.network/ui-leverage@3.0.4-alpha.2
+  - @orderly.network/ui-order-entry@3.0.4-alpha.2
+  - @orderly.network/ui-orders@3.0.4-alpha.2
+  - @orderly.network/ui-positions@3.0.4-alpha.2
+  - @orderly.network/ui-scaffold@3.0.4-alpha.2
+  - @orderly.network/ui-share@3.0.4-alpha.2
+  - @orderly.network/ui-tradingview@3.0.4-alpha.2
+  - @orderly.network/ui-transfer@3.0.4-alpha.2
+  - @orderly.network/utils@3.0.4-alpha.2
+
+## 3.0.4-alpha.1
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/react-app@3.0.4-alpha.1
+  - @orderly.network/hooks@3.0.4-alpha.1
+  - @orderly.network/i18n@3.0.4-alpha.1
+  - @orderly.network/markets@3.0.4-alpha.1
+  - @orderly.network/portfolio@3.0.4-alpha.1
+  - @orderly.network/types@3.0.4-alpha.1
+  - @orderly.network/ui@3.0.4-alpha.1
+  - @orderly.network/ui-chain-selector@3.0.4-alpha.1
+  - @orderly.network/ui-connector@3.0.4-alpha.1
+  - @orderly.network/ui-leverage@3.0.4-alpha.1
+  - @orderly.network/ui-order-entry@3.0.4-alpha.1
+  - @orderly.network/ui-orders@3.0.4-alpha.1
+  - @orderly.network/ui-positions@3.0.4-alpha.1
+  - @orderly.network/ui-scaffold@3.0.4-alpha.1
+  - @orderly.network/ui-share@3.0.4-alpha.1
+  - @orderly.network/ui-tradingview@3.0.4-alpha.1
+  - @orderly.network/ui-transfer@3.0.4-alpha.1
+  - @orderly.network/utils@3.0.4-alpha.1
+
+## 3.0.4-alpha.0
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/react-app@3.0.4-alpha.0
+  - @orderly.network/hooks@3.0.4-alpha.0
+  - @orderly.network/i18n@3.0.4-alpha.0
+  - @orderly.network/markets@3.0.4-alpha.0
+  - @orderly.network/portfolio@3.0.4-alpha.0
+  - @orderly.network/types@3.0.4-alpha.0
+  - @orderly.network/ui@3.0.4-alpha.0
+  - @orderly.network/ui-chain-selector@3.0.4-alpha.0
+  - @orderly.network/ui-connector@3.0.4-alpha.0
+  - @orderly.network/ui-leverage@3.0.4-alpha.0
+  - @orderly.network/ui-order-entry@3.0.4-alpha.0
+  - @orderly.network/ui-orders@3.0.4-alpha.0
+  - @orderly.network/ui-positions@3.0.4-alpha.0
+  - @orderly.network/ui-scaffold@3.0.4-alpha.0
+  - @orderly.network/ui-share@3.0.4-alpha.0
+  - @orderly.network/ui-tradingview@3.0.4-alpha.0
+  - @orderly.network/ui-transfer@3.0.4-alpha.0
+  - @orderly.network/utils@3.0.4-alpha.0
+
+## 3.0.3
+
+### Patch Changes
+
+- ccfcda8: publish
+- publish
+- Updated dependencies [ccfcda8]
+- Updated dependencies
+  - @orderly.network/react-app@3.0.3
+  - @orderly.network/hooks@3.0.3
+  - @orderly.network/i18n@3.0.3
+  - @orderly.network/markets@3.0.3
+  - @orderly.network/portfolio@3.0.3
+  - @orderly.network/types@3.0.3
+  - @orderly.network/ui@3.0.3
+  - @orderly.network/ui-chain-selector@3.0.3
+  - @orderly.network/ui-connector@3.0.3
+  - @orderly.network/ui-leverage@3.0.3
+  - @orderly.network/ui-order-entry@3.0.3
+  - @orderly.network/ui-orders@3.0.3
+  - @orderly.network/ui-positions@3.0.3
+  - @orderly.network/ui-scaffold@3.0.3
+  - @orderly.network/ui-share@3.0.3
+  - @orderly.network/ui-tradingview@3.0.3
+  - @orderly.network/ui-transfer@3.0.3
+  - @orderly.network/utils@3.0.3
+
+## 3.0.3-alpha.0
+
+### Patch Changes
+
+- publish
+- Updated dependencies
+  - @orderly.network/react-app@3.0.3-alpha.0
+  - @orderly.network/hooks@3.0.3-alpha.0
+  - @orderly.network/i18n@3.0.3-alpha.0
+  - @orderly.network/markets@3.0.3-alpha.0
+  - @orderly.network/portfolio@3.0.3-alpha.0
+  - @orderly.network/types@3.0.3-alpha.0
+  - @orderly.network/ui@3.0.3-alpha.0
+  - @orderly.network/ui-chain-selector@3.0.3-alpha.0
+  - @orderly.network/ui-connector@3.0.3-alpha.0
+  - @orderly.network/ui-leverage@3.0.3-alpha.0
+  - @orderly.network/ui-order-entry@3.0.3-alpha.0
+  - @orderly.network/ui-orders@3.0.3-alpha.0
+  - @orderly.network/ui-positions@3.0.3-alpha.0
+  - @orderly.network/ui-scaffold@3.0.3-alpha.0
+  - @orderly.network/ui-share@3.0.3-alpha.0
+  - @orderly.network/ui-tradingview@3.0.3-alpha.0
+  - @orderly.network/ui-transfer@3.0.3-alpha.0
+  - @orderly.network/utils@3.0.3-alpha.0
+
 ## 3.0.2
 
 ### Patch Changes

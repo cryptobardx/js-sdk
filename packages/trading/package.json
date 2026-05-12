@@ -1,6 +1,6 @@
 {
   "name": "@orderly.network/trading",
-  "version": "3.0.2",
+  "version": "3.0.4-alpha.3",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@orderly.network/core": "workspace:*",
+    "@orderly.network/plugin-core": "workspace:*",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "react": "^18.2.0",

@@ -129,7 +129,12 @@ export const DesktopOrderBook: FC<DesktopOrderBookProps> = (props) => {
           />
         </Flex>
         <DesktopHeader quote={quote} base={base} />
-        <InjectableDesktopAsks data={[...props.asks]} />
+        {/* symbolInfo/depth: required by injectable props so plugins replacing Asks/Bids receive them */}
+        <InjectableDesktopAsks
+          data={[...props.asks]}
+          symbolInfo={props.symbolInfo}
+          depth={props.activeDepth}
+        />
         <DesktopMarkPrice
           lastPrice={lastPrice}
           markPrice={markPrice}
@@ -142,7 +147,11 @@ export const DesktopOrderBook: FC<DesktopOrderBookProps> = (props) => {
           bids={[...props.bids]}
           symbolInfo={props.symbolInfo}
         />
-        <InjectableDesktopBids data={[...props.bids]} />
+        <InjectableDesktopBids
+          data={[...props.bids]}
+          symbolInfo={props.symbolInfo}
+          depth={props.activeDepth}
+        />
         {showBuySellRatio && (
           <BuySellRatioBar
             ratio={buySellRatio || null}

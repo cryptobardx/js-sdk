@@ -12,7 +12,7 @@ const LazySideMarkets = React.lazy(() =>
 
 export type SideMarketsWidgetProps = MarketsProviderProps &
   Partial<Pick<SideMarketsProps, "className">> & {
-    // panelSize?: "small" | "middle" | "large";
+    panelSize?: "small" | "middle" | "large";
     collapsed?: boolean;
   };
 

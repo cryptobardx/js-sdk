@@ -1,5 +1,42 @@
 # @orderly.network/sdk-docs
 
+## 1.0.4-alpha.3
+
+### Patch Changes
+
+- publish
+
+## 1.0.4-alpha.2
+
+### Patch Changes
+
+- publish
+
+## 1.0.4-alpha.1
+
+### Patch Changes
+
+- publish
+
+## 1.0.4-alpha.0
+
+### Patch Changes
+
+- publish
+
+## 1.0.3
+
+### Patch Changes
+
+- ccfcda8: publish
+- publish
+
+## 1.0.3-alpha.0
+
+### Patch Changes
+
+- publish
+
 ## 1.0.2
 
 ### Patch Changes

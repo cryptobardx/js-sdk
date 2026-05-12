@@ -4,12 +4,7 @@
  * Ported from packages/trading-next/src/components/desktop/layout/splitLayout/.
  * Keeps all layout logic inside layout-split; trading-next only provides panels.
  */
-import React, {
-  forwardRef,
-  HTMLAttributes,
-  PropsWithChildren,
-  useMemo,
-} from "react";
+import React, { forwardRef, HTMLAttributes, PropsWithChildren } from "react";
 import Split, { SplitProps } from "@uiw/react-split";
 import { cn } from "@orderly.network/ui";
 
@@ -23,32 +18,25 @@ type SplitLineBarProps = Pick<SplitProps, "mode"> &
  * Transparent by default; primary-light highlight on hover/active/focus.
  */
 const SplitLineBar: React.FC<SplitLineBarProps> = (props) => {
-  const { onMouseDown, mode = "horizontal", ...rest } = props;
-
-  /** When the split container adds the "disable" class, make handle non-interactive. */
-  const disable = useMemo(
-    () => props.className?.split(" ").includes("disable"),
-    [props.className],
-  );
-
-  const filteredCls = useMemo(
-    () => props.className?.split(" ").filter((cls) => cls !== "disable"),
-    [props.className],
-  );
+  const { onMouseDown, mode = "horizontal", className, ...rest } = props;
+  /** When the split container adds the "disable" class token, make handle non-interactive. */
+  const tokens = className?.split(/\s+/).filter(Boolean) ?? [];
+  const disable = tokens.includes("disable");
+  const filteredCls = tokens.filter((t) => t !== "disable").join(" ");
 
   return (
     <div
       {...rest}
       className={cn(
-        filteredCls,
+        filteredCls || undefined,
         "!oui-transition-none",
-        "!oui-shadow-none !oui-bg-transparent",
+        "!oui-bg-transparent !oui-shadow-none",
         "hover:!oui-bg-primary-light hover:!oui-shadow-[0px_0px_4px_0px] hover:!oui-shadow-primary-light/80",
         "active:!oui-bg-primary-light active:!oui-shadow-[0px_0px_4px_0px] active:!oui-shadow-primary-light/80",
         "focus:!oui-bg-primary-light focus:!oui-shadow-[0px_0px_4px_0px] focus:!oui-shadow-primary-light/80",
         mode === "horizontal"
-          ? "!oui-w-[2px] !oui-min-w-[2px] !oui-mx-[3px]"
-          : "!oui-h-[2px] !oui-min-h-[2px] !oui-my-[3px]",
+          ? "!oui-mx-[3px] !oui-w-[2px] !oui-min-w-[2px]"
+          : "!oui-my-[3px] !oui-h-[2px] !oui-min-h-[2px]",
         disable && "oui-pointer-events-none",
       )}
     >

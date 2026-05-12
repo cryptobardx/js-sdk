@@ -3,7 +3,10 @@
  * Chrome (markets, DnD, Flex) is provided by layout plugins (e.g. layout-split).
  */
 import React, { useEffect, useMemo } from "react";
-import { useGetRwaSymbolOpenStatus } from "@orderly.network/hooks";
+import {
+  useBadgeBySymbol,
+  useGetRwaSymbolOpenStatus,
+} from "@orderly.network/hooks";
 import { useTranslation } from "@orderly.network/i18n";
 import type { LayoutModel, LayoutStrategy } from "@orderly.network/layout-core";
 import { LayoutHost } from "@orderly.network/layout-core";
@@ -88,12 +91,21 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (props) => {
   const animating = props.animating ?? false;
   const setAnimating = props.setAnimating ?? NOOP;
 
+  const { brokerName } = useBadgeBySymbol(props.symbol);
+
   const { showCountdown, closeCountdown } = useShowRwaCountdown(props.symbol);
   const { t } = useTranslation();
-  const symbolInfoBarHeight = useMemo(
-    () => (showCountdown ? 104 : 56),
-    [showCountdown],
-  );
+  const symbolInfoBarHeight = useMemo(() => {
+    let height = 56;
+    if (brokerName) {
+      height += 46;
+      height += 8;
+    }
+    if (showCountdown) {
+      height += 48;
+    }
+    return height;
+  }, [showCountdown, brokerName]);
 
   const { isRwa, open } = useGetRwaSymbolOpenStatus(props.symbol);
   useEffect(() => {

@@ -376,10 +376,12 @@ export const SymbolInfoBarFull: React.FC<SymbolInfoBarFullProps> = (props) => {
 
   return (
     <Flex direction="column" className="oui-h-full oui-w-full" gapY={1}>
+      {/* autoHeight: banner text can wrap — fixed 46px row spilled over the chart in compact hosts */}
       <SymbolInfoBarRiskNotice
         visible={isCommunityListed}
         symbolWithBroker={symbolWithBroker}
         brokerName={brokerNameRaw ?? brokerName ?? ""}
+        autoHeight
       />
       <SymbolInfoBarDesktop
         className={props.className}

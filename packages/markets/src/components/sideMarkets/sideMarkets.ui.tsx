@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, cn, Flex } from "@orderly.network/ui";
+import { Box, cn } from "@orderly.network/ui";
 import { ExpandMarketsWidget } from "../expandMarkets";
 import { MarketsListWidget } from "../marketsList";
 import { useMarketsContext } from "../marketsProvider";
@@ -38,14 +38,12 @@ export const SideMarkets: React.FC<SideMarketsProps> = (props) => {
     );
   };
 
+  // Parent trading column uses flex-1/min-h-0; avoid nested calc heights that double-subtract.
   return (
     <Box
       width="100%"
       height="100%"
-      // className={cn(
-      //   panelSize === "large" && "oui-h-[calc(100%_-_56px)]",
-      //   panelSize === "middle" && "oui-h-[calc(100%_-_52px)]",
-      // )}
+      className={cn(className, "oui-min-h-0 oui-min-w-0 oui-max-w-full")}
     >
       {renderContent()}
     </Box>

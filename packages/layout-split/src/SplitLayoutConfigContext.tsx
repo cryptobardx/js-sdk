@@ -133,6 +133,8 @@ export function SplitLayoutConfigProvider({
  * Hook to read layout config from context.
  * Throws if used outside SplitLayoutConfigProvider.
  */
+// Hook is co-located with its provider (library pattern).
+/* eslint-disable-next-line react-refresh/only-export-components */
 export function useSplitLayoutConfig(): SplitLayoutConfigValue {
   const ctx = useContext(SplitLayoutConfigContext);
   if (!ctx) {
