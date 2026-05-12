@@ -108,10 +108,10 @@ export const BottomNavTradingMenu: React.FC<BottomNavTradingMenuProps> = (
           >
             <PopupUnionIcon
               size={78}
-              className="oui-text-base-8 oui-absolute oui-left-1/2 oui-top-1/2 -oui-translate-x-1/2 -oui-translate-y-1/2"
+              className="oui-text-base-8 oui-absolute oui-start-1/2 oui-top-1/2 -oui-translate-x-1/2 -oui-translate-y-1/2"
             />
             <Flex
-              className="oui-absolute oui-left-1/2 oui-top-1/2 -oui-translate-x-1/2 -oui-translate-y-1/2"
+              className="oui-absolute oui-start-1/2 oui-top-1/2 -oui-translate-x-1/2 -oui-translate-y-1/2"
               itemAlign="center"
               justify="center"
             >

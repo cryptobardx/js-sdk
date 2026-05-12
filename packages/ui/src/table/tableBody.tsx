@@ -143,7 +143,7 @@ const CellHover: FC<CellHoverProps> = ({ selected, isFirst, isLast }) => {
   return (
     <div
       className={cnBase(
-        "oui-absolute oui-left-0 oui-top-0 oui-z-[-1]",
+        "oui-absolute oui-start-0 oui-top-0 oui-z-[-1]",
         "oui-size-full",
         "group-hover:oui-bg-line-4",
         selected && "oui-bg-line-6 group-hover:oui-bg-line-6",

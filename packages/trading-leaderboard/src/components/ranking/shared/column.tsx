@@ -67,7 +67,7 @@ export const useRankingColumns = (
                   alt={`${value}th badge`}
                   className={cn(
                     "oui-z-0 oui-h-[38px] oui-opacity-30 md:oui-h-[46px]",
-                    "oui-absolute oui-left-0 oui-top-0",
+                    "oui-absolute oui-start-0 oui-top-0",
                     "oui-mix-blend-luminosity",
                     // force create a separate layer in order to fix mix-blend-luminosity not working on ios
                     "oui-transform-gpu",

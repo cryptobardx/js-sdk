@@ -21,14 +21,16 @@ export const LeaderboardBackground: FC<BackgroundProps> = (props) => {
 
   if (isVideo) {
     return (
-      <div className={cn("oui-absolute oui-left-0 oui-top-0", "oui-size-full")}>
+      <div
+        className={cn("oui-absolute oui-start-0 oui-top-0", "oui-size-full")}
+      >
         <div
           style={{
             backgroundImage: linearGradient,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
-          className={cn("oui-absolute oui-left-0 oui-top-0", "oui-size-full")}
+          className={cn("oui-absolute oui-start-0 oui-top-0", "oui-size-full")}
         />
         <video
           autoPlay
@@ -38,7 +40,7 @@ export const LeaderboardBackground: FC<BackgroundProps> = (props) => {
             // rest style
             "oui-border-none oui-bg-transparent oui-outline-none",
             "oui-size-full",
-            // "oui-absolute oui-top-0 oui-left-0",
+            // "oui-absolute oui-top-0 oui-start-0",
             "oui-object-cover",
             "oui-opacity-50",
           )}
@@ -63,7 +65,7 @@ export const LeaderboardBackground: FC<BackgroundProps> = (props) => {
         }}
         className={cn(
           "oui-general-leaderboard-background",
-          "oui-absolute oui-left-0 oui-top-0 oui-z-[-1]",
+          "oui-absolute oui-start-0 oui-top-0 oui-z-[-1]",
           "oui-size-full",
           "oui-opacity-50",
         )}

@@ -52,9 +52,9 @@ const ScanQRCodeContent: FC<ScanQRCodeProps> = (props) => {
         <QRCodeScanner onSuccess={props.onScanSuccess} />
         <>
           <LineGradient />
-          <RadiusGradient className="oui-absolute oui-left-[-1.5px] oui-top-[-1.5px]" />
+          <RadiusGradient className="oui-absolute oui-start-[-1.5px] oui-top-[-1.5px]" />
           <RadiusGradient className="oui-absolute oui-end-[-1.5px] oui-top-[-1.5px] oui-rotate-90" />
-          <RadiusGradient className="oui-absolute oui-bottom-[-1.5px] oui-left-[-1.5px] -oui-rotate-90" />
+          <RadiusGradient className="oui-absolute oui-bottom-[-1.5px] oui-start-[-1.5px] -oui-rotate-90" />
           <RadiusGradient className="oui-absolute oui-bottom-[-1.5px] oui-end-[-1.5px] -oui-rotate-180" />
         </>
       </Box>
@@ -128,7 +128,7 @@ const LineGradient: FC<SVGProps<SVGSVGElement>> = () => {
   return (
     <div
       className={cn(
-        "oui-absolute oui-left-[30px] oui-top-0",
+        "oui-absolute oui-start-[30px] oui-top-0",
         "oui-h-[2px] oui-w-[calc(100%-60px)] oui-rounded-full",
         "oui-bg-[linear-gradient(270deg,rgb(var(--oui-gradient-brand-end))_0%,rgb(var(--oui-gradient-brand-start))_100%)]",
         "oui-shadow-[0_0_8px_4px_rgba(var(--oui-gradient-brand-start)/0.12)]",

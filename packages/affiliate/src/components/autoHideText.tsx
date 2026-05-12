@@ -97,7 +97,7 @@ export const AutoHideText: FC<{
     >
       <div
         className={cn(
-          "oui-hidden oui-whitespace-nowrap oui-absolute oui-top-0 oui-bottom-0 oui-end-0 oui-left-0",
+          "oui-hidden oui-whitespace-nowrap oui-absolute oui-top-0 oui-bottom-0 oui-end-0 oui-start-0",
         )}
       >
         <span ref={textRef}>{text}</span>

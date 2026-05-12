@@ -36,7 +36,7 @@ export function getColumnPinningProps(
 
   const rightShadow =
     isFirstRightPinnedColumn &&
-    cnBase(shadowCls, "before:oui-left-[-32px] before:oui-rotate-180");
+    cnBase(shadowCls, "before:oui-start-[-32px] before:oui-rotate-180");
 
   return {
     style,

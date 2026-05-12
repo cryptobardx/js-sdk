@@ -239,7 +239,7 @@ const RenderWalletType = ({ walletType }: { walletType: WalletType }) => {
               className="oui-relative oui-z-0 oui-h-[18px] oui-w-[49px]"
             />
           </div>
-          <div className="oui-relative oui-left-[-9px] oui-flex oui-items-center oui-justify-center oui-gap-1">
+          <div className="oui-relative oui-start-[-9px] oui-flex oui-items-center oui-justify-center oui-gap-1">
             <div className="oui-flex oui-size-[18px] oui-items-center oui-justify-center oui-rounded-full oui-bg-base-5">
               <EVMChainPopover>
                 <MoreIcon

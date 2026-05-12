@@ -54,7 +54,7 @@ export const CampaignItemUI: FC<CampaignItemUIProps> = ({
       <div
         className={cn([
           "oui-size-full",
-          "oui-absolute oui-left-0 oui-top-0",
+          "oui-absolute oui-start-0 oui-top-0",
           "oui-bg-cover oui-bg-center oui-bg-no-repeat oui-bg-blend-luminosity",
           active ? "oui-bg-transparent" : "oui-bg-[lightgray] oui-opacity-40",
           "group-hover:oui-bg-transparent group-hover:oui-opacity-100",
@@ -66,7 +66,7 @@ export const CampaignItemUI: FC<CampaignItemUIProps> = ({
       <div
         className={cn([
           "oui-flex oui-size-full oui-flex-col oui-items-center oui-justify-center oui-gap-1",
-          "oui-absolute oui-left-0 oui-top-0 oui-z-10",
+          "oui-absolute oui-start-0 oui-top-0 oui-z-10",
           classNames?.content,
         ])}
       >
@@ -112,7 +112,7 @@ const CampaignTag: FC<{
     <div
       className={cn([
         "oui-w-fit oui-rounded-br-lg",
-        "oui-absolute oui-left-0 oui-top-0 oui-z-10 oui-flex oui-items-center",
+        "oui-absolute oui-start-0 oui-top-0 oui-z-10 oui-flex oui-items-center",
         active && tag !== CampaignTagEnum.COMING
           ? "oui-bg-[rgba(var(--oui-gradient-brand-start))]"
           : "oui-bg-base-4",

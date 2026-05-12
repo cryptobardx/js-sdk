@@ -298,7 +298,7 @@ const PricePoolProgress: FC<PricePoolProgressProps> = ({
       </div>
       <div
         className={cn(
-          "oui-absolute oui-left-1 oui-flex oui-w-[calc(100%-64px)] oui-items-center",
+          "oui-absolute oui-start-1 oui-flex oui-w-[calc(100%-64px)] oui-items-center",
           "oui-p-4 oui-pr-12",
         )}
       >

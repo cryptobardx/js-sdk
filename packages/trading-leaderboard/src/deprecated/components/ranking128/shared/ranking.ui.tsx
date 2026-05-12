@@ -83,7 +83,7 @@ export const Ranking: FC<RankingProps> = (props) => {
           className: cn(
             "after:oui-absolute after:oui-h-[40px] after:oui-w-full md:after:oui-h-[48px]",
             "after:oui-border-[rgb(var(--oui-gradient-brand-start))]",
-            "after:oui-left-0 after:oui-top-[2px] after:oui-z-[-1]",
+            "after:oui-start-0 after:oui-top-[2px] after:oui-z-[-1]",
             "after:oui-border-y",
             isFirstColumn && "after:oui-rounded-l-lg after:oui-border-l",
             isLastColumn && "after:oui-rounded-r-lg after:oui-border-r",

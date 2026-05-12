@@ -1,5 +1,18 @@
 import { useMemo } from "react";
-import { arSA, enUS, zhCN, ja, es, ko, vi, de, fr, nl } from "date-fns/locale";
+import {
+  arSA,
+  enUS,
+  zhCN,
+  faIR,
+  he,
+  ja,
+  es,
+  ko,
+  vi,
+  de,
+  fr,
+  nl,
+} from "date-fns/locale";
 import {
   useTranslation,
   useLocaleCode,
@@ -15,6 +28,8 @@ export function useUILocale() {
     const calendarLocale = {
       [LocaleEnum.en]: enUS,
       [LocaleEnum.ar]: arSA,
+      [LocaleEnum.fa]: faIR,
+      [LocaleEnum.he]: he,
       [LocaleEnum.zh]: zhCN,
       // [LocaleEnum.ja]: ja,
       // [LocaleEnum.es]: es,

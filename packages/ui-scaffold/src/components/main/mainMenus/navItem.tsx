@@ -447,7 +447,7 @@ const Tag: React.FC<{ item: MainNavItem }> = (props) => {
 };
 
 const ICON_CLASSNAME =
-  "oui-flex oui-border oui-border-line oui-w-6 oui-h-6 oui-rounded-md oui-justify-center oui-items-center oui-absolute oui-left-0 oui-top-0";
+  "oui-flex oui-border oui-border-line oui-w-6 oui-h-6 oui-rounded-md oui-justify-center oui-items-center oui-absolute oui-start-0 oui-top-0";
 
 const ItemIcon: React.FC<{ item: MainNavItem; isActive: boolean }> = (
   props,

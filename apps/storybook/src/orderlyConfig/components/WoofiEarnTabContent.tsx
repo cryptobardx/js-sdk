@@ -35,7 +35,7 @@ const WoofiEarnRowItem = (props: {
           <img
             src={item.network_logo}
             alt={item.network}
-            className="oui-w-3 oui-h-3 oui-absolute oui-top-[15px] oui-left-[15px] oui-rounded-full oui-border oui-border-base-9"
+            className="oui-w-3 oui-h-3 oui-absolute oui-top-[15px] oui-start-[15px] oui-rounded-full oui-border oui-border-base-9"
           />
         </div>
         <div className="oui-flex oui-flex-col">

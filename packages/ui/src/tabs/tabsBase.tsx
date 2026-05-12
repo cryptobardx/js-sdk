@@ -62,7 +62,7 @@ const tabsVariants = tv({
           "data-[state=active]:after:oui-absolute",
           "data-[state=active]:after:oui-rounded-full",
           "data-[state=active]:after:-oui-bottom-0",
-          "data-[state=active]:after:oui-left-0",
+          "data-[state=active]:after:oui-start-0",
           "data-[state=active]:after:oui-end-0",
         ],
       },

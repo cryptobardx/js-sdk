@@ -33,7 +33,7 @@ const sheetVariants = tv({
       top: "oui-inset-x-0 oui-top-0 oui-border-b data-[state=closed]:oui-slide-out-to-top data-[state=open]:oui-slide-in-from-top",
       bottom:
         "oui-inset-x-0 oui-bottom-0 oui-rounded-t-2xl data-[state=closed]:oui-slide-out-to-bottom data-[state=open]:oui-slide-in-from-bottom",
-      left: "oui-inset-y-0 oui-left-0 oui-h-full oui-w-3/4 data-[state=closed]:oui-slide-out-to-left data-[state=open]:oui-slide-in-from-left sm:oui-max-w-sm",
+      left: "oui-inset-y-0 oui-start-0 oui-h-full oui-w-3/4 data-[state=closed]:oui-slide-out-to-left data-[state=open]:oui-slide-in-from-left sm:oui-max-w-sm",
       right:
         "oui-inset-y-0 oui-end-0 oui-h-full oui-w-3/4 oui-border-l data-[state=closed]:oui-slide-out-to-right data-[state=open]:oui-slide-in-from-right sm:oui-max-w-sm",
     },

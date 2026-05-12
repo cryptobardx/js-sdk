@@ -20,7 +20,7 @@ const dialogVariants = tv({
     content: [
       "oui-dialog-content",
       "oui-fixed",
-      "oui-left-[50%]",
+      "oui-start-[50%]",
       "oui-top-[50%]",
       "oui-z-50",
       // "oui-grid",

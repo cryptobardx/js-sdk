@@ -28,7 +28,7 @@ function Calendar({
         nav_button: cnBase(
           "oui-h-7 oui-w-7 oui-bg-transparent oui-p-0 oui-opacity-50 hover:oui-opacity-100",
         ),
-        nav_button_previous: "oui-absolute oui-left-1",
+        nav_button_previous: "oui-absolute oui-start-1",
         nav_button_next: "oui-absolute oui-end-1",
         table: "oui-w-full oui-border-collapse oui-space-y-1",
         head_row: "oui-flex",

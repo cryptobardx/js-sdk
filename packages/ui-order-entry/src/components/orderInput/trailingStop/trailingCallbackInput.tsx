@@ -122,7 +122,7 @@ export const TrailingCallbackInput: FC<TrailingCallbackInputProps> = memo(
             }}
           />
           <CallbackRatePercentages
-            className="oui-trailingCallback-percentages oui-absolute oui-bottom-1 oui-left-2"
+            className="oui-trailingCallback-percentages oui-absolute oui-bottom-1 oui-start-2"
             callback_rate={callback_rate}
             // onClick={openTooltip}
           />

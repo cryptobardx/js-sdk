@@ -42,7 +42,7 @@ export const StakeBooster: FC<StakeBoosterReturns> = (props) => {
               <div className="oui-absolute oui-end-0 oui-top-0">
                 <EsOrderlyIcon />
               </div>
-              <div className="oui-absolute oui-left-0 oui-top-0 ">
+              <div className="oui-absolute oui-start-0 oui-top-0 ">
                 <OrderlyIcon />
               </div>
             </div>

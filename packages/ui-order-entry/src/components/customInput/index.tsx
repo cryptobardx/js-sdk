@@ -95,7 +95,7 @@ const InputLabel = (
     <label
       htmlFor={props.id}
       className={cn(
-        "oui-input-label oui-absolute oui-left-2 oui-top-[7px] oui-text-2xs oui-text-base-contrast-36",
+        "oui-input-label oui-absolute oui-start-2 oui-top-[7px] oui-text-2xs oui-text-base-contrast-36",
         props.className,
       )}
     >

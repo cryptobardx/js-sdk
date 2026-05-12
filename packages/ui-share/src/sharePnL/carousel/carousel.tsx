@@ -251,7 +251,7 @@ const CarouselPrevious = React.forwardRef<
         "oui-absolute oui-size-8 oui-rounded-full",
         orientation === "horizontal"
           ? "oui--left-12 oui-top-1/2 oui--translate-y-1/2"
-          : "oui--top-12 oui-left-1/2 oui--translate-x-1/2 oui-rotate-90",
+          : "oui--top-12 oui-start-1/2 oui--translate-x-1/2 oui-rotate-90",
         className,
       )}
       disabled={!canScrollPrev}
@@ -286,7 +286,7 @@ const CarouselNext = React.forwardRef<
         "oui-absolute oui-size-8 oui-rounded-full",
         orientation === "horizontal"
           ? "oui--right-12 oui-top-1/2 oui--translate-y-1/2"
-          : "oui--bottom-12 oui-left-1/2 oui--translate-x-1/2 oui-rotate-90",
+          : "oui--bottom-12 oui-start-1/2 oui--translate-x-1/2 oui-rotate-90",
         className,
       )}
       disabled={!canScrollNext}

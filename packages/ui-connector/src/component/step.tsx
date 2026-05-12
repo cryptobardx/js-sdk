@@ -29,7 +29,7 @@ export const StepItem = (props: StepItemProps) => {
           {description}
         </Text>
       </Box>
-      <div className="oui-absolute oui-left-0 oui-top-1 oui-z-10">
+      <div className="oui-absolute oui-start-0 oui-top-1 oui-z-10">
         <Identifier {...props} />
       </div>
       {showDivider && (
@@ -65,7 +65,7 @@ const Identifier = (props: {
 
   // return (
   //   <Match
-  //     className={"oui-absolute oui-left-0 oui-top-1 oui-z-10"}
+  //     className={"oui-absolute oui-start-0 oui-top-1 oui-z-10"}
   //     value={() => {
   //       if (isCompleted) {
   //         return "completed";

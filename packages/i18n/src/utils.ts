@@ -2,8 +2,12 @@ import { LocaleEnum } from "./constant";
 import i18n from "./i18n";
 import type { LocaleCode } from "./types";
 
+/**
+ * Whether the active UI language uses right-to-left layout for `document.dir`.
+ * Matches primary subtags and common regional variants (e.g. `fa-IR`, `he-IL`).
+ */
 export const isRTLDirectionLanguage = (lang?: string) =>
-  /^ar(?:-|$)/i.test(lang ?? "");
+  /^(?:ar|fa|he)(?:-|$)/i.test(lang ?? "");
 
 export const syncDocumentDirection = (lang?: string) => {
   if (typeof document === "undefined") {

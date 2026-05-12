@@ -123,7 +123,7 @@ export const MarketTypeFilter: React.FC<MarketTypeFilterProps> = (props) => {
         <div className="oui-text-base-contrast-54">
           <Box
             className={cn(
-              "oui-absolute oui-left-0 oui-z-50",
+              "oui-absolute oui-start-0 oui-z-50",
               "oui-bg-base-9 oui-border oui-border-line-6 oui-rounded-[12px]",
               "oui-shadow-lg oui-w-[320px] oui-p-5",
               // animation
