@@ -19,6 +19,7 @@ export function getSymbolColumn(
     title: i18n.t("common.symbol"),
     dataIndex: "symbol",
     width: 150,
+    className: "oui-z-10",
     onSort: true,
     render: (value, record) => {
       let favoritesIcon: ReactNode;

@@ -20,6 +20,8 @@ export const RwaDotTooltip = ({ record }: RwaDotTooltipProps) => {
 
   return (
     <Tooltip
+      className="oui-pointer-events-none"
+      disableHoverableContent
       content={
         <Text color={isInTradingHours ? "success" : "danger"}>
           {isInTradingHours
@@ -28,8 +30,14 @@ export const RwaDotTooltip = ({ record }: RwaDotTooltipProps) => {
         </Text>
       }
     >
-      <Box py={2} px={1}>
+      <Box
+        as="span"
+        py={2}
+        px={1}
+        className="oui-inline-flex oui-shrink-0 oui-items-center"
+      >
         <Box
+          as="span"
           width={4}
           height={4}
           r="full"
