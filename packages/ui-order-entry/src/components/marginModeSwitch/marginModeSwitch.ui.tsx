@@ -217,7 +217,7 @@ const OptionCard: FC<{
               components={[
                 <a
                   key="isolated-margin-doc"
-                  href="https://docs.orderly.network/introduction/trade-on-orderly/perpetual-futures/isolated-margin"
+                  href="https://orderly.network/docs/introduction/trade-on-orderly/perpetual-futures/isolated-margin"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="whitespace-nowrap oui-font-semibold oui-text-warning oui-underline oui-underline-offset-2 hover:oui-text-warning/90"
