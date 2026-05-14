@@ -3,11 +3,12 @@ import { useTranslation } from "@orderly.network/i18n";
 import { MarginMode } from "@orderly.network/types";
 import {
   Flex,
-  Tooltip,
   Text,
+  Tips,
   InfoCircleIcon,
   AddCircleIcon,
   Button,
+  cn,
   modal,
   useScreen,
 } from "@orderly.network/ui";
@@ -34,33 +35,53 @@ export const Available = (props: AvailableProps) => {
     );
   }, [currentLtv]);
 
+  const availableTooltip = useMemo(() => {
+    return marginMode === MarginMode.ISOLATED
+      ? t("transfer.LTV.isolatedModeUsdcOnly")
+      : t("transfer.LTV.availableCrossMarginHint");
+  }, [marginMode, t]);
+
+  const availableTipsContent = useMemo(
+    () => (
+      <div className="oui-text-pretty oui-text-2xs oui-leading-normal oui-text-base-contrast-80">
+        {availableTooltip}
+      </div>
+    ),
+    [availableTooltip],
+  );
+
   return (
     <Flex
       itemAlign={"center"}
       justify={"between"}
       className="oui-orderEntry-available"
     >
-      {marginMode === MarginMode.ISOLATED ? (
-        <Tooltip content={t("transfer.LTV.isolatedModeUsdcOnly")}>
-          <Text className="oui-available-label oui-cursor-pointer" size={"2xs"}>
+      <Tips
+        title={t("common.tips")}
+        content={availableTipsContent}
+        trigger={
+          <Text
+            size="2xs"
+            className={cn(
+              "oui-available-label oui-cursor-pointer",
+              "oui-border-b oui-border-dashed oui-border-line-12",
+            )}
+          >
             {t("common.available")}
           </Text>
-        </Tooltip>
-      ) : (
-        <Text className="oui-available-label" size={"2xs"}>
-          {t("common.available")}
-        </Text>
-      )}
+        }
+      />
       <Flex itemAlign={"center"} justify={"center"} gap={1}>
         {showLTV && (
-          <Tooltip
-            className={"oui-available-ltvRisk-tooltip oui-bg-base-6 oui-p-2"}
+          <Tips
+            title={t("common.tips")}
             content={<LTVRiskTooltipWidget marginMode={marginMode} />}
-          >
-            <InfoCircleIcon
-              className={"oui-cursor-pointer oui-text-warning oui-opacity-80"}
-            />
-          </Tooltip>
+            trigger={
+              <InfoCircleIcon
+                className={"oui-cursor-pointer oui-text-warning oui-opacity-80"}
+              />
+            }
+          />
         )}
         <Text.numeral
           unit={quote}

@@ -228,43 +228,48 @@ const ListItem: React.FC<ListItemProps> = (props) => {
   const { item } = props;
 
   return (
-    <Flex
+    <Box
       width="100%"
-      gapX={3}
       py={2}
       px={4}
-      className={cn("oui-cursor-pointer hover:oui-bg-base-8", props.className)}
+      className={cn(
+        "oui-grid oui-grid-cols-[minmax(0,1fr)_96px_72px] oui-items-center oui-gap-x-3",
+        "oui-cursor-pointer hover:oui-bg-base-8",
+        props.className,
+      )}
       onClick={() => {
         props.onSymbol(item);
       }}
     >
-      <SymbolDisplay formatString="base" showIcon className="oui-w-full">
+      <SymbolDisplay formatString="base" showIcon className="oui-min-w-0">
         {item.symbol}
       </SymbolDisplay>
 
-      <Flex width="100%" justify="end">
+      <Flex justify="end">
         <Text.numeral
           currency="$"
           size="xs"
           weight="semibold"
           dp={item.quote_dp}
+          className="oui-tabular-nums oui-text-right"
         >
           {item["24h_close"]}
         </Text.numeral>
       </Flex>
 
-      <Flex width="100%" justify="end">
+      <Flex justify="end">
         <Text.numeral
           rule="percentages"
           coloring
           size="xs"
           weight="semibold"
           showIdentifier
+          className="oui-tabular-nums oui-text-right"
         >
           {item.change}
         </Text.numeral>
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 
