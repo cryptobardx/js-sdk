@@ -2,7 +2,7 @@
 
 **This guide** documents props, effects, and loading strategies. For **end-to-end copy-paste recipes** (Vite `import.meta.glob`, Next.js/webpack, HTTP `public/`, sync maps, URL sync), use [Examples](./examples.md).
 
-**Overview:** `LocaleProvider` composes `**LanguageProvider`** (language list, optional HTTP `Backend`, change callbacks) and `**I18nextProvider`** from react-i18next. All of it uses the package’s **singleton `i18n`instance**. The default namespace is`**translation`** (`defaultNS`); see [Package exports](./exports.md).
+**Overview:** `LocaleProvider` composes `LanguageProvider` (language list, optional HTTP `Backend`, change callbacks) and `I18nextProvider` from react-i18next. All of it uses the package’s singleton `i18n` instance. The default namespace is `translation` (`defaultNS`); see [Package exports](./exports.md).
 
 Follow the steps below to integrate localization in your app with the Orderly SDK.
 
@@ -36,10 +36,10 @@ These props are defined on `LocaleProvider` (see `localeProvider.tsx`):
 | Prop        | Description                                                                                                                                                                                                                                        |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `locale`    | Optional **controlled** locale. When set and different from `i18n.language`, a `useEffect` calls `i18n.changeLanguage(locale)`.                                                                                                                    |
-| `resource`  | Flat messages for `**defaultNS`** (`translation`). Used only when `**resources`is not set**; requires`locale`. Calls `i18n.addResourceBundle(locale, defaultNS, resource, true, true)`.                                                            |
+| `resource`  | Flat messages for `defaultNS` (`translation`). Used only when `resources` is not set; requires `locale`. Calls `i18n.addResourceBundle(locale, defaultNS, resource, true, true)`.                                                                  |
 | `resources` | Static **Resources** map or **AsyncResources**. When set, **registerResources** runs in a `useEffect` (see **Behavior**). Takes precedence over `locale` + `resource`. Same contract as `ExternalLocaleProvider` / `useRegisterExternalResources`. |
 
-**Async loader and `ns`:** The `AsyncResources` type is `(lang, ns) => Promise<Record<string, string>>`. When loading goes through `**registerResources`** (from `LocaleProvider` or `useRegisterExternalResources`), the implementation calls `**await resources(localeCode, defaultNS)`** — the second argument is **always** `defaultNS` (`translation`), not an arbitrary namespace. Use the parameter if you build URLs; for multiple i18n namespaces, use the i18n API directly.
+**Async loader and `ns`:** The `AsyncResources` type is `(lang, ns) => Promise<Record<string, string>>`. When loading goes through `registerResources` (from `LocaleProvider`, `ExternalLocaleProvider`, or `useRegisterExternalResources`), the implementation calls `await resources(localeCode, defaultNS)` — the second argument is **always** `defaultNS` (`translation`), not an arbitrary namespace. Use the parameter if you build URLs; for multiple i18n namespaces, use the i18n API directly.
 
 ### Inherited from `LanguageProvider`
 
@@ -49,7 +49,7 @@ Pass these through `LocaleProvider` like any other `LanguageProvider` prop:
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `backend`                 | `BackendOptions`: `{ loadPath }` where `loadPath(lang, ns)` returns a URL `string`, `string[]`, or `undefined` for the HTTP `Backend`. Those URLs must resolve to real files (e.g. under `public/`); the package does **not** copy `dist/locales` into your app — sync manually or via a script / hook — see [HTTP backend](./examples.md#http-backend). |
 | `languages`               | Full `Language[]` for the switcher; when set as an array, replaces `defaultLanguages`.                                                                                                                                                                                                                                                                   |
-| `supportedLanguages`      | Subset of `LocaleCode[]`; builds the list from `**defaultLanguages**` entries.                                                                                                                                                                                                                                                                           |
+| `supportedLanguages`      | Subset of `LocaleCode[]`; builds the list from `defaultLanguages` entries.                                                                                                                                                                                                                                                                               |
 | `onLanguageBeforeChanged` | `(lang) => Promise<void>`. **Runs first**; then the internal `Backend` loads the next language (`loadLanguage(lang, defaultNS)`). Use for prep work before HTTP loads.                                                                                                                                                                                   |
 | `onLanguageChanged`       | `(lang) => Promise<void>` — notification on the language-change path.                                                                                                                                                                                                                                                                                    |
 | `convertDetectedLanguage` | `(browserLang: string) => LocaleCode` — optional mapping from the detector to your supported codes.                                                                                                                                                                                                                                                      |
@@ -57,16 +57,16 @@ Pass these through `LocaleProvider` like any other `LanguageProvider` prop:
 
 ### Behavior (effects)
 
-- `**resources` set:\*\* `registerResources(resources, locale ?? currentLocale)` runs when `locale`, `resource`, `resources`, or the current locale from `useLocaleCode` changes. Static maps register every locale entry; async loaders fetch for the active locale code.
-- `**resources` unset** and `**resource`+`locale`:** merges the flat bundle for that locale into `defaultNS`.
-- `**locale` prop:\*\* separate effect — if `locale` is set and differs from `i18n.language`, `i18n.changeLanguage(locale)` runs.
+- **`resources` set:** `registerResources(resources, locale ?? currentLocale)` runs when `locale`, `resource`, `resources`, or the current locale from `useLocaleCode` changes. Static maps register every locale entry; async loaders fetch for the active locale code.
+- **`resources` unset and `resource` + `locale`:** merges the flat bundle for that locale into `defaultNS`.
+- **`locale` prop:** separate effect — if `locale` is set and differs from `i18n.language`, `i18n.changeLanguage(locale)` runs.
 
-Prefer **one** primary loading approach per app (**HTTP `backend`** vs **static/async `resources`** vs `**locale` + `resource**`) to avoid overlapping bundles. You can pass `**resources` on `LocaleProvider**` instead of `ExternalLocaleProvider` — same registration path. Use `**useRegisterExternalResources**` to avoid an extra wrapper (stable `resources` reference recommended).
+Prefer **one** primary loading approach per app (**HTTP `backend`** vs **static/async `resources`** vs **`locale` + `resource`**) to avoid overlapping bundles. You can pass `resources` on `LocaleProvider` instead of `ExternalLocaleProvider` — same registration path. Use `useRegisterExternalResources` to avoid an extra wrapper (stable `resources` reference recommended).
 
 ### Loading strategies (quick reference)
 
 - **HTTP:** `backend={{ loadPath }}` — load JSON from URLs (e.g. files under `public/`). You must **place** those JSON files on disk (or CDN): **manually** copy from `node_modules/.../i18n/dist/locales`, or run a **copy script** / **Husky** hook (`npm run copyLocales`, etc.) as in [HTTP backend](./examples.md#http-backend).
-- **Bundled:** `resources` as a static map or **`AsyncResources`**. Recipes: [Async resources (Vite)](./examples.md#async-resources-vite) · [Async resources (Next.js and webpack)](./examples.md#async-resources-nextjs-and-webpack) · [Sync resources](./examples.md#sync-resources).
+- **Bundled:** `resources` as a static map or `AsyncResources`. Recipes: [Async resources (Vite)](./examples.md#async-resources-vite) · [Async resources (Next.js and webpack)](./examples.md#async-resources-nextjs-and-webpack) · [Sync resources](./examples.md#sync-resources).
 - **Controlled single bundle:** `locale` + `resource` when you inject one flat table for one language.
 - **Host / external bundles:** `ExternalLocaleProvider` or `useRegisterExternalResources` — same `Resources` / `AsyncResources` as `LocaleProvider.resources`.
 
@@ -78,7 +78,7 @@ Prefer **one** primary loading approach per app (**HTTP `backend`** vs **static/
 
 ### Supported locales
 
-We currently support **17** locales. The table order matches `**defaultLanguages`\*\* in the package (`constant`).
+We currently support **17** locales. The table order matches `defaultLanguages` in the package (`constant`).
 
 | Locale Code | Language            |
 | ----------- | ------------------- |
@@ -109,7 +109,7 @@ We currently support **17** locales. The table order matches `**defaultLanguages
 
 You can translate SDK strings and add strings for your own UI.
 
-- Use the `**extend.`\*\* key prefix for custom keys so they stay distinct from built-in keys (and align with tooling such as `separateJson` in the [CLI](./cli.md)).
+- Use the `extend.` key prefix for custom keys so they stay distinct from built-in keys (and align with tooling such as `separateJson` in the [CLI](./cli.md)).
 
 ```json
 {
@@ -119,43 +119,92 @@ You can translate SDK strings and add strings for your own UI.
 
 ## 4. Integrate external resources
 
-Use this when strings live outside this package (another bundle, CDN, or host app). `**LocaleProvider**` with `**resources**`, `**ExternalLocaleProvider**`, and `**useRegisterExternalResources**` all call the same `**registerResources**` helper.
+Use this when strings live outside this package (another bundle, CDN, or host app). `LocaleProvider` with `resources`, `ExternalLocaleProvider`, and `useRegisterExternalResources` all call the same `registerResources` helper.
 
-The snippets below are **minimal** (wrapper vs hook). [Examples](./examples.md) uses **`LocaleProvider` + `resources`** with full app wiring (e.g. merge SDK + extend, provider tree)—use that for production-shaped code.
+### Host app vs external package
 
-For **Vite**, bundling SDK locales with your `extend` JSON via `**AsyncResources`\*\* is the recommended setup — see [Async resources (Vite)](./examples.md#async-resources-vite).
+Pick the integration point based on who owns the React root:
+
+- **Host apps:** mount `LocaleProvider` once at the app/orderly root. Pass `backend`, `resources`, or `locale` + `resource` there. For Vite/Next/webpack app-level recipes, see [Examples](./examples.md).
+- **External SDK/plugin packages:** export a package-local provider based on `ExternalLocaleProvider`. Do not mount another root `@orderly.network/i18n` `LocaleProvider` inside the package.
+
+For host apps, bundling SDK locales with your `extend` JSON via `LocaleProvider` + `resources` is still the recommended setup when you own the provider tree. See [Async resources (Vite)](./examples.md#async-resources-vite), [Async resources (Next.js and webpack)](./examples.md#async-resources-nextjs-and-webpack), and [Sync resources](./examples.md#sync-resources).
 
 ### `ExternalLocaleProvider`
 
 - **Async:** `(lang, ns) => Promise<Record<string, string>>` — invoked when the locale changes (same `ns` behavior as above when used through `registerResources`).
 - **Sync:** static `Resources` map; all listed locales are registered on mount.
 
-Async example:
+Async external resources are also registered as preloaders while their provider is mounted. Calls to the package singleton `i18n.changeLanguage(locale)` wait for those mounted external resources to load the target locale before the language is switched. This keeps plugin/host extension bundles lazy by locale while ensuring the first render after the language switch already has the target external messages registered.
+
+#### Async example (recommended for external packages)
+
+For external SDK packages or plugin packages, ship a provider like
+`package-template/src/i18n/provider.tsx`: preload the default English messages,
+load non-English JSON chunks lazily with statically analyzable imports, and wrap
+the package subtree with `ExternalLocaleProvider`.
+
+This keeps the host app in charge of the root `LocaleProvider` while your package contributes its own translation resources to the shared singleton `i18n` instance. Use explicit per-locale dynamic imports so webpack/Next can resolve locale JSON chunks reliably. Vite accepts the same pattern.
 
 ```tsx
+import { FC, PropsWithChildren } from "react";
 import {
   AsyncResources,
   ExternalLocaleProvider,
+  importLocaleJsonModule,
   LocaleCode,
-  LocaleProvider,
+  LocaleEnum,
+  preloadDefaultResource,
+  type LocaleJsonModule,
 } from "@orderly.network/i18n";
+import { LocaleMessages } from "./module";
 
-const resources: AsyncResources = async (lang: LocaleCode) => {
-  return import(`./locales/${lang}.json`).then(
-    (res) => res.default as Record<string, string>,
-  );
+type LocaleJsonLoader = () => Promise<LocaleJsonModule>;
+
+const localeJsonLoaders: Record<LocaleEnum, LocaleJsonLoader | undefined> = {
+  [LocaleEnum.en]: undefined,
+  [LocaleEnum.zh]: () => import("./locales/zh.json"),
+  [LocaleEnum.ja]: () => import("./locales/ja.json"),
+  [LocaleEnum.es]: () => import("./locales/es.json"),
+  [LocaleEnum.ko]: () => import("./locales/ko.json"),
+  [LocaleEnum.vi]: () => import("./locales/vi.json"),
+  [LocaleEnum.de]: () => import("./locales/de.json"),
+  [LocaleEnum.fr]: () => import("./locales/fr.json"),
+  [LocaleEnum.ru]: () => import("./locales/ru.json"),
+  [LocaleEnum.id]: () => import("./locales/id.json"),
+  [LocaleEnum.tr]: () => import("./locales/tr.json"),
+  [LocaleEnum.it]: () => import("./locales/it.json"),
+  [LocaleEnum.pt]: () => import("./locales/pt.json"),
+  [LocaleEnum.uk]: () => import("./locales/uk.json"),
+  [LocaleEnum.pl]: () => import("./locales/pl.json"),
+  [LocaleEnum.nl]: () => import("./locales/nl.json"),
+  [LocaleEnum.tc]: () => import("./locales/tc.json"),
 };
 
-export function App() {
+// Seed fallback messages before async locale chunks load to avoid flashing i18n keys.
+preloadDefaultResource(LocaleMessages);
+
+const resources: AsyncResources = (lang: LocaleCode, _ns: string) => {
+  if (lang === LocaleEnum.en) {
+    return Promise.resolve(LocaleMessages);
+  }
+
+  const loader = localeJsonLoaders[lang as LocaleEnum];
+  return importLocaleJsonModule(loader);
+};
+
+export const LocaleProvider: FC<PropsWithChildren> = (props) => {
   return (
-    <LocaleProvider>
-      <ExternalLocaleProvider resources={resources}>
-        <YourApp />
-      </ExternalLocaleProvider>
-    </LocaleProvider>
+    <ExternalLocaleProvider resources={resources}>
+      {props.children}
+    </ExternalLocaleProvider>
   );
-}
+};
 ```
+
+The exported `LocaleProvider` above is your package-local provider. It is not the root `LocaleProvider` from `@orderly.network/i18n`; rename it if your package needs to expose both.
+
+`LocaleMessages` should be the package's English/default message map, and `./locales/<locale>.json` should contain the translated package messages for that locale. If your package supports only a subset of languages, keep the full `Record<LocaleEnum, ...>` shape but leave unsupported loaders as `undefined`; `importLocaleJsonModule(undefined)` safely returns an empty resource object.
 
 Sync example:
 
