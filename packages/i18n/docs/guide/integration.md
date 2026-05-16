@@ -130,6 +130,13 @@ For **Vite**, bundling SDK locales with your `extend` JSON via `**AsyncResources
 - **Async:** `(lang, ns) => Promise<Record<string, string>>` — invoked when the locale changes (same `ns` behavior as above when used through `registerResources`).
 - **Sync:** static `Resources` map; all listed locales are registered on mount.
 
+Async external resources are also registered as preloaders while their provider
+is mounted. Calls to the package singleton `i18n.changeLanguage(locale)` wait for
+those mounted external resources to load the target locale before the language is
+switched. This keeps plugin/host extension bundles lazy by locale while ensuring
+the first render after the language switch already has the target external
+messages registered.
+
 Async example:
 
 ```tsx
