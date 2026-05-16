@@ -137,12 +137,12 @@ For host apps, bundling SDK locales with your `extend` JSON via `LocaleProvider`
 
 Async external resources are also registered as preloaders while their provider is mounted. Calls to the package singleton `i18n.changeLanguage(locale)` wait for those mounted external resources to load the target locale before the language is switched. This keeps plugin/host extension bundles lazy by locale while ensuring the first render after the language switch already has the target external messages registered.
 
-#### Async example (recommended for external packages)
+#### Recommended async provider
 
-For external SDK packages or plugin packages, ship a provider like
-`package-template/src/i18n/provider.tsx`: preload the default English messages,
-load non-English JSON chunks lazily with statically analyzable imports, and wrap
-the package subtree with `ExternalLocaleProvider`.
+For external SDK packages or plugin packages, ship a package-local provider:
+preload the default English messages, load non-English JSON chunks lazily with
+statically analyzable imports, and wrap the package subtree with
+`ExternalLocaleProvider`.
 
 This keeps the host app in charge of the root `LocaleProvider` while your package contributes its own translation resources to the shared singleton `i18n` instance. Use explicit per-locale dynamic imports so webpack/Next can resolve locale JSON chunks reliably. Vite accepts the same pattern.
 
@@ -206,7 +206,7 @@ The exported `LocaleProvider` above is your package-local provider. It is not th
 
 `LocaleMessages` should be the package's English/default message map, and `./locales/<locale>.json` should contain the translated package messages for that locale. If your package supports only a subset of languages, keep the full `Record<LocaleEnum, ...>` shape but leave unsupported loaders as `undefined`; `importLocaleJsonModule(undefined)` safely returns an empty resource object.
 
-Sync example:
+#### Static resources example
 
 ```tsx
 import {
