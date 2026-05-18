@@ -928,6 +928,8 @@
   "transfer.LTV.tooltip": "Se il tuo LTV supera {{threshold}}% o il tuo saldo USDC più PnL non liquidato scende sotto {{usdcThreshold}}, la tua garanzia sarà automaticamente convertita con uno sconto. Per evitare questo, puoi convertire manualmente gli asset in USDC.",
   "transfer.LTV.currentLTV": "LTV attuale",
   "transfer.LTV.isolatedModeUsdcOnly": "Solo USDC può essere usato come margine in modalità isolata.",
+  "transfer.LTV.availableCrossMarginHint": "Saldo disponibile = Saldo USDC + PnL non realizzato. Tutti gli asset collaterali contribuiscono al margine disponibile.",
+  "transfer.LTV.isolatedMarginOrderHint": "In modalità Margine Isolato, solo USDC è accettato come margine. Converti i tuoi asset in USDC per piazzare ordini.",
   "transfer.convert": "Converti",
   "transfer.deposit.globalMaxQty.error": "Il tuo deposito non è stato elaborato perché è stato raggiunto il limite globale di deposito per {{token}} su {{chain}}. Questo viene generalmente risolto dopo il ribilanciamento, che richiede circa 1 ora. Riprova più tardi o usa un importo più piccolo o una catena diversa. <0>Scopri di più</0>",
   "transfer.deposit.gasFee.error": "Assicurati di avere abbastanza {{token}} per le commissioni del gas.",
@@ -1265,7 +1267,5 @@
   "notification.generalTitle": "Aggiornamento generale",
   "notification.maintenanceTitle": "Manutenzione sistema",
   "notification.empty": "Nessun annuncio",
-  "tradingPoints.points": "Punti",
-  "transfer.LTV.availableCrossMarginHint": "Saldo disponibile = saldo USDC + PnL non realizzato. Tutti i collaterali contribuiscono al margine disponibile.",
-  "transfer.LTV.isolatedMarginOrderHint": "In margine isolato è accettato solo USDC come margine. Converti i tuoi asset in USDC per piazzare ordini."
+  "tradingPoints.points": "Punti"
 }

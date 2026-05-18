@@ -928,6 +928,8 @@
   "transfer.LTV.tooltip": "إذا تجاوزت نسبة LTV {{threshold}}% أو إذا انخفض رصيد USDC لديك بالإضافة إلى الربح أو الخسارة غير المُسوّاة عن {{usdcThreshold}}، سيُحوَّل ضمانك تلقائيًا مع خصم. لتجنب ذلك، يمكنك تحويل الأصول يدويًا إلى USDC.",
   "transfer.LTV.currentLTV": "نسبة LTV الحالية",
   "transfer.LTV.isolatedModeUsdcOnly": "في الوضع المعزول، يمكن استخدام USDC فقط كهامش.",
+  "transfer.LTV.availableCrossMarginHint": "الرصيد المتاح = رصيد USDC + الأرباح والخسائر غير المحققة. جميع أصول الضمان تساهم في الهامش المتاح الخاص بك.",
+  "transfer.LTV.isolatedMarginOrderHint": "في وضع الهامش المعزول، يُقبل USDC فقط كهامش. حوّل أصولك إلى USDC لتقديم الطلبات.",
   "transfer.convert": "تحويل",
   "transfer.deposit.globalMaxQty.error": "تعذّر معالجة إيداعك لأن سقف الإيداع العالمي لـ {{token}} على {{chain}} قد اكتمل. يُعاد هذا عادةً بعد إعادة الموازنة خلال نحو ساعة. يُرجى المحاولة لاحقًا، أو استخدام مبلغ أصغر أو سلسلة أخرى. <0>تعرّف أكثر</0>",
   "transfer.deposit.gasFee.error": "تأكد من توفر {{token}} كافٍ لرسوم الغاز.",

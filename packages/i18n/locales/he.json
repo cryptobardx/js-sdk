@@ -928,6 +928,8 @@
   "transfer.LTV.tooltip": "אם ה‑LTV עובר {{threshold}}% או USDC בתוספת PnL לא מסולק יורד מתחת ל‑{{usdcThreshold}}, הביטחונות יומרו עם תספית. למניעה המירו ידנית ל‑USDC.",
   "transfer.LTV.currentLTV": "LTV נוכחי",
   "transfer.LTV.isolatedModeUsdcOnly": "במצב מבודד רק USDC יכול לשמש כמרג׳ין.",
+  "transfer.LTV.availableCrossMarginHint": "יתרה זמינה = יתרת USDC + רווח/הפסד לא מושלם. כל נכסי הבטוחה תורמים למרגין הזמין שלך.",
+  "transfer.LTV.isolatedMarginOrderHint": "במצב מרגין מבודד, רק USDC מתקבל כמרגין. המר את הנכסים שלך ל-USDC כדי להזמין הזמנות.",
   "transfer.convert": "המרה",
   "transfer.deposit.globalMaxQty.error": "לא ניתן לעבד את ההפקדה כי הושגה תקרת ההפקדה הגלובלית ל‑{{token}} ב‑{{chain}}. בדרך כלל נפתר אחרי איזון (~שעה). נסו מאוחר יותר או סכום קטן יותר או רשת אחרת. <0>מידע נוסף</0>",
   "transfer.deposit.gasFee.error": "ודאו שיש מספיק {{token}} לעמלות גז.",
