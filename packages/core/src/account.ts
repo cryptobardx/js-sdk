@@ -560,13 +560,13 @@ export class Account {
     //   return Promise.reject("walletClient is undefined");
     // }
 
-    const { nonce, timestamp } = await this._getRegisterationNonce();
-
     const address = this.stateValue.address;
 
     if (!address) {
       throw new Error("address is undefined");
     }
+
+    const { nonce, timestamp } = await this._getRegisterationNonce(address);
 
     // const [message, toSignatureMessage] = generateRegisterAccountMessage({
     //   registrationNonce: nonce,
@@ -1282,12 +1282,15 @@ export class Account {
     return this.walletAdapterManager.adapter;
   }
 
-  private async _getRegisterationNonce() {
-    const res = await this._simpleFetch("/v1/registration_nonce", {
-      headers: {
-        "orderly-account-id": this.stateValue.accountId!,
+  private async _getRegisterationNonce(address: string) {
+    const res = await this._simpleFetch(
+      `/v2/registration_nonce?address=${encodeURIComponent(address)}`,
+      {
+        headers: {
+          "orderly-account-id": this.stateValue.accountId!,
+        },
       },
-    });
+    );
 
     if (res.success) {
       return {
