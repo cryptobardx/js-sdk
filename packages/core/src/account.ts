@@ -1284,7 +1284,7 @@ export class Account {
 
   private async _getRegisterationNonce(address: string) {
     const res = await this._simpleFetch(
-      `/v2/registration_nonce?address=${encodeURIComponent(address)}`,
+      `/v1/registration_nonce?address=${encodeURIComponent(address)}`,
       {
         headers: {
           "orderly-account-id": this.stateValue.accountId!,
