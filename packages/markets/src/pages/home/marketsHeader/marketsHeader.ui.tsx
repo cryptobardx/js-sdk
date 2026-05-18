@@ -251,7 +251,7 @@ const ListItem: React.FC<ListItemProps> = (props) => {
           size="xs"
           weight="semibold"
           dp={item.quote_dp}
-          className="oui-tabular-nums oui-text-right"
+          className="oui-tabular-nums oui-text-end"
         >
           {item["24h_close"]}
         </Text.numeral>
@@ -264,7 +264,7 @@ const ListItem: React.FC<ListItemProps> = (props) => {
           size="xs"
           weight="semibold"
           showIdentifier
-          className="oui-tabular-nums oui-text-right"
+          className="oui-tabular-nums oui-text-end"
         >
           {item.change}
         </Text.numeral>

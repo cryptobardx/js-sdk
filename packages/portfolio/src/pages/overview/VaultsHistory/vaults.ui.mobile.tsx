@@ -44,7 +44,7 @@ export const VaultsHistoryMobile = (props: useVaultsHistoryHookReturn) => {
               {typeText}
             </Text>
           </div>
-          <div className="oui-text-right">
+          <div className="oui-text-end">
             <div>{t("common.amount")}</div>
             <div className="oui-text-xs oui-text-base-contrast-80">
               {amountText}

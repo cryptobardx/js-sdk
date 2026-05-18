@@ -98,7 +98,7 @@ export class ErrorBoundary extends Component<
             {this.props.refreshButtonText || i18n.t("errorBoundary.refresh")}
           </Button>
           {/* {process.env.NODE_ENV === "development" && this.state.error && (
-            <details className="mt-4 p-4 bg-red-50 border border-red-200 rounded text-left max-w-2xl">
+            <details className="mt-4 p-4 bg-red-50 border border-red-200 rounded text-start max-w-2xl">
               <summary className="cursor-pointer font-medium text-red-800">
                 Error Details
               </summary>

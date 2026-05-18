@@ -77,7 +77,7 @@ export const LeverageInput: React.FC<LeverageInputProps> = (props) => {
           id={id}
           autoComplete="off"
           classNames={{
-            input: cn("oui-text-right oui-text-[24px]"),
+            input: cn("oui-text-end oui-text-[24px]"),
             root: cn(
               "oui-w-12",
               "oui-px-0",

@@ -85,8 +85,8 @@ export const Ranking: FC<RankingProps> = (props) => {
             "after:oui-border-[rgb(var(--oui-gradient-brand-start))]",
             "after:oui-start-0 after:oui-top-[2px] after:oui-z-[-1]",
             "after:oui-border-y",
-            isFirstColumn && "after:oui-rounded-l-lg after:oui-border-l",
-            isLastColumn && "after:oui-rounded-r-lg after:oui-border-r",
+            isFirstColumn && "after:oui-rounded-s-lg after:oui-border-s",
+            isLastColumn && "after:oui-rounded-e-lg after:oui-border-e",
           ),
         };
       }
@@ -94,8 +94,8 @@ export const Ranking: FC<RankingProps> = (props) => {
         className: cn(
           isFirstColumn &&
             isRank &&
-            "oui-rounded-l-lg oui-mix-blend-luminosity",
-          isLastColumn && isRank && "oui-rounded-r-lg oui-mix-blend-luminosity",
+            "oui-rounded-s-lg oui-mix-blend-luminosity",
+          isLastColumn && isRank && "oui-rounded-e-lg oui-mix-blend-luminosity",
         ),
         // style: isRank
         //   ? {

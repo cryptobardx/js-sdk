@@ -72,7 +72,7 @@ export const UnrealPnL: FC<PositionCellState> = (props) => {
   const { t } = useTranslation();
 
   const unrealPnlLabel = (
-    <div className="oui-text-right">
+    <div className="oui-text-end">
       <Text intensity={36} className="oui-underline oui-decoration-dotted">
         {t("common.unrealizedPnl")}
       </Text>

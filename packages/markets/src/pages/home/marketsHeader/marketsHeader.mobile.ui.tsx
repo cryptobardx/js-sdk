@@ -123,7 +123,7 @@ const BlockList: React.FC<BlockListProps> = (props) => {
           key={`item-${index}`}
           {...item}
           className={cn(
-            index !== list.length - 1 && "oui-border-r oui-border-line-6",
+            index !== list.length - 1 && "oui-border-e oui-border-line-6",
           )}
         />
       ))}
@@ -221,7 +221,7 @@ const ListItem: React.FC<ListItemProps> = (props) => {
           size="xs"
           weight="semibold"
           dp={item.quote_dp}
-          className="oui-tabular-nums oui-text-right"
+          className="oui-tabular-nums oui-text-end"
         >
           {item["24h_close"]}
         </Text.numeral>
@@ -234,7 +234,7 @@ const ListItem: React.FC<ListItemProps> = (props) => {
           size="xs"
           weight="semibold"
           showIdentifier
-          className="oui-tabular-nums oui-text-right"
+          className="oui-tabular-nums oui-text-end"
         >
           {item.change}
         </Text.numeral>

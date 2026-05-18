@@ -71,7 +71,7 @@ const Row = (props: {
     // >
     //   <Box className={cn("oui-flex-1", classNames?.left)}>{left}</Box>
     //   <Box className={cn("oui-flex-1", classNames?.mid)}>{mid}</Box>
-    //   <Box className={cn("oui-flex-1 oui-text-right", classNames?.right)}>
+    //   <Box className={cn("oui-flex-1 oui-text-end", classNames?.right)}>
     //     {right}
     //   </Box>
     // </Flex>
@@ -84,7 +84,7 @@ const Row = (props: {
     >
       <div className={cn("oui-flex-1", classNames?.left)}>{left}</div>
       <div className={cn("oui-flex-1", classNames?.mid)}>{mid}</div>
-      <div className={cn("oui-flex-1 oui-text-right", classNames?.right)}>
+      <div className={cn("oui-flex-1 oui-text-end", classNames?.right)}>
         {right}
       </div>
     </Grid>

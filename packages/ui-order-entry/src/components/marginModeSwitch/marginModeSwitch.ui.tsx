@@ -184,7 +184,7 @@ const OptionCard: FC<{
       className={cn(
         "oui-relative oui-w-full oui-rounded-md oui-p-2",
         "oui-bg-base-6",
-        "oui-text-left",
+        "oui-text-start",
         props.disabled
           ? "oui-cursor-not-allowed oui-opacity-50 oui-border oui-border-transparent"
           : props.selected

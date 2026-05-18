@@ -129,10 +129,10 @@ const inputVariants = tv(
           input: "oui-text-center",
         },
         left: {
-          input: "oui-text-left",
+          input: "oui-text-start",
         },
         right: {
-          input: "oui-text-right",
+          input: "oui-text-end",
         },
       },
     },
