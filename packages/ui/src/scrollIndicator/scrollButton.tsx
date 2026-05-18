@@ -1,16 +1,19 @@
 import { FC } from "react";
 import { SVGProps } from "react";
 import { cnBase } from "tailwind-variants";
+import type { ScrollIndicatorDirection } from "./hooks/useScroll";
 
 type ScrolButtonProps = {
   tailing?: boolean;
   leading?: boolean;
+  isRTL?: boolean;
   visible?: boolean;
-  onClick?: (direction: string) => void;
+  onClick?: (direction: ScrollIndicatorDirection) => void;
 };
 
 export const ScrolButton: FC<ScrolButtonProps> = (props) => {
-  const { visible, leading, tailing, onClick } = props;
+  const { visible, leading, tailing, isRTL, onClick } = props;
+  const isLeftEdge = isRTL ? tailing : leading;
 
   if (!visible) {
     return null;
@@ -19,7 +22,12 @@ export const ScrolButton: FC<ScrolButtonProps> = (props) => {
   return (
     <button
       onClick={() => {
-        onClick?.(leading ? "left" : "right");
+        onClick?.(leading ? "leading" : "tailing");
+      }}
+      style={{
+        direction: "ltr",
+        left: isLeftEdge ? 0 : undefined,
+        right: isLeftEdge ? undefined : 0,
       }}
       className={cnBase(
         leading
@@ -27,15 +35,14 @@ export const ScrolButton: FC<ScrolButtonProps> = (props) => {
           : "oui-scroll-indicator-tailing",
         "oui-group oui-flex",
         "oui-absolute oui-top-0 oui-bottom-0",
-        leading && "oui-start-0 oui-flex-row-reverse",
-        tailing && "oui-end-0",
+        isLeftEdge && "oui-flex-row-reverse",
       )}
     >
       <div
         className={cnBase(
           "oui-w-6 oui-h-full",
           "oui-bg-[linear-gradient(90deg,rgba(var(--oui-color-base-9)_/_0)_0%,rgba(var(--oui-color-base-9)_/_1)_100%)]",
-          leading && "oui-rotate-180",
+          isLeftEdge && "oui-rotate-180",
         )}
       />
       <div
@@ -47,7 +54,7 @@ export const ScrolButton: FC<ScrolButtonProps> = (props) => {
         <ArrowRightIcon
           className={cnBase(
             "oui-text-base-contrast-54 group-hover:oui-text-base-contrast",
-            leading && "oui-rotate-180",
+            isLeftEdge && "oui-rotate-180",
           )}
         />
       </div>
