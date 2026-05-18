@@ -305,7 +305,7 @@ const DesktopLayout: FC<ReferralCodesReturns> = (props) => {
         title: t("affiliate.referralCodes.column.referees&Traders"),
         dataIndex: "total_invites/total_traded",
         width: 120,
-        fixed: "left",
+        fixed: "start",
         render: (value, data) => getCount(data),
       });
     }

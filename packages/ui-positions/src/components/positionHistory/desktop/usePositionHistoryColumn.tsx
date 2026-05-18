@@ -36,7 +36,7 @@ export const usePositionHistoryColumn = (props: {
         {
           title: t("common.symbol"),
           dataIndex: "symbol",
-          fixed: "left",
+          fixed: "start",
           width: 250,
           onSort: (r1: any, r2: any) => {
             return r1.symbol?.localeCompare(r2.symbol || "");
@@ -173,7 +173,7 @@ export const usePositionHistoryColumn = (props: {
           ),
         },
       ] as Column<PositionHistoryExt>[],
-    [pnlNotionalDecimalPrecision, t],
+    [onSymbolChange, pnlNotionalDecimalPrecision, props.sharePnLConfig, t],
   );
 
   return column;
