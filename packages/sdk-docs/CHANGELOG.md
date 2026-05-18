@@ -1,5 +1,11 @@
 # @orderly.network/sdk-docs
 
+## 1.0.4-alpha.3
+
+### Patch Changes
+
+- publish
+
 ## 1.0.4-alpha.2
 
 ### Patch Changes

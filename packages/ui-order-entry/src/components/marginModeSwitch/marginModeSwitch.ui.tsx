@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useTranslation } from "@orderly.network/i18n";
+import { Trans, useTranslation } from "@orderly.network/i18n";
 import { MarginMode } from "@orderly.network/types";
 import {
   ChevronRightIcon,
@@ -177,14 +177,10 @@ const OptionCard: FC<{
     props.mode === MarginMode.CROSS
       ? t("marginMode.crossMargin")
       : t("marginMode.isolatedMargin");
-  const desc =
-    props.mode === MarginMode.CROSS
-      ? t("marginMode.crossMarginDescription")
-      : t("marginMode.isolatedMarginDescription");
-
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={props.disabled ? -1 : 0}
       className={cn(
         "oui-relative oui-w-full oui-rounded-md oui-p-2",
         "oui-bg-base-6",
@@ -194,9 +190,16 @@ const OptionCard: FC<{
           : props.selected
             ? "oui-border oui-border-[#38e2fe]"
             : "oui-border oui-border-transparent hover:oui-border-line-12",
+        !props.disabled && "oui-cursor-pointer",
       )}
       onClick={props.disabled ? undefined : props.onClick}
-      disabled={props.disabled}
+      onKeyDown={(e) => {
+        if (props.disabled) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          props.onClick();
+        }
+      }}
       aria-disabled={props.disabled}
       data-testid={`oui-testid-marginModeSwitch-option-${props.mode}`}
     >
@@ -207,9 +210,27 @@ const OptionCard: FC<{
         >
           {title}
         </Text>
-        <Text className="oui-text-2xs oui-leading-[15px] oui-text-base-contrast-36 oui-font-semibold oui-tracking-[0.03em]">
-          {desc}
-        </Text>
+        {props.mode === MarginMode.ISOLATED ? (
+          <Text className="oui-text-2xs oui-leading-[15px] oui-text-base-contrast-36 oui-font-semibold oui-tracking-[0.03em]">
+            <Trans
+              i18nKey="marginMode.isolatedMarginDescription"
+              components={[
+                <a
+                  key="isolated-margin-doc"
+                  href="https://orderly.network/docs/introduction/trade-on-orderly/perpetual-futures/isolated-margin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="whitespace-nowrap oui-font-semibold oui-text-warning oui-underline oui-underline-offset-2 hover:oui-text-warning/90"
+                  onClick={(e) => e.stopPropagation()}
+                />,
+              ]}
+            />
+          </Text>
+        ) : (
+          <Text className="oui-text-2xs oui-leading-[15px] oui-text-base-contrast-36 oui-font-semibold oui-tracking-[0.03em]">
+            {t("marginMode.crossMarginDescription")}
+          </Text>
+        )}
       </Flex>
 
       {props.isCurrent ? (
@@ -225,6 +246,6 @@ const OptionCard: FC<{
           </Text>
         </div>
       ) : null}
-    </button>
+    </div>
   );
 };

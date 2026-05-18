@@ -1,9 +1,8 @@
 import { type FC, useEffect } from "react";
 import { I18nextProvider } from "react-i18next";
 import { defaultNS } from "../constant";
-import { useLocaleCode } from "../hooks/useLocaleCode";
+import { useRegisterExternalResources } from "../hooks/useRegisterExternalResources";
 import i18n from "../i18n";
-import { registerResources } from "../resourceBundles";
 import type { AsyncResources, LocaleCode, Resources } from "../types";
 import {
   LanguageProvider,
@@ -25,18 +24,13 @@ export type LocaleProviderProps = LanguageProviderProps & {
 export const LocaleProvider: FC<LocaleProviderProps> = (props) => {
   const { children, locale, resource, resources, ...languageProviderProps } =
     props;
-  const localeCodeFromI18n = useLocaleCode();
+  useRegisterExternalResources(resources);
 
   useEffect(() => {
-    if (resources) {
-      registerResources(resources, locale ?? localeCodeFromI18n);
-      return;
-    }
-
-    if (resource && locale) {
+    if (!resources && resource && locale) {
       i18n.addResourceBundle(locale, defaultNS, resource, true, true);
     }
-  }, [locale, localeCodeFromI18n, resource, resources]);
+  }, [locale, resource, resources]);
 
   useEffect(() => {
     // change language when locale changed
