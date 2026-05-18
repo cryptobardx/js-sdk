@@ -111,7 +111,7 @@ export const PNLInput = (props: PNLInputProps) => {
       suffix={
         <>
           {isPercentageMode && !!value && (
-            <Text size={"2xs"} color="inherit" className="oui-ml-[2px]">
+            <Text size={"2xs"} color="inherit" className="oui-ms-[2px]">
               %
             </Text>
           )}

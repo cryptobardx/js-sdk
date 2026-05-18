@@ -106,7 +106,7 @@ export const LeverageBadge = (props: LeverageBadgeProps) => {
           dp={0}
           rm={Decimal.ROUND_DOWN}
           unit="x"
-          unitClassName="oui-ml-0"
+          unitClassName="oui-ms-0"
         >
           {curLeverage}
         </Text.numeral>

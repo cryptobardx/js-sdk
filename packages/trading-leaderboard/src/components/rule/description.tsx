@@ -172,7 +172,7 @@ export const DescriptionContent: FC<{
           // Use list-outside for proper alignment
           "oui-list-outside",
           // Add left padding for proper spacing
-          level === 0 ? "oui-pl-5" : "oui-pl-4",
+          level === 0 ? "oui-ps-5" : "oui-ps-4",
           // Get list style class
           getListStyleClass(defaultListStyle),
           // Custom list container class
@@ -257,7 +257,7 @@ export const MarkdownDescriptionContent: FC<{
             )}
             {Array.isArray(content?.children) &&
               content?.children.length > 0 && (
-                <div className="oui-ml-4">
+                <div className="oui-ms-4">
                   {renderContent(content.children)}
                 </div>
               )}

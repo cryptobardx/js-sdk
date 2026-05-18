@@ -408,7 +408,7 @@ export const TPTrigger: FC<OrderCellState> = (props) => {
           )
         }
         classNames={{
-          content: "oui-bg-base-6 oui-ml-2",
+          content: "oui-bg-base-6 oui-ms-2",
           arrow: "oui-fill-base-6",
         }}
       >
@@ -466,7 +466,7 @@ export const SLTrigger: FC<OrderCellState> = (props) => {
           )
         }
         classNames={{
-          content: "oui-bg-base-6 oui-ml-2",
+          content: "oui-bg-base-6 oui-ms-2",
           arrow: "oui-fill-base-6",
         }}
       >

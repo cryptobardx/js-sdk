@@ -4,7 +4,7 @@ import { TanstackColumn } from "../type";
 
 export function getColumnPinningProps(
   column: TanstackColumn<any>,
-  isHeader?: boolean,
+  isRTL: boolean,
 ) {
   const isPinned = column.getIsPinned();
   const isLastLeftPinnedColumn =
@@ -13,8 +13,10 @@ export function getColumnPinningProps(
     isPinned === "right" && column.getIsFirstColumn("right");
 
   const style: CSSProperties = {
-    left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
-    right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
+    insetInlineStart:
+      isPinned === "left" ? `${column.getStart("left")}px` : undefined,
+    insetInlineEnd:
+      isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
     width: column.getSize(),
   };
 
@@ -32,11 +34,20 @@ export function getColumnPinningProps(
   );
 
   const leftShadow =
-    isLastLeftPinnedColumn && cnBase(shadowCls, "before:oui-end-[-32px]");
+    isLastLeftPinnedColumn &&
+    cnBase(
+      shadowCls,
+      "before:oui-end-[-32px]",
+      isRTL && "before:oui-rotate-180",
+    );
 
   const rightShadow =
     isFirstRightPinnedColumn &&
-    cnBase(shadowCls, "before:oui-start-[-32px] before:oui-rotate-180");
+    cnBase(
+      shadowCls,
+      "before:oui-start-[-32px]",
+      !isRTL && "before:oui-rotate-180",
+    );
 
   return {
     style,

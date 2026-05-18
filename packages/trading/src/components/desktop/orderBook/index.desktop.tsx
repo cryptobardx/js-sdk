@@ -117,7 +117,7 @@ export const DesktopOrderBook: FC<DesktopOrderBookProps> = (props) => {
             : "oui-grid-rows-[auto,auto,1fr,auto,1fr]",
         )}
       >
-        <Flex justify="between" itemAlign="center" className="oui-pr-3">
+        <Flex justify="between" itemAlign="center" className="oui-pe-3">
           <DesktopDepthSelect
             depths={props.depths}
             value={props.activeDepth}

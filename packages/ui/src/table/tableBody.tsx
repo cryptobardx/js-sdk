@@ -12,6 +12,7 @@ type TableBodyProps<RecordType> = {
   justified?: boolean;
   showLeftShadow?: boolean;
   showRightShadow?: boolean;
+  isRTL?: boolean;
   testId?: string;
 } & Pick<
   DataTableProps<any>,
@@ -62,7 +63,7 @@ export const TableBody: React.FC<TableBodyProps<any>> = (props) => {
               {row.getVisibleCells().map((cell) => {
                 const column = cell.column;
                 const { style: pinStyle, classNames: pinClassNames } =
-                  getColumnPinningProps(column);
+                  getColumnPinningProps(column, !!props.isRTL);
                 const { align, className: rowClassName } =
                   column.columnDef.meta || ({} as any);
 

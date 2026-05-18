@@ -98,7 +98,7 @@ export const EditAPIKeyDialog: FC<{
                   "oui-size-1 oui-rounded-full oui-bg-danger",
                 )}
               />
-              <Text color="danger" size="xs" className="oui-ml-2">
+              <Text color="danger" size="xs" className="oui-ms-2">
                 {hint}
               </Text>
             </Flex>

@@ -80,7 +80,7 @@ export const Liquidation: FC<LiquidationState> = (props) => {
         }}
         // onRow={(record, index, row) => {
         //   return {
-        //     className: "[&>td:first-child]:oui-pl-0 [&>td:last-child]:oui-pr-0",
+        //     className: "[&>td:first-child]:oui-ps-0 [&>td:last-child]:oui-pe-0",
         //   };
         // }}
         expanded={expanded}

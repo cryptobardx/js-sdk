@@ -16,6 +16,7 @@ type TableHeaderProps = {
   headerGroups: HeaderGroup<any>[];
   showLeftShadow?: boolean;
   showRightShadow?: boolean;
+  isRTL?: boolean;
   sorting?: SortingState;
 } & Pick<DataTableProps<any>, "bordered">;
 
@@ -48,7 +49,7 @@ export const TableHeader: FC<TableHeaderProps> = (props) => {
             } = column.columnDef.meta || ({} as any);
 
             const { style: pinStyle, classNames: pinClassNames } =
-              getColumnPinningProps(column, true);
+              getColumnPinningProps(column, !!props.isRTL);
 
             const canSort = column.getCanSort();
             const isSorted = column.getIsSorted();

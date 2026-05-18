@@ -91,7 +91,7 @@ export const OrderConfirmDialog = (props: OrderConfirmDialogProps) => {
         unit={quote}
         rule="price"
         className="oui-text-base-contrast"
-        unitClassName="oui-text-base-contrast-36 oui-ml-1"
+        unitClassName="oui-text-base-contrast-36 oui-ms-1"
         dp={quote_dp}
         padding={false}
       >
@@ -131,7 +131,7 @@ export const OrderConfirmDialog = (props: OrderConfirmDialogProps) => {
           "oui-text-base-contrast",
           colorType === "TP" ? "oui-text-trade-profit" : "oui-text-trade-loss",
         )}
-        unitClassName={"oui-text-base-contrast-36 oui-ml-1"}
+        unitClassName={"oui-text-base-contrast-36 oui-ms-1"}
         dp={quote_dp}
         padding={false}
       >
@@ -441,7 +441,7 @@ const OrderItem: FC<OrderItemProps> = (props) => {
         dp={dp}
         padding={false}
         className="oui-text-base-contrast"
-        unitClassName="oui-text-base-contrast-36 oui-ml-1"
+        unitClassName="oui-text-base-contrast-36 oui-ms-1"
       >
         {value}
       </Text.numeral>

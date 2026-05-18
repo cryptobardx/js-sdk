@@ -29,7 +29,7 @@ export const LastTrades: FC<
       )}
       style={props.style}
     >
-      <Box className="oui-pr-1">
+      <Box className="oui-pe-1">
         <Header
           base={props.base}
           quote={props.quote}
@@ -129,7 +129,7 @@ const List = (props: {
         props.className,
         "oui-overflow-auto",
       )}
-      contentClassName="!oui-space-y-0 oui-pr-[-4px]"
+      contentClassName="!oui-space-y-0 -oui-me-[4px]"
       renderItem={(item, index) => {
         return (
           <Row

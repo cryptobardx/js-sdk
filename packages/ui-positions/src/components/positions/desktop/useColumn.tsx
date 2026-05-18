@@ -103,7 +103,7 @@ export const useColumn = (config: ColumnConfig) => {
           return a.position_qty - b.position_qty;
         },
         width: 120,
-        className: "oui-pl-6",
+        className: "oui-ps-6",
         // rule: "price",
         // numeralProps: {
         //   coloring: true,

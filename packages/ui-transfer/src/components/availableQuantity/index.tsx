@@ -9,6 +9,8 @@ import {
   Tooltip,
   modal,
   useScreen,
+  useDocumentDirection,
+  cn,
 } from "@orderly.network/ui";
 import { Decimal } from "@orderly.network/utils";
 
@@ -53,6 +55,8 @@ export const AvailableQuantity: FC<AvailableQuantityProps> = (props) => {
   const { quantity, maxQuantity, token, loading } = props;
   const { t } = useTranslation();
   const { isMobile } = useScreen();
+  const dir = useDocumentDirection();
+  const isRTL = dir === "rtl";
 
   const { getIndexPrice } = useIndexPricesStream();
 
@@ -81,8 +85,16 @@ export const AvailableQuantity: FC<AvailableQuantityProps> = (props) => {
         </Text.numeral>
       </Text>
 
-      <Flex gapX={2} itemAlign="center" className="oui-ms-auto">
-        <Flex gapX={1} itemAlign="center">
+      <Flex
+        gapX={2}
+        itemAlign="center"
+        className={cn("oui-ms-auto", isRTL && "oui-flex-row-reverse")}
+      >
+        <Flex
+          gapX={1}
+          itemAlign="center"
+          className={cn(isRTL && "oui-flex-row-reverse")}
+        >
           {props.tooltipContent ? (
             isMobile ? (
               <button
@@ -163,7 +175,7 @@ export const AvailableQuantity: FC<AvailableQuantityProps> = (props) => {
         <Text
           size="2xs"
           color="primary"
-          className="oui-cursor-pointer oui-select-none"
+          className={cn("oui-cursor-pointer oui-select-none")}
           onClick={props.onClick}
         >
           {t("common.max")}

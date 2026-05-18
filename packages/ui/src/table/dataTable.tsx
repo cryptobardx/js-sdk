@@ -150,9 +150,15 @@ export function DataTable<RecordType extends any>(
     [columns, sorting, setSorting],
   );
 
+  const wrapRef = useWrap([className, classNames?.root]);
+  const { scrollRef, showLeftShadow, showRightShadow, isRTL } = useScroll([
+    dataSource?.length,
+    columns?.length,
+  ]);
+
   const columnPinning = useMemo(
-    () => Transform.columnPinning(columns),
-    [columns],
+    () => Transform.columnPinning(columns, isRTL),
+    [columns, isRTL],
   );
 
   const rowSelection = useMemo(
@@ -218,11 +224,6 @@ export function DataTable<RecordType extends any>(
     props.getTableInstance?.(table);
   }, [table]);
 
-  const wrapRef = useWrap([className, classNames?.root]);
-  const { scrollRef, showLeftShadow, showRightShadow } = useScroll([
-    dataSource?.length,
-  ]);
-
   // filter data
   const rows = table.getRowModel().rows;
 
@@ -279,6 +280,7 @@ export function DataTable<RecordType extends any>(
               bordered={props.bordered}
               showLeftShadow={showLeftShadow}
               showRightShadow={showRightShadow}
+              isRTL={isRTL}
               sorting={sorting}
             />
           )}
@@ -293,6 +295,7 @@ export function DataTable<RecordType extends any>(
             onCell={props.onCell}
             showLeftShadow={showLeftShadow}
             showRightShadow={showRightShadow}
+            isRTL={isRTL}
             testId={props.testIds?.body}
           />
         </table>

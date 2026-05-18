@@ -11,6 +11,7 @@ import {
   WalletIcon,
   CaretDownIcon,
   CaretUpIcon,
+  useDocumentDirection,
 } from "@orderly.network/ui";
 
 const AddIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
@@ -80,6 +81,8 @@ export const WalletSelector: FC<WalletSelectorProps> = ({
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const dir = useDocumentDirection();
+  const isRTL = dir === "rtl";
 
   const currentNetwork = useMemo<"EVM" | "SOL" | undefined>(() => {
     if (!connectedWallet?.namespace) return undefined;
@@ -135,7 +138,7 @@ export const WalletSelector: FC<WalletSelectorProps> = ({
   const dropdownContent = (
     <DropdownMenuPortal>
       <DropdownMenuContent
-        align="end"
+        align={isRTL ? "start" : "end"}
         className="oui-max-h-[240px] oui-overflow-y-auto oui-custom-scrollbar"
       >
         {showConnectedItem && connectedWallet && (
@@ -192,6 +195,7 @@ export const WalletSelector: FC<WalletSelectorProps> = ({
           )}
         >
           <Flex
+            direction={isRTL ? "rowReverse" : "row"}
             itemAlign="center"
             gapX={1}
             className="oui-text-primary oui-font-semibold oui-tracking-[0.03em]"
@@ -211,7 +215,12 @@ export const WalletSelector: FC<WalletSelectorProps> = ({
       </Text>
       <DropdownMenuRoot open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
-          <div className="oui-flex oui-items-center oui-gap-1 oui-cursor-pointer oui-text-base-contrast-54 hover:oui-text-base-contrast-80">
+          <div
+            className={cn(
+              "oui-flex oui-items-center oui-gap-1 oui-cursor-pointer oui-text-base-contrast-54 hover:oui-text-base-contrast-80",
+              isRTL && "oui-flex-row-reverse",
+            )}
+          >
             {selectedWalletOpt?.name && (
               <WalletIcon name={selectedWalletOpt.name} size="3xs" />
             )}

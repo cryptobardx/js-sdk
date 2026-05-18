@@ -81,7 +81,7 @@ export const TriggerPriceItem: FC<{
 
   return (
     <Flex>
-      <Text intensity={54} className="oui-mr-1">{`${type} PnL:`}</Text>
+      <Text intensity={54} className="oui-me-1">{`${type} PnL:`}</Text>
       <Text.formatted
         rule="price"
         className={
@@ -93,7 +93,7 @@ export const TriggerPriceItem: FC<{
         }
         prefix={<Text>{pnl === 0 ? "" : pnl > 0 ? "+" : "-"}</Text>}
         suffix={
-          <Text intensity={36} className="oui-ml-1">
+          <Text intensity={36} className="oui-ms-1">
             USDC
           </Text>
         }

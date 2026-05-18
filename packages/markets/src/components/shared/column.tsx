@@ -31,7 +31,7 @@ export function getSymbolColumn(
               height={12}
               justify="center"
               itemAlign="center"
-              className="oui-mr-1 oui-cursor-pointer"
+              className="oui-me-1 oui-cursor-pointer"
             >
               {record.isFavorite ? (
                 <FavoritesIcon2 className="oui-size-3" />

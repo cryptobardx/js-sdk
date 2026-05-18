@@ -217,7 +217,7 @@ const TradingVolumeAndParticipation = ({
   return (
     <div className="oui-flex oui-items-center oui-text-2xs oui-font-semibold oui-text-base-contrast-36">
       <div>{t("tradingLeaderboard.tradingVolume")}</div>
-      <div className="oui-ml-1 oui-mr-2">
+      <div className="oui-ms-1 oui-me-2">
         <Text.gradient color="brand">
           <Text.numeral dp={2} prefix="$">
             {tradingVolume}
@@ -225,11 +225,11 @@ const TradingVolumeAndParticipation = ({
         </Text.gradient>
       </div>
       <div>{t("tradingLeaderboard.participants")}</div>
-      <div className="oui-ml-1 oui-text-base-contrast-54">
+      <div className="oui-ms-1 oui-text-base-contrast-54">
         <Text.numeral dp={0}>{statistics?.total_participants}</Text.numeral>
       </div>
       <div
-        className="oui-ml-auto oui-flex oui-cursor-pointer oui-items-center oui-gap-0.5 oui-text-2xs oui-leading-[15px] oui-text-base-contrast-36"
+        className="oui-ms-auto oui-flex oui-cursor-pointer oui-items-center oui-gap-0.5 oui-text-2xs oui-leading-[15px] oui-text-base-contrast-36"
         onClick={onLearnMore}
       >
         {t("tradingLeaderboard.viewRules")}
@@ -261,7 +261,7 @@ const PricePoolProgress: FC<PricePoolProgressProps> = ({
   return (
     <div
       className={cn([
-        "oui-relative oui-flex oui-items-center oui-p-4 oui-pr-12 oui-font-medium",
+        "oui-relative oui-flex oui-items-center oui-p-4 oui-pe-12 oui-font-medium",
         "oui-rounded-[10px] oui-border oui-border-solid oui-border-base-contrast/[0.12]",
         "oui-trading-leaderboard-title",
         isMobile ? "oui-h-[88px] oui-text-3xs" : "oui-h-[114px] oui-text-sm",
@@ -294,7 +294,7 @@ const PricePoolProgress: FC<PricePoolProgressProps> = ({
       <div
         className={cn(
           "oui-absolute oui-start-1 oui-flex oui-w-[calc(100%-64px)] oui-items-center",
-          "oui-p-4 oui-pr-12",
+          "oui-p-4 oui-pe-12",
         )}
       >
         {tieredPrizePools?.map((prizePool: PrizePool[], index: number) => {

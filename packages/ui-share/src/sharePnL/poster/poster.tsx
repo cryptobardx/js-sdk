@@ -36,6 +36,7 @@ export const Poster = forwardRef<PosterRef, PosterProps>((props, parentRef) => {
       ref={ref}
       width={width}
       height={height}
+      dir="ltr"
       className={className}
       style={style}
     />

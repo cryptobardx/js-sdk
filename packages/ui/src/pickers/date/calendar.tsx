@@ -19,12 +19,12 @@ function Calendar({
       className={cnBase("oui-p-3 oui-bg-base-7 oui-rounded", className)}
       classNames={{
         months:
-          "oui-flex oui-flex-col sm:oui-flex-row oui-space-y-4 sm:oui-space-x-4 sm:oui-space-y-0",
+          "oui-flex oui-flex-col sm:oui-flex-row oui-space-y-4 sm:oui-gap-x-4 sm:oui-space-y-0",
         month: "oui-space-y-4",
         caption:
           "oui-flex oui-justify-center oui-pt-1 oui-relative oui-items-center",
         caption_label: "oui-text-sm oui-font-medium ",
-        nav: "oui-space-x-1 oui-flex oui-items-center",
+        nav: "oui-gap-x-1 oui-flex oui-items-center",
         nav_button: cnBase(
           "oui-h-7 oui-w-7 oui-bg-transparent oui-p-0 oui-opacity-50 hover:oui-opacity-100",
         ),

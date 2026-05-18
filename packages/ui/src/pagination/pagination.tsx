@@ -158,12 +158,12 @@ const Paginations = (props: PaginationProps) => {
   return (
     <Pagination className={cnBase(classNames?.pagination, className)}>
       {!hideRowsPerPage ? (
-        <Flex mr={4}>
+        <Flex className="oui-me-4">
           <Text
             as="div"
             size="2xs"
             intensity={54}
-            className="oui-text-nowrap oui-mr-2"
+            className="oui-text-nowrap oui-me-2"
           >
             {locale.rowsPerPage}
           </Text>

@@ -73,6 +73,8 @@ export const XAxisLabel: React.FC<any> = (props) => {
         y={0}
         dy={16}
         textAnchor={index === 0 ? "start" : "end"}
+        direction="ltr"
+        unicodeBidi="plaintext"
         fontSize={10}
         fill={"rgba(var(--oui-color-base-foreground)/0.54)"}
       >
@@ -154,6 +156,7 @@ export const VolBarChart: React.FC<VolChartProps> = (props) => {
         {/* @ts-ignore */}
         <BarChart
           data={props.data as any[]}
+          style={{ direction: "ltr" }}
           margin={{ left: -10, top: 10, right: 10, bottom: 30 }}
         >
           {!props.invisible && (

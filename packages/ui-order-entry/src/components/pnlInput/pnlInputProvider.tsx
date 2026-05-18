@@ -33,7 +33,7 @@ export const PnlInputProvider: React.FC<
           <Text.numeral
             rule={"percentages"}
             className={cn(
-              "oui-ml-1 oui-text-xs",
+              "oui-ms-1 oui-text-xs",
               type === "TP" ? "oui-text-trade-profit" : "oui-text-trade-loss",
             )}
           >
@@ -43,7 +43,7 @@ export const PnlInputProvider: React.FC<
           <Text.numeral
             rule={"price"}
             className={cn(
-              "oui-ml-1 oui-text-xs",
+              "oui-ms-1 oui-text-xs",
               type === "TP" ? "oui-text-trade-profit" : "oui-text-trade-loss",
             )}
           >

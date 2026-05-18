@@ -146,7 +146,7 @@ const SheetFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cnBase(
-      "oui-sheet-footer oui-flex oui-flex-col-reverse sm:oui-flex-row sm:oui-justify-end sm:oui-space-x-2",
+      "oui-sheet-footer oui-flex oui-flex-col-reverse sm:oui-flex-row sm:oui-justify-end sm:oui-gap-x-2",
       className,
     )}
     {...props}

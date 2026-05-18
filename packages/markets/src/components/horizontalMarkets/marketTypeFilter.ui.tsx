@@ -167,7 +167,7 @@ export const MarketTypeFilter: React.FC<MarketTypeFilterProps> = (props) => {
                       <label
                         htmlFor={htmlId}
                         className={cn(
-                          "oui-text-2xs oui-ml-1",
+                          "oui-text-2xs oui-ms-1",
                           "oui-break-normal oui-whitespace-nowrap oui-cursor-pointer",
                         )}
                       >
@@ -227,7 +227,7 @@ export const MarketTypeFilter: React.FC<MarketTypeFilterProps> = (props) => {
                           <label
                             htmlFor={htmlId}
                             className={cn(
-                              "oui-text-2xs oui-ml-1",
+                              "oui-text-2xs oui-ms-1",
                               "oui-break-normal oui-whitespace-nowrap oui-cursor-pointer",
                             )}
                           >

@@ -30,7 +30,7 @@ export const HistoryDataGroupMobile: React.FC<{
       size="lg"
       classNames={{
         tabsList: "oui-px-3 oui-py-2",
-        scrollIndicator: "oui-pr-3",
+        scrollIndicator: "oui-pe-3",
       }}
       showScrollIndicator
     >

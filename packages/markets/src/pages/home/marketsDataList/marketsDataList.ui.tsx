@@ -113,7 +113,7 @@ export const MarketsDataList: React.FC<MarketsDataListProps> = (props) => {
         classNames={{
           tabsList: "oui-tabs-markets-list",
           tabsContent: "oui-tabs-markets-content",
-          scrollIndicator: "oui-mr-3",
+          scrollIndicator: "oui-me-3",
         }}
         className="oui-markets-list-tabs"
         showScrollIndicator

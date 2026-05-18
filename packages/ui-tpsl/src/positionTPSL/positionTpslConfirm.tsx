@@ -123,7 +123,7 @@ export const PositionTPSLConfirm = (props: PositionTPSLConfirmProps) => {
           "oui-text-base-contrast",
           colorType === "TP" ? "oui-text-trade-profit" : "oui-text-trade-loss",
         )}
-        unitClassName={"oui-text-base-contrast-36 oui-ml-1"}
+        unitClassName={"oui-text-base-contrast-36 oui-ms-1"}
         dp={quoteDP}
         padding={false}
       >
@@ -279,7 +279,7 @@ export const PositionTPSLConfirm = (props: PositionTPSLConfirmProps) => {
             className={textVariants({
               size: "xs",
               intensity: 54,
-              className: "oui-ml-1",
+              className: "oui-ms-1",
             })}
           >
             {t("orderEntry.disableOrderConfirm")}

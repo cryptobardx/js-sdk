@@ -10,6 +10,8 @@ export const XAxisLabel = (props: any) => {
         y={0}
         dy={16}
         textAnchor="end"
+        direction="ltr"
+        unicodeBidi="plaintext"
         fontSize={10}
         fill={"rgba(var(--oui-color-base-foreground)/0.54)"}
       >

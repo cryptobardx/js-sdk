@@ -14,6 +14,7 @@ import {
   Spinner,
   Text,
   cn,
+  useDocumentDirection,
 } from "@orderly.network/ui";
 import { ExchangeIcon } from "../../icons";
 import { CurrentChain } from "../../types";
@@ -31,6 +32,8 @@ export const ChainSelect: React.FC<ChainSelectProps> = (props) => {
   const { chains, value, wrongNetwork, loading, disabled } = props;
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
+  const dir = useDocumentDirection();
+  const isRTL = dir === "rtl";
 
   const selectable = wrongNetwork || chains?.length > 1;
 
@@ -91,7 +94,11 @@ export const ChainSelect: React.FC<ChainSelectProps> = (props) => {
             {t("transfer.network")}
           </Text>
         </Flex>
-        <Flex gapX={1} itemAlign="center">
+        <Flex
+          direction={isRTL ? "rowReverse" : "row"}
+          gapX={1}
+          itemAlign="center"
+        >
           {chainIcon}
           <Text size="sm" intensity={80}>
             {chainName}
@@ -118,6 +125,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = (props) => {
         key={chain.chain_id}
         px={2}
         r="base"
+        direction={isRTL ? "rowReverse" : "row"}
         justify="between"
         itemAlign="center"
         className={cn(
@@ -135,7 +143,11 @@ export const ChainSelect: React.FC<ChainSelectProps> = (props) => {
           await props.onValueChange(chain);
         }}
       >
-        <Flex gapX={1} itemAlign="center">
+        <Flex
+          direction={isRTL ? "rowReverse" : "row"}
+          gapX={1}
+          itemAlign="center"
+        >
           <ChainIcon
             className={cn("oui-size-[18px]", !isSupported && "oui-opacity-50")}
             chainId={chain.chain_id}
@@ -169,7 +181,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = (props) => {
       <DropdownMenuPortal>
         <DropdownMenuContent
           onCloseAutoFocus={(e) => e.preventDefault()}
-          align="start"
+          align={isRTL ? "end" : "start"}
           sideOffset={2}
           className={cn(
             "oui-deposit-token-select-dropdown-menu-content",

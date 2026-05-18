@@ -207,7 +207,7 @@ export const DataList: React.FC<DataListState> = (props) => {
               scrollRoot:
                 "oui-h-full oui-mb-6 oui-mt-0 oui-p-0 oui-pt-3 oui-h-[calc(100%_-_40px)]",
               root: "oui-gap-4 oui-h-full",
-              desc: "oui-ml-1",
+              desc: "oui-ms-1",
             }}
             dataTableClassNames={{
               header: "oui-bg-base-9",

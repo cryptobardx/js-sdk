@@ -148,7 +148,7 @@ const MarketsMobileContent: React.FC<MarketsContentProps> = (props) => {
       leading={
         props.navProps?.leftNav && (
           <LeftNavUI
-            className="-oui-mr-4 oui-ml-3"
+            className="-oui-me-4 oui-ms-3"
             {...props?.navProps?.leftNav}
             logo={props?.navProps?.logo}
             routerAdapter={props?.navProps?.routerAdapter}

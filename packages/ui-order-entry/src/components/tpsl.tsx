@@ -399,10 +399,10 @@ const TPSLTriggerPriceInput = (props: {
         additional: "oui-text-base-contrast-54",
         root: cn(
           "oui-orderEntry-tpsl-triggerPrice",
-          "oui-pr-2 md:oui-pr-3",
+          "oui-pe-2 md:oui-pe-3",
           props.classNames?.root,
         ),
-        prefix: cn("oui-pr-1 md:oui-pr-2", props.classNames?.prefix),
+        prefix: cn("oui-pe-1 md:oui-pe-2", props.classNames?.prefix),
         input: cn(
           "oui-text-2xs placeholder:oui-text-2xs",
           props.classNames?.input,

@@ -74,7 +74,7 @@ export const VaultWithdrawForm: FC<VaultWithdrawFormScript> = (props) => {
         label={t("vaults.withdraw.estReceivingAmount")}
         value={receivingAmount}
         suffix={
-          <span className="oui-ml-1 oui-text-base-contrast-36">USDC</span>
+          <span className="oui-ms-1 oui-text-base-contrast-36">USDC</span>
         }
         className="oui-mb-5"
       />
@@ -152,14 +152,14 @@ const WithdrawInitialContent = (props: WithdrawInitialContentProps) => {
         label={t("vaults.withdraw.dialog.withdrawalAmount")}
         value={quantity}
         suffix={
-          <span className="oui-ml-1 oui-text-base-contrast-36">Shares</span>
+          <span className="oui-ms-1 oui-text-base-contrast-36">Shares</span>
         }
       />
       <WithdrawKVItem
         label={t("vaults.withdraw.dialog.estimatedReceiving")}
         value={receivingAmount}
         suffix={
-          <span className="oui-ml-1 oui-text-base-contrast-36">USDC</span>
+          <span className="oui-ms-1 oui-text-base-contrast-36">USDC</span>
         }
         className="oui-mt-1"
       />

@@ -60,7 +60,7 @@ export const FavoritesDropdownMenu: React.FC<FavoritesDropdownMenuProps> = (
               onValueChange={onValueChange}
               classNames={{
                 root: cn(
-                  "oui-ml-px oui-h-7 oui-w-full oui-rounded-sm oui-bg-base-6",
+                  "oui-ms-px oui-h-7 oui-w-full oui-rounded-sm oui-bg-base-6",
                   overLen &&
                     "focus-within:oui-outline-danger focus-visible:oui-outline-danger",
                 ),

@@ -206,7 +206,7 @@ export const SymbolInfoBarFull: React.FC<SymbolInfoBarFullProps> = (props) => {
           height={12}
           justify="center"
           itemAlign="center"
-          className="oui-mr-1 oui-cursor-pointer"
+          className="oui-me-1 oui-cursor-pointer"
         >
           {isFavorite ? (
             <FavoritesIcon2 className="oui-size-3 oui-text-warning-darken" />
@@ -431,9 +431,9 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = (props) => {
       }}
       className={cn(
         "oui-flex oui-w-[80px] oui-items-center",
-        "oui-absolute oui-inset-y-0 oui-rounded-l",
-        leading && "oui-start-0 oui-pl-1",
-        tailing && "oui-end-0 oui-rotate-180 oui-pr-1",
+        "oui-absolute oui-inset-y-0 oui-rounded-s",
+        leading && "oui-start-0 oui-ps-1",
+        tailing && "oui-end-0 oui-rotate-180 oui-pe-1",
       )}
     >
       <ArrowLeftIcon className="oui-text-base-contrast-54 hover:oui-text-base-contrast-80" />
@@ -492,7 +492,7 @@ const RwaCountdown: React.FC<{
       r="lg"
       className="oui-w-full oui-text-warning-darken oui-bg-warning-darken/15 oui-flex-1 oui-my-2 oui-text-sm"
     >
-      <Flex className="oui-w-full oui-pr-2">
+      <Flex className="oui-w-full oui-pe-2">
         <NewsFillIcon className="oui-text-warning-darken" size={16} />
         <Flex>
           {t("trading.rwa.countdown.title")}

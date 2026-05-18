@@ -62,6 +62,7 @@ export const AssetLineChart: React.FC<PnlLineChartProps> = (props) => {
       width={530}
       height={180}
       data={props.data}
+      style={{ direction: "ltr" }}
       margin={{ top: 20, right: 10, left: -20, bottom: -10 }}
     >
       <CartesianGrid
@@ -120,6 +121,7 @@ export const AssetLineChart: React.FC<PnlLineChartProps> = (props) => {
       width={530}
       height={180}
       data={props.data}
+      style={{ direction: "ltr" }}
       margin={{ top: 20, right: 10, left: -20, bottom: -10 }}
     >
       <CartesianGrid

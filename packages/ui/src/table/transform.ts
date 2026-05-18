@@ -12,6 +12,7 @@ import { PaginationMeta, Column, TableSort, SortOrder } from "./type";
 
 function resolveFixedDirection(
   fixed: Column["fixed"],
+  isRTL: boolean,
 ): "left" | "right" | null {
   if (!fixed) {
     return null;
@@ -20,9 +21,6 @@ function resolveFixedDirection(
   if (fixed === "left" || fixed === "right") {
     return fixed;
   }
-
-  const isRTL =
-    typeof document !== "undefined" && document.documentElement?.dir === "rtl";
 
   if (fixed === "start") {
     return isRTL ? "right" : "left";
@@ -218,11 +216,11 @@ export const Transform = {
     return sortedData;
   },
 
-  columnPinning: (columns: Column[]) => {
+  columnPinning: (columns: Column[], isRTL = false) => {
     const left: string[] = [];
     const right: string[] = [];
     columns?.map((column) => {
-      const fixed = resolveFixedDirection(column.fixed);
+      const fixed = resolveFixedDirection(column.fixed, isRTL);
       if (fixed === "left") {
         left.push(column.dataIndex);
       } else if (fixed === "right") {

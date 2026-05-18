@@ -76,7 +76,7 @@ export const UnrealPnL: FC<PositionCellState> = (props) => {
       <Text intensity={36} className="oui-underline oui-decoration-dotted">
         {t("common.unrealizedPnl")}
       </Text>
-      <Text intensity={20} className="oui-ml-0.5">
+      <Text intensity={20} className="oui-ms-0.5">
         (USDC)
       </Text>
     </div>
@@ -103,7 +103,7 @@ export const UnrealPnL: FC<PositionCellState> = (props) => {
               prefix="("
               suffix=")"
               className={cn(
-                "oui-ml-1",
+                "oui-ms-1",
                 item.unrealized_pnl_ROI > 0
                   ? "oui-text-success-darken"
                   : "oui-text-danger-darken",

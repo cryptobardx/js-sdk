@@ -134,7 +134,7 @@ export const QuantitySlider = memo((props: QuantitySliderProps) => {
           <button
             className={textVariants({
               size: "2xs",
-              className: "oui-quantitySlider-maxQty-btn oui-mr-1",
+              className: "oui-quantitySlider-maxQty-btn oui-me-1",
             })}
             onClick={onMax}
             data-testid="oui-testid-orderEntry-maxQty-value-button"

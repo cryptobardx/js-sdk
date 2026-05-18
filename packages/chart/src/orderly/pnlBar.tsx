@@ -69,6 +69,8 @@ export const XAxisLabel: React.FC<any> = (props) => {
         y={0}
         dy={16}
         textAnchor={index === 0 ? "start" : "end"}
+        direction="ltr"
+        unicodeBidi="plaintext"
         // textAnchor={"start"}
         fontSize={10}
         fill={"rgba(var(--oui-color-base-foreground)/0.54)"}
@@ -127,6 +129,7 @@ export const PnLBarChart: React.FC<PnLChartProps> = (props) => {
     >
       <BarChart
         data={data as any[]}
+        style={{ direction: "ltr" }}
         margin={{ left: -10, top: 10, right: 10, bottom: 30 }}
       >
         {!invisible && (

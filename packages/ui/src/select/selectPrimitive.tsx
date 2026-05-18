@@ -18,7 +18,7 @@ const selectVariants = tv(
         "oui-px-2",
         // "oui-py-2",
 
-        "oui-space-x-1",
+        "oui-gap-x-1",
         // "oui-text-sm",
         "oui-shadow-sm",
         // "oui-ring-offset-background",
