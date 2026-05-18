@@ -25,5 +25,7 @@
   "extend.swap.warning": "Spot-swaps worden uitgevoerd met de activa van uw verbonden Web3-portemonnee. Perp-accountfondsen zijn gescheiden en worden niet beïnvloed.",
   "extend.viewAll": "Alles bekijken",
   "extend.meme": "Meme",
-  "extend.hot": "Trending"
+  "extend.hot": "Trending",
+  "extend.name": "Naam",
+  "extend.apr": "APR"
 }

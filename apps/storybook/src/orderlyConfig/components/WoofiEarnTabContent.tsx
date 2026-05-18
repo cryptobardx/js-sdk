@@ -81,12 +81,12 @@ export const WoofiEarnTabContent = (props: {
   const headers: HeaderItem[] = [
     {
       key: "name",
-      title: "Name",
+      title: i18n.t("extend.name"),
       sortable: false,
     },
     {
       key: "apr",
-      title: "APR",
+      title: i18n.t("extend.apr"),
       sortable: true,
       className:
         "oui-flex oui-justify-end oui-cursor-pointer hover:oui-text-base-contrast-54",

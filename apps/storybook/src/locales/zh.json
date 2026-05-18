@@ -25,5 +25,7 @@
   "extend.swap.warning": "现货交易使用您连接的 Web3 钱包资产执行。合约账户资金是独立的，不会受到影响。",
   "extend.viewAll": "查看全部",
   "extend.meme": "迷因",
-  "extend.hot": "热门"
+  "extend.hot": "热门",
+  "extend.name": "名称",
+  "extend.apr": "年化收益率"
 }

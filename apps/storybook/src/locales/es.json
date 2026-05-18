@@ -25,5 +25,7 @@
   "extend.swap.warning": "Los intercambios spot se ejecutan utilizando los activos de su billetera Web3 conectada. Los fondos de la cuenta de perps son independientes y no se verán afectados.",
   "extend.viewAll": "Ver todo",
   "extend.meme": "Meme",
-  "extend.hot": "Tendencia"
+  "extend.hot": "Tendencia",
+  "extend.name": "Nombre",
+  "extend.apr": "APR"
 }

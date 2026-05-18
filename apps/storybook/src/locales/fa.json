@@ -25,5 +25,7 @@
   "extend.swap.warning": "سواپ‌های اسپات با دارایی‌های کیف پول Web3 متصل شما انجام می‌شود. وجوه حساب پرپس جدا است و تحت تأثیر قرار نمی‌گیرد.",
   "extend.viewAll": "مشاهده همه",
   "extend.meme": "میم",
-  "extend.hot": "داغ"
+  "extend.hot": "داغ",
+  "extend.name": "نام",
+  "extend.apr": "APR"
 }

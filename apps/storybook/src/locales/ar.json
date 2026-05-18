@@ -25,5 +25,7 @@
   "extend.swap.warning": "تُنفَّذ مبادلات السبوت بأصول محفظة Web3 المتصلة. أموال حساب البيرب منفصلة ولن تتأثر.",
   "extend.viewAll": "عرض الكل",
   "extend.meme": "ميم",
-  "extend.hot": "شائع"
+  "extend.hot": "شائع",
+  "extend.name": "الاسم",
+  "extend.apr": "APR"
 }

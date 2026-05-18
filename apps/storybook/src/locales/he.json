@@ -25,5 +25,7 @@
   "extend.swap.warning": "החלפות ספוט מתבצעות באמצעות הנכסים בארנק Web3 המחובר. כספי חשבון הפרפס נפרדים ולא יושפעו.",
   "extend.viewAll": "הצג הכל",
   "extend.meme": "ממ",
-  "extend.hot": "חם"
+  "extend.hot": "חם",
+  "extend.name": "שם",
+  "extend.apr": "APR"
 }
