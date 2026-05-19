@@ -4,7 +4,7 @@ import {
   API as orderUtils,
 } from "@orderly.network/types";
 import { Decimal, getTPSLDirection, zero } from "@orderly.network/utils";
-import { IMRFactorPower } from "./constants";
+import { IMRFactorPower, IsoTakerFeeBuffer } from "./constants";
 
 // ============ Backward Compatibility Types ============
 /** @deprecated Use inline type or the new input type instead */
@@ -329,6 +329,10 @@ export function estLiqPriceIsolated(inputs: {
    */
   leverage: number;
   /**
+   * @description Fee buffer reserved in isolated margin estimates (default: 0.0006)
+   */
+  isoTakerFeeBuffer?: number;
+  /**
    * @description New order information used for estimation
    */
   newOrder: {
@@ -357,6 +361,7 @@ export function estLiqPriceIsolated(inputs: {
     baseIMR,
     IMR_Factor: IMRFactor,
     leverage,
+    isoTakerFeeBuffer = IsoTakerFeeBuffer,
     newOrder,
   } = inputs;
 
@@ -399,6 +404,8 @@ export function estLiqPriceIsolated(inputs: {
   const decCostPosition = new Decimal(costPosition);
   const decIsolatedMargin = new Decimal(isolatedPositionMargin);
   const decOrderCost = new Decimal(signedOrderQty).mul(orderRefPrice);
+  const getMarginRate = () =>
+    new Decimal(1).div(leverage).add(isoTakerFeeBuffer);
 
   // Calculate isolated_position_margin' and cost_position' based on scenario
   let newIsolatedPositionMargin: Decimal;
@@ -412,9 +419,11 @@ export function estLiqPriceIsolated(inputs: {
       break;
 
     case "OPEN_ADD":
-      // Add margin based on order notional / leverage
+      // Add margin based on order notional with isolated fee buffer.
       newIsolatedPositionMargin = decIsolatedMargin.add(
-        new Decimal(Math.abs(signedOrderQty)).mul(orderRefPrice).div(leverage),
+        new Decimal(Math.abs(signedOrderQty))
+          .mul(orderRefPrice)
+          .mul(getMarginRate()),
       );
       newCostPosition = decCostPosition.add(decOrderCost);
       break;
@@ -431,7 +440,7 @@ export function estLiqPriceIsolated(inputs: {
       // Completely new position in opposite direction
       newIsolatedPositionMargin = decAbsNewPositionQty
         .mul(orderRefPrice)
-        .div(leverage);
+        .mul(getMarginRate());
       newCostPosition = decNewPositionQty.mul(orderRefPrice);
       break;
   }

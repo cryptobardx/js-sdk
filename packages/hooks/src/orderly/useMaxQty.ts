@@ -190,18 +190,18 @@ export function useMaxQty(
           ? [{ referencePrice: markPrice, quantity: sellOrdersQty }]
           : [];
 
-      // Calculate frozen margins for pending orders: isoOrderFrozen = (order_notional / leverage)
+      // Calculate frozen margins for pending orders: isoOrderFrozen = order_notional * (1 / leverage + fee buffer)
       // Reuse Decimal instance for better performance
       const markPriceDecimal = new Decimal(markPrice);
-      const leverageDecimal = new Decimal(leverage);
+      const marginRate = account.isolatedMarginRate({ leverage });
       const isoOrderFrozenLong =
         buyOrdersQty > 0
-          ? markPriceDecimal.mul(buyOrdersQty).div(leverageDecimal).toNumber()
+          ? markPriceDecimal.mul(buyOrdersQty).mul(marginRate).toNumber()
           : 0;
 
       const isoOrderFrozenShort =
         sellOrdersQty > 0
-          ? markPriceDecimal.mul(sellOrdersQty).div(leverageDecimal).toNumber()
+          ? markPriceDecimal.mul(sellOrdersQty).mul(marginRate).toNumber()
           : 0;
 
       // Get or calculate symbolMaxNotional
