@@ -61,7 +61,7 @@ const sliderVariants = tv({
       "after:oui-w-0",
       "after:oui-h-0",
       "after:oui-border-4",
-      "after:oui-start-1/2",
+      "after:oui-left-1/2",
       "after:oui-translate-x-[-50%]",
       "after:oui-border-solid",
       "after:oui-border-transparent",
