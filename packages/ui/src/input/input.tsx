@@ -103,6 +103,9 @@ const inputVariants = tv(
           box: ["oui-bg-base-5"],
         },
       },
+      // RTL-EXCLUDE: Keep `pl` / `pr` variants mapped to physical padding.
+      // These variant names are part of the Input API and callers use them to
+      // reserve explicit left/right space for prefix/suffix layouts.
       pl: {
         true: {
           box: "oui-pl-3",

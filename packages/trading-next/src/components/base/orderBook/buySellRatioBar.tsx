@@ -68,7 +68,7 @@ export const BuySellRatioBar: FC<BuySellRatioBarProps> = (props) => {
           className="oui-bg-trade-profit oui-me-[2px] oui-rounded-sm"
           style={{
             position: "absolute",
-            left: 0,
+            insetInlineStart: 0,
             top: 0,
             width: `${buyPercentage}%`,
             height: "100%",
@@ -78,7 +78,7 @@ export const BuySellRatioBar: FC<BuySellRatioBarProps> = (props) => {
           className="oui-bg-trade-loss oui-ms-[2px] oui-rounded-sm"
           style={{
             position: "absolute",
-            left: `${buyPercentage}%`,
+            insetInlineStart: `${buyPercentage}%`,
             top: 0,
             width: `${sellPercentage}%`,
             height: "100%",

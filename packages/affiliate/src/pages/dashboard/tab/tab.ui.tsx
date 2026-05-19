@@ -39,7 +39,7 @@ export const Tab: FC<
           style={{
             position: "absolute",
             top: "50%",
-            right: "24px",
+            insetInlineEnd: "24px",
             transform: "translateY(-50%)",
           }}
           onClick={(e) => {
@@ -61,7 +61,7 @@ export const Tab: FC<
           style={{
             position: "absolute",
             top: "50%",
-            right: "24px",
+            insetInlineEnd: "24px",
             transform: "translateY(-50%)",
           }}
           onClick={(e) => {
