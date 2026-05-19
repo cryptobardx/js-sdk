@@ -13,6 +13,9 @@ export function getColumnPinningProps(
     isPinned === "right" && column.getIsFirstColumn("right");
 
   const style: CSSProperties = {
+    // Keep logical inset here. TanStack pinning still reports left/right
+    // groups, but sticky offsets must follow the scroll container direction;
+    // physical left/right breaks fixed columns in RTL tables.
     insetInlineStart:
       isPinned === "left" ? `${column.getStart("left")}px` : undefined,
     insetInlineEnd:
@@ -37,6 +40,7 @@ export function getColumnPinningProps(
     isLastLeftPinnedColumn &&
     cnBase(
       shadowCls,
+      // The shadow sits on the logical outer edge of the pinned group.
       "before:oui-end-[-32px]",
       isRTL && "before:oui-rotate-180",
     );
@@ -45,6 +49,7 @@ export function getColumnPinningProps(
     isFirstRightPinnedColumn &&
     cnBase(
       shadowCls,
+      // Do not replace with physical left/right; this mirrors with RTL pinning.
       "before:oui-start-[-32px]",
       !isRTL && "before:oui-rotate-180",
     );
