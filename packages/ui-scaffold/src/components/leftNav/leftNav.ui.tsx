@@ -92,7 +92,7 @@ const LeftNavSheet: FC<LeftNavUIProps> = (props) => {
             className="oui-text-2xs oui-text-base-contrast-36"
           >{`ID: ${state.accountId}`}</Text.formatted>
         </div>
-        <div className="oui-ml-auto">
+        <div className="oui-ms-auto">
           <SwapHorizIcon />
         </div>
       </div>

@@ -36,9 +36,9 @@ function Calendar({
           "oui-text-base-contrast-80 oui-rounded-md oui-w-7 oui-font-normal oui-text-[0.8rem] oui-opacity-30",
         row: "oui-flex oui-w-full oui-mt-2",
         cell: cnBase(
-          "oui-relative oui-day-cell oui-p-0 oui-text-center oui-text-2xs focus-within:oui-relative focus-within:oui-z-20 [&:has([aria-selected])]:oui-bg-base-4 [&:has([aria-selected].day-outside)]:oui-bg-base-4/50 [&:has([aria-selected].day-range-end)]:oui-rounded-r-md",
+          "oui-relative oui-day-cell oui-p-0 oui-text-center oui-text-2xs focus-within:oui-relative focus-within:oui-z-20 [&:has([aria-selected])]:oui-bg-base-4 [&:has([aria-selected].day-outside)]:oui-bg-base-4/50 [&:has([aria-selected].day-range-end)]:oui-rounded-e-md",
           props.mode === "range"
-            ? "[&:has(>.oui-day-range-end)]:oui-rounded-r-md [&:has(>.oui-day-range-start)]:oui-rounded-l-md first:[&:has([aria-selected])]:oui-rounded-l-md last:[&:has([aria-selected])]:oui-rounded-r-md"
+            ? "[&:has(>.oui-day-range-end)]:oui-rounded-e-md [&:has(>.oui-day-range-start)]:oui-rounded-s-md first:[&:has([aria-selected])]:oui-rounded-s-md last:[&:has([aria-selected])]:oui-rounded-e-md"
             : "[&:has([aria-selected])]:oui-rounded-md",
         ),
         day: cnBase(

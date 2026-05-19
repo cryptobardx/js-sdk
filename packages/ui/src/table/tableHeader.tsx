@@ -36,7 +36,7 @@ export const TableHeader: FC<TableHeaderProps> = (props) => {
           className={cnBase(
             "oui-table-thead-tr",
             "oui-h-10",
-            "[&>th:first-child]:oui-pl-3 [&>th:last-child]:oui-pr-3",
+            "[&>th:first-child]:oui-ps-3 [&>th:last-child]:oui-pe-3",
             props.className,
           )}
         >

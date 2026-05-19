@@ -40,7 +40,7 @@ const TradingMenuChoice: React.FC<TradingMenuChoiceProps> = (props) => {
           {label}
         </Text>
       </Flex>
-      <Flex className="oui-ml-auto">
+      <Flex className="oui-ms-auto">
         {selected ? <SelectedChoicesFillIcon size={14} /> : null}
       </Flex>
     </Flex>

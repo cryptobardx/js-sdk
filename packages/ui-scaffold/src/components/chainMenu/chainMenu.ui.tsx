@@ -137,7 +137,7 @@ export const ChainMenu = (props: UseChainMenuScriptReturn) => {
           onCloseAutoFocus={(e) => e.preventDefault()}
           onClick={(e) => e.stopPropagation()}
           sideOffset={4}
-          collisionPadding={{ right: 16 }}
+          collisionPadding={{ left: 16, right: 16 }}
           className={cn(
             "oui-bg-base-8 oui-w-[456px] oui-p-4 oui-rounded-xl",
             "oui-border oui-border-line-6",

@@ -238,7 +238,7 @@ const ChainSelect = (props: ChainSelectProps) => {
             ),
           })}
           sideOffset={4}
-          collisionPadding={{ right: 16 }}
+          collisionPadding={{ left: 16, right: 16 }}
           onCloseAutoFocus={(e) => {
             e.preventDefault();
           }}

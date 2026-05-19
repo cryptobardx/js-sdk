@@ -43,7 +43,7 @@ export const MaintenanceTipsUI = (props: MaintenanceTipInterface) => {
     <Flex
       className={cn(
         "oui-bg-warning-darken/10 oui-text-warning-darken oui-text-2xs md:oui-text-sm oui-relative oui-gap-1",
-        "oui-mx-1 md:oui-mx-0 md:oui-w-full  oui-pl-2 md:oui-pl-4 oui-pr-9 md:oui-pr-[60px] oui-py-2 md:oui-py-3",
+        "oui-mx-1 md:oui-mx-0 md:oui-w-full oui-ps-2 md:oui-ps-4 oui-pe-9 md:oui-pe-[60px] oui-py-2 md:oui-py-3",
         "oui-leading-4",
         "oui-rounded-xl md:oui-rounded-none",
         "oui-min-h-[48px]",

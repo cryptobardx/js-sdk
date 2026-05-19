@@ -78,7 +78,7 @@ export const SymbolBadge = (props: { badge?: string; fullName?: string }) => {
   if (!badge) return null;
 
   const badgeEl = (
-    <Badge color="neutral" size="xs" className="oui-ml-1">
+    <Badge color="neutral" size="xs" className="oui-ms-1">
       {badge}
     </Badge>
   );

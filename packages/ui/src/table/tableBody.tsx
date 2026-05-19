@@ -36,7 +36,7 @@ export const TableBody: React.FC<TableBodyProps<any>> = (props) => {
             : {};
 
         const expandView = row.getIsExpanded() && (
-          <tr className="oui-table-expand-tr oui-z-0 [&>td:first-child]:oui-pl-3 [&>td:last-child]:oui-pr-3">
+          <tr className="oui-table-expand-tr oui-z-0 [&>td:first-child]:oui-ps-3 [&>td:last-child]:oui-pe-3">
             <td
               className="oui-table-expand-td"
               colSpan={row.getVisibleCells().length}
@@ -52,7 +52,7 @@ export const TableBody: React.FC<TableBodyProps<any>> = (props) => {
               key={row.id}
               className={cnBase(
                 "oui-table-tbody-tr oui-group oui-h-10",
-                "[&>td:first-child]:oui-pl-3 [&>td:last-child]:oui-pr-3",
+                "[&>td:first-child]:oui-ps-3 [&>td:last-child]:oui-pe-3",
                 typeof onClick === "function" && "oui-cursor-pointer",
                 props.bordered && "oui-border-b oui-border-b-line-4",
                 className,

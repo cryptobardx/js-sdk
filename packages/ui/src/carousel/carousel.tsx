@@ -141,7 +141,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
       <div
         className={cnBase(
           "oui-flex",
-          orientation === "horizontal" ? "-oui-ml-4" : "-oui-mt-4 oui-flex-col",
+          orientation === "horizontal" ? "-oui-ms-4" : "-oui-mt-4 oui-flex-col",
           className,
         )}
         {...props}
@@ -160,7 +160,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="carousel-item"
       className={cnBase(
         "oui-min-w-0 oui-shrink-0 oui-grow-0 oui-basis-full",
-        orientation === "horizontal" ? "oui-pl-4" : "oui-pt-4",
+        orientation === "horizontal" ? "oui-ps-4" : "oui-pt-4",
         className,
       )}
       {...props}

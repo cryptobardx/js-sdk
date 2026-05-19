@@ -202,7 +202,7 @@ export const NavItem: FC<
             {item.label ?? item.name}
           </Text.gradient>
           {hasSubMenu && (
-            <span className={"oui-ml-1 group-data-[open=true]:oui-rotate-180"}>
+            <span className={"oui-ms-1 group-data-[open=true]:oui-rotate-180"}>
               {isActive ? (
                 <ActiveIcon />
               ) : (
@@ -432,7 +432,7 @@ const Tag: React.FC<{ item: MainNavItem }> = (props) => {
   return (
     <div
       className={
-        "oui-ml-1 oui-inline-flex oui-rounded oui-bg-gradient-to-r oui-from-[rgb(var(--oui-gradient-brand-start)_/_0.12)] oui-to-[rgb(var(--oui-gradient-brand-end)_/_0.12)] oui-px-2 oui-py-1"
+        "oui-ms-1 oui-inline-flex oui-rounded oui-bg-gradient-to-r oui-from-[rgb(var(--oui-gradient-brand-start)_/_0.12)] oui-to-[rgb(var(--oui-gradient-brand-end)_/_0.12)] oui-px-2 oui-py-1"
       }
     >
       <Text.gradient
@@ -458,7 +458,7 @@ const ItemIcon: React.FC<{ item: MainNavItem; isActive: boolean }> = (
   }
   if (typeof props.item.icon === "string") {
     return (
-      <span className={"oui-mr-1 oui-size-[20px]"}>
+      <span className={"oui-me-1 oui-size-[20px]"}>
         {
           <img
             src={

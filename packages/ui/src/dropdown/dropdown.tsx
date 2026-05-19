@@ -61,7 +61,7 @@ const dropdownMenuVariants = tv({
     ],
     label: "oui-px-2 oui-py-1.5 oui-text-sm oui-font-semibold",
     separator: "-oui-mx-1 oui-my-1 oui-h-px oui-bg-muted",
-    shortcut: "oui-ml-auto oui-text-xs oui-tracking-widest oui-opacity-60",
+    shortcut: "oui-ms-auto oui-text-xs oui-tracking-widest oui-opacity-60",
   },
   variants: {
     size: {
@@ -106,8 +106,8 @@ const dropdownMenuVariants = tv({
     },
     inset: {
       true: {
-        item: ["oui-pl-8"],
-        label: ["oui-pl-8"],
+        item: ["oui-ps-8"],
+        label: ["oui-ps-8"],
       },
     },
   },

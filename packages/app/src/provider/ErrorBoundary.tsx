@@ -94,7 +94,7 @@ export class ErrorBoundary extends Component<
             variant="gradient"
             size="md"
           >
-            <RefreshIcon className="oui-mr-1" />
+            <RefreshIcon className="oui-me-1" />
             {this.props.refreshButtonText || i18n.t("errorBoundary.refresh")}
           </Button>
           {/* {process.env.NODE_ENV === "development" && this.state.error && (
