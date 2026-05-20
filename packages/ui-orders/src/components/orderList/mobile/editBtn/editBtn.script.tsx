@@ -54,7 +54,7 @@ export const useEditBtnScript = (props: { state: OrderCellState }) => {
           console.log(error);
         });
     }
-  }, [state]);
+  }, [editAlgoOrder, editOrder, position, state, symbolInfo, t]);
 
   return {
     ...state,

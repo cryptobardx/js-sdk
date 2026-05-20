@@ -204,7 +204,7 @@ export const useMarginModeSettingsScript = (
         setIsOperationLoading(false);
       }
     },
-    [brokerLockedKeys, selectedKeys, updateMarginMode],
+    [brokerLockedKeys, selectedKeys, t, updateMarginMode],
   );
 
   const isLoading =

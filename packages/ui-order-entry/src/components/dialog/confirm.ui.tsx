@@ -468,7 +468,7 @@ const OrderTypeTag = (props: { type: OrderType }) => {
       default:
         return "";
     }
-  }, [props.type]);
+  }, [props.type, t]);
 
   return (
     <Badge color={"neutral"} size={"sm"}>

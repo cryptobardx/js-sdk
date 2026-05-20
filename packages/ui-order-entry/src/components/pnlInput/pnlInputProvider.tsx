@@ -52,7 +52,7 @@ export const PnlInputProvider: React.FC<
         )}
       </Flex>
     );
-  }, [mode, values.ROI, values.PnL, values.trigger_price]);
+  }, [mode, t, type, values.ROI, values.PnL, values.trigger_price]);
 
   const memoizedValue = useMemo<PnlInputContextState>(() => {
     return { mode, setMode, tipsEle };

@@ -103,7 +103,7 @@ const QuantityDistributionHint: FC<QuantityDistributionHintProps> = (props) => {
         quantity: <DescendingQuantity />,
       },
     ];
-  }, []);
+  }, [t]);
 
   const currentContent = useMemo(() => {
     return content.find((item) => item.type === type);

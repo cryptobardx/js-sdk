@@ -59,6 +59,7 @@ export const SymbolToken: FC<OrderCellState> = (props) => {
 
 export const OrderTypeView: FC<OrderCellState> = (props) => {
   const { item } = props;
+  useTranslation();
 
   const orderType = useCallback(() => {
     const type =
@@ -512,7 +513,7 @@ export const TPPrice: FC<OrderCellState> = (props) => {
         {tp_order_price}
       </Text.numeral>
     );
-  }, [tp_order_price]);
+  }, [props.quote_dp, t, tp_order_price]);
 
   return (
     <Statistic
@@ -547,7 +548,7 @@ export const SLPrice: FC<OrderCellState> = (props) => {
         {sl_order_price}
       </Text.numeral>
     );
-  }, [sl_order_price]);
+  }, [props.quote_dp, sl_order_price, t]);
 
   return (
     <Statistic

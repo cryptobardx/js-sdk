@@ -24,5 +24,5 @@ export const useAssetconvertEvent = () => {
       },
     );
     return () => unsubscribe();
-  }, []);
+  }, [t, ws]);
 };

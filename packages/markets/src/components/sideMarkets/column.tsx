@@ -1,3 +1,4 @@
+import { useTranslation } from "@orderly.network/i18n";
 import { Column } from "@orderly.network/ui";
 import type { FavoriteInstance } from "../../type";
 import {
@@ -10,6 +11,8 @@ export const useSideMarketsColumns = (
   favorite: FavoriteInstance,
   isFavoriteList = false,
 ) => {
+  // Column factories below still call i18n.t internally, so subscribe here.
+  useTranslation();
   const symbolCol = getSymbolColumn(favorite, isFavoriteList, {
     stackLeverageInSecondRow: true,
   });

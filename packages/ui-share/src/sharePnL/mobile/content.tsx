@@ -302,7 +302,7 @@ const PnlFormatView: FC<{
       case "pnl":
         return t("share.pnl.displayFormat.pnl");
     }
-  }, [type]);
+  }, [t, type]);
 
   const isSelected = type === curType;
 

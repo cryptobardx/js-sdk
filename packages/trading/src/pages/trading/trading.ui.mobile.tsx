@@ -108,7 +108,7 @@ export const MobileLayout: React.FC<TradingState> = (props) => {
         <Countdown timeInterval={closeTimeInterval} />
       </Flex>
     );
-  }, [isRwa, open, closeTimeInterval]);
+  }, [closeTimeInterval, isRwa, open, t]);
 
   const symbolInfoBar = (
     <SymbolInfoBarWidget

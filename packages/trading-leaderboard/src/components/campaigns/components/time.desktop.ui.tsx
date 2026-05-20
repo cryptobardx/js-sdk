@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useTranslation } from "@orderly.network/i18n";
 import { cn } from "@orderly.network/ui";
 import { CampaignConfig } from "../type";
 import { generateCampaignTimeline } from "../utils";
@@ -9,6 +10,7 @@ export const CampaignsTimeDesktopUI: FC<{
   campaign: CampaignConfig;
   isMobile?: boolean;
 }> = ({ campaign, isMobile }) => {
+  useTranslation();
   const timelineData = generateCampaignTimeline(campaign);
 
   return (

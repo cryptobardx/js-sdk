@@ -1,5 +1,5 @@
 import { PropsWithChildren, Component, ErrorInfo, ReactNode } from "react";
-import { i18n } from "@orderly.network/i18n";
+import { Translation } from "@orderly.network/i18n";
 import { Button, cn, Flex, Text } from "@orderly.network/ui";
 
 type ErrorBoundaryState = {
@@ -51,53 +51,55 @@ export class ErrorBoundary extends Component<
   render() {
     if (this.state.hasError) {
       return (
-        <Flex
-          direction="column"
-          width="100%"
-          itemAlign="center"
-          justify="center"
-          className={cn("oui-h-screen oui-px-[10%]", this.props.className)}
-        >
-          {this.props.icon || <Icon />}
-          <Text
-            className={cn(
-              "oui-mt-10",
-              "oui-text-[32px] oui-leading-[40px]",
-              "md:oui-text-[48px] md:oui-leading-[56px]",
-            )}
-            intensity={80}
-            weight="bold"
-          >
-            {this.props.title || i18n.t("errorBoundary.title")}
-          </Text>
-          <Text
-            className={cn(
-              "oui-mt-2",
-              "oui-text-[16px] oui-leading-[24px]",
-              "md:oui-text-[20px] md:oui-leading-[28px]",
-              "oui-text-center",
-            )}
-            weight="semibold"
-            intensity={36}
-          >
-            {this.props.description || i18n.t("errorBoundary.description")}
-          </Text>
-          <Button
-            onClick={() => {
-              if (typeof this.props.onRefresh === "function") {
-                this.props.onRefresh();
-              } else {
-                window.location.reload();
-              }
-            }}
-            className="oui-mt-4 oui-font-semibold"
-            variant="gradient"
-            size="md"
-          >
-            <RefreshIcon className="oui-me-1" />
-            {this.props.refreshButtonText || i18n.t("errorBoundary.refresh")}
-          </Button>
-          {/* {process.env.NODE_ENV === "development" && this.state.error && (
+        <Translation>
+          {(t) => (
+            <Flex
+              direction="column"
+              width="100%"
+              itemAlign="center"
+              justify="center"
+              className={cn("oui-h-screen oui-px-[10%]", this.props.className)}
+            >
+              {this.props.icon || <Icon />}
+              <Text
+                className={cn(
+                  "oui-mt-10",
+                  "oui-text-[32px] oui-leading-[40px]",
+                  "md:oui-text-[48px] md:oui-leading-[56px]",
+                )}
+                intensity={80}
+                weight="bold"
+              >
+                {this.props.title || t("errorBoundary.title")}
+              </Text>
+              <Text
+                className={cn(
+                  "oui-mt-2",
+                  "oui-text-[16px] oui-leading-[24px]",
+                  "md:oui-text-[20px] md:oui-leading-[28px]",
+                  "oui-text-center",
+                )}
+                weight="semibold"
+                intensity={36}
+              >
+                {this.props.description || t("errorBoundary.description")}
+              </Text>
+              <Button
+                onClick={() => {
+                  if (typeof this.props.onRefresh === "function") {
+                    this.props.onRefresh();
+                  } else {
+                    window.location.reload();
+                  }
+                }}
+                className="oui-mt-4 oui-font-semibold"
+                variant="gradient"
+                size="md"
+              >
+                <RefreshIcon className="oui-me-1" />
+                {this.props.refreshButtonText || t("errorBoundary.refresh")}
+              </Button>
+              {/* {process.env.NODE_ENV === "development" && this.state.error && (
             <details className="mt-4 p-4 bg-red-50 border border-red-200 rounded text-start max-w-2xl">
               <summary className="cursor-pointer font-medium text-red-800">
                 Error Details
@@ -108,7 +110,9 @@ export class ErrorBoundary extends Component<
               </pre>
             </details>
           )} */}
-        </Flex>
+            </Flex>
+          )}
+        </Translation>
       );
     }
 

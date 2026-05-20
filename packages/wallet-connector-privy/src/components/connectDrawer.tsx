@@ -97,7 +97,7 @@ export function ConnectDrawer(props: {
           : t("connector.connectWallet")}
       </div>
     );
-  }, [isConnected]);
+  }, [isConnected, t]);
   return (
     <SimpleSheet
       open={props.open}

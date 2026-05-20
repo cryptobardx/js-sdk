@@ -307,7 +307,6 @@ const TPSLTriggerPriceInput = (props: {
   const { t } = useTranslation();
   const { errorMsgVisible } = useOrderEntryContext();
   const { tipsEle } = usePnlInputContext();
-  const [prefix, setPrefix] = useState<string>(`${props.type} Price`);
   const [placeholder, setPlaceholder] = useState<string>("USDC");
 
   const [tipVisible, setTipVisible] = useState(false);
@@ -338,39 +337,27 @@ const TPSLTriggerPriceInput = (props: {
     props.displayErrorMessage,
   ]);
 
-  const getPrefixLabel = (trigger_price?: string) => {
-    let _prefix = props.type === "TP" ? t("tpsl.tpPrice") : t("tpsl.slPrice");
-
-    if (trigger_price) {
-      _prefix = props.type === "TP" ? t("tpsl.tp") : t("tpsl.sl");
-    }
-    return _prefix;
-  };
+  const prefix =
+    isFocused || innerValue
+      ? props.type === "TP"
+        ? t("tpsl.tp")
+        : t("tpsl.sl")
+      : props.type === "TP"
+        ? t("tpsl.tpPrice")
+        : t("tpsl.slPrice");
 
   const onValueChange = (value: string) => {
     setInnerValue(value);
     props.onChange(value);
   };
 
-  // console.log("props.values.trigger_price", props.values.trigger_price);
-
-  useEffect(() => {
-    setPrefix(getPrefixLabel(props.values.trigger_price));
-
-    if (!isFocused) {
-      setInnerValue(props.values.trigger_price ?? "");
-    }
-  }, [props.type, props.values.trigger_price]);
-
   const onFocus = () => {
-    setPrefix(props.type === "TP" ? t("tpsl.tp") : t("tpsl.sl"));
     setPlaceholder("");
     setTipVisible(true);
     setIsFocused(true);
   };
 
   const onBlur = () => {
-    setPrefix(getPrefixLabel(props.values.trigger_price));
     setPlaceholder("USDC");
     setTipVisible(false);
     setIsFocused(false);

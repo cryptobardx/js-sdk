@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { i18n } from "@orderly.network/i18n";
+import { useTranslation } from "@orderly.network/i18n";
 import { useWoofiEarnInfo, WoofiEarnUserData } from "../hooks/useWoofiEarnInfo";
 import { HeaderItem, SubMenuTabContent } from "./SubMenuTabContent";
 
@@ -59,6 +59,7 @@ export const WoofiEarnTabContent = (props: {
   isOpen: boolean;
 }) => {
   const { className, isOpen } = props;
+  const { t } = useTranslation();
   const [sortConfig, setSortConfig] = useState<{
     key: "apr";
     direction: "asc" | "desc";
@@ -81,12 +82,12 @@ export const WoofiEarnTabContent = (props: {
   const headers: HeaderItem[] = [
     {
       key: "name",
-      title: i18n.t("extend.name"),
+      title: t("extend.name"),
       sortable: false,
     },
     {
       key: "apr",
-      title: i18n.t("extend.apr"),
+      title: t("extend.apr"),
       sortable: true,
       className:
         "oui-flex oui-justify-end oui-cursor-pointer hover:oui-text-base-contrast-54",
@@ -111,7 +112,7 @@ export const WoofiEarnTabContent = (props: {
             window.location.href = "https://woofi.com/swap/earn";
           }}
         >
-          {i18n.t("extend.viewAll")} <span className="oui-ml-1">→</span>
+          {t("extend.viewAll")} <span className="oui-ml-1">→</span>
         </div>
       )}
     />

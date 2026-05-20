@@ -25,7 +25,7 @@ export const useWithdrawLTV = (params: { token: string; quantity: string }) => {
       }
     }
     return "";
-  }, [nextLTV, ltv_threshold]);
+  }, [ltv_threshold, nextLTV, t]);
 
   return {
     currentLTV,

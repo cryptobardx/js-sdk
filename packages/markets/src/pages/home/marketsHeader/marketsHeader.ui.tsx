@@ -133,7 +133,7 @@ const BlockList: React.FC<BlockListProps> = (props) => {
         value: tvl,
       },
     ];
-  }, [total24Amount, totalOpenInterest, tvl]);
+  }, [t, total24Amount, totalOpenInterest, tvl]);
 
   return (
     <Flex
