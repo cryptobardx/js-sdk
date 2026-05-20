@@ -1,5 +1,11 @@
 # @orderly.network/layout-core
 
+## 2.0.4-alpha.4
+
+### Patch Changes
+
+- publish
+
 ## 2.0.4-alpha.3
 
 ### Patch Changes
