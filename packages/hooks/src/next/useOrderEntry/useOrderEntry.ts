@@ -250,32 +250,45 @@ const useOrderEntry = (
   });
 
   const [estSlippage, setEstSlippage] = useState<number | null>(null);
+  const [bestAskBidSnapshot, setBestAskBidSnapshot] = useState<number[]>([]);
 
   const [doCreateOrder, { isMutating }] = useMutation<OrderlyOrder, any>(
     getCreateOrderUrl(formattedOrder),
   );
 
+  const bestAskBid = bestAskBidSnapshot;
+
+  const getReferencePriceForSide = (side: OrderSide): number | null => {
+    if (bestAskBid.length < 2 || !formattedOrder.order_type) {
+      return null;
+    }
+    return getOrderReferencePriceFromOrder(
+      {
+        ...formattedOrder,
+        side,
+      },
+      bestAskBid,
+    );
+  };
+
   // Calculate reference price for the new order using best bid/ask when available.
-  const bestAskBid = askAndBid.current?.[0] || [];
-  const referencePriceFromOrder =
-    bestAskBid.length >= 2 && formattedOrder.order_type && formattedOrder.side
-      ? getOrderReferencePriceFromOrder(formattedOrder, bestAskBid)
-      : null;
+  const buyReferencePriceFromOrder = getReferencePriceForSide(OrderSide.BUY);
+  const sellReferencePriceFromOrder = getReferencePriceForSide(OrderSide.SELL);
 
   const maxBuyQtyValue = useMaxQty(symbol, OrderSide.BUY, {
     reduceOnly: formattedOrder.reduce_only,
     marginMode: effectiveMarginMode,
     currentOrderReferencePrice:
-      referencePriceFromOrder && referencePriceFromOrder > 0
-        ? referencePriceFromOrder
+      buyReferencePriceFromOrder && buyReferencePriceFromOrder > 0
+        ? buyReferencePriceFromOrder
         : undefined,
   });
   const maxSellQtyValue = useMaxQty(symbol, OrderSide.SELL, {
     reduceOnly: formattedOrder.reduce_only,
     marginMode: effectiveMarginMode,
     currentOrderReferencePrice:
-      referencePriceFromOrder && referencePriceFromOrder > 0
-        ? referencePriceFromOrder
+      sellReferencePriceFromOrder && sellReferencePriceFromOrder > 0
+        ? sellReferencePriceFromOrder
         : undefined,
   });
   const maxQtyValue =
@@ -409,6 +422,11 @@ const useOrderEntry = (
     updateOrderPrice();
   }, [formattedOrder.order_type_ext, formattedOrder.level]);
 
+  useEffect(() => {
+    askAndBid.current = [[]];
+    setBestAskBidSnapshot([]);
+  }, [symbol]);
+
   const onOrderBookUpdate = useDebouncedCallback((data: any) => {
     const parsedData = [
       [data.asks?.[data.asks.length - 1]?.[0], data.bids?.[0]?.[0]],
@@ -418,6 +436,12 @@ const useOrderEntry = (
       [data.asks?.[data.asks.length - 5]?.[0], data.bids?.[4]?.[0]],
     ];
     askAndBid.current = parsedData;
+    const nextBestAskBid = parsedData[0] || [];
+    setBestAskBidSnapshot((prev) =>
+      prev[0] === nextBestAskBid[0] && prev[1] === nextBestAskBid[1]
+        ? prev
+        : nextBestAskBid,
+    );
     updateOrderPriceByOrderBook();
     updateEstSlippage(data);
   }, 200);

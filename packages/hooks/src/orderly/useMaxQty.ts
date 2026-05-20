@@ -97,6 +97,14 @@ export function useMaxQty(
       ? (reduceOnlyOrOptions.marginMode ?? MarginMode.CROSS)
       : (marginMode ?? MarginMode.CROSS);
 
+  const currentOrderReferencePrice =
+    typeof reduceOnlyOrOptions === "object" &&
+    reduceOnlyOrOptions !== null &&
+    typeof reduceOnlyOrOptions.currentOrderReferencePrice === "number" &&
+    reduceOnlyOrOptions.currentOrderReferencePrice > 0
+      ? reduceOnlyOrOptions.currentOrderReferencePrice
+      : undefined;
+
   const positions = usePositions();
 
   const accountInfo = useAccountInfo();
@@ -213,18 +221,13 @@ export function useMaxQty(
           IMRFactor: IMR_Factor,
         });
 
-      const currentOrderReferencePrice =
-        typeof reduceOnlyOrOptions === "object" &&
-        reduceOnlyOrOptions !== null &&
-        typeof reduceOnlyOrOptions.currentOrderReferencePrice === "number" &&
-        reduceOnlyOrOptions.currentOrderReferencePrice > 0
-          ? reduceOnlyOrOptions.currentOrderReferencePrice
-          : markPrice;
+      const effectiveOrderReferencePrice =
+        currentOrderReferencePrice ?? markPrice;
 
       return account.maxQtyForIsolatedMargin({
         symbol,
         orderSide: side,
-        currentOrderReferencePrice,
+        currentOrderReferencePrice: effectiveOrderReferencePrice,
         availableBalance,
         leverage,
         baseIMR,
@@ -270,8 +273,10 @@ export function useMaxQty(
     symbolInfo,
     side,
     totalCollateral,
+    freeCollateralUSDCOnly,
     finalMarginMode,
     symbolLeverage,
+    currentOrderReferencePrice,
   ]);
 
   return Math.max(maxQty, 0);
