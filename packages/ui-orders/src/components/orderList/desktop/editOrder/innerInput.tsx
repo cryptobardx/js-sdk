@@ -65,7 +65,7 @@ export const InnerInput: FC<{
         color={open ? "danger" : undefined}
         classNames={{
           root: "oui-bg-base-700 oui-px-2 oui-py-1 oui-rounded",
-          input: "oui-pr-2",
+          input: "oui-pe-2",
         }}
         // prefix={
         //   <CloseIcon

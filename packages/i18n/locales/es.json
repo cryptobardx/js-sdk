@@ -928,6 +928,8 @@
   "transfer.LTV.tooltip": "Si su LTV excede {{threshold}}% o su saldo de USDC más PnL no liquidado cae por debajo de {{usdcThreshold}}, su garantía se convertirá automáticamente con un descuento. Para evitar esto, puede convertir manualmente los activos a USDC.",
   "transfer.LTV.currentLTV": "LTV actual",
   "transfer.LTV.isolatedModeUsdcOnly": "Solo se puede usar USDC como margen en modo aislado.",
+  "transfer.LTV.availableCrossMarginHint": "Saldo disponible = Saldo USDC + PnL no liquidado. Todos los activos colaterales contribuyen a su margen disponible.",
+  "transfer.LTV.isolatedMarginOrderHint": "En el modo Margen Aislado, solo se acepta USDC como margen. Convierta sus activos a USDC para realizar órdenes.",
   "transfer.convert": "Convertir",
   "transfer.deposit.globalMaxQty.error": "Su depósito no pudo ser procesado porque se alcanzó el límite global de depósito para {{token}} en {{chain}}. Esto generalmente se resuelve después del reequilibrio, que toma alrededor de 1 hora. Por favor, intente nuevamente más tarde, o use una cantidad menor o una cadena diferente. <0>Más información</0>",
   "transfer.deposit.gasFee.error": "Por favor, asegúrese de tener suficiente {{token}} para las tarifas de gas.",
@@ -1265,7 +1267,5 @@
   "notification.generalTitle": "Actualización general",
   "notification.maintenanceTitle": "Mantenimiento del sistema",
   "notification.empty": "No hay anuncios",
-  "tradingPoints.points": "Puntos",
-  "transfer.LTV.availableCrossMarginHint": "Saldo disponible = saldo USDC + PnL no realizado. Todos los activos colaterales contribuyen a su margen disponible.",
-  "transfer.LTV.isolatedMarginOrderHint": "En margen aislado solo se acepta USDC como margen. Convierta sus activos a USDC para colocar órdenes."
+  "tradingPoints.points": "Puntos"
 }

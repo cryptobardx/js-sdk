@@ -100,8 +100,8 @@ export const FeeTierTable: React.FC<FeeTierTableProps> = (props) => {
       if (active) {
         return {
           className: cn(
-            isFirstColumn && "oui-rounded-l-lg",
-            isLastColumn && "oui-rounded-r-lg",
+            isFirstColumn && "oui-rounded-s-lg",
+            isLastColumn && "oui-rounded-e-lg",
           ),
           ...config.active,
         };

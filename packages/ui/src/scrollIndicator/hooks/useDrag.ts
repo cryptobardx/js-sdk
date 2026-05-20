@@ -1,16 +1,20 @@
 import { useState, RefObject } from "react";
+import {
+  getScrollLeftForOffsetFromStart,
+  getScrollOffsetFromStart,
+} from "./useScroll";
 
 export function useDrag(containerRef: RefObject<HTMLDivElement>) {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [scrollOffsetFromStart, setScrollOffsetFromStart] = useState(0);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
 
     setIsDragging(true);
     setStartX(e.pageX - containerRef.current.offsetLeft);
-    setScrollLeft(containerRef.current.scrollLeft);
+    setScrollOffsetFromStart(getScrollOffsetFromStart(containerRef.current));
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -19,7 +23,10 @@ export function useDrag(containerRef: RefObject<HTMLDivElement>) {
     e.preventDefault();
     const x = e.pageX - containerRef.current.offsetLeft;
     const walk = x - startX;
-    containerRef.current.scrollLeft = scrollLeft - walk;
+    containerRef.current.scrollLeft = getScrollLeftForOffsetFromStart(
+      containerRef.current,
+      scrollOffsetFromStart - walk,
+    );
   };
 
   const handleMouseUp = () => {

@@ -304,7 +304,7 @@ const useFilter = () => {
       return [sideFilter, statusFilter];
     }
     return [sideFilter, statusFilter, dateRangeFilter];
-  }, [side, status, dateRange]);
+  }, [dateRange, isMobile, side, status, t]);
 
   return {
     filterItems,

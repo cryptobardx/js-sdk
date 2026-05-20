@@ -93,7 +93,7 @@ export const PortfolioValueMobile: FC<Props> = (props) => {
         </Text.roi>
       </Flex>
       <div
-        className="oui-absolute oui-right-0 oui-top-0 oui-flex oui-h-full oui-items-center oui-justify-center oui-px-4"
+        className="oui-absolute oui-end-0 oui-top-0 oui-flex oui-h-full oui-items-center oui-justify-center oui-px-4"
         onClick={() =>
           props.routerAdapter?.onRouteChange({
             href: PortfolioLeftSidebarPath.Assets,

@@ -52,7 +52,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
         getLastAnd24hPercentageColumn(favorite, isFavoriteList),
       ] as Column[];
     },
-    [],
+    [t],
   );
 
   const { getFavoritesProps } = useFavoritesProps();

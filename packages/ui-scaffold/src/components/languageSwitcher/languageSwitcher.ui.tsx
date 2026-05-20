@@ -113,7 +113,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = (props) => {
         className={cn(
           //40 * 8 + 4 * 7 = 348px, more than 8 will show scrollbars
           "oui-custom-scrollbar oui-max-h-[348px] oui-overflow-y-auto",
-          "oui-grid oui-gap-1 oui-pr-[6px]",
+          "oui-grid oui-gap-1 oui-pe-[6px]",
         )}
       >
         {languageList}
@@ -129,7 +129,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = (props) => {
             onClick={(e) => e.stopPropagation()}
             sideOffset={10}
             align="start"
-            collisionPadding={{ right: 16 }}
+            collisionPadding={{ left: 16, right: 16 }}
             className={cn(
               "oui-w-[320px] lg:oui-w-[360px]",
               "oui-rounded-xl oui-bg-base-8 oui-p-5",

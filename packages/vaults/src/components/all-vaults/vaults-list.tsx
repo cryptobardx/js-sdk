@@ -76,7 +76,7 @@ export const VaultsList: FC<VaultsListProps> = ({ vaults }) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={cn(
-          "oui-ml-1 oui-transition-colors",
+          "oui-ms-1 oui-transition-colors",
           isActive ? "oui-text-base-contrast" : "oui-text-base-contrast-36",
         )}
       >

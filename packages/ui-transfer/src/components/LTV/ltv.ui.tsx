@@ -69,7 +69,7 @@ export const LtvUI: React.FC<
             />
           }
         >
-          <TooltipIcon className="oui-ml-[2px] oui-cursor-pointer oui-text-base-contrast-36" />
+          <TooltipIcon className="oui-ms-[2px] oui-cursor-pointer oui-text-base-contrast-36" />
         </Tooltip>
       </Flex>
       {showDiff ? (

@@ -53,7 +53,7 @@ export const VaultDepositForm: FC<VaultDepositFormScript> = (props) => {
           dp={6}
           padding={false}
           suffix={
-            <span className="oui-ml-1 oui-text-base-contrast-54">
+            <span className="oui-ms-1 oui-text-base-contrast-54">
               {t("vaults.deposit.shares")}
             </span>
           }
@@ -68,7 +68,7 @@ export const VaultDepositForm: FC<VaultDepositFormScript> = (props) => {
         <div>{t("vaults.deposit.lockupDuration")}</div>
         <Text.numeral
           suffix={
-            <span className="oui-ml-1 oui-text-base-contrast-54">hrs</span>
+            <span className="oui-ms-1 oui-text-base-contrast-54">hrs</span>
           }
         >
           48

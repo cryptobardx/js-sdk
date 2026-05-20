@@ -87,7 +87,7 @@ export const Available = (props: AvailableProps) => {
           unit={quote}
           size={"2xs"}
           className={"oui-available-value oui-text-base-contrast-80"}
-          unitClassName={"oui-ml-1 oui-text-base-contrast-54"}
+          unitClassName={"oui-ms-1 oui-text-base-contrast-54"}
           dp={2}
           padding={false}
         >

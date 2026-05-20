@@ -83,7 +83,7 @@ export const TraderCardMobile: FC<TraderCardMobileProps> = (props) => {
         <ChevronRightIcon
           size={18}
           color="white"
-          className="oui-ml-auto"
+          className="oui-ms-auto"
           onClick={() => {
             routerAdapter?.onRouteChange({
               href: "/rewards/affiliate?tab=trader",

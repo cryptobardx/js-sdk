@@ -20,6 +20,9 @@ const dialogVariants = tv({
     content: [
       "oui-dialog-content",
       "oui-fixed",
+      // RTL-EXCLUDE: Do not replace with `start-[50%]`.
+      // Keep physical left centering here: start maps to right in RTL, which
+      // breaks centering with translate-x-[-50%].
       "oui-left-[50%]",
       "oui-top-[50%]",
       "oui-z-50",
@@ -51,7 +54,7 @@ const dialogVariants = tv({
     close: [
       "oui-dialog-close-btn",
       "oui-absolute",
-      "oui-right-4",
+      "oui-end-4",
       "oui-top-4",
       // "oui-opacity-70",
       "oui-ring-offset-background",
@@ -73,7 +76,8 @@ const dialogVariants = tv({
       "oui-flex",
       "oui-flex-row",
       "oui-justify-end",
-      "oui-space-x-2",
+      // Use gap instead of space-x so spacing works in both LTR and RTL.
+      "oui-gap-2",
       "oui-pb-5",
       "oui-pt-2 lg:oui-pt-3",
       // "has-[&>*:nth-child(1)]:oui-bg-red-400",

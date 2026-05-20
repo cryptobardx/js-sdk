@@ -13,6 +13,7 @@ import React, {
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { cnBase, VariantProps } from "tailwind-variants";
 import { Flex } from "../flex";
+import { useDocumentDirection } from "../hooks";
 import { useOrderlyTheme } from "../provider/orderlyThemeContext";
 import { ScrollIndicator } from "../scrollIndicator";
 import {
@@ -45,6 +46,13 @@ interface TabsContextState {
 
 const TabsContext = createContext<TabsContextState>({} as TabsContextState);
 
+function useResolvedTabsDir(
+  propDir: React.ComponentProps<typeof TabsPrimitive.Root>["dir"],
+): NonNullable<React.ComponentProps<typeof TabsPrimitive.Root>["dir"]> {
+  const fromDocument = useDocumentDirection();
+  return propDir ?? fromDocument;
+}
+
 type TabsProps<T = string> = {
   defaultValue?: T;
   value?: T;
@@ -71,8 +79,12 @@ const Tabs: FC<TabsProps> = (props) => {
     variant,
     showScrollIndicator,
     value,
+    dir: dirProp,
     ...rest
   } = props;
+
+  /** Tab bar layout + keyboard nav: honor explicit `dir` or fall back to the document (`html`). */
+  const dir = useResolvedTabsDir(dirProp);
 
   const tabsOverrides = getComponentTheme("tabs", {
     variant: variant ?? "contained",
@@ -141,7 +153,7 @@ const Tabs: FC<TabsProps> = (props) => {
   return (
     <TabsContext.Provider value={memoizedValue}>
       {props.children}
-      <TabsBase value={value} {...rest}>
+      <TabsBase value={value} {...rest} dir={dir}>
         <Flex
           justify="between"
           itemAlign="center"

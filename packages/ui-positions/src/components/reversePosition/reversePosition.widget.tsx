@@ -82,7 +82,7 @@ export const ReversePositionWidget: React.FC<ReversePositionWidgetProps> = (
       open={visible}
       onOpenChange={onOpenChange}
       size="sm"
-      title={i18n.t("positions.reverse.title")}
+      title={t("positions.reverse.title")}
       classNames={{
         content: "oui-border oui-border-line-6",
       }}

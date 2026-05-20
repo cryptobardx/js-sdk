@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { i18n } from "@orderly.network/i18n";
+import { useTranslation } from "@orderly.network/i18n";
 import { useWoofiEarnInfo, WoofiEarnUserData } from "../hooks/useWoofiEarnInfo";
 import { HeaderItem, SubMenuTabContent } from "./SubMenuTabContent";
 
@@ -30,12 +30,12 @@ const WoofiEarnRowItem = (props: {
           <img
             src={item.token_logo}
             alt={item.symbol}
-            className="oui-w-6 oui-h-6 oui-absolute oui-bottom-0 oui-right-0 oui-rounded-full"
+            className="oui-w-6 oui-h-6 oui-absolute oui-bottom-0 oui-end-0 oui-rounded-full"
           />
           <img
             src={item.network_logo}
             alt={item.network}
-            className="oui-w-3 oui-h-3 oui-absolute oui-top-[15px] oui-left-[15px] oui-rounded-full oui-border oui-border-base-9"
+            className="oui-w-3 oui-h-3 oui-absolute oui-top-[15px] oui-start-[15px] oui-rounded-full oui-border oui-border-base-9"
           />
         </div>
         <div className="oui-flex oui-flex-col">
@@ -59,6 +59,7 @@ export const WoofiEarnTabContent = (props: {
   isOpen: boolean;
 }) => {
   const { className, isOpen } = props;
+  const { t } = useTranslation();
   const [sortConfig, setSortConfig] = useState<{
     key: "apr";
     direction: "asc" | "desc";
@@ -81,12 +82,12 @@ export const WoofiEarnTabContent = (props: {
   const headers: HeaderItem[] = [
     {
       key: "name",
-      title: "Name",
+      title: t("extend.name"),
       sortable: false,
     },
     {
       key: "apr",
-      title: "APR",
+      title: t("extend.apr"),
       sortable: true,
       className:
         "oui-flex oui-justify-end oui-cursor-pointer hover:oui-text-base-contrast-54",
@@ -111,7 +112,7 @@ export const WoofiEarnTabContent = (props: {
             window.location.href = "https://woofi.com/swap/earn";
           }}
         >
-          {i18n.t("extend.viewAll")} <span className="oui-ml-1">→</span>
+          {t("extend.viewAll")} <span className="oui-ml-1">→</span>
         </div>
       )}
     />

@@ -7,7 +7,8 @@ import { ScrolButton } from "./scrollButton";
 export type ScrollIndicatorProps = { children: ReactNode; className?: string };
 
 export const ScrollIndicator: FC<ScrollIndicatorProps> = (props) => {
-  const { containerRef, leadingVisible, tailingVisible, onScoll } = useScroll();
+  const { containerRef, leadingVisible, tailingVisible, isRTL, onScoll } =
+    useScroll();
 
   const { handleMouseDown, handleMouseMove, handleMouseUp, isDragging } =
     useDrag(containerRef);
@@ -16,7 +17,7 @@ export const ScrollIndicator: FC<ScrollIndicatorProps> = (props) => {
     <div
       className={cnBase(
         "oui-scroll-indicator",
-        "oui-relative oui-select-none oui-overflow-hidden",
+        "oui-relative oui-min-w-0 oui-flex-1 oui-select-none oui-overflow-hidden",
         props.className,
       )}
     >
@@ -33,8 +34,18 @@ export const ScrollIndicator: FC<ScrollIndicatorProps> = (props) => {
       >
         {props.children}
       </div>
-      <ScrolButton leading onClick={onScoll} visible={leadingVisible} />
-      <ScrolButton tailing onClick={onScoll} visible={tailingVisible} />
+      <ScrolButton
+        leading
+        isRTL={isRTL}
+        onClick={onScoll}
+        visible={leadingVisible}
+      />
+      <ScrolButton
+        tailing
+        isRTL={isRTL}
+        onClick={onScoll}
+        visible={tailingVisible}
+      />
     </div>
   );
 };

@@ -62,7 +62,7 @@ export const AssetsUI: React.FC<
               unit="USDC"
               // @ts-ignore
               style={{ "--oui-gradient-angle": "45deg" }}
-              unitClassName="oui-text-base oui-text-base-contrast-80 oui-h-9 oui-ml-1"
+              unitClassName="oui-text-base oui-text-base-contrast-80 oui-h-9 oui-ms-1"
               className={gradientTextVariants({
                 className: "oui-font-bold oui-text-3xl",
                 color: "brand",
@@ -162,8 +162,6 @@ export const AssetStatistic = (props: AssetStatisticProps) => {
             </Text>
           </Tooltip>
         }
-        // @ts-ignore
-        align="right"
         // @ts-ignore
         valueProps={{ size: "lg", visible: props.visible }}
       >

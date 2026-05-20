@@ -1,10 +1,10 @@
 import React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { VariantProps } from "tailwind-variants";
+import { cn } from "..";
+import { tv } from "../utils/tv";
 import { Input, InputProps } from "./input";
 import { InputHelpText, type InputHelpTextVariantProps } from "./inputHelpText";
-import { tv } from "../utils/tv";
-import { VariantProps } from "tailwind-variants";
-import { Slot } from "@radix-ui/react-slot";
-import { cn } from "..";
 
 const textFieldVariants = tv({
   slots: {
@@ -18,7 +18,7 @@ const textFieldVariants = tv({
         root: "oui-flex-col oui-space-y-1",
       },
       row: {
-        root: "oui-flex-row oui-space-x-3 ",
+        root: "oui-flex-row oui-gap-x-3 ",
       },
     },
   },
@@ -79,7 +79,7 @@ const InputLabel = React.forwardRef<HTMLLabelElement, InputLabelProps>(
         {props.children}
       </Comp>
     );
-  }
+  },
 );
 
 InputLabel.displayName = "InputLabel";

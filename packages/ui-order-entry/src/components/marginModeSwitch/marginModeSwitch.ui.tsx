@@ -184,7 +184,7 @@ const OptionCard: FC<{
       className={cn(
         "oui-relative oui-w-full oui-rounded-md oui-p-2",
         "oui-bg-base-6",
-        "oui-text-left",
+        "oui-text-start",
         props.disabled
           ? "oui-cursor-not-allowed oui-opacity-50 oui-border oui-border-transparent"
           : props.selected
@@ -236,7 +236,7 @@ const OptionCard: FC<{
       {props.isCurrent ? (
         <div
           className={cn(
-            "oui-absolute -oui-right-px -oui-top-px",
+            "oui-absolute -oui-end-px -oui-top-px",
             "oui-rounded-bl-md oui-rounded-tr-md",
             "oui-bg-[#38e2fe] oui-px-1 oui-py-0.5",
           )}

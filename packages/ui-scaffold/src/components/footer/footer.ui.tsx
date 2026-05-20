@@ -54,7 +54,7 @@ export const Footer: FC<FooterReturns & FooterProps> = (props) => {
         </Flex>
         <Divider
           direction="vertical"
-          className="oui-h-[18px] oui-px-1 oui-ml-2 oui-border-line-12"
+          className="oui-h-[18px] oui-px-1 oui-ms-2 oui-border-line-12"
         />
         <Flex gap={2}>
           <Text intensity={54} size="2xs">

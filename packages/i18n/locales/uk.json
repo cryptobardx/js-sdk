@@ -928,6 +928,8 @@
   "transfer.LTV.tooltip": "Якщо ваш LTV перевищує {{threshold}}% або ваш баланс USDC плюс неврегульований PnL падає нижче {{usdcThreshold}}, ваша застава буде автоматично конвертована зі знижкою. Щоб уникнути цього, ви можете вручну конвертувати активи в USDC.",
   "transfer.LTV.currentLTV": "Поточний LTV",
   "transfer.LTV.isolatedModeUsdcOnly": "У ізольованій маржі як заставу можна використовувати лише USDC.",
+  "transfer.LTV.availableCrossMarginHint": "Доступний баланс = Баланс USDC + Нереалізований PnL. Усі заставні активи враховуються у доступній маржі.",
+  "transfer.LTV.isolatedMarginOrderHint": "У режимі Ізольованої Маржі як заставу приймається лише USDC. Конвертуйте свої активи в USDC для розміщення ордерів.",
   "transfer.convert": "Конвертувати",
   "transfer.deposit.globalMaxQty.error": "Ваш депозит не може бути оброблений, оскільки досягнуто глобальний ліміт депозиту для {{token}} на {{chain}}. Зазвичай це вирішується після ребалансування, що займає близько 1 години. Будь ласка, спробуйте пізніше або використовуйте меншу суму або інший ланцюжок. <0>Дізнатися більше</0>",
   "transfer.deposit.gasFee.error": "Будь ласка, переконайтеся, що у вас достатньо {{token}} для оплати газу.",
@@ -1265,7 +1267,5 @@
   "notification.generalTitle": "Загальне оновлення",
   "notification.maintenanceTitle": "Обслуговування системи",
   "notification.empty": "Немає оголошень",
-  "tradingPoints.points": "Бали",
-  "transfer.LTV.availableCrossMarginHint": "Доступний баланс = баланс USDC + нереалізований PnL. Усі заставні активи враховуються в доступній маржі.",
-  "transfer.LTV.isolatedMarginOrderHint": "У режимі ізольованої маржі як заставу приймається лише USDC. Конвертуйте активи в USDC для розміщення ордерів."
+  "tradingPoints.points": "Бали"
 }

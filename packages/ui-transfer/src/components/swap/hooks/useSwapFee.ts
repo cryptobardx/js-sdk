@@ -166,6 +166,7 @@ export function useSwapFee(options: {
     transactionInfo,
     needSwap,
     needCrossSwap,
+    t,
   ]);
 
   return {

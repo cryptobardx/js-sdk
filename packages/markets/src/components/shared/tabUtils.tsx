@@ -48,13 +48,13 @@ export function resolveSuffix(
 
   if (typeof suffix === "string") {
     return (
-      <span className="oui-ml-1 oui-inline-flex oui-items-center oui-rounded oui-bg-gradient-to-r oui-from-[rgb(var(--oui-gradient-brand-start)_/_0.12)] oui-to-[rgb(var(--oui-gradient-brand-end)_/_0.12)] oui-px-2">
+      <span className="oui-ms-1 oui-inline-flex oui-items-center oui-rounded oui-bg-gradient-to-r oui-from-[rgb(var(--oui-gradient-brand-start)_/_0.12)] oui-to-[rgb(var(--oui-gradient-brand-end)_/_0.12)] oui-px-2">
         <GradientText color="brand">{suffix}</GradientText>
       </span>
     );
   }
 
-  return <span className="oui-ml-1">{suffix}</span>;
+  return <span className="oui-ms-1">{suffix}</span>;
 }
 
 export function composeTabTitle(

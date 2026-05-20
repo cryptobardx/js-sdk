@@ -62,6 +62,10 @@ export const MobileSharePnLContent: FC<{
   };
 
   const [domain, setDomain] = useState("");
+  // Temporary switch: force LTR poster rendering for now.
+  // Set to true to re-enable RTL poster rendering later.
+  const enableRTLPoster = false;
+  const direction: "ltr" | "rtl" = enableRTLPoster ? "rtl" : "ltr";
 
   const posterRefs = shareOptions?.backgroundImages?.map(() =>
     useRef<PosterRef | null>(null),
@@ -166,6 +170,7 @@ export const MobileSharePnLContent: FC<{
                   height={310}
                   data={{
                     backgroundImg: item,
+                    direction,
                     ...resetOptions,
                     data: posterData,
                   }}
@@ -242,7 +247,7 @@ export const MobileSharePnLContent: FC<{
               suffix={
                 focus && (
                   <button
-                    className="oui-mr-3 oui-cursor-pointer"
+                    className="oui-me-3 oui-cursor-pointer"
                     onMouseDown={(e) => {
                       console.log("set message to empty");
 
@@ -297,7 +302,7 @@ const PnlFormatView: FC<{
       case "pnl":
         return t("share.pnl.displayFormat.pnl");
     }
-  }, [type]);
+  }, [t, type]);
 
   const isSelected = type === curType;
 

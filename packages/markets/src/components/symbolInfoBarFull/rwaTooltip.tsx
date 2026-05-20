@@ -194,7 +194,7 @@ const CountdownText: React.FC<React.PropsWithChildren> = (props) => {
       {days > 0 ? (
         <span>
           {daysStr}
-          <span className="oui-text-base-contrast-54 oui-mr-1 oui-ml-[2px]">
+          <span className="oui-text-base-contrast-54 oui-me-1 oui-ms-[2px]">
             {t("common.dayShort")}
           </span>
         </span>

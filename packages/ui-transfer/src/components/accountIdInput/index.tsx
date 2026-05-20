@@ -75,7 +75,7 @@ export const TextAreaInput = (props: TextAreaInputProps) => {
   }, [value, selectedAccount?.address]);
 
   const prefix = (
-    <div className="oui-absolute oui-left-3 oui-top-0.5 oui-z-[1]">
+    <div className="oui-absolute oui-start-3 oui-top-0.5 oui-z-[1]">
       <Text size="2xs" intensity={36}>
         {label}
       </Text>
@@ -161,7 +161,7 @@ export const TextAreaInput = (props: TextAreaInputProps) => {
         )}
         {enableAccountLookup && (
           <DropdownMenuTrigger asChild>
-            <span className="oui-absolute oui-left-0 oui-bottom-0 oui-w-0 oui-h-0" />
+            <span className="oui-absolute oui-start-0 oui-bottom-0 oui-w-0 oui-h-0" />
           </DropdownMenuTrigger>
         )}
       </div>

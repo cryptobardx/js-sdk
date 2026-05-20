@@ -70,6 +70,7 @@ export const VolumeAreaChart: React.FC<VolumeAreaChartProps> = (props) => {
   const chartComponent = (
     <AreaChart
       data={data}
+      style={{ direction: "ltr" }}
       margin={{ top: 20, right: 10, left: -10, bottom: 0 }}
     >
       <CartesianGrid

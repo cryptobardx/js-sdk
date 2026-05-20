@@ -11,7 +11,7 @@ import { defaultLanguages, defaultNS } from "../constant";
 import i18n from "../i18n";
 import { Backend, BackendOptions } from "../resourceBundles";
 import { LocaleCode } from "../types";
-import { parseI18nLang } from "../utils";
+import { parseI18nLang, syncDocumentDirection } from "../utils";
 import {
   Language,
   LanguageContext,
@@ -75,6 +75,20 @@ export const LanguageProvider: FC<LanguageProviderProps> = (props) => {
 
     initLanguage();
   }, [i18n.language]);
+
+  useEffect(() => {
+    syncDocumentDirection(i18n.language);
+
+    const handleLanguageChange = (lang: string) => {
+      syncDocumentDirection(lang);
+    };
+
+    i18n.on("languageChanged", handleLanguageChange);
+
+    return () => {
+      i18n.off("languageChanged", handleLanguageChange);
+    };
+  }, []);
 
   const languageBeforeChangedHandle = useCallback(
     async (lang: LocaleCode) => {

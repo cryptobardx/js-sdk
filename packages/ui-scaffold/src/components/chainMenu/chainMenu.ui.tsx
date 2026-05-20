@@ -106,7 +106,7 @@ export const ChainMenu = (props: UseChainMenuScriptReturn) => {
         height="10"
         viewBox="0 0 10 10"
         xmlns="http://www.w3.org/2000/svg"
-        className="oui-absolute oui-right-0 oui-bottom-0"
+        className="oui-absolute oui-end-0 oui-bottom-0"
       >
         <defs>
           <linearGradient
@@ -137,7 +137,7 @@ export const ChainMenu = (props: UseChainMenuScriptReturn) => {
           onCloseAutoFocus={(e) => e.preventDefault()}
           onClick={(e) => e.stopPropagation()}
           sideOffset={4}
-          collisionPadding={{ right: 16 }}
+          collisionPadding={{ left: 16, right: 16 }}
           className={cn(
             "oui-bg-base-8 oui-w-[456px] oui-p-4 oui-rounded-xl",
             "oui-border oui-border-line-6",

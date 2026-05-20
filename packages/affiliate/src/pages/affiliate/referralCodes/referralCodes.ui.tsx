@@ -268,7 +268,7 @@ const DesktopLayout: FC<ReferralCodesReturns> = (props) => {
         title: t("affiliate.referralCodes.column.you&Referee"),
         dataIndex: "dffd",
         width: moreColumn ? 120 : 120,
-        className: "oui-pr-0",
+        className: "oui-pe-0",
         render: (value, data) => {
           return (
             <Flex direction={"row"} itemAlign={"center"} gap={1}>
@@ -290,14 +290,14 @@ const DesktopLayout: FC<ReferralCodesReturns> = (props) => {
         title: t("affiliate.referees"),
         dataIndex: "referee_rebate_rate",
         width: 65,
-        className: "oui-pr-0",
+        className: "oui-pe-0",
         render: (value, data) => getCount(data).split("/")[0],
       });
       cols.push({
         title: t("affiliate.referralCodes.column.traders"),
         dataIndex: "referrer_rebate_rate",
         width: 65,
-        className: "oui-pr-0",
+        className: "oui-pe-0",
         render: (value, data) => getCount(data).split("/")[1],
       });
     } else {
@@ -305,7 +305,7 @@ const DesktopLayout: FC<ReferralCodesReturns> = (props) => {
         title: t("affiliate.referralCodes.column.referees&Traders"),
         dataIndex: "total_invites/total_traded",
         width: 120,
-        fixed: "left",
+        fixed: "start",
         render: (value, data) => getCount(data),
       });
     }

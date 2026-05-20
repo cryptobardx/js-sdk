@@ -80,7 +80,7 @@ export const Liquidation: FC<LiquidationState> = (props) => {
         }}
         // onRow={(record, index, row) => {
         //   return {
-        //     className: "[&>td:first-child]:oui-pl-0 [&>td:last-child]:oui-pr-0",
+        //     className: "[&>td:first-child]:oui-ps-0 [&>td:last-child]:oui-pe-0",
         //   };
         // }}
         expanded={expanded}
@@ -100,7 +100,7 @@ const TooltipHeaderCell: FC<{
   side?: "left";
 }> = (props) => {
   return (
-    <th className="oui-h-10 oui-border-b oui-border-line oui-text-left oui-text-base-contrast-36">
+    <th className="oui-h-10 oui-border-b oui-border-line oui-text-start oui-text-base-contrast-36">
       <Tooltip
         content={props.tooltip}
         className="oui-w-[275px] oui-bg-base-6"

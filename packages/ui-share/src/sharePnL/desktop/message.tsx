@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from "react";
+import { useTranslation } from "@orderly.network/i18n";
 import { CloseCircleFillIcon, Input, toast } from "@orderly.network/ui";
 import { Checkbox } from "./checkbox";
-import { useTranslation } from "@orderly.network/i18n";
 
 export const Message: FC<{
   message: string;
@@ -24,7 +24,7 @@ export const Message: FC<{
         }}
       />
       <div
-        className="oui-text-xs oui-text-base-contrast-54 oui-ml-1 hover:oui-cursor-pointer"
+        className="oui-text-xs oui-text-base-contrast-54 oui-ms-1 hover:oui-cursor-pointer"
         onClick={() => {
           setCheck(!props.check);
         }}
@@ -44,7 +44,7 @@ export const Message: FC<{
           suffix={
             focus && (
               <button
-                className="oui-mr-3 oui-cursor-pointer"
+                className="oui-me-3 oui-cursor-pointer"
                 onMouseDown={(e) => {
                   console.log("set message to empty");
 

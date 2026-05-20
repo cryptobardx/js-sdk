@@ -60,7 +60,7 @@ export const CreateSubAccount = (props: CreateSubAccountProps) => {
         }}
       />
     );
-  }, [subAccountCount, maxSubAccountCount]);
+  }, [subAccountCount, maxSubAccountCount, t]);
 
   const header = (
     <Flex

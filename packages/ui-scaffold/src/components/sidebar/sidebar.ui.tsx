@@ -26,7 +26,7 @@ const menuItemVariants = tv({
       "oui-py-2",
       "oui-rounded-md",
       "oui-w-full",
-      "oui-text-left",
+      "oui-text-start",
       "oui-text-base",
       "oui-text-base-contrast-36",
       // "oui-flex",

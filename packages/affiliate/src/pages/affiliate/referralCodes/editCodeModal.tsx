@@ -128,7 +128,7 @@ export const EditCodeModal = modal.create<{
       >
         <Text
           className={cn(
-            "oui-ml-4 oui-list-item oui-list-outside oui-list-disc oui-text-xs oui-text-base-contrast-36 marker:oui-text-3xs",
+            "oui-ms-4 oui-list-item oui-list-outside oui-list-disc oui-text-xs oui-text-base-contrast-36 marker:oui-text-3xs",
             filedError.length ? "oui-text-danger" : "oui-text-success",
           )}
         >
@@ -136,7 +136,7 @@ export const EditCodeModal = modal.create<{
         </Text>
         <Text
           className={cn(
-            "oui-ml-4 oui-list-item oui-list-outside oui-list-disc oui-text-xs oui-text-base-contrast-36 marker:oui-text-3xs",
+            "oui-ms-4 oui-list-item oui-list-outside oui-list-disc oui-text-xs oui-text-base-contrast-36 marker:oui-text-3xs",
             "oui-text-success",
           )}
         >

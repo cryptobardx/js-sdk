@@ -168,7 +168,7 @@ export const ScaledOrderConfirm = (props: ScaledOrderConfirmProps) => {
             dp={base_dp}
             padding={false}
             intensity={80}
-            unitClassName={"oui-text-base-contrast-36 oui-ml-1"}
+            unitClassName={"oui-text-base-contrast-36 oui-ms-1"}
           >
             {totalQuantity}
           </Text.numeral>
@@ -182,7 +182,7 @@ export const ScaledOrderConfirm = (props: ScaledOrderConfirmProps) => {
             dp={quote_dp}
             padding={false}
             intensity={80}
-            unitClassName={"oui-text-base-contrast-36 oui-ml-1"}
+            unitClassName={"oui-text-base-contrast-36 oui-ms-1"}
           >
             {national}
           </Text.numeral>

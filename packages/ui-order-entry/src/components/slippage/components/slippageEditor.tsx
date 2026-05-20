@@ -122,24 +122,27 @@ export const SlippageEditor = forwardRef<
           );
         })}
 
-        <Input
-          suffix="%"
-          formatters={[
-            inputFormatter.numberFormatter,
-            inputFormatter.dpFormatter(2),
-          ]}
-          value={customValue}
-          onValueChange={onValueChange}
-          classNames={{
-            root: cn(
-              "oui-slippageEditor-customInput",
-              "oui-rounded-md oui-bg-base-6",
-              "oui-h-[40px] oui-w-[74px]",
-            ),
-            input: "oui-text-base-contrast",
-            additional: "oui-pl-1",
-          }}
-        />
+        {/* RTL-EXCLUDE: Keep the numeric value and percent suffix in LTR order. */}
+        <div dir="ltr">
+          <Input
+            suffix="%"
+            formatters={[
+              inputFormatter.numberFormatter,
+              inputFormatter.dpFormatter(2),
+            ]}
+            value={customValue}
+            onValueChange={onValueChange}
+            classNames={{
+              root: cn(
+                "oui-slippageEditor-customInput",
+                "oui-rounded-md oui-bg-base-6",
+                "oui-h-[40px] oui-w-[74px]",
+              ),
+              input: "oui-text-base-contrast",
+              additional: "oui-ps-1",
+            }}
+          />
+        </div>
       </Flex>
       {!!error && (
         <Box mt={5} className="-oui-mb-5">

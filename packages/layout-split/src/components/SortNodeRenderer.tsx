@@ -70,7 +70,7 @@ function SortableSortChild({
     >
       {showHandle && (
         <button
-          className="oui-absolute oui-right-0 oui-top-4 oui-cursor-move oui-py-1"
+          className="oui-absolute oui-end-0 oui-top-4 oui-cursor-move oui-py-1"
           style={{ touchAction: "none" }}
           // Connect drag handle explicitly so dragging from the handle starts the sortable interaction.
           ref={handleRef}

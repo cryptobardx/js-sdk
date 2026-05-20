@@ -74,7 +74,7 @@ export function AssetInfo(props: {
           size={"2xs"}
           dp={props.dp}
           className={"oui-estLiqPrice-value oui-text-base-contrast-80"}
-          unitClassName={"oui-ml-1 oui-text-base-contrast-36"}
+          unitClassName={"oui-ms-1 oui-text-base-contrast-36"}
         >
           {canTrade ? (displayEstLiqPrice ?? "--") : "--"}
         </Text.numeral>

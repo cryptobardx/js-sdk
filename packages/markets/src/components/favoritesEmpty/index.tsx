@@ -31,7 +31,7 @@ export const FavoritesEmpty: FC<FavoritesEmptyProps> = (props) => {
         onClick={props.onClick}
       >
         <PlusIcon
-          className="oui-mr-1 oui-text-base-contrast"
+          className="oui-me-1 oui-text-base-contrast"
           opacity={1}
           size={12}
         />

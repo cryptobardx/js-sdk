@@ -43,7 +43,7 @@ export function AdvancedTPSLResult(props: {
               <Text>{t("tpsl.tpTriggerPrice")}</Text>
               <Text.numeral
                 suffix={
-                  <Text className="oui-ml-1 oui-text-base-contrast-36">
+                  <Text className="oui-ms-1 oui-text-base-contrast-36">
                     {symbolInfo.quote}
                   </Text>
                 }
@@ -58,7 +58,7 @@ export function AdvancedTPSLResult(props: {
               {formattedOrder.tp_order_type === OrderType.LIMIT ? (
                 <Text.numeral
                   suffix={
-                    <Text className="oui-ml-1 oui-text-base-contrast-36">
+                    <Text className="oui-ms-1 oui-text-base-contrast-36">
                       {symbolInfo.quote}
                     </Text>
                   }
@@ -75,7 +75,7 @@ export function AdvancedTPSLResult(props: {
               <Text>{t("tpsl.totalEstTpPnl")}</Text>
               <Text.numeral
                 suffix={
-                  <Text className="oui-ml-1 oui-text-base-contrast-36">
+                  <Text className="oui-ms-1 oui-text-base-contrast-36">
                     {symbolInfo.quote}
                   </Text>
                 }
@@ -124,7 +124,7 @@ export function AdvancedTPSLResult(props: {
               <Text>{t("tpsl.slTriggerPrice")}</Text>
               <Text.numeral
                 suffix={
-                  <Text className="oui-ml-1 oui-text-base-contrast-36">
+                  <Text className="oui-ms-1 oui-text-base-contrast-36">
                     {symbolInfo.quote}
                   </Text>
                 }
@@ -139,7 +139,7 @@ export function AdvancedTPSLResult(props: {
               {formattedOrder.sl_order_type === OrderType.LIMIT ? (
                 <Text.numeral
                   suffix={
-                    <Text className="oui-ml-1 oui-text-base-contrast-36">
+                    <Text className="oui-ms-1 oui-text-base-contrast-36">
                       {symbolInfo.quote}
                     </Text>
                   }
@@ -158,7 +158,7 @@ export function AdvancedTPSLResult(props: {
               <Text.numeral
                 coloring
                 suffix={
-                  <Text className="oui-ml-1 oui-text-base-contrast-36">
+                  <Text className="oui-ms-1 oui-text-base-contrast-36">
                     {symbolInfo.quote}
                   </Text>
                 }

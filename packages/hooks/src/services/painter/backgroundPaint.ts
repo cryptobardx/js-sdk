@@ -4,7 +4,6 @@ export class BackgroundPaint extends BasePaint {
   private img: HTMLImageElement | null = null;
 
   async draw(options: DrawOptions) {
-
     if (
       typeof options.backgroundImg !== "undefined" &&
       options.backgroundImg !== ""
@@ -22,20 +21,23 @@ export class BackgroundPaint extends BasePaint {
       0,
       0,
       this.painter.width * this.painter.ratio,
-      this.painter.height * this.painter.ratio
+      this.painter.height * this.painter.ratio,
     );
   }
 
   async _drawImage(options: DrawOptions) {
+    const width = this.painter.width * this.painter.ratio;
+    const height = this.painter.height * this.painter.ratio;
+
     return this.loadImg(options.backgroundImg!).then((img) => {
       this.img = img;
-      this.ctx.drawImage(
-        this.img!,
-        0,
-        0,
-        this.painter.width * this.painter.ratio,
-        this.painter.height * this.painter.ratio
-      );
+      this.ctx.save();
+      if (options.direction === "rtl") {
+        this.ctx.translate(width, 0);
+        this.ctx.scale(-1, 1);
+      }
+      this.ctx.drawImage(this.img!, 0, 0, width, height);
+      this.ctx.restore();
     });
   }
 

@@ -928,6 +928,8 @@
   "transfer.LTV.tooltip": "LTVが{{threshold}}%を超えるか、USDC残高と未決済PnLの合計が{{usdcThreshold}}を下回ると、担保はヘアカット付きで自動変換されます。これを回避するには、手動で資産をUSDCに変換できます。",
   "transfer.LTV.currentLTV": "現在のLTV",
   "transfer.LTV.isolatedModeUsdcOnly": "分離マージンモードではマージンとして USDC のみ使用できます。",
+  "transfer.LTV.availableCrossMarginHint": "利用可能残高 = USDC残高 + 未確定損益。すべての担保資産が利用可能証拠金に算入されます。",
+  "transfer.LTV.isolatedMarginOrderHint": "分離マージンモードでは、USDCのみが証拠金として受け入れられます。注文するには資産をUSDCに変換してください。",
   "transfer.convert": "変換",
   "transfer.deposit.globalMaxQty.error": "{{chain}} 上の {{token}} のグローバル預金上限に達したため、預金を処理できませんでした。これは通常、再バランス後に解決され、約1時間かかります。後でもう一度お試しいただくか、より少ない金額または別のチェーンを使用してください。<0>詳細を見る</0>",
   "transfer.deposit.gasFee.error": "ガス代のために十分な {{token}} があることを確認してください。",
@@ -1265,7 +1267,5 @@
   "notification.generalTitle": "一般アップデート",
   "notification.maintenanceTitle": "システムメンテナンス",
   "notification.empty": "お知らせはありません",
-  "tradingPoints.points": "ポイント",
-  "transfer.LTV.availableCrossMarginHint": "利用可能残高 = USDC 残高 + 未実現損益。すべての担保資産が利用可能マージンに寄与します。",
-  "transfer.LTV.isolatedMarginOrderHint": "分離マージンモードではマージンとして USDC のみが受け入れられます。注文するには資産を USDC に変換してください。"
+  "tradingPoints.points": "ポイント"
 }

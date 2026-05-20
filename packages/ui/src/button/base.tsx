@@ -10,8 +10,10 @@ import { Spinner } from "../spinner/spinner";
 
 type BaseButtonElement = React.ElementRef<"button">;
 
-export interface BaseButtonProps
-  extends ComponentPropsWithout<"button", RemovedProps> {
+export interface BaseButtonProps extends ComponentPropsWithout<
+  "button",
+  RemovedProps
+> {
   loading?: boolean;
   leading?: React.ReactNode;
   trailing?: React.ReactNode;
@@ -63,7 +65,7 @@ export const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>(
       if (!leading && !trailing && !iconElement) return children;
 
       return (
-        <Flex as="span" itemAlign={"center"} className="oui-space-x-1">
+        <Flex as="span" itemAlign={"center"} className="oui-gap-x-1">
           {leading}
           {iconElement}
           <span>{children}</span>

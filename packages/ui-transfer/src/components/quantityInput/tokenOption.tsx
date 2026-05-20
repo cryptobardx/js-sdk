@@ -9,6 +9,7 @@ import {
   Spinner,
   Text,
   TokenIcon,
+  useDocumentDirection,
 } from "@orderly.network/ui";
 import { Decimal } from "@orderly.network/utils";
 import { isYieldBearingAsset } from "../../constants/yieldBearingAssets";
@@ -44,6 +45,8 @@ export const TokenOption: React.FC<TokenOptionProps> = (props) => {
   } = props;
   const { symbol, precision, insufficientBalance } = token;
   const { apy } = useYieldAPY(symbol);
+  const dir = useDocumentDirection();
+  const isRTL = dir === "rtl";
 
   const showAPY = isYieldBearingAsset(symbol) && apy !== null;
 
@@ -53,6 +56,7 @@ export const TokenOption: React.FC<TokenOptionProps> = (props) => {
     return (
       <Flex
         key={symbol}
+        direction={isRTL ? "rowReverse" : "row"}
         itemAlign={"center"}
         justify="between"
         px={2}
@@ -66,7 +70,11 @@ export const TokenOption: React.FC<TokenOptionProps> = (props) => {
           "oui-cursor-not-allowed",
         )}
       >
-        <Flex itemAlign="center" gapX={1}>
+        <Flex
+          direction={isRTL ? "rowReverse" : "row"}
+          itemAlign="center"
+          gapX={1}
+        >
           <TokenIcon
             url={(token as any).logo_uri}
             name={symbol}
@@ -111,6 +119,7 @@ export const TokenOption: React.FC<TokenOptionProps> = (props) => {
   return (
     <Flex
       key={symbol}
+      direction={isRTL ? "rowReverse" : "row"}
       justify="between"
       px={2}
       r="base"
@@ -126,7 +135,11 @@ export const TokenOption: React.FC<TokenOptionProps> = (props) => {
         onTokenChange?.(token);
       }}
     >
-      <Flex gapX={1} itemAlign="center">
+      <Flex
+        direction={isRTL ? "rowReverse" : "row"}
+        gapX={1}
+        itemAlign="center"
+      >
         <TokenIcon
           name={symbol}
           url={(token as any).logo_uri}

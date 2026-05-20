@@ -157,7 +157,7 @@ export const TPSLTriggerPrice: FC<{
           suffix={
             <CloseToLiqPriceIcon
               slPriceError={props.slPriceError}
-              className="oui-ml-1"
+              className="oui-ms-1"
             />
           }
         />,
@@ -241,7 +241,7 @@ const TriggerPriceItem: FC<{
 
   return (
     <div className="oui-flex oui-items-center">
-      <span className="oui-text-base-contrast-54 oui-mr-1">{label}</span>
+      <span className="oui-text-base-contrast-54 oui-me-1">{label}</span>
       <Text.numeral
         rule="price"
         dp={symbolInfo.quote_dp}
@@ -259,7 +259,7 @@ const TriggerPriceItem: FC<{
           <span>{pnl === 0 ? "" : pnl > 0 ? "+" : "-"}</span>
         }
         suffix={
-          <span className="oui-text-base-contrast-36 oui-ml-1">USDC</span>
+          <span className="oui-text-base-contrast-36 oui-ms-1">USDC</span>
         }
       >{`${Math.abs(pnl)}`}</Text.numeral>
     </div>

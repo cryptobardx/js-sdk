@@ -35,7 +35,8 @@ const tabsVariants = tv({
       "oui-text-base-contrast-36 hover:oui-text-base-contrast-54",
       "oui-ring-offset-background",
       "oui-transition-all",
-      "oui-space-x-1",
+      /** `gap-x` mirrors correctly in RTL; `space-x` uses asymmetric margins that can overlap pill corners. */
+      "oui-gap-x-1",
       "focus-visible:oui-outline-none",
       "focus-visible:oui-ring-2",
       "focus-visible:oui-ring-ring",
@@ -48,12 +49,7 @@ const tabsVariants = tv({
   variants: {
     variant: {
       text: {
-        list: [
-          "oui-space-x-6",
-          "oui-border-b",
-          "oui-border-line-6",
-          "oui-px-1",
-        ],
+        list: ["oui-gap-x-6", "oui-border-b", "oui-border-line-6", "oui-px-1"],
         trigger: [
           "oui-group",
           "oui-pb-2",
@@ -66,15 +62,16 @@ const tabsVariants = tv({
           "data-[state=active]:after:oui-absolute",
           "data-[state=active]:after:oui-rounded-full",
           "data-[state=active]:after:-oui-bottom-0",
-          "data-[state=active]:after:oui-left-0",
-          "data-[state=active]:after:oui-right-0",
+          "data-[state=active]:after:oui-start-0",
+          "data-[state=active]:after:oui-end-0",
         ],
       },
       contained: {
-        list: ["oui-space-x-[6px]"],
+        list: ["oui-gap-x-[6px]"],
         trigger: [
           "oui-group",
-          "oui-rounded",
+          /** `!rounded` defeats host/segment overrides that strip one physical corner under `[dir="rtl"]` + `:first-child`. */
+          "!oui-rounded",
           "oui-px-3",
           "oui-bg-base-7 hover:oui-bg-base-5",
           "oui-text-base-contrast-36",
@@ -128,7 +125,7 @@ const tabsVariants = tv({
       size: "sm",
       variant: "contained",
       className: {
-        list: ["oui-space-x-1"],
+        list: ["oui-gap-x-1"],
         trigger: ["oui-text-2xs", "oui-h-6"],
         icon: ["oui-w-[10px]", "oui-h-[10px]"],
       },
@@ -146,7 +143,7 @@ const tabsVariants = tv({
       size: "lg",
       variant: "contained",
       className: {
-        trigger: ["oui-text-sm", "oui-h-8", "oui-rounded-md"],
+        trigger: ["oui-text-sm", "oui-h-8", "!oui-rounded-md"],
         icon: ["oui-w-[14px]", "oui-h-[14px]"],
       },
     },
@@ -154,7 +151,7 @@ const tabsVariants = tv({
       size: "xl",
       variant: "contained",
       className: {
-        trigger: ["oui-text-base", "oui-h-9", "oui-rounded-md"],
+        trigger: ["oui-text-base", "oui-h-9", "!oui-rounded-md"],
         icon: ["oui-w-4", "oui-h-4"],
       },
     },

@@ -1,3 +1,4 @@
+import { useTranslation } from "@orderly.network/i18n";
 import {
   Box,
   cn,
@@ -11,7 +12,6 @@ import {
 } from "@orderly.network/ui";
 import { CloseIcon, InfoIcon } from "../icons";
 import { MaintenanceTipInterface } from "./script";
-import { useTranslation } from "@orderly.network/i18n";
 
 export const MaintenanceTipsUI = (props: MaintenanceTipInterface) => {
   const { showTips, showDialog, tipsContent, closeTips, dialogContent } = props;
@@ -43,12 +43,12 @@ export const MaintenanceTipsUI = (props: MaintenanceTipInterface) => {
     <Flex
       className={cn(
         "oui-bg-warning-darken/10 oui-text-warning-darken oui-text-2xs md:oui-text-sm oui-relative oui-gap-1",
-        "oui-mx-1 md:oui-mx-0 md:oui-w-full  oui-pl-2 md:oui-pl-4 oui-pr-9 md:oui-pr-[60px] oui-py-2 md:oui-py-3",
+        "oui-mx-1 md:oui-mx-0 md:oui-w-full oui-ps-2 md:oui-ps-4 oui-pe-9 md:oui-pe-[60px] oui-py-2 md:oui-py-3",
         "oui-leading-4",
         "oui-rounded-xl md:oui-rounded-none",
         "oui-min-h-[48px]",
         "oui-justify-start oui-items-start",
-        "xl:oui-justify-center xl:oui-items-center xl:oui-px-4"
+        "xl:oui-justify-center xl:oui-items-center xl:oui-px-4",
       )}
     >
       <div className="oui-flex oui-items-start oui-justify-start oui-gap-1 ">
@@ -60,7 +60,7 @@ export const MaintenanceTipsUI = (props: MaintenanceTipInterface) => {
       </div>
       <CloseIcon
         size={16}
-        className="oui-absolute oui-right-2 md:oui-right-4 oui-text-secondary/[0.36] hover:oui-text-secondary/80 oui-cursor-pointer -oui-translate-y-2/4 oui-top-2/4"
+        className="oui-absolute oui-end-2 md:oui-end-4 oui-text-secondary/[0.36] hover:oui-text-secondary/80 oui-cursor-pointer -oui-translate-y-2/4 oui-top-2/4"
         onClick={closeTips}
       />
     </Flex>

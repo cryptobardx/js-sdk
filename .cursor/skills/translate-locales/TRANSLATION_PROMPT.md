@@ -1,15 +1,17 @@
 > I’m developing a decentralized trading platform (DApp). Please keep the tone professional, clear, and finance/trading-focused. Buttons and titles should be as short and direct as possible, avoiding slang.
 >
-> Based on the English i18n JSON file `packages/i18n/locales/extend/en.json` (relative path from `packages/i18n` is `locales/extend/en.json`), generate **JSON files** for the following 16 languages in the current directory: `zh.json`, `tc.json`, `ja.json`, `ko.json`, `vi.json`, `es.json`, `de.json`, `fr.json`, `ru.json`, `id.json`, `tr.json`, `it.json`, `pt.json`, `uk.json`, `pl.json`, `nl.json`.
+> Based on the English i18n JSON file `packages/i18n/locales/extend/en.json` (relative path from `packages/i18n` is `locales/extend/en.json`), generate **JSON files** for the following 19 languages in the current directory: `ar.json`, `fa.json`, `he.json`, `zh.json`, `ja.json`, `es.json`, `ko.json`, `vi.json`, `de.json`, `fr.json`, `ru.json`, `id.json`, `tr.json`, `it.json`, `pt.json`, `uk.json`, `pl.json`, `nl.json`, `tc.json`.
 >
 > Language file mapping (must follow this exactly):
 >
+> - ar.json: Arabic
+> - fa.json: Persian (Farsi)
+> - he.json: Hebrew
 > - zh.json: Simplified Chinese
-> - tc.json: Traditional Chinese (must always use dedicated Traditional Chinese translations; do not simply copy or reuse strings from `zh.json`)
 > - ja.json: Japanese
+> - es.json: Spanish
 > - ko.json: Korean
 > - vi.json: Vietnamese
-> - es.json: Spanish
 > - de.json: German
 > - fr.json: French
 > - ru.json: Russian
@@ -20,6 +22,7 @@
 > - uk.json: Ukrainian
 > - pl.json: Polish
 > - nl.json: Dutch
+> - tc.json: Traditional Chinese (must always use dedicated Traditional Chinese translations; do not simply copy or reuse strings from `zh.json`)
 >
 > Strict requirements:
 >

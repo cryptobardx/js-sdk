@@ -124,7 +124,7 @@ const SwapWidget = () => {
   }, [connectedChain]);
 
   return (
-    <Flex direction="column" justify="center">
+    <Flex direction="column" justify="center" dir="ltr">
       <WooFiSwapWidgetReact
         brokerAddress={brokerAddress}
         evmProvider={evmProvider}

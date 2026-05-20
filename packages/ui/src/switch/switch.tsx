@@ -85,6 +85,10 @@ interface SwitchProps
       "color"
     > {}
 
+/**
+ * Renders with `dir="ltr"` on the root so thumb `translateX` matches the track under `html[dir="rtl"]`
+ * (RTL reverses flex main-start for `inline-flex`; CSS transforms do not mirror with `direction`).
+ */
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   SwitchProps
@@ -95,7 +99,12 @@ const Switch = React.forwardRef<
   });
 
   return (
-    <SwitchPrimitives.Root className={root({ className })} {...props} ref={ref}>
+    <SwitchPrimitives.Root
+      className={root({ className })}
+      {...props}
+      ref={ref}
+      dir="ltr"
+    >
       <SwitchPrimitives.Thumb className={thumb()} />
     </SwitchPrimitives.Root>
   );

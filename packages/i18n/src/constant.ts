@@ -3,6 +3,12 @@ import { Language } from "./provider/languageContext";
 export enum LocaleEnum {
   /** English */
   en = "en",
+  /** Arabic */
+  ar = "ar",
+  /** Persian (Farsi) */
+  fa = "fa",
+  /** Hebrew */
+  he = "he",
   /** Chinese */
   zh = "zh",
   /** Japanese */
@@ -39,6 +45,9 @@ export enum LocaleEnum {
 
 export const defaultLanguages: Language[] = [
   { localCode: LocaleEnum.en, displayName: "English" }, // English
+  { localCode: LocaleEnum.ar, displayName: "العربية" }, // Arabic
+  { localCode: LocaleEnum.fa, displayName: "فارسی" }, // Persian
+  { localCode: LocaleEnum.he, displayName: "עברית" }, // Hebrew
   { localCode: LocaleEnum.zh, displayName: "中文" }, // Chinese
   { localCode: LocaleEnum.ja, displayName: "日本語" }, // Japanese
   { localCode: LocaleEnum.es, displayName: "Español" }, // Spanish

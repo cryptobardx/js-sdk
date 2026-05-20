@@ -85,6 +85,7 @@ export type PosterLayoutConfig = {
 };
 
 export type DrawOptions = {
+  direction?: "ltr" | "rtl";
   /**
    * Color of common text
    */

@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { Box, cn, Flex, useEmblaCarousel } from "@orderly.network/ui";
 import { NextButton, PrevButton } from "./buttons";
 
@@ -8,12 +8,19 @@ export const CarouselBackgroundImage: FC<{
   setSelectedSnap: any;
 }> = (props) => {
   const { backgroundImages, selectedSnap, setSelectedSnap } = props;
+  const [direction, setDirection] = useState<"ltr" | "rtl">("ltr");
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     // loop: true,
     containScroll: "keepSnaps",
     dragFree: true,
+    direction,
   });
+
+  useEffect(() => {
+    const docDir = document?.documentElement?.dir?.toLowerCase();
+    setDirection(docDir === "rtl" ? "rtl" : "ltr");
+  }, []);
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) {
@@ -59,7 +66,11 @@ export const CarouselBackgroundImage: FC<{
 
   return (
     <Flex mt={4} px={2}>
-      <PrevButton onClick={onPrevButtonClick} />
+      {direction === "rtl" ? (
+        <NextButton onClick={onNextButtonClick} />
+      ) : (
+        <PrevButton onClick={onPrevButtonClick} />
+      )}
       <div
         ref={emblaRef}
         className="oui-w-full oui-overflow oui-overflow-x-auto oui-scrollbar-hidden oui-hide-scrollbar oui-mx-0"
@@ -77,10 +88,10 @@ export const CarouselBackgroundImage: FC<{
               }}
               mx={2}
               my={1}
-              mr={6}
               r="base"
+              // Use logical-end spacing so RTL/LTR have identical visual gap.
               className={cn(
-                "oui-shrink-0 oui-w-[162px]",
+                "oui-shrink-0 oui-w-[162px] oui-me-6",
                 selectedSnap === index &&
                   "oui-outline oui-outline-1 oui-outline-primary-darken",
               )}
@@ -90,7 +101,11 @@ export const CarouselBackgroundImage: FC<{
           ))}
         </Flex>
       </div>
-      <NextButton onClick={onNextButtonClick} />
+      {direction === "rtl" ? (
+        <PrevButton onClick={onPrevButtonClick} />
+      ) : (
+        <NextButton onClick={onNextButtonClick} />
+      )}
     </Flex>
   );
 };

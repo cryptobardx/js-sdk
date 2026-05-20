@@ -29,7 +29,7 @@ export const SymbolLeverage = (props: SymbolLeverageScriptReturns) => {
           {props.symbol}
         </Text.formatted>
         <div
-          className={cn(["oui-ml-auto oui-flex oui-items-center oui-gap-1"])}
+          className={cn(["oui-ms-auto oui-flex oui-items-center oui-gap-1"])}
         >
           <Badge color={props.isBuy ? "success" : "danger"} size="xs">
             {props.isBuy ? t("common.long") : t("common.short")}

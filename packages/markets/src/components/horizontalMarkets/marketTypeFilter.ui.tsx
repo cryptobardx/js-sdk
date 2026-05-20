@@ -123,7 +123,7 @@ export const MarketTypeFilter: React.FC<MarketTypeFilterProps> = (props) => {
         <div className="oui-text-base-contrast-54">
           <Box
             className={cn(
-              "oui-absolute oui-left-0 oui-z-50",
+              "oui-absolute oui-start-0 oui-z-50",
               "oui-bg-base-9 oui-border oui-border-line-6 oui-rounded-[12px]",
               "oui-shadow-lg oui-w-[320px] oui-p-5",
               // animation
@@ -167,7 +167,7 @@ export const MarketTypeFilter: React.FC<MarketTypeFilterProps> = (props) => {
                       <label
                         htmlFor={htmlId}
                         className={cn(
-                          "oui-text-2xs oui-ml-1",
+                          "oui-text-2xs oui-ms-1",
                           "oui-break-normal oui-whitespace-nowrap oui-cursor-pointer",
                         )}
                       >
@@ -227,7 +227,7 @@ export const MarketTypeFilter: React.FC<MarketTypeFilterProps> = (props) => {
                           <label
                             htmlFor={htmlId}
                             className={cn(
-                              "oui-text-2xs oui-ml-1",
+                              "oui-text-2xs oui-ms-1",
                               "oui-break-normal oui-whitespace-nowrap oui-cursor-pointer",
                             )}
                           >

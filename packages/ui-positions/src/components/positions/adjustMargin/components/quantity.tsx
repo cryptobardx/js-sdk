@@ -65,8 +65,8 @@ export const Quantity: FC<QuantityProps> = ({
           input: "oui-text-sm oui-font-semibold oui-text-base-contrast-98",
           // override default additional padding so value can sit closer to suffix
           additional: "oui-px-0",
-          prefix: "oui-pl-3 oui-pr-2 oui-text-sm oui-text-base-contrast-54",
-          suffix: "oui-pl-2 oui-pr-3 oui-text-sm oui-text-base-contrast-54",
+          prefix: "oui-ps-3 oui-pe-2 oui-text-sm oui-text-base-contrast-54",
+          suffix: "oui-ps-2 oui-pe-3 oui-text-sm oui-text-base-contrast-54",
         }}
       />
 

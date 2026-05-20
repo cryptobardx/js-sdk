@@ -74,7 +74,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = (props) => {
               htmlFor={"toggle_order_post_only"}
               className={cn(
                 "oui-postOnly-label",
-                "oui-ml-1 oui-text-2xs peer-data-[disabled]:oui-text-base-contrast-20",
+                "oui-ms-1 oui-text-2xs peer-data-[disabled]:oui-text-base-contrast-20",
                 "oui-cursor-pointer oui-whitespace-nowrap oui-break-normal oui-border-b oui-border-dashed oui-border-line-12",
               )}
             >
@@ -101,7 +101,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = (props) => {
               htmlFor={"toggle_order_iov"}
               className={cn(
                 "oui-ioc-label",
-                "oui-ml-1 oui-text-2xs peer-data-[disabled]:oui-text-base-contrast-20",
+                "oui-ms-1 oui-text-2xs peer-data-[disabled]:oui-text-base-contrast-20",
                 "oui-cursor-pointer oui-whitespace-nowrap oui-break-normal oui-border-b oui-border-dashed oui-border-line-12",
               )}
             >
@@ -128,7 +128,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = (props) => {
               htmlFor={"toggle_order_fok"}
               className={cn(
                 "oui-fok-label",
-                "oui-ml-1 oui-text-2xs peer-data-[disabled]:oui-text-base-contrast-20",
+                "oui-ms-1 oui-text-2xs peer-data-[disabled]:oui-text-base-contrast-20",
                 "oui-cursor-pointer oui-whitespace-nowrap oui-break-normal oui-border-b oui-border-dashed oui-border-line-12",
               )}
             >
@@ -152,7 +152,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = (props) => {
           />
           <label
             htmlFor={"toggle_order_confirm"}
-            className={"oui-orderConfirm-label oui-ml-1 oui-text-2xs"}
+            className={"oui-orderConfirm-label oui-ms-1 oui-text-2xs"}
           >
             {t("orderEntry.orderConfirm")}
           </label>
@@ -175,7 +175,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = (props) => {
             <label
               htmlFor={"toggle_order_hidden"}
               className={
-                "oui-orderHidden-label oui-ml-1 oui-cursor-pointer oui-border-b oui-border-dashed oui-border-line-12 oui-text-2xs"
+                "oui-orderHidden-label oui-ms-1 oui-cursor-pointer oui-border-b oui-border-dashed oui-border-line-12 oui-text-2xs"
               }
             >
               {t("orderEntry.hidden")}
@@ -197,7 +197,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = (props) => {
             />
             <label
               htmlFor={"toggle_order_keep_visible"}
-              className={"oui-keepVisible-label oui-ml-1 oui-text-2xs"}
+              className={"oui-keepVisible-label oui-ms-1 oui-text-2xs"}
             >
               {t("orderEntry.keepVisible")}
             </label>

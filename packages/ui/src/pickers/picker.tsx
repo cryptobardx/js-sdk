@@ -41,7 +41,8 @@ const pickerVariants = tv({
 });
 
 export interface PickerProps
-  extends Omit<
+  extends
+    Omit<
       SelectHTMLAttributes<HTMLSelectElement>,
       "disabled" | "size" | "color" | "value"
     >,
@@ -131,7 +132,7 @@ export const Picker = forwardRef<PickerRef, PickerProps>(
         ) : (
           <div
             className={cn(
-              "oui-space-x-1",
+              "oui-gap-x-1",
               "oui-text-base-contrast-54",
               "oui-rounded-md",
               "oui-bg-base-8",
