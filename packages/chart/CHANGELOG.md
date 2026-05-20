@@ -1,5 +1,25 @@
 # @orderly.network/chart
 
+## 3.0.4
+
+### Patch Changes
+
+- b061b18: publish
+- 05358ab: publish
+- 0617925: publish
+- bb31716: publish
+- publish
+- 047cdde: publish
+- Updated dependencies [b061b18]
+- Updated dependencies [05358ab]
+- Updated dependencies [0617925]
+- Updated dependencies [bb31716]
+- Updated dependencies
+- Updated dependencies [047cdde]
+  - @orderly.network/i18n@3.0.4
+  - @orderly.network/ui@3.0.4
+  - @orderly.network/utils@3.0.4
+
 ## 3.0.4-alpha.4
 
 ### Patch Changes

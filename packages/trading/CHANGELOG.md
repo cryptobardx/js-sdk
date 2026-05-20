@@ -1,5 +1,40 @@
 # @orderly.network/trading
 
+## 3.0.4
+
+### Patch Changes
+
+- b061b18: publish
+- 05358ab: publish
+- 0617925: publish
+- bb31716: publish
+- publish
+- 047cdde: publish
+- Updated dependencies [b061b18]
+- Updated dependencies [05358ab]
+- Updated dependencies [0617925]
+- Updated dependencies [bb31716]
+- Updated dependencies
+- Updated dependencies [047cdde]
+  - @orderly.network/react-app@3.0.4
+  - @orderly.network/hooks@3.0.4
+  - @orderly.network/i18n@3.0.4
+  - @orderly.network/markets@3.0.4
+  - @orderly.network/portfolio@3.0.4
+  - @orderly.network/types@3.0.4
+  - @orderly.network/ui@3.0.4
+  - @orderly.network/ui-chain-selector@3.0.4
+  - @orderly.network/ui-connector@3.0.4
+  - @orderly.network/ui-leverage@3.0.4
+  - @orderly.network/ui-order-entry@3.0.4
+  - @orderly.network/ui-orders@3.0.4
+  - @orderly.network/ui-positions@3.0.4
+  - @orderly.network/ui-scaffold@3.0.4
+  - @orderly.network/ui-share@3.0.4
+  - @orderly.network/ui-tradingview@3.0.4
+  - @orderly.network/ui-transfer@3.0.4
+  - @orderly.network/utils@3.0.4
+
 ## 3.0.4-alpha.4
 
 ### Patch Changes

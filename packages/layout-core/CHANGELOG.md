@@ -1,5 +1,16 @@
 # @orderly.network/layout-core
 
+## 2.0.4
+
+### Patch Changes
+
+- b061b18: publish
+- 05358ab: publish
+- 0617925: publish
+- bb31716: publish
+- publish
+- 047cdde: publish
+
 ## 2.0.4-alpha.4
 
 ### Patch Changes
