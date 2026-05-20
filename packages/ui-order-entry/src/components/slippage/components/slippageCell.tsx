@@ -62,31 +62,49 @@ export const SlippageCell = (props: {
           initialValue={props.slippage ? Number(props.slippage) : undefined}
         />
       </SimpleDialog>
-      <Flex justify={"between"} className="oui-orderEntry-slippage">
-        <Text className="oui-slippage-label" size="2xs">
+      <Flex
+        justify={"between"}
+        itemAlign="center"
+        gap={1}
+        className="oui-orderEntry-slippage oui-w-full"
+      >
+        <Text
+          className="oui-slippage-label oui-shrink-0 oui-whitespace-nowrap"
+          size="2xs"
+        >
           {t("orderEntry.slippage")}
         </Text>
         <AuthGuard
           fallback={() => (
-            <Text size="2xs">
+            <Text size="2xs" className="oui-whitespace-nowrap">
               {t("orderEntry.slippage.est")}: -% / {t("common.max")}: --%
             </Text>
           )}
         >
-          <Flex gap={1} className="oui-slippage-value-container">
+          <Flex
+            gap={1}
+            itemAlign="center"
+            justify="end"
+            className="oui-slippage-value-container oui-min-w-0 oui-flex-1 oui-whitespace-nowrap"
+          >
             <Text.numeral
               size="2xs"
               rule="percentages"
               prefix={`${t("orderEntry.slippage.est")}: `}
               suffix={` / ${t("common.max")}: `}
+              className="oui-whitespace-nowrap"
             >
               {props.estSlippage ?? 0}
             </Text.numeral>
             <button
-              className="oui-slippage-edit-btn oui-text-2xs"
+              className="oui-slippage-edit-btn oui-shrink-0 oui-text-2xs"
               onClick={() => setOpen()}
             >
-              <Flex className="oui-gap-0.5" as="span">
+              <Flex
+                itemAlign="center"
+                className="oui-gap-0.5 oui-whitespace-nowrap"
+                as="span"
+              >
                 <Text size="2xs" className="oui-text-primary">
                   {`${props.slippage || "-"}%`}
                 </Text>
