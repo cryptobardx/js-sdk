@@ -1,5 +1,5 @@
 import { Decimal } from "@orderly.network/utils";
-import { IMRFactorPower } from "../constants";
+import { IMRFactorPower, IsoTakerFeeBuffer } from "../constants";
 
 /**
  * @formulaId liquidationPriceIsolated
@@ -31,7 +31,7 @@ import { IMRFactorPower } from "../constants";
  * - `cost_position' = cost_position`
  *
  * ### 2. Open/Add Position (position_qty = 0 or order_side = sign(position_qty))
- * - `isolated_position_margin' = isolated_position_margin + order_qty * reference_price / leverage`
+ * - `isolated_position_margin' = isolated_position_margin + order_qty * reference_price * (1 / leverage + iso_taker_fee_buffer)`
  * - `cost_position' = cost_position + order_side * order_qty * reference_price`
  *
  * ### 3. Close/Reduce Position (order_side ≠ sign(position_qty) and sign(position_qty') = sign(position_qty))
@@ -39,7 +39,7 @@ import { IMRFactorPower } from "../constants";
  * - `cost_position' = cost_position + order_side * order_qty * reference_price`
  *
  * ### 4. Flip Position (order_side ≠ sign(position_qty) and sign(position_qty') ≠ sign(position_qty))
- * - `isolated_position_margin' = abs(position_qty') * reference_price / leverage`
+ * - `isolated_position_margin' = abs(position_qty') * reference_price * (1 / leverage + iso_taker_fee_buffer)`
  * - `cost_position' = position_qty' * reference_price`
  *
  * ## Example
@@ -109,6 +109,10 @@ export function liquidationPriceIsolated(inputs: {
    * @description Leverage for the position
    */
   leverage: number;
+  /**
+   * @description Fee buffer reserved in isolated margin estimates (default: 0.0006)
+   */
+  isoTakerFeeBuffer?: number;
 }): number | null {
   const {
     isolatedPositionMargin,
@@ -123,6 +127,7 @@ export function liquidationPriceIsolated(inputs: {
     orderSide,
     orderQty = 0,
     leverage,
+    isoTakerFeeBuffer = IsoTakerFeeBuffer,
   } = inputs;
 
   // Use reference price or mark price (default to a reasonable value if not provided)
@@ -143,6 +148,8 @@ export function liquidationPriceIsolated(inputs: {
   // Determine scenario and calculate isolated_position_margin' and cost_position'
   let newIsolatedPositionMargin: Decimal;
   let newCostPosition: Decimal;
+  const getMarginRate = () =>
+    new Decimal(1).div(leverage).add(isoTakerFeeBuffer);
 
   if (orderQty === 0) {
     // Scenario 1: No order
@@ -155,7 +162,7 @@ export function liquidationPriceIsolated(inputs: {
   ) {
     // Scenario 2: Open/Add position
     newIsolatedPositionMargin = new Decimal(isolatedPositionMargin).add(
-      new Decimal(orderQty).mul(refPrice).div(leverage),
+      new Decimal(orderQty).mul(refPrice).mul(getMarginRate()),
     );
     newCostPosition = new Decimal(costPosition).add(
       new Decimal(orderSideMultiplier).mul(orderQty).mul(refPrice),
@@ -176,7 +183,7 @@ export function liquidationPriceIsolated(inputs: {
       // Scenario 4: Flip position
       newIsolatedPositionMargin = new Decimal(Math.abs(newPositionQty))
         .mul(refPrice)
-        .div(leverage);
+        .mul(getMarginRate());
       newCostPosition = new Decimal(newPositionQty).mul(refPrice);
     }
   }

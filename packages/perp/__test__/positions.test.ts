@@ -93,7 +93,7 @@ describe("positions formula", () => {
       // Round to 5 decimal places before assertion
       const roundedResult =
         result !== null ? Math.round(result * 100000) / 100000 : null;
-      expect(roundedResult).toBe(92761.73104);
+      expect(roundedResult).toBe(92765.25186);
     });
   });
 
@@ -201,6 +201,46 @@ describe("positions formula", () => {
 
       const diff = Math.abs(liqPrice2! - liqPrice1!);
       expect(diff).toBeLessThan(0.01);
+    });
+  });
+
+  describe("liquidationPriceIsolated", () => {
+    it("should include fee buffer when estimating opening order margin", () => {
+      const liqPrice = positions.liquidationPriceIsolated({
+        isolatedPositionMargin: 0,
+        costPosition: 0,
+        positionQty: 0,
+        sumUnitaryFunding: 0,
+        lastSumUnitaryFunding: 0,
+        baseMMR: 0.05,
+        baseIMR: 0.1,
+        IMRFactor: 0,
+        referencePrice: 100,
+        orderSide: "BUY",
+        orderQty: 1,
+        leverage: 10,
+      });
+
+      expect(liqPrice).toBeCloseTo(94.67368421052632, 12);
+    });
+
+    it("should include fee buffer when estimating flip order margin", () => {
+      const liqPrice = positions.liquidationPriceIsolated({
+        isolatedPositionMargin: 10,
+        costPosition: -100,
+        positionQty: -1,
+        sumUnitaryFunding: 0,
+        lastSumUnitaryFunding: 0,
+        baseMMR: 0.05,
+        baseIMR: 0.1,
+        IMRFactor: 0,
+        referencePrice: 100,
+        orderSide: "BUY",
+        orderQty: 2,
+        leverage: 10,
+      });
+
+      expect(liqPrice).toBeCloseTo(94.67368421052632, 12);
     });
   });
 
