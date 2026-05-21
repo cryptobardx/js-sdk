@@ -262,13 +262,29 @@ const useOrderEntry = (
     if (bestAskBid.length < 2 || !formattedOrder.order_type) {
       return null;
     }
-    return getOrderReferencePriceFromOrder(
+    const referencePrice = getOrderReferencePriceFromOrder(
       {
         ...formattedOrder,
         side,
       },
       bestAskBid,
     );
+
+    const slippage = Number(formattedOrder.slippage);
+    if (
+      effectiveMarginMode !== MarginMode.ISOLATED ||
+      side !== OrderSide.BUY ||
+      formattedOrder.order_type !== OrderType.MARKET ||
+      !referencePrice ||
+      !Number.isFinite(slippage) ||
+      slippage <= 0
+    ) {
+      return referencePrice;
+    }
+
+    return new Decimal(referencePrice)
+      .mul(new Decimal(1).add(new Decimal(slippage).div(100)))
+      .toNumber();
   };
 
   // Calculate reference price for the new order using best bid/ask when available.
