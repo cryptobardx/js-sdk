@@ -137,6 +137,7 @@
   "markets.recent": "Recenti",
   "markets.newListings": "Nuove quotazioni",
   "markets.community": "Community",
+  "markets.tradFi": "Finanza tradizionale",
   "markets.allMarkets": "Tutti i mercati",
   "markets.openInterest": "Interesse aperto",
   "markets.openInterest.tooltip": "Dimensione totale delle posizioni per lato.",

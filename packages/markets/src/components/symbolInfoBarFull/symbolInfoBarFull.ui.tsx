@@ -189,14 +189,14 @@ export const SymbolInfoBarFull: React.FC<SymbolInfoBarFullProps> = (props) => {
   } = props;
 
   const { t } = useTranslation();
-  const { brokerId, brokerName, brokerNameRaw, displayName } =
+  const { brokerId, brokerName, brokerNameRaw, displaySymbolName } =
     useBadgeBySymbol(symbol);
   const isCommunityListed = Boolean(brokerId ?? brokerName);
   const baseFromSymbol = symbol?.split("_")[1] ?? symbol;
   const symbolWithBroker =
     brokerName != null
       ? `${baseFromSymbol}-${brokerNameRaw}`
-      : (displayName ?? symbol);
+      : (displaySymbolName ?? symbol);
 
   const favoriteIcon = (
     <React.Suspense fallback={null}>

@@ -154,7 +154,6 @@ export declare namespace API {
     quote_dp: number;
     type: string;
     name: string;
-    displayName: string;
   }
 
   export interface RwaSymbol {
@@ -162,6 +161,14 @@ export declare namespace API {
     status: "open" | "close";
     next_open: number;
     next_close: number;
+    market_session?:
+      | "US_STOCK"
+      | "US_STOCK_EXT"
+      | "HK_STOCK"
+      | "KR_STOCK"
+      | "CN_STOCK"
+      | "FX"
+      | string;
 
     base: string;
     quote: string;

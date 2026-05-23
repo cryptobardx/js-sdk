@@ -137,6 +137,7 @@
   "markets.recent": "最近",
   "markets.newListings": "新上市",
   "markets.community": "社区",
+  "markets.tradFi": "传统金融",
   "markets.allMarkets": "所有市场",
   "markets.openInterest": "未平仓合约",
   "markets.openInterest.tooltip": "每边持仓的总规模。",

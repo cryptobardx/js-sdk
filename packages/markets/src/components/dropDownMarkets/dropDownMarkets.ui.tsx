@@ -16,6 +16,7 @@ import { MarketsTabName } from "../../type";
 import { CommunityBrokerTabs } from "../communityBrokerTabs";
 import { MarketsListWidget } from "../marketsList";
 import { useMarketsContext } from "../marketsProvider";
+import { RwaSubcategoryTabs } from "../rwaSubcategoryTabs";
 import { RwaTab } from "../rwaTab";
 import { SearchInput } from "../searchInput";
 import { useFavoritesProps } from "../shared/hooks/useFavoritesExtraProps";
@@ -89,6 +90,36 @@ export const DropDownMarketsConetnt: React.FC<DropDownMarketsProps> = (
   const tabDataFilters = useCustomTabDataFilters(tabs);
 
   const renderBuiltInContent = (tabType: MarketsTabName) => {
+    if (tabType === MarketsTabName.Rwa) {
+      return (
+        <RwaSubcategoryTabs
+          storageKey="orderly_dropdown_markets_rwa_sel_sub_tab"
+          classNames={{
+            tabsList: "oui-px-3 oui-pt-1 oui-pb-2",
+            tabsContent: "oui-h-full",
+          }}
+          className={cn("oui-dropDownMarkets-rwa-tabs", cls)}
+          showScrollIndicator
+          renderPanel={(_, dataFilter) => (
+            <div className={cls}>
+              <MarketsListWidget
+                type={MarketsTabName.Rwa}
+                initialSort={tabSort[tabType]}
+                onSort={onTabSort(tabType)}
+                getColumns={getColumns}
+                tableClassNames={{
+                  root: cn("oui-dropDownMarkets-list", "!oui-bg-base-8"),
+                  scroll: "oui-pb-5 oui-px-1",
+                }}
+                rowClassName="!oui-h-[34px]"
+                dataFilter={dataFilter}
+              />
+            </div>
+          )}
+        />
+      );
+    }
+
     return (
       <div className={cls}>
         <MarketsListWidget

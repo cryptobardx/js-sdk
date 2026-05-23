@@ -10,7 +10,7 @@ const RwaIconTab = (props: { iconSize?: number }) => {
         size={iconSize}
         className="group-data-[state=active]:oui-text-base-contrast group-data-[state=inactive]:oui-text-base-contrast-36"
       />
-      <Text>{t("common.rwa")}</Text>
+      <Text>{t("markets.tradFi")}</Text>
     </Flex>
   );
 };
@@ -19,7 +19,7 @@ const RwaTab = () => {
   const { t } = useTranslation();
   return (
     <Flex gap={1}>
-      <Text>{t("common.rwa")}</Text>
+      <Text>{t("markets.tradFi")}</Text>
     </Flex>
   );
 };

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { type API } from "@orderly.network/types";
 import { getPrecisionByNumber } from "@orderly.network/utils";
-import { DEFAULT_SYMBOL_DISPLAY_NAMES } from "../constants";
 import { useSymbolStore } from "../provider/store/symbolStore";
+import { getSymbolDisplayName } from "../useBadgeBySymbol";
 import { useQuery } from "../useQuery";
 import { useAppStore } from "./appStore";
 import { useFutures } from "./useFutures";
@@ -61,7 +61,10 @@ export const usePublicDataObserver = () => {
         quote: arr[2],
         type: arr[0],
         name: `${arr[1]}-${arr[0]}`,
-        displayName: DEFAULT_SYMBOL_DISPLAY_NAMES[symbol],
+        display_symbol_name: getSymbolDisplayName(
+          symbol,
+          item.display_symbol_name,
+        ),
       };
     }
     setSymbolsInfo(obj);
