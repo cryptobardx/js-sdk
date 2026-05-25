@@ -359,7 +359,7 @@ const addFieldToMarkets = (
       broker_id: item.broker_id,
       display_symbol_name: getSymbolDisplayName(
         item.symbol,
-        item.display_symbol_name?.trim() || info("display_symbol_name"),
+        info("display_symbol_name"),
       ),
       quote_dp: info("quote_dp"),
       created_time: info("created_time"),
