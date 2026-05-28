@@ -5,6 +5,7 @@ import { useSymbolStore } from "../provider/store/symbolStore";
 import { getSymbolDisplayName } from "../useBadgeBySymbol";
 import { useQuery } from "../useQuery";
 import { useAppStore } from "./appStore";
+import { RWA_SYMBOLS_INFO_QUERY_KEY } from "./rwaSymbolsInfoRevalidator";
 import { useFutures } from "./useFutures";
 import { useMarketStore } from "./useMarket/market.store";
 
@@ -74,7 +75,7 @@ export const usePublicDataObserver = () => {
    * symbol config
    * TODO: remove onSuccess because it can't be called when trigger multiple times
    */
-  useQuery<Record<string, API.RwaSymbol>>(`/v1/public/rwa/info`, {
+  useQuery<API.RwaSymbol[]>(RWA_SYMBOLS_INFO_QUERY_KEY, {
     ...publicQueryOptions,
     onSuccess(data: API.RwaSymbol[]) {
       if (!data || !data?.length) {
