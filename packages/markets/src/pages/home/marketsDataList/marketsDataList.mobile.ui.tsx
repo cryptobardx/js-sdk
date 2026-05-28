@@ -28,6 +28,8 @@ import { UseMarketsDataListScript } from "./marketsDataList.script";
 
 export type MobileMarketsDataListProps = UseMarketsDataListScript;
 
+const TWO_LINE_MARKET_ROW_CLASS = "!oui-h-[54px]";
+
 type BuiltInTabMeta = {
   title: React.ReactNode;
   icon?: React.ReactElement;
@@ -97,7 +99,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
         initialSort={tabSort[type]}
         onSort={onTabSort(type)}
         getColumns={getColumns}
-        rowClassName="!oui-h-[34px]"
+        rowClassName={TWO_LINE_MARKET_ROW_CLASS}
         {...getFavoritesProps(type)}
       />
     );
@@ -130,7 +132,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
                 initialSort={tabSort[type]}
                 onSort={onTabSort(type)}
                 getColumns={getColumns}
-                rowClassName="!oui-h-[34px]"
+                rowClassName={TWO_LINE_MARKET_ROW_CLASS}
               />
             )}
           />
@@ -148,7 +150,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
         initialSort={tabSort[MarketsTabName.Community]}
         onSort={onTabSort(MarketsTabName.Community)}
         getColumns={getColumns}
-        rowClassName="!oui-h-[34px]"
+        rowClassName={TWO_LINE_MARKET_ROW_CLASS}
         dataFilter={createCommunityBrokerFilter(selected)}
       />
     );
@@ -244,7 +246,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
                 initialSort={tabSort[key as MarketsTabName]}
                 onSort={onTabSort(key as MarketsTabName)}
                 getColumns={getColumns}
-                rowClassName="!oui-h-[34px]"
+                rowClassName={TWO_LINE_MARKET_ROW_CLASS}
               />
             </TabPanel>
           );

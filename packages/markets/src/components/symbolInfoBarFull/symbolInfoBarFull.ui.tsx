@@ -226,7 +226,7 @@ export const SymbolInfoBarFull: React.FC<SymbolInfoBarFullProps> = (props) => {
         className="oui-shrink-0 oui-gap-y-[2px]"
       >
         <LazyDropDownMarketsWidget
-          contentClassName="oui-w-[580px] oui-h-[496px]"
+          contentClassName="oui-w-[620px] oui-h-[496px]"
           symbol={props.symbol}
           onSymbolChange={props.onSymbolChange}
         >

@@ -6,6 +6,7 @@ import { FavoritesIcon2, UnFavoritesIcon2 } from "../../icons";
 import { DeleteIcon, TopIcon } from "../../icons";
 import { FavoriteInstance } from "../../type";
 import { FavoritesDropdownMenuWidget } from "../favoritesDropdownMenu";
+import { SymbolBadge } from "../symbolBadge";
 import { SymbolDisplay } from "../symbolDisplay";
 
 export function getSymbolColumn(
@@ -13,12 +14,13 @@ export function getSymbolColumn(
   isFavoriteList = false,
   options?: {
     stackLeverageInSecondRow?: boolean;
+    symbolColumnWidth?: number;
   },
 ) {
   return {
     title: i18n.t("common.symbol"),
     dataIndex: "symbol",
-    width: 150,
+    width: options?.symbolColumnWidth ?? 150,
     className: "oui-z-10",
     onSort: true,
     render: (value, record) => {
@@ -44,6 +46,10 @@ export function getSymbolColumn(
       }
 
       const stackLeverageInSecondRow = options?.stackLeverageInSecondRow;
+      const hasLeverage = typeof record.leverage === "number";
+      const showBrokerBadgeInLeverageRow =
+        stackLeverageInSecondRow && Boolean(record.broker_id);
+      const showSecondRow = hasLeverage || showBrokerBadgeInLeverageRow;
 
       return (
         <Flex gapX={1} itemAlign="center">
@@ -56,15 +62,33 @@ export function getSymbolColumn(
           >
             <Flex gapX={1} itemAlign="center">
               <TokenIcon symbol={value} className="oui-size-[18px]" />
-              <SymbolDisplay formatString="base" size="2xs" record={record}>
+              <SymbolDisplay
+                formatString="base"
+                size="2xs"
+                record={record}
+                showBadge={!stackLeverageInSecondRow}
+              >
                 {value}
               </SymbolDisplay>
             </Flex>
-            {typeof record.leverage === "number" && (
-              <Badge size="xs" color="primary">
-                {record.leverage}x
-              </Badge>
-            )}
+            {stackLeverageInSecondRow
+              ? showSecondRow && (
+                  <Flex gapX={1} itemAlign="center">
+                    {showBrokerBadgeInLeverageRow && (
+                      <SymbolBadge symbol={value} />
+                    )}
+                    {hasLeverage && (
+                      <Badge size="xs" color="primary">
+                        {record.leverage}x
+                      </Badge>
+                    )}
+                  </Flex>
+                )
+              : hasLeverage && (
+                  <Badge size="xs" color="primary">
+                    {record.leverage}x
+                  </Badge>
+                )}
           </Flex>
         </Flex>
       );

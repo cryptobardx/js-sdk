@@ -16,7 +16,9 @@ export const useDropDownMarketsColumns = () => {
   return useCallback(
     (favorite: FavoriteInstance, isFavoriteList = false) => {
       return [
-        getSymbolColumn(favorite, isFavoriteList),
+        getSymbolColumn(favorite, isFavoriteList, {
+          symbolColumnWidth: 190,
+        }),
         getLastColumn(),
         get24hPercentageColumn(),
         {
