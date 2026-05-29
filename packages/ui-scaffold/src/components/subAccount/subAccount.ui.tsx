@@ -212,7 +212,7 @@ export function SubAccountUI(
         align="start"
         side="bottom"
         sideOffset={16}
-        collisionPadding={{ right: 16 }}
+        collisionPadding={{ left: 16, right: 16 }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={() => {
           props.onOpenChange(false);

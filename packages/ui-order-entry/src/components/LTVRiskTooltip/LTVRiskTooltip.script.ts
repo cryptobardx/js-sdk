@@ -8,7 +8,7 @@ import {
 } from "@orderly.network/hooks";
 import { account } from "@orderly.network/perp";
 import { API, MarginMode } from "@orderly.network/types";
-import { modal } from "@orderly.network/ui";
+import { modal, useScreen } from "@orderly.network/ui";
 import { Decimal, zero } from "@orderly.network/utils";
 
 const useConvertThreshold = () => {
@@ -25,6 +25,7 @@ const useConvertThreshold = () => {
 };
 
 export const useLTVTooltipScript = (marginMode?: MarginMode) => {
+  const { isMobile } = useScreen();
   const { data: holdingList = [], isLoading: isHoldingLoading } =
     useHoldingStream();
 
@@ -72,8 +73,8 @@ export const useLTVTooltipScript = (marginMode?: MarginMode) => {
   const currentLtv = useComputedLTV();
 
   const onConvert = useCallback(async () => {
-    return modal.show("ConvertDialogId");
-  }, []);
+    return modal.show(isMobile ? "ConvertSheetId" : "ConvertDialogId");
+  }, [isMobile]);
 
   return {
     holdingData,

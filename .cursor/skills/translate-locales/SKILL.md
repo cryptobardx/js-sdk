@@ -1,6 +1,6 @@
 ---
 name: translate-locales
-description: Generate extend/en.json, translate it into 16 locales, and merge into main locale JSON files.
+description: Generate extend/en.json, translate it into 19 locales, and merge into main locale JSON files.
 ---
 
 ## Translate Locales
@@ -28,7 +28,7 @@ All shell commands below assume you are in the repo root first, and then inside 
 
 ### Step 3 – Translate from source file
 
-Use the generated file `packages/i18n/locales/extend/en.json` (relative to the repo root, i.e. `locales/extend/en.json` under `packages/i18n`) as the translation source. Translate this source file into 16 languages. Create the output files in `packages/i18n/locales/extend/` (the same directory as `en.json`). If `packages/i18n/locales/extend/` already contains locale files with the same names, **overwrite** those files with the new translated JSON produced in this run (no need to manually clean the directory beforehand).
+Use the generated file `packages/i18n/locales/extend/en.json` (relative to the repo root, i.e. `locales/extend/en.json` under `packages/i18n`) as the translation source. Translate this source file into 19 languages, matching the locales defined in `packages/i18n/src/constant.ts` except `en`. Create the output files in `packages/i18n/locales/extend/` (the same directory as `en.json`). If `packages/i18n/locales/extend/` already contains locale files with the same names, **overwrite** those files with the new translated JSON produced in this run (no need to manually clean the directory beforehand).
 
 When asking the current AI to translate, use the prompt in `TRANSLATION_PROMPT.md`.
 
@@ -40,7 +40,7 @@ In `packages/i18n`, run: `pnpm mergeExtendJson`. This merges each `locales/exten
 
 - [ ] In repo root, inside `packages/i18n`
 - [ ] `pnpm generateMissingKeys` run; `packages/i18n/locales/extend/en.json` exists
-- [ ] 16 locale files created under `packages/i18n/locales/extend/` with file names exactly matching the list in Step 3 (`zh.json`, `tc.json`, `ja.json`, `ko.json`, `vi.json`, `es.json`, `de.json`, `fr.json`, `ru.json`, `id.json`, `tr.json`, `it.json`, `pt.json`, `uk.json`, `pl.json`, `nl.json`)
+- [ ] 19 locale files created under `packages/i18n/locales/extend/` with file names exactly matching the locales in `packages/i18n/src/constant.ts` except `en` (`ar.json`, `fa.json`, `he.json`, `zh.json`, `ja.json`, `es.json`, `ko.json`, `vi.json`, `de.json`, `fr.json`, `ru.json`, `id.json`, `tr.json`, `it.json`, `pt.json`, `uk.json`, `pl.json`, `nl.json`, `tc.json`)
 - [ ] `pnpm mergeExtendJson` run successfully
 - [ ] Main `packages/i18n/locales/<locale>.json` files updated and `packages/i18n/locales/extend/` removed
 - [ ] Spot-check several languages to ensure placeholders, HTML tags, newlines, and token symbols are preserved correctly and that key sets match the English source.

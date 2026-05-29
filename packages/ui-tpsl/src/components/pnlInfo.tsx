@@ -47,7 +47,7 @@ export const PnlInfo = (props: Props) => {
         <Text size="2xs">{t("tpsl.totalEstTpPnl")}</Text>
         <Text.numeral
           suffix={
-            <Text className="oui-text-base-contrast-36 oui-ml-1">USDC</Text>
+            <Text className="oui-text-base-contrast-36 oui-ms-1">USDC</Text>
           }
           rule="price"
           coloring
@@ -63,7 +63,7 @@ export const PnlInfo = (props: Props) => {
         {sl_pnl ? (
           <Text.numeral
             suffix={
-              <Text className="oui-text-base-contrast-36 oui-ml-1">USDC</Text>
+              <Text className="oui-text-base-contrast-36 oui-ms-1">USDC</Text>
             }
             coloring
             visible={true}

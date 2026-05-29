@@ -25,5 +25,7 @@
   "extend.swap.warning": "Swapy spot są wykonywane przy użyciu aktywów Twojego podłączonego portfela Web3. Fundusze konta perps są oddzielne i nie będą dotknięte.",
   "extend.viewAll": "Zobacz wszystko",
   "extend.meme": "Meme",
-  "extend.hot": "Gorące"
+  "extend.hot": "Gorące",
+  "extend.name": "Nazwa",
+  "extend.apr": "APR"
 }

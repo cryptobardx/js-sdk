@@ -180,6 +180,10 @@ export const transfer = {
   "transfer.LTV.currentLTV": "Current LTV",
   "transfer.LTV.isolatedModeUsdcOnly":
     "Only USDC can be used as margin in Isolated Mode.",
+  "transfer.LTV.availableCrossMarginHint":
+    "Available balance = USDC balance + Unsettled PnL. All collateral assets contribute to your available margin.",
+  "transfer.LTV.isolatedMarginOrderHint":
+    "In Isolated Margin mode, only USDC is accepted as margin. Convert your assets to USDC to place orders.",
   "transfer.convert": "Convert",
   // "transfer.convert.note": "Please note that convert fees will be charged.",
   "transfer.deposit.globalMaxQty.error":

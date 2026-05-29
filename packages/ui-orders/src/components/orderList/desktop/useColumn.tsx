@@ -73,7 +73,7 @@ export const useOrderColumn = (props: {
           fillAndQuantity({
             width: 130,
             disableEdit: true,
-            className: "oui-pl-0 oui-pr-0",
+            className: "oui-ps-0 oui-pe-0",
             enableSort: false,
           }),
           price({
@@ -110,12 +110,12 @@ export const useOrderColumn = (props: {
           // side({ width: 162 }),
           fillAndQuantity({
             width: 162,
-            className: "oui-pr-0",
+            className: "oui-pe-0",
             enableSort: false,
           }),
-          price({ width: 162, className: "oui-pr-0", enableSort: false }),
+          price({ width: 162, className: "oui-pe-0", enableSort: false }),
           trailingCallback({ width: 162 }),
-          triggerPrice({ width: 162, className: "oui-pr-0", isPending: true }),
+          triggerPrice({ width: 162, className: "oui-pe-0", isPending: true }),
           bracketOrderPrice({ width: 130 }),
           estTotal({ width: 162, isPending: true }),
           reduceOnly({ width: 162 }),
@@ -152,7 +152,7 @@ export const useOrderColumn = (props: {
           fillAndQuantity({
             width: 124,
             disableEdit: true,
-            className: "oui-pl-0 oui-pr-0",
+            className: "oui-ps-0 oui-pe-0",
           }),
           price({
             width: 124,
@@ -187,7 +187,7 @@ export const useOrderColumn = (props: {
           fillAndQuantity({
             width: 124,
             disableEdit: true,
-            className: "oui-pl-0 oui-pr-0",
+            className: "oui-ps-0 oui-pe-0",
             enableSort: false,
           }),
           price({ width: 124, disableEdit: true, enableSort: false }),
@@ -210,7 +210,7 @@ export const useOrderColumn = (props: {
           fillAndQuantity({
             width: 124,
             disableEdit: true,
-            className: "oui-pl-0 oui-pr-0",
+            className: "oui-ps-0 oui-pe-0",
           }),
           price({ width: 124, disableEdit: true }),
           avgOpen({ width: 124 }),
@@ -233,7 +233,7 @@ export const useOrderColumn = (props: {
           fillAndQuantity({
             width: 150,
             disableEdit: true,
-            className: "oui-pl-6 oui-pr-0",
+            className: "oui-ps-6 oui-pe-0",
           }),
           price({
             width: 124,
@@ -275,7 +275,7 @@ function instrument(option?: {
   return {
     title: i18n.t("common.symbol"),
     dataIndex: "symbol",
-    fixed: "left",
+    fixed: "start",
     // className: "oui-h-[48px]",
     width: option?.width,
     onSort: option?.enableSort
@@ -1093,7 +1093,7 @@ function cancelBtn(option?: {
     width: option?.width,
     className: option?.className,
     align: "right",
-    fixed: "right",
+    fixed: "end",
     render: (_: string, record: any) => {
       if (record.status === OrderStatus.CANCELLED) {
         return <Renew record={record} />;
@@ -1122,7 +1122,7 @@ function pendingTabCancelBtn(option?: {
     width: option?.width,
     className: option?.className,
     align: "right",
-    fixed: "right",
+    fixed: "end",
     render: (_: string, record: any) => {
       return <CancelButton order={record} />;
     },
@@ -1140,7 +1140,7 @@ function tpslAction(option?: {
     width: option?.width,
     className: option?.className,
     align: "right",
-    fixed: "right",
+    fixed: "end",
     render: (_: string, record: any) => {
       return (
         <Flex gap={3}>

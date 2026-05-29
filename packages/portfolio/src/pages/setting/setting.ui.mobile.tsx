@@ -119,13 +119,13 @@ export const SettingMobile: FC<SettingScriptReturns> = (props) => {
             size="base"
             weight="semibold"
             intensity={80}
-            className="oui-ml-2"
+            className="oui-ms-2"
           >
             {t("languageSwitcher.language")}
           </Text>
           <ChevronRightIcon
             size={18}
-            className="oui-ml-auto oui-text-base-contrast-36"
+            className="oui-ms-auto oui-text-base-contrast-36"
           />
         </Flex>
       </Flex>

@@ -10,10 +10,7 @@ type QtyAndTotalInputProps = {
 
 export const QtyAndTotalInput: FC<QtyAndTotalInputProps> = memo((props) => {
   return (
-    <Grid
-      cols={2}
-      className="oui-orderEntry-qtyAndTotal oui-group oui-space-x-1"
-    >
+    <Grid cols={2} className="oui-orderEntry-qtyAndTotal oui-group oui-gap-1">
       <QuantityInput order_quantity={props.order_quantity} />
       <TotalInput total={props.total} />
     </Grid>

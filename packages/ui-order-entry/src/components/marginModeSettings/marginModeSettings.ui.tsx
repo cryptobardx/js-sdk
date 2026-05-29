@@ -129,13 +129,13 @@ export const MarginModeSettings: FC<MarginModeSettingsProps> = (props) => {
             ),
           }}
           prefix={
-            <div className="oui-pl-3 oui-pr-1" aria-hidden="true">
+            <div className="oui-ps-3 oui-pe-1" aria-hidden="true">
               <SearchGlyph className="oui-text-base-contrast-54" />
             </div>
           }
           suffix={
             props.searchKeyword ? (
-              <div className="oui-pr-2">
+              <div className="oui-pe-2">
                 <CloseCircleFillIcon
                   size={14}
                   className="oui-cursor-pointer oui-text-base-contrast-36"

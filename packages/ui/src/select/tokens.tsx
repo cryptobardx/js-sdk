@@ -95,7 +95,7 @@ const Option: React.FC<OptionProps> = (props) => {
       value={value}
       className={item({
         size,
-        className: "oui-space-x-1 oui-flex oui-flex-row oui-items-center",
+        className: "oui-gap-x-1 oui-flex oui-flex-row oui-items-center",
       })}
     >
       <TokenIcon

@@ -65,7 +65,7 @@ export const ConvertedAssetColumn = ({
         ))}
       </Flex>
     );
-  }, [assets]);
+  }, [assets, convertedAssets, t]);
 
   return (
     <Flex itemAlign="center" gap={2}>
@@ -203,7 +203,7 @@ export const useConvertColumns = (options: ConvertColumnsOptions) => {
         },
       },
     ];
-  }, [onDetailsClick]);
+  }, [onDetailsClick, t]);
 
   return columns;
 };
@@ -326,7 +326,7 @@ export const useConvertDetailColumns = (
         },
       },
     ];
-  }, []);
+  }, [t]);
 
   return columns;
 };

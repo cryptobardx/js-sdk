@@ -20,7 +20,7 @@ export const BracketOrderPrice: FC<BracketOrderPriceState> = (props) => {
     <Flex gap={1} itemAlign={"center"} justify={"start"}>
       <MobileTooltip
         classNames={{
-          content: "oui-bg-base-6 oui-ml-2",
+          content: "oui-bg-base-6 oui-ms-2",
           arrow: "oui-fill-base-6",
         }}
         content={

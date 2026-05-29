@@ -1,5 +1,6 @@
 import { OrderSide } from "@orderly.network/types";
 import { Decimal } from "@orderly.network/utils";
+import { IsoTakerFeeBuffer, MaxQtySafetyFactor } from "../constants";
 
 /**
  * @formulaId maxQtyIsolated
@@ -43,12 +44,21 @@ import { Decimal } from "@orderly.network/utils";
  * current_order_reference_price = 99900 USDC
  * max_notional = 10059467.44 USDC
  * pending_long_notional = 299200 USDC
- * max_qty = MIN(1000 / 99900 * 25, (10059467.44 - 100000 * 5 - 299200) / 99900) = 0.25 BTC
+ * max_qty = MIN(1000 / (1 / 25 + 0.0006) / 99900 * 0.995, (10059467.44 - 100000 * 5 - 299200) / 99900) = 0.245 BTC
  * ```
  *
  * @param inputs Input parameters for calculating maximum tradeable quantity
  * @returns Maximum tradeable quantity
  */
+export function isolatedMarginRate(inputs: {
+  leverage: number;
+  isoTakerFeeBuffer?: number;
+}): Decimal {
+  return new Decimal(1)
+    .div(inputs.leverage)
+    .add(inputs.isoTakerFeeBuffer ?? IsoTakerFeeBuffer);
+}
+
 export function maxQtyForIsolatedMargin(inputs: {
   /**
    * @description Trading symbol
@@ -110,6 +120,10 @@ export function maxQtyForIsolatedMargin(inputs: {
    * @description Precision threshold for binary search (default: 1)
    */
   epsilon?: number;
+  /**
+   * @description Fee buffer reserved in isolated frozen margin (default: 0.0006)
+   */
+  isoTakerFeeBuffer?: number;
 }): number {
   const {
     orderSide,
@@ -123,7 +137,10 @@ export function maxQtyForIsolatedMargin(inputs: {
     pendingSellOrders,
     symbolMaxNotional,
     epsilon = 1,
+    isoTakerFeeBuffer = IsoTakerFeeBuffer,
   } = inputs;
+
+  const marginRate = isolatedMarginRate({ leverage, isoTakerFeeBuffer });
 
   // Calculate max_notional
   const maxNotional = Math.min(
@@ -145,8 +162,9 @@ export function maxQtyForIsolatedMargin(inputs: {
         0,
       );
       const maxQtyByBalance = new Decimal(availableBalance)
+        .div(marginRate)
         .div(currentOrderReferencePrice)
-        .mul(leverage)
+        .mul(MaxQtySafetyFactor)
         .toNumber();
       const maxQtyByNotional = new Decimal(maxNotional)
         .sub(new Decimal(markPrice).mul(positionQty))
@@ -168,6 +186,7 @@ export function maxQtyForIsolatedMargin(inputs: {
           pendingSellOrders,
           isoOrderFrozenLong: inputs.isoOrderFrozenLong,
           isoOrderFrozenShort: inputs.isoOrderFrozenShort,
+          isoTakerFeeBuffer,
         },
         maxNotional,
         epsilon,
@@ -185,8 +204,9 @@ export function maxQtyForIsolatedMargin(inputs: {
         0,
       );
       const maxQtyByBalance = new Decimal(availableBalance)
+        .div(marginRate)
         .div(currentOrderReferencePrice)
-        .mul(leverage)
+        .mul(MaxQtySafetyFactor)
         .toNumber();
       // Use abs(position_qty) for short positions
       const maxQtyByNotional = new Decimal(maxNotional)
@@ -209,6 +229,7 @@ export function maxQtyForIsolatedMargin(inputs: {
           pendingSellOrders,
           isoOrderFrozenLong: inputs.isoOrderFrozenLong,
           isoOrderFrozenShort: inputs.isoOrderFrozenShort,
+          isoTakerFeeBuffer,
         },
         maxNotional,
         epsilon,
@@ -238,6 +259,7 @@ function maxQtyIsolatedBinarySearch(
     pendingSellOrders: Array<{ referencePrice: number; quantity: number }>;
     isoOrderFrozenLong: number;
     isoOrderFrozenShort: number;
+    isoTakerFeeBuffer: number;
   },
   maxNotional: number,
   epsilon: number,
@@ -252,6 +274,7 @@ function maxQtyIsolatedBinarySearch(
     pendingSellOrders,
     isoOrderFrozenLong,
     isoOrderFrozenShort,
+    isoTakerFeeBuffer,
   } = inputs;
   // baseIMR and IMR_Factor are kept in the interface for future use but not currently used in binary search
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -276,15 +299,18 @@ function maxQtyIsolatedBinarySearch(
   for (let i = 0; i < 30; i++) {
     const mid = (left + right) / 2;
 
-    // Calculate order notional and frozen margin for current mid quantity
-    const orderNotional = new Decimal(mid).mul(currentOrderReferencePrice);
-    const orderMargin = orderNotional.div(leverage);
-
-    // Calculate total frozen margin
-    const totalFrozenMargin =
-      orderSide === OrderSide.BUY
-        ? isoOrderFrozenLong + orderMargin.toNumber()
-        : isoOrderFrozenShort + orderMargin.toNumber();
+    const pendingOrders =
+      orderSide === OrderSide.BUY ? pendingLongOrders : pendingSellOrders;
+    const existingFrozen =
+      orderSide === OrderSide.BUY ? isoOrderFrozenLong : isoOrderFrozenShort;
+    const totalOrderNotional = pendingOrders.reduce(
+      (acc, order) =>
+        acc.add(new Decimal(order.referencePrice).mul(order.quantity)),
+      new Decimal(mid).mul(currentOrderReferencePrice),
+    );
+    const orderFrozen = totalOrderNotional
+      .mul(isolatedMarginRate({ leverage, isoTakerFeeBuffer }))
+      .sub(existingFrozen);
 
     // Calculate open notional after order execution
     const newPositionQty =
@@ -294,13 +320,13 @@ function maxQtyIsolatedBinarySearch(
     );
 
     // Check conditions
-    const frozenOk = totalFrozenMargin <= availableBalance;
+    const frozenOk = orderFrozen.lte(availableBalance);
     const notionalOk = openNotional.lte(maxNotional);
 
     if (frozenOk && notionalOk) {
       left = mid;
       // Early termination if precision is reached
-      if (new Decimal(availableBalance).sub(totalFrozenMargin).lte(epsilon)) {
+      if (new Decimal(availableBalance).sub(orderFrozen).lte(epsilon)) {
         break;
       }
     } else {

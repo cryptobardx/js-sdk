@@ -200,7 +200,7 @@ const CommissionList: FC<CommissionAndRefereesReturns> = (props) => {
         }}
       />
     );
-  }, [isMobile, props.commission]);
+  }, [columns, isMobile, props.commission, t]);
 
   return (
     <Flex
@@ -355,7 +355,7 @@ const RefereesList: FC<CommissionAndRefereesReturns> = (props) => {
         }}
       />
     );
-  }, [isMobile, props.referees]);
+  }, [columns, isMobile, props.referees, t]);
 
   return (
     <Flex

@@ -224,7 +224,7 @@ const AssetDetail: FC<AssetDetailProps> = (props) => {
         visible={visible}
         size="2xs"
         unit={unit}
-        unitClassName="oui-text-base-contrast-36 oui-ml-0.5"
+        unitClassName="oui-text-base-contrast-36 oui-ms-0.5"
         as="div"
         rule={rule}
         padding={false}

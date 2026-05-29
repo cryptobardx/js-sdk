@@ -98,7 +98,7 @@ export const SubAccountScript = () => {
           toast.success(t("subAccount.modal.switch.success.description"));
         });
     },
-    [switchAccount],
+    [switchAccount, t],
   );
 
   const accountsWithValues = useMemo(() => {

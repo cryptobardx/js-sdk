@@ -26,5 +26,7 @@
   "extend.swap.warning": "스팟 스왑은 연결된 Web3 지갑 자산을 사용하여 실행됩니다. 퍼페츄얼 계정 자금은 별도로 관리되며 영향을 받지 않습니다.",
   "extend.viewAll": "전체 보기",
   "extend.meme": "밈",
-  "extend.hot": "핫"
+  "extend.hot": "핫",
+  "extend.name": "이름",
+  "extend.apr": "APR"
 }

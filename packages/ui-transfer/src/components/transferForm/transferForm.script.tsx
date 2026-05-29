@@ -351,7 +351,7 @@ export function useInputStatus(options: Options) {
         setHintMessage("");
       }
     }
-  }, [quantity, maxQuantity]);
+  }, [maxQuantity, quantity, t, unsettledPnL]);
 
   return { inputStatus, hintMessage };
 }

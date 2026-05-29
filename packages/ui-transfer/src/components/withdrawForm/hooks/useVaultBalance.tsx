@@ -101,6 +101,7 @@ export const useVaultBalance = (inputs: {
     chainName,
     sourceToken,
     chainVaultBalance,
+    t,
   ]);
 
   const vaultBalanceListFilterCCTP = useMemo(() => {

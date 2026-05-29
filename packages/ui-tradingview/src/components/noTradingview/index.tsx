@@ -20,7 +20,7 @@ export const NoTradingview: React.FC = () => {
       <div>
         <p className="oui-mb-6 oui-text-xs">{t("tradingView.noScriptSrc")}</p>
 
-        <p className="oui-mb-3 oui-pl-0 oui-text-2xs oui-text-base-contrast-54 md:oui-pl-2 md:oui-text-base md:oui-text-base-contrast-80">
+        <p className="oui-mb-3 oui-ps-0 oui-text-2xs oui-text-base-contrast-54 md:oui-ps-2 md:oui-text-base md:oui-text-base-contrast-80">
           <Trans
             i18nKey="tradingView.noScriptSrc.1"
             components={[
@@ -31,7 +31,7 @@ export const NoTradingview: React.FC = () => {
             ]}
           />
         </p>
-        <p className="oui-pl-0 oui-text-2xs oui-text-base-contrast-54 md:oui-pl-2 md:oui-text-base md:oui-text-base-contrast-80">
+        <p className="oui-ps-0 oui-text-2xs oui-text-base-contrast-54 md:oui-ps-2 md:oui-text-base md:oui-text-base-contrast-80">
           <Trans
             i18nKey="tradingView.noScriptSrc.2"
             components={[

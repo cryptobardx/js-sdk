@@ -35,7 +35,7 @@ export const ChainMenuUiMobile = (props: UseChainMenuScriptReturn) => {
           size="xs"
           className="oui-h-[18px] oui-w-[18px]"
         />
-        <div className="oui-absolute oui-right-0 oui-bottom-0">
+        <div className="oui-absolute oui-end-0 oui-bottom-0">
           <svg
             width="9"
             height="9"

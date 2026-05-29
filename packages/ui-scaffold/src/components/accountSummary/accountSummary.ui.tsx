@@ -75,7 +75,7 @@ const TotalValue: FC<{
         intensity={98}
         visible={props.visible}
         unit="USDC"
-        unitClassName="oui-text-base-contrast-20 oui-ml-1"
+        unitClassName="oui-text-base-contrast-20 oui-ms-1"
         as="div"
       >
         {totalValue ?? "-"}
@@ -136,7 +136,7 @@ const FreeCollateral: FC<{
       <Text.numeral
         intensity={98}
         unit="USDC"
-        unitClassName="oui-text-base-contrast-20 oui-ml-1"
+        unitClassName="oui-text-base-contrast-20 oui-ms-1"
         visible={visible}
         as="div"
       >
@@ -272,7 +272,7 @@ const AccountInfoPopover = (props: {
               visible={props.visible}
               unit="USDC"
               className="oui-transition-transform group-hover:-oui-translate-x-5"
-              unitClassName={"oui-text-base-contrast-36 oui-ml-1"}
+              unitClassName={"oui-text-base-contrast-36 oui-ms-1"}
             >
               {totalValue ?? "-"}
             </Text.numeral>
@@ -293,7 +293,7 @@ const AccountInfoPopover = (props: {
               unit="USDC"
               visible={props.visible}
               className="oui-transition-transform group-hover:-oui-translate-x-5"
-              unitClassName={"oui-text-base-contrast-36 oui-ml-1"}
+              unitClassName={"oui-text-base-contrast-36 oui-ms-1"}
             >
               {props.freeCollateral ?? "-"}
             </Text.numeral>
@@ -378,7 +378,7 @@ const DropdownMenu: FC<
         {props.children}
       </Flex>
       <button
-        className="oui-absolute oui-right-1 oui-top-1"
+        className="oui-absolute oui-end-1 oui-top-1"
         onClick={props.onSetTop}
       >
         <svg

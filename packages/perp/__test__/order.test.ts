@@ -1,5 +1,10 @@
 import { describe, expect, it, test } from "@jest/globals";
-import { estLeverage, estLiqPrice, orderFee } from "../src/order";
+import {
+  estLeverage,
+  estLiqPrice,
+  estLiqPriceIsolated,
+  orderFee,
+} from "../src/order";
 
 describe("order", () => {
   describe("estLeverage", () => {
@@ -232,5 +237,51 @@ describe("order", () => {
     //   };
     //   expect(estLiqPrice(inputs)).toBe(5472);
     // });
+  });
+
+  describe("estLiqPriceIsolated", () => {
+    it("should include fee buffer when estimating opening order margin", () => {
+      const liqPrice = estLiqPriceIsolated({
+        isolatedPositionMargin: 0,
+        costPosition: 0,
+        positionQty: 0,
+        sumUnitaryFunding: 0,
+        lastSumUnitaryFunding: 0,
+        markPrice: 100,
+        baseMMR: 0.05,
+        baseIMR: 0.1,
+        IMR_Factor: 0,
+        leverage: 10,
+        newOrder: {
+          symbol: "PERP_BTC_USDC",
+          qty: 1,
+          price: 100,
+        },
+      });
+
+      expect(liqPrice).toBeCloseTo(94.67368421052632, 12);
+    });
+
+    it("should include fee buffer when estimating flip order margin", () => {
+      const liqPrice = estLiqPriceIsolated({
+        isolatedPositionMargin: 10,
+        costPosition: -100,
+        positionQty: -1,
+        sumUnitaryFunding: 0,
+        lastSumUnitaryFunding: 0,
+        markPrice: 100,
+        baseMMR: 0.05,
+        baseIMR: 0.1,
+        IMR_Factor: 0,
+        leverage: 10,
+        newOrder: {
+          symbol: "PERP_BTC_USDC",
+          qty: 2,
+          price: 100,
+        },
+      });
+
+      expect(liqPrice).toBeCloseTo(94.67368421052632, 12);
+    });
   });
 });

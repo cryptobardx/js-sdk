@@ -53,7 +53,7 @@ export const VaultsHeaderMobile: FC<VaultsHeaderScript> = (props) => {
           {t("vaults.header.description", { brokerName })}
         </div>
       </div>
-      <div className="oui-absolute -oui-right-3 -oui-top-4 oui-h-[124px] oui-w-[187px]">
+      <div className="oui-absolute -oui-end-3 -oui-top-4 oui-h-[124px] oui-w-[187px]">
         {headerImageElement}
       </div>
     </div>

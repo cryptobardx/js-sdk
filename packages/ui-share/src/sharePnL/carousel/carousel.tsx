@@ -219,7 +219,7 @@ const CarouselItem = React.forwardRef<
       aria-roledescription="slide"
       className={cn(
         "oui-min-w-0 oui-shrink-0 oui-grow-0 oui-basis-full",
-        orientation === "horizontal" ? "oui-pl-4" : "oui-pt-4",
+        orientation === "horizontal" ? "oui-ps-4" : "oui-pt-4",
         className,
       )}
       {...props}
@@ -250,8 +250,8 @@ const CarouselPrevious = React.forwardRef<
       className={cn(
         "oui-absolute oui-size-8 oui-rounded-full",
         orientation === "horizontal"
-          ? "oui--left-12 oui-top-1/2 oui--translate-y-1/2"
-          : "oui--top-12 oui-left-1/2 oui--translate-x-1/2 oui-rotate-90",
+          ? "oui--start-12 oui-top-1/2 oui--translate-y-1/2"
+          : "oui--top-12 oui-start-1/2 oui--translate-x-1/2 oui-rotate-90",
         className,
       )}
       disabled={!canScrollPrev}
@@ -285,8 +285,8 @@ const CarouselNext = React.forwardRef<
       className={cn(
         "oui-absolute oui-size-8 oui-rounded-full",
         orientation === "horizontal"
-          ? "oui--right-12 oui-top-1/2 oui--translate-y-1/2"
-          : "oui--bottom-12 oui-left-1/2 oui--translate-x-1/2 oui-rotate-90",
+          ? "oui--end-12 oui-top-1/2 oui--translate-y-1/2"
+          : "oui--bottom-12 oui-start-1/2 oui--translate-x-1/2 oui-rotate-90",
         className,
       )}
       disabled={!canScrollNext}

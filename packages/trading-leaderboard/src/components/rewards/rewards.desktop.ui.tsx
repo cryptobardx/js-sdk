@@ -62,7 +62,7 @@ export const RewardsDesktopUI: FC<RewardsDesktopUIProps> = ({
       campaign.start_time < new Date().toISOString() &&
       campaign.end_time > new Date().toISOString()
     );
-  }, [campaign]);
+  }, [campaign, t]);
 
   const ticketTooltipContent = useMemo(() => {
     const ticketRules = campaign?.ticket_rules;
@@ -106,7 +106,7 @@ export const RewardsDesktopUI: FC<RewardsDesktopUIProps> = ({
         })}
       </div>
     );
-  }, [campaign]);
+  }, [campaign, t]);
 
   const extraProps = useMemo(() => {
     if (

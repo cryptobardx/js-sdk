@@ -73,7 +73,7 @@ export function useChainSelect() {
           }
         });
     },
-    [currentChain, setChain, findByChainId],
+    [connectedChain, currentChain, findByChainId, setChain, t],
   );
 
   return {

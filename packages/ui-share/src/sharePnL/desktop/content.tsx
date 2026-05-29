@@ -54,6 +54,10 @@ export const DesktopSharePnLContent: FC<{
   };
 
   const [domain, setDomain] = useState("");
+  // Temporary switch: force LTR poster rendering for now.
+  // Set to true to re-enable RTL poster rendering later.
+  const enableRTLPoster = false;
+  const direction: "ltr" | "rtl" = enableRTLPoster ? "rtl" : "ltr";
 
   const posterRef = useRef<PosterRef | null>(null);
 
@@ -131,6 +135,7 @@ export const DesktopSharePnLContent: FC<{
               height={310}
               data={{
                 backgroundImg: curBgImg,
+                direction,
                 ...resetOptions,
                 data: posterData,
               }}

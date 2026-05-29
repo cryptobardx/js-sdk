@@ -29,7 +29,7 @@ export const BBOOrderTypeSelect = (props: {
         value: BBOOrderType.QUEUE5,
       },
     ],
-    [],
+    [t],
   );
 
   return (

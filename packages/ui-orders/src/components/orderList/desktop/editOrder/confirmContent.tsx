@@ -71,7 +71,7 @@ export const ConfirmContent = memo((props: ConfirmContentProps) => {
         </ThrottledButton>
       </div>
       <button
-        className="oui-absolute oui-right-0 oui-top-0 oui-text-base-contrast-54"
+        className="oui-absolute oui-end-0 oui-top-0 oui-text-base-contrast-54"
         onClick={cancelPopover}
       >
         <CloseIcon size={16} color="white" opacity={1} />

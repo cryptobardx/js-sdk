@@ -20,10 +20,10 @@ export const DesktopMarkPrice: FC<DesktopMarkPriceProps> = (props) => {
   const { showTotal } = useOrderBookContext();
 
   return (
-    <div className="oui-flex oui-flex-row oui-pl-3 oui-tabular-nums oui-justify-between oui-text-base-contrast-80 oui-text-xs oui-relative oui-cursor-pointer oui-py-[6px]">
+    <div className="oui-flex oui-flex-row oui-ps-3 oui-tabular-nums oui-justify-between oui-text-base-contrast-80 oui-text-xs oui-relative oui-cursor-pointer oui-py-[6px]">
       <div
         className={cn(
-          "oui-basis-7/12 oui-flex oui-flex-row oui-items-center oui-mr-2 oui-justify-between",
+          "oui-basis-7/12 oui-flex oui-flex-row oui-items-center oui-me-2 oui-justify-between",
           showTotal && "oui-basis-5/12",
         )}
       >
@@ -39,7 +39,7 @@ export const DesktopMarkPrice: FC<DesktopMarkPriceProps> = (props) => {
         className={cn(
           "oui-basis-5/12 oui-flex oui-items-center oui-fex-row oui-overflow-hidden oui-relative oui-justify-end",
           showTotal && "oui-basis-7/12",
-          "oui-pr-3",
+          "oui-pe-3",
         )}
       >
         <Spread asks={asks} bids={bids} />

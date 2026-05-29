@@ -12,6 +12,7 @@ import {
   inputFormatter,
   Spinner,
   InputFormatter,
+  useDocumentDirection,
 } from "@orderly.network/ui";
 import { Decimal } from "@orderly.network/utils";
 import { InputStatus } from "../../types";
@@ -63,6 +64,7 @@ export const QuantityInput: FC<QuantityInputProps> = (props) => {
   } = props;
 
   const { t } = useTranslation();
+  const dir = useDocumentDirection();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
@@ -133,7 +135,7 @@ export const QuantityInput: FC<QuantityInputProps> = (props) => {
   );
 
   const suffix = (
-    <div className="oui-absolute oui-right-0">
+    <div className="oui-absolute oui-end-0">
       <Select.tokens
         open={selectOpen}
         onOpenChange={setOpen}
@@ -157,7 +159,7 @@ export const QuantityInput: FC<QuantityInputProps> = (props) => {
             inputRef.current?.focus();
           },
           style: { width },
-          align: "end",
+          align: dir === "rtl" ? "start" : "end",
           sideOffset: 5,
           className: "oui-border oui-border-line-6",
         }}

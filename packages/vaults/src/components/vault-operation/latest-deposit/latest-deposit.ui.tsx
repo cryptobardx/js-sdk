@@ -25,7 +25,7 @@ export const LatestDepositUI: FC<LatestDepositUIProps> = (props) => {
         <div className="oui-flex oui-items-center">
           <div
             className={cn(
-              "oui-mr-1 oui-size-1 oui-rounded-full",
+              "oui-me-1 oui-size-1 oui-rounded-full",
               latestOperation.status === "completed" && "oui-bg-success",
               latestOperation.status === "rejected" && "oui-bg-danger",
               latestOperation.status === "failed" && "oui-bg-danger",
@@ -41,7 +41,7 @@ export const LatestDepositUI: FC<LatestDepositUIProps> = (props) => {
             {latestOperation.status.slice(0, 1).toUpperCase() +
               latestOperation.status.slice(1)}
           </Text>
-          <TokenIcon name="USDC" className="oui-ml-auto oui-mr-1 oui-size-4" />
+          <TokenIcon name="USDC" className="oui-ms-auto oui-me-1 oui-size-4" />
           <Text.numeral className="oui-text-sm oui-font-semibold oui-text-base-contrast-80">
             {latestOperation.amount_change}
           </Text.numeral>

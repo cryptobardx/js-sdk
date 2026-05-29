@@ -105,7 +105,7 @@ export const CrossSwap: FC<SwapProps> = (props) => {
         setStatus(SwapProcessStatus.BridgeFialed);
         toast.error(error?.message || "Error");
       });
-  }, [transaction, mode, dst, src, ee]);
+  }, [chainInfo, depositFee, dst, ee, mode, src, t, transaction]);
 
   const statusUrl = useMemo(() => {
     if (status < SwapProcessStatus.Depositing || !message) {

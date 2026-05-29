@@ -111,7 +111,7 @@ export const useSwapDeposit = (options: SwapDepositOptions) => {
       toast.error(err.message || t("common.somethingWentWrong"));
       throw err;
     }
-  }, [account, brokerId, swapData, sourceToken, targetToken, depositFee]);
+  }, [account, brokerId, depositFee, sourceToken, swapData, t, targetToken]);
 
   return {
     swapPrice,

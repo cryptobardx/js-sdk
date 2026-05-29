@@ -25,5 +25,7 @@
   "extend.swap.warning": "Giao dịch spot được thực hiện bằng tài sản ví Web3 đã kết nối của bạn. Quỹ tài khoản perps là riêng biệt và sẽ không bị ảnh hưởng.",
   "extend.viewAll": "Xem tất cả",
   "extend.meme": "Meme",
-  "extend.hot": "Hot"
+  "extend.hot": "Hot",
+  "extend.name": "Tên",
+  "extend.apr": "APR"
 }

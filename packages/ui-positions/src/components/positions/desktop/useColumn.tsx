@@ -54,7 +54,7 @@ export const useColumn = (config: ColumnConfig) => {
       {
         title: t("common.symbol"),
         dataIndex: "symbol",
-        fixed: "left",
+        fixed: "start",
         width: 200,
         onSort: (r1, r2) => {
           return r1.symbol?.localeCompare(r2.symbol || "");
@@ -103,7 +103,7 @@ export const useColumn = (config: ColumnConfig) => {
           return a.position_qty - b.position_qty;
         },
         width: 120,
-        className: "oui-pl-6",
+        className: "oui-ps-6",
         // rule: "price",
         // numeralProps: {
         //   coloring: true,
@@ -355,14 +355,14 @@ export const useColumn = (config: ColumnConfig) => {
       //   title: t("common.qty"),
       //   dataIndex: "close_qty",
       //   width: 100,
-      //   fixed: "right",
+      //   fixed: "end",
       //   render: renderQuantityInput,
       // },
       // {
       //   title: t("common.price"),
       //   dataIndex: "close_price",
       //   width: 100,
-      //   fixed: "right",
+      //   fixed: "end",
       //   render: renderPriceInput,
       //   // render: (value: string) => <PriceInput />,
       // },
@@ -371,7 +371,7 @@ export const useColumn = (config: ColumnConfig) => {
         dataIndex: "close_position",
         align: "right",
         width: positionReverse ? 100 : 70,
-        fixed: "right",
+        fixed: "end",
         render(_, record) {
           return (
             <Flex gapX={2} justify={"end"}>
@@ -382,7 +382,13 @@ export const useColumn = (config: ColumnConfig) => {
         },
       },
     ],
-    [pnlNotionalDecimalPrecision, sharePnLConfig, t, positionReverse],
+    [
+      onSymbolChange,
+      pnlNotionalDecimalPrecision,
+      sharePnLConfig,
+      t,
+      positionReverse,
+    ],
   );
   return column;
 };

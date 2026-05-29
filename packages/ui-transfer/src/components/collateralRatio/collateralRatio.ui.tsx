@@ -35,7 +35,7 @@ export const CollateralRatioUI: React.FC<{ value: number }> = (props) => {
           {t("portfolio.overview.column.collateralRatio")}
         </Text>
         <Tooltip className="oui-p-2" content={<TooltipContent />}>
-          <TooltipIcon className="oui-ml-[2px] oui-cursor-pointer oui-text-base-contrast-36" />
+          <TooltipIcon className="oui-ms-[2px] oui-cursor-pointer oui-text-base-contrast-36" />
         </Tooltip>
       </Flex>
       <Text.numeral

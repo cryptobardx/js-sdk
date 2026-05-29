@@ -40,7 +40,7 @@ export const useDropDownMarketsColumns = () => {
               "oui-w-4 oui-h-4 oui-text-base-contrast-54 hover:oui-text-base-contrast";
 
             const actions = (
-              <div className={cn("oui-absolute oui-right-1 oui-top-[3px]")}>
+              <div className={cn("oui-absolute oui-end-1 oui-top-[3px]")}>
                 <Flex
                   className={cn(
                     "oui-bg-primary-darken oui-py-[6px]",

@@ -10,6 +10,25 @@ import {
 } from "@tanstack/react-table";
 import { PaginationMeta, Column, TableSort, SortOrder } from "./type";
 
+function resolveFixedDirection(
+  fixed: Column["fixed"],
+  isRTL: boolean,
+): "left" | "right" | null {
+  if (!fixed) {
+    return null;
+  }
+
+  if (fixed === "left" || fixed === "right") {
+    return fixed;
+  }
+
+  if (fixed === "start") {
+    return isRTL ? "right" : "left";
+  }
+
+  return isRTL ? "left" : "right";
+}
+
 /**
  * Compare two values intelligently for table sorting
  */
@@ -197,13 +216,14 @@ export const Transform = {
     return sortedData;
   },
 
-  columnPinning: (columns: Column[]) => {
+  columnPinning: (columns: Column[], isRTL = false) => {
     const left: string[] = [];
     const right: string[] = [];
     columns?.map((column) => {
-      if (column.fixed === "left") {
+      const fixed = resolveFixedDirection(column.fixed, isRTL);
+      if (fixed === "left") {
         left.push(column.dataIndex);
-      } else if (column.fixed === "right") {
+      } else if (fixed === "right") {
         right.push(column.dataIndex);
       }
     });

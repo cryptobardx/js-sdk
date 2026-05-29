@@ -139,7 +139,7 @@ export const PositionsPage: React.FC<PositionsProps> = (props) => {
 const LiquidationTab: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <div className="oui-flex oui-space-x-1">
+    <div className="oui-flex oui-gap-x-1">
       <span>{t("positions.liquidation")}</span>
       <Tooltip
         className="oui-max-w-[275px] oui-bg-base-6"

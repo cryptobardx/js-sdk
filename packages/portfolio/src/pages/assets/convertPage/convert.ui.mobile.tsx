@@ -106,7 +106,7 @@ export const ConvertMobileUI: React.FC<ConvertMobileUIProps> = ({
 
   return (
     <div className="oui-flex oui-flex-col oui-gap-1 oui-px-3">
-      <ScrollIndicator className="oui-pr-5">
+      <ScrollIndicator className="oui-pe-5">
         <Flex direction="row">{dataFilter}</Flex>
       </ScrollIndicator>
       {convertState.dataSource.map((item) => (
@@ -166,7 +166,7 @@ const ConvertMobileItem: React.FC<ConvertMobileItemProps> = (props) => {
         <div className="oui-flex oui-items-center oui-text-xs oui-font-semibold oui-text-base-contrast-80">
           <ConvertedAssetColumn convertedAssets={item.converted_asset} />
           <div
-            className="oui-ml-2 oui-text-primary"
+            className="oui-ms-2 oui-text-primary"
             onClick={() => {
               modal.show(ConverHistoryItemDetailsDialog, {
                 item,

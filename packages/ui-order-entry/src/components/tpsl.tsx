@@ -307,7 +307,6 @@ const TPSLTriggerPriceInput = (props: {
   const { t } = useTranslation();
   const { errorMsgVisible } = useOrderEntryContext();
   const { tipsEle } = usePnlInputContext();
-  const [prefix, setPrefix] = useState<string>(`${props.type} Price`);
   const [placeholder, setPlaceholder] = useState<string>("USDC");
 
   const [tipVisible, setTipVisible] = useState(false);
@@ -338,39 +337,27 @@ const TPSLTriggerPriceInput = (props: {
     props.displayErrorMessage,
   ]);
 
-  const getPrefixLabel = (trigger_price?: string) => {
-    let _prefix = props.type === "TP" ? t("tpsl.tpPrice") : t("tpsl.slPrice");
-
-    if (trigger_price) {
-      _prefix = props.type === "TP" ? t("tpsl.tp") : t("tpsl.sl");
-    }
-    return _prefix;
-  };
+  const prefix =
+    isFocused || innerValue
+      ? props.type === "TP"
+        ? t("tpsl.tp")
+        : t("tpsl.sl")
+      : props.type === "TP"
+        ? t("tpsl.tpPrice")
+        : t("tpsl.slPrice");
 
   const onValueChange = (value: string) => {
     setInnerValue(value);
     props.onChange(value);
   };
 
-  // console.log("props.values.trigger_price", props.values.trigger_price);
-
-  useEffect(() => {
-    setPrefix(getPrefixLabel(props.values.trigger_price));
-
-    if (!isFocused) {
-      setInnerValue(props.values.trigger_price ?? "");
-    }
-  }, [props.type, props.values.trigger_price]);
-
   const onFocus = () => {
-    setPrefix(props.type === "TP" ? t("tpsl.tp") : t("tpsl.sl"));
     setPlaceholder("");
     setTipVisible(true);
     setIsFocused(true);
   };
 
   const onBlur = () => {
-    setPrefix(getPrefixLabel(props.values.trigger_price));
     setPlaceholder("USDC");
     setTipVisible(false);
     setIsFocused(false);
@@ -399,10 +386,10 @@ const TPSLTriggerPriceInput = (props: {
         additional: "oui-text-base-contrast-54",
         root: cn(
           "oui-orderEntry-tpsl-triggerPrice",
-          "oui-pr-2 md:oui-pr-3",
+          "oui-pe-2 md:oui-pe-3",
           props.classNames?.root,
         ),
-        prefix: cn("oui-pr-1 md:oui-pr-2", props.classNames?.prefix),
+        prefix: cn("oui-pe-1 md:oui-pe-2", props.classNames?.prefix),
         input: cn(
           "oui-text-2xs placeholder:oui-text-2xs",
           props.classNames?.input,

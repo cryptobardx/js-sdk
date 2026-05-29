@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { i18n } from "@orderly.network/i18n";
+import { useTranslation } from "@orderly.network/i18n";
 import { cn } from "@orderly.network/ui";
 import { EarnIcon, StakeIcon, VaultsIcon } from "../../components/icons";
 import { useRouteContext } from "../../components/orderlyProvider/rounteProvider";
@@ -14,6 +14,7 @@ import { WoofiEarnTabContent } from "./WoofiEarnTabContent";
 
 export const customEarnSubMenuRender = () => {
   return () => {
+    const { t } = useTranslation();
     const { onRouteChange } = useRouteContext();
     // console.log("location", window.location);
 
@@ -43,8 +44,8 @@ export const customEarnSubMenuRender = () => {
           setActiveTab("woofi-earn");
         },
         activeIcon: <EarnIcon size={20} />,
-        title: i18n.t("extend.woofiEarn"),
-        description: i18n.t("extend.woofiEarn.description"),
+        title: t("extend.woofiEarn"),
+        description: t("extend.woofiEarn.description"),
         showArrow: true,
         isActive: !isVaultsActive,
       },
@@ -54,7 +55,7 @@ export const customEarnSubMenuRender = () => {
         onClick: () => {
           onRouteChange({
             href: PathEnum.Vaults,
-            name: i18n.t("extend.vaults"),
+            name: t("extend.vaults"),
           });
         },
         onMouseEnter: () => {
@@ -62,8 +63,8 @@ export const customEarnSubMenuRender = () => {
           setActiveTab("vaults");
         },
         activeIcon: <VaultsIcon size={20} />,
-        title: i18n.t("extend.vaults"),
-        description: i18n.t("extend.vaults.description"),
+        title: t("extend.vaults"),
+        description: t("extend.vaults.description"),
         showArrow: true,
         isActive: isVaultsActive,
       },
@@ -78,8 +79,8 @@ export const customEarnSubMenuRender = () => {
           setActiveTab(null);
         },
         activeIcon: <StakeIcon size={20} />,
-        title: i18n.t("extend.wooStake"),
-        description: i18n.t("extend.wooStake.description"),
+        title: t("extend.wooStake"),
+        description: t("extend.wooStake.description"),
         showArrow: false,
         isActive: false,
       },

@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cn, cnBase, tv, type VariantProps } from "tailwind-variants";
+import { useDocumentDirection } from "../hooks/useDocumentDirection";
 import { CloseIcon } from "../icon/close";
 
 const Sheet = SheetPrimitive.Root;
@@ -33,15 +34,37 @@ const sheetVariants = tv({
       top: "oui-inset-x-0 oui-top-0 oui-border-b data-[state=closed]:oui-slide-out-to-top data-[state=open]:oui-slide-in-from-top",
       bottom:
         "oui-inset-x-0 oui-bottom-0 oui-rounded-t-2xl data-[state=closed]:oui-slide-out-to-bottom data-[state=open]:oui-slide-in-from-bottom",
-      left: "oui-inset-y-0 oui-left-0 oui-h-full oui-w-3/4 data-[state=closed]:oui-slide-out-to-left data-[state=open]:oui-slide-in-from-left sm:oui-max-w-sm",
+      // Keep left/right sides on logical start/end. In RTL, callers expect
+      // side="left" to attach to the visual start side; physical left/right
+      // places drawers on the opposite side from their trigger.
+      left: "oui-inset-y-0 oui-start-0 oui-h-full oui-w-3/4 sm:oui-max-w-sm",
       right:
-        "oui-inset-y-0 oui-right-0 oui-h-full oui-w-3/4 oui-border-l data-[state=closed]:oui-slide-out-to-right data-[state=open]:oui-slide-in-from-right sm:oui-max-w-sm",
+        "oui-inset-y-0 oui-end-0 oui-h-full oui-w-3/4 oui-border-s sm:oui-max-w-sm",
     },
   },
   defaultVariants: {
     side: "bottom",
   },
 });
+
+function getLogicalSideAnimationClass(
+  side: SheetContentProps["side"],
+  direction: "ltr" | "rtl",
+) {
+  if (side === "left") {
+    return direction === "rtl"
+      ? "data-[state=closed]:oui-slide-out-to-right data-[state=open]:oui-slide-in-from-right"
+      : "data-[state=closed]:oui-slide-out-to-left data-[state=open]:oui-slide-in-from-left";
+  }
+
+  if (side === "right") {
+    return direction === "rtl"
+      ? "data-[state=closed]:oui-slide-out-to-left data-[state=open]:oui-slide-in-from-left"
+      : "data-[state=closed]:oui-slide-out-to-right data-[state=open]:oui-slide-in-from-right";
+  }
+
+  return undefined;
+}
 
 export interface SheetContentProps
   extends
@@ -72,36 +95,48 @@ const SheetContent = React.forwardRef<
       ...props
     },
     ref,
-  ) => (
-    <SheetPortal>
-      <SheetOverlay className={overlayClassName} />
-      <SheetPrimitive.Content
-        ref={ref}
-        className={cnBase(sheetVariants({ side }), className)}
-        onOpenAutoFocus={(e) => e.preventDefault()}
-        onCloseAutoFocus={(e) => e.preventDefault()}
-        {...props}
-      >
-        {closeable && (
-          <SheetPrimitive.Close
-            className={cnBase(
-              "oui-sheet-close-btn oui-ring-offset-base-700 focus:oui-ring-ring oui-absolute oui-right-4 oui-top-4 oui-z-10 oui-rounded-sm oui-transition-opacity focus:oui-outline-none focus:oui-ring-2 focus:oui-ring-offset-2 active:oui-outline-none focus:orderly-outline-none disabled:oui-pointer-events-none data-[state=open]:oui-bg-secondary",
-              props?.closeClassName,
-            )}
-          >
-            <CloseIcon
-              size={closeableSize}
-              color="white"
-              opacity={closeOpacity}
-              onClick={props?.onClose}
-            />
-            <span className="oui-sr-only">Close</span>
-          </SheetPrimitive.Close>
-        )}
-        {children}
-      </SheetPrimitive.Content>
-    </SheetPortal>
-  ),
+  ) => {
+    const direction = useDocumentDirection();
+    const sideAnimationClassName = getLogicalSideAnimationClass(
+      side,
+      direction,
+    );
+
+    return (
+      <SheetPortal>
+        <SheetOverlay className={overlayClassName} />
+        <SheetPrimitive.Content
+          ref={ref}
+          className={cnBase(
+            sheetVariants({ side }),
+            sideAnimationClassName,
+            className,
+          )}
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          onCloseAutoFocus={(e) => e.preventDefault()}
+          {...props}
+        >
+          {closeable && (
+            <SheetPrimitive.Close
+              className={cnBase(
+                "oui-sheet-close-btn oui-ring-offset-base-700 focus:oui-ring-ring oui-absolute oui-end-4 oui-top-4 oui-z-10 oui-rounded-sm oui-transition-opacity focus:oui-outline-none focus:oui-ring-2 focus:oui-ring-offset-2 active:oui-outline-none focus:orderly-outline-none disabled:oui-pointer-events-none data-[state=open]:oui-bg-secondary",
+                props?.closeClassName,
+              )}
+            >
+              <CloseIcon
+                size={closeableSize}
+                color="white"
+                opacity={closeOpacity}
+                onClick={props?.onClose}
+              />
+              <span className="oui-sr-only">Close</span>
+            </SheetPrimitive.Close>
+          )}
+          {children}
+        </SheetPrimitive.Content>
+      </SheetPortal>
+    );
+  },
 );
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
@@ -146,7 +181,7 @@ const SheetFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cnBase(
-      "oui-sheet-footer oui-flex oui-flex-col-reverse sm:oui-flex-row sm:oui-justify-end sm:oui-space-x-2",
+      "oui-sheet-footer oui-flex oui-flex-col-reverse sm:oui-flex-row sm:oui-justify-end sm:oui-gap-x-2",
       className,
     )}
     {...props}

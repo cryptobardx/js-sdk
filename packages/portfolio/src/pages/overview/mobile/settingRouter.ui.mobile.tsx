@@ -32,7 +32,7 @@ export const SettingRouterMobile: FC<Props> = (props) => {
         {t("portfolio.setting")}
       </Text>
       <ChevronRightIcon
-        className="oui-ml-auto"
+        className="oui-ms-auto"
         size={18}
         opacity={0.36}
         color="white"
