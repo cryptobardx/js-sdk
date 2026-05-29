@@ -20,7 +20,10 @@ import { modal, toast, useOrderlyTheme, useScreen } from "@orderly.network/ui";
 import { Decimal } from "@orderly.network/utils";
 import { useCssVariables } from "../hooks/useCssVariables";
 import getBrokerAdapter from "../tradingviewAdapter/broker/getBrokerAdapter";
-import { LoadingScreenOptions } from "../tradingviewAdapter/charting_library";
+import {
+  IChartingLibraryWidget,
+  LoadingScreenOptions,
+} from "../tradingviewAdapter/charting_library";
 import { Datafeed } from "../tradingviewAdapter/datafeed/datafeed";
 import { WebsocketService } from "../tradingviewAdapter/datafeed/websocket.service";
 import useBroker from "../tradingviewAdapter/hooks/useBroker";
@@ -78,6 +81,9 @@ export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
   const cssVariables = useCssVariables(theme);
 
   const chart = useRef<Widget | null>(null);
+  const [readyWidget, setReadyWidget] = useState<IChartingLibraryWidget | null>(
+    null,
+  );
   const apiBaseUrl: string = useConfig("apiBaseUrl") as string;
   const { state: accountState } = useAccount();
   const [side, setSide] = useState<OrderSide>(OrderSide.SELL);
@@ -382,6 +388,7 @@ export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
 
     return () => {
       chart.current?.remove();
+      setReadyWidget(null);
     };
   }, [
     isMobile,
@@ -423,6 +430,7 @@ export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
   useEffect(() => {
     if (chart.current && chart.current?.instance) {
       chart.current?.instance?.onChartReady(() => {
+        setReadyWidget(chart.current?.instance ?? null);
         if (isLoggedIn && chart.current?.instance) {
           createRenderer(
             chart.current.instance,
@@ -465,5 +473,6 @@ export function useTradingviewScript(props: TradingviewWidgetPropsInterface) {
     onFullScreenChange,
     classNames,
     fullscreen,
+    readyWidget,
   };
 }

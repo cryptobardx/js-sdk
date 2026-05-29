@@ -5,6 +5,7 @@
  */
 /// <reference types="@orderly.network/plugin-core" />
 import type { SymbolInfoBarFullProps } from "@orderly.network/markets";
+import type { DataListDesktopTabsProps } from "../components/desktop/dataList/dataList.injectable";
 import type { Props as OrderBookDesktopAsksProps } from "../components/desktop/orderBook/asks.desktop";
 import type { Props as OrderBookDesktopBidsProps } from "../components/desktop/orderBook/bids.desktop";
 import type { AccountState } from "../components/mobile/bottomNavBar/account/account.script";
@@ -15,6 +16,7 @@ declare module "@orderly.network/plugin-core" {
     "Account.MobileAccountMenu": AccountState;
     "OrderBook.Desktop.Asks": OrderBookDesktopAsksProps;
     "OrderBook.Desktop.Bids": OrderBookDesktopBidsProps;
+    "Trading.DataList.Desktop.Tabs": DataListDesktopTabsProps;
     "Trading.Layout.Desktop": DesktopLayoutProps;
     "Trading.SymbolInfoBar.Desktop": SymbolInfoBarFullProps;
   }

@@ -5,6 +5,7 @@ import {
   StudyOverrides,
   Overrides,
   type ChartingLibraryWidgetOptions,
+  type IChartingLibraryWidget,
 } from "./tradingviewAdapter/charting_library";
 import { ChartMode, ColorConfigInterface } from "./tradingviewAdapter/type";
 
@@ -69,6 +70,8 @@ export interface TradingviewUIPropsInterface {
     content?: string;
   };
   fullscreen?: boolean;
+  /** Live charting widget, available once the chart is ready. */
+  readyWidget?: IChartingLibraryWidget | null;
 }
 
 export interface DisplayControlSettingInterface {
