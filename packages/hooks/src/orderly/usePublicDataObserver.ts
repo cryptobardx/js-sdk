@@ -19,6 +19,13 @@ const publicQueryOptions = {
   dedupingInterval: 1000 * 60 * 60 * 24,
 };
 
+const rwaSymbolsInfoQueryOptions = {
+  ...publicQueryOptions,
+  revalidateOnFocus: true,
+  focusThrottleInterval: 1000 * 60,
+  dedupingInterval: 1000 * 30,
+};
+
 export const usePublicDataObserver = () => {
   const { setSymbolsInfo, setFundingRates, setRwaSymbolsInfo } = useAppStore(
     (state) => state.actions,
@@ -76,7 +83,7 @@ export const usePublicDataObserver = () => {
    * TODO: remove onSuccess because it can't be called when trigger multiple times
    */
   useQuery<API.RwaSymbol[]>(RWA_SYMBOLS_INFO_QUERY_KEY, {
-    ...publicQueryOptions,
+    ...rwaSymbolsInfoQueryOptions,
     onSuccess(data: API.RwaSymbol[]) {
       if (!data || !data?.length) {
         return {};
