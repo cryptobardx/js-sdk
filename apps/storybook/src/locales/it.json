@@ -25,5 +25,7 @@
   "extend.swap.warning": "Gli swap spot vengono eseguiti utilizzando gli asset del tuo portafoglio Web3 connesso. I fondi dell'account perps sono separati e non saranno influenzati.",
   "extend.viewAll": "Visualizza tutto",
   "extend.meme": "Meme",
-  "extend.hot": "Di tendenza"
+  "extend.hot": "Di tendenza",
+  "extend.name": "Nome",
+  "extend.apr": "APR"
 }

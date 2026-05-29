@@ -629,16 +629,6 @@ export const OrderEntry: React.FC<OrderEntryProps> = (props) => {
               {extraButton}
             </Flex>
           )}
-          {!showSoundSection &&
-            isMobile &&
-            (formattedOrder.order_type == OrderType.LIMIT ||
-              formattedOrder.order_type == OrderType.MARKET) &&
-            !formattedOrder.reduce_only &&
-            !pinned && (
-              <Flex className="oui-w-full" justify={"end"}>
-                {extraButton}
-              </Flex>
-            )}
           {/* Additional info （fok，ioc、post only， order confirm hidden） */}
           {pinned && (
             <Box
@@ -655,7 +645,7 @@ export const OrderEntry: React.FC<OrderEntryProps> = (props) => {
                 }}
                 className={cn(
                   "oui-additional-pin-btn",
-                  "oui-group oui-absolute oui-right-2 oui-top-2",
+                  "oui-group oui-absolute oui-end-2 oui-top-2",
                 )}
                 data-testid="oui-testid-orderEntry-pinned-button"
               />
@@ -677,8 +667,8 @@ export const OrderEntry: React.FC<OrderEntryProps> = (props) => {
             "oui-tpslAdvanced-sheet",
             "oui-rounded-[16px] oui-border-none !oui-p-0",
             isMobile
-              ? "oui-inset-y-0 oui-right-0 oui-w-[280px]"
-              : "!oui-bottom-[40px] oui-right-3 oui-top-[44px] !oui-h-auto oui-w-[360px]",
+              ? "oui-inset-y-0 oui-end-0 oui-w-[280px]"
+              : "!oui-bottom-[40px] oui-end-3 oui-top-[44px] !oui-h-auto oui-w-[360px]",
           ),
         }}
         contentProps={{ side: "right", closeable: false }}

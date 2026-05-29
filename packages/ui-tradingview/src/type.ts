@@ -10,6 +10,7 @@ import {
 import { ChartMode, ColorConfigInterface } from "./tradingviewAdapter/type";
 
 export type TradingviewLocaleCode = LanguageCode;
+export type TradingviewDirection = "ltr" | "rtl";
 
 export interface TradingviewWidgetPropsInterface {
   symbol?: string;
@@ -69,6 +70,7 @@ export interface TradingviewUIPropsInterface {
     root?: string;
     content?: string;
   };
+  direction?: TradingviewDirection;
   fullscreen?: boolean;
   /** Live charting widget, available once the chart is ready. */
   readyWidget?: IChartingLibraryWidget | null;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { generatePath, i18n } from "@orderly.network/i18n";
+import { generatePath, useTranslation } from "@orderly.network/i18n";
 import {
   SortingIcon,
   SortingAscIcon,
@@ -49,6 +49,7 @@ export const VaultsTabContent = (props: {
   isOpen: boolean;
 }) => {
   const { className, isOpen } = props;
+  const { t } = useTranslation();
   const { onRouteChange } = useRouteContext();
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
 
@@ -121,7 +122,7 @@ export const VaultsTabContent = (props: {
             })
           }
         >
-          {i18n.t("extend.viewAll")} <span className="oui-ml-1">→</span>
+          {t("extend.viewAll")} <span className="oui-ml-1">→</span>
         </div>
       )}
     />

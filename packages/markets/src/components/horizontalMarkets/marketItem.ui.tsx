@@ -25,13 +25,13 @@ const MarketItemComponent: React.FC<MarketItemProps> = (props) => {
     <Flex
       direction="row"
       className={cn(
-        "oui-mr-3 oui-h-[18px] oui-shrink-0 oui-cursor-pointer oui-items-center oui-rounded",
+        "oui-me-3 oui-h-[18px] oui-shrink-0 oui-cursor-pointer oui-items-center oui-rounded",
         "oui-transition-all oui-duration-200",
       )}
       onClick={handleClick}
     >
       {/* Symbol */}
-      <Flex gapX={1} itemAlign="center" className="oui-mr-[6px]">
+      <Flex gapX={1} itemAlign="center" className="oui-me-[6px]">
         <TokenIcon symbol={symbol} className="oui-size-[18px]" />
         <SymbolDisplay
           formatString="base"
@@ -43,7 +43,7 @@ const MarketItemComponent: React.FC<MarketItemProps> = (props) => {
       </Flex>
 
       {/* Price */}
-      <Flex gapX={1} className="oui-mr-[6px]">
+      <Flex gapX={1} className="oui-me-[6px]">
         <Text.numeral
           dp={tickerData.quote_dp || 2}
           size="xs"
@@ -54,7 +54,7 @@ const MarketItemComponent: React.FC<MarketItemProps> = (props) => {
       </Flex>
 
       {/* Change */}
-      <Flex gapX={1} className="oui-mr-3">
+      <Flex gapX={1} className="oui-me-3">
         <Text.numeral
           rule="percentages"
           coloring

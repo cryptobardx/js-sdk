@@ -25,5 +25,7 @@
   "extend.swap.warning": "Swap spot dieksekusi menggunakan aset dompet Web3 yang terhubung. Dana akun perps terpisah dan tidak akan terpengaruh.",
   "extend.viewAll": "Lihat semua",
   "extend.meme": "Meme",
-  "extend.hot": "Populer"
+  "extend.hot": "Populer",
+  "extend.name": "Nama",
+  "extend.apr": "APR"
 }

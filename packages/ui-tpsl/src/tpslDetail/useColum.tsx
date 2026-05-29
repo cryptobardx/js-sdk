@@ -38,7 +38,7 @@ export const useColumn = (props: {
         title: t("common.type"),
         dataIndex: "type",
         width: 35,
-        className: "oui-pl-1 oui-py-2",
+        className: "oui-ps-1 oui-py-2",
         render: (_: string, record: API.AlgoOrder) => (
           <TypeRender order={record} />
         ),
@@ -47,7 +47,7 @@ export const useColumn = (props: {
         title: t("common.trigger"),
         dataIndex: "trigger",
         width: 70,
-        className: "oui-pl-1 oui-py-2",
+        className: "oui-ps-1 oui-py-2",
         render: (_: string, record: API.AlgoOrder) => {
           return <TriggerPrice order={record} />;
         },
@@ -75,7 +75,7 @@ export const useColumn = (props: {
         ),
         dataIndex: "estpnl",
         width: 70,
-        className: "!oui-pr-0 oui-py-2",
+        className: "!oui-pe-0 oui-py-2",
         render: (_: string, record: API.AlgoOrder) => (
           <EstPnlRender order={record} />
         ),
@@ -86,7 +86,7 @@ export const useColumn = (props: {
         title: t("tpsl.tpslDetail.qty"),
         dataIndex: "quantity",
         width: 70,
-        className: cn(" oui-py-2 !oui-pl-5"),
+        className: cn(" oui-py-2 !oui-ps-5"),
         render: (_: string, record: API.AlgoOrder) => (
           <QtyRender order={record} />
         ),
@@ -95,7 +95,7 @@ export const useColumn = (props: {
         title: t("common.type"),
         dataIndex: "type",
         width: 35,
-        className: "oui-pl-1 oui-py-2",
+        className: "oui-ps-1 oui-py-2",
         render: (_: string, record: API.AlgoOrder) => (
           <TypeRender order={record} />
         ),
@@ -104,7 +104,7 @@ export const useColumn = (props: {
         title: t("common.trigger"),
         dataIndex: "trigger",
         width: 70,
-        className: "oui-pl-1 oui-py-2",
+        className: "oui-ps-1 oui-py-2",
         render: (_: string, record: API.AlgoOrder) => {
           return <TriggerPrice order={record} />;
         },
@@ -113,7 +113,7 @@ export const useColumn = (props: {
         title: t("common.price"),
         dataIndex: "price",
         width: 70,
-        className: "oui-pl-1 oui-py-2",
+        className: "oui-ps-1 oui-py-2",
         render: (_: string, record: API.AlgoOrder) => (
           <OrderPriceRender order={record} />
         ),
@@ -132,7 +132,7 @@ export const useColumn = (props: {
         ),
         dataIndex: "estpnl",
         width: 70,
-        className: "oui-pl-1 oui-py-2",
+        className: "oui-ps-1 oui-py-2",
         render: (_: string, record: API.AlgoOrder) => (
           <EstPnlRender order={record} />
         ),
@@ -141,7 +141,7 @@ export const useColumn = (props: {
         title: "",
         dataIndex: "delete",
         width: 50,
-        className: cn("oui-py-2 !oui-pr-5"),
+        className: cn("oui-py-2 !oui-pe-5"),
         render: (_: any, record: API.AlgoOrder) => {
           return <CancelAllBtn order={record} onCancelOrder={onCancelOrder} />;
         },

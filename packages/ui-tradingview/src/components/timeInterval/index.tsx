@@ -132,7 +132,7 @@ const DesktopTimeInterval: React.FC<IProps> = (props) => {
   return (
     <div
       className={cn(
-        "oui-text-2xs oui-text-base-contrast-36 oui-flex oui-gap-[2px] oui-items-center oui-mr-3 oui-font-semibold",
+        "oui-text-2xs oui-text-base-contrast-36 oui-flex oui-gap-[2px] oui-items-center oui-me-3 oui-font-semibold",
         "oui-overflow-hidden",
       )}
     >
@@ -212,7 +212,7 @@ export const MobileTimeInterval: React.FC<IProps> = (props) => {
         "oui-overflow-hidden",
       )}
     >
-      <div className=" oui-flex oui-gap-1 oui-items-center oui-mr-3 oui-font-semibold">
+      <div className=" oui-flex oui-gap-1 oui-items-center oui-me-3 oui-font-semibold">
         {mobileTimeIntervalDefaultMap.map((item) => (
           <div
             className={cn(

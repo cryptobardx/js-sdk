@@ -25,8 +25,8 @@ export const CellBar: FC<CellBarProps> = (props) => {
   return (
     <div
       className={cn(
-        "oui-absolute oui-right-[-100%] oui-top-0 oui-h-full oui-w-full oui-transition-transform oui-pointer-events-none",
-        direction === CellBarDirection.LEFT_TO_RIGHT && "oui-left-[-100%]",
+        "oui-absolute oui-end-[-100%] oui-top-0 oui-h-full oui-w-full oui-transition-transform oui-pointer-events-none",
+        direction === CellBarDirection.LEFT_TO_RIGHT && "oui-start-[-100%]",
         props.className,
       )}
       style={transform}

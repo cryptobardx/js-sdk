@@ -71,13 +71,13 @@ export const LeverageInput: React.FC<LeverageInputProps> = (props) => {
         onClick={props.onLeverageReduce}
         disabled={props.isReduceDisabled}
       />
-      <Flex itemAlign="center" justify="center" className="oui-mr-4">
+      <Flex itemAlign="center" justify="center" className="oui-me-4">
         <Input
           value={props.value}
           id={id}
           autoComplete="off"
           classNames={{
-            input: cn("oui-text-right oui-text-[24px]"),
+            input: cn("oui-text-end oui-text-[24px]"),
             root: cn(
               "oui-w-12",
               "oui-px-0",
@@ -94,7 +94,7 @@ export const LeverageInput: React.FC<LeverageInputProps> = (props) => {
         />
         <div
           className={cn(
-            "oui-ml-1 oui-mt-1 oui-select-none",
+            "oui-ms-1 oui-mt-1 oui-select-none",
             "oui-text-base oui-text-base-contrast-36",
           )}
         >

@@ -101,11 +101,11 @@ export const AssetHistoryMobile: FC<AssetHistoryMobileProps> = (props) => {
     const amountView = (
       <Flex className="oui-text-xs">
         <Text color={itemColor}>{formattedAmount}</Text>
-        <Text className="oui-ml-1" intensity={80}>
+        <Text className="oui-ms-1" intensity={80}>
           {item.token}
         </Text>
         {isWeb3Wallet && (
-          <Badge color={itemColor} className="oui-ml-2">
+          <Badge color={itemColor} className="oui-ms-2">
             {isDeposit ? t("common.deposit") : t("common.withdraw")}
           </Badge>
         )}
@@ -247,7 +247,7 @@ export const AssetHistoryMobile: FC<AssetHistoryMobileProps> = (props) => {
                   {t("common.deposit")}
                 </Text>
                 <ArrowRightShortIcon
-                  className="oui-ml-0.5 oui-size-4 oui-text-primary oui-opacity-100"
+                  className="oui-ms-0.5 oui-size-4 oui-text-primary oui-opacity-100"
                   color="primary"
                   size={16}
                   opacity={100}

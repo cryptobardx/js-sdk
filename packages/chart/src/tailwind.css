@@ -1,6 +1,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .recharts-cartesian-axis-tick-value {
+    direction: ltr;
+    unicode-bidi: plaintext;
+  }
+}
+
 /* @layer components {
   .chart
     .recharts-cartesian-axis-ticks

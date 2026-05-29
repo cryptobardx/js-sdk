@@ -80,7 +80,7 @@ export const PriceInput: FC<PriceInputProps> = (props) => {
         <div
           className={cn(
             "oui-orderEntry-bboSelect",
-            "oui-absolute oui-bottom-1 oui-left-0",
+            "oui-absolute oui-bottom-1 oui-start-0",
           )}
         >
           <BBOOrderTypeSelect

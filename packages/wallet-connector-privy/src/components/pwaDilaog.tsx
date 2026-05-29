@@ -47,7 +47,7 @@ export const PwaDialog = modal.create((props) => {
                   <Text className="oui-text-base-static-contrast-80 oui-text-[18px] oui-leading-[36px] oui-flex-1 oui-text-center oui-whitespace-nowrap">
                     {domain}
                   </Text>
-                  <ShareIcon className="oui-absolute oui-right-4 oui-top-1/2 oui-translate-y-[-50%]" />
+                  <ShareIcon className="oui-absolute oui-end-4 oui-top-1/2 oui-translate-y-[-50%]" />
                 </Flex>
               </Flex>
             }

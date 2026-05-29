@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation, type LocaleMessages } from "@orderly.network/i18n";
+import { useTranslation } from "@orderly.network/i18n";
 import { MarginMode } from "@orderly.network/types";
 import { Button, cn, Divider, Flex, Text } from "@orderly.network/ui";
 import { removeTrailingZeros } from "@orderly.network/utils";
@@ -86,6 +86,11 @@ export const LTVRiskTooltipUI: React.FC<LTVTooltipScriptReturn> = (props) => {
           usdcThreshold: isThresholdLoading ? "-" : negative_usdc_threshold,
         })}
       </Text>
+      {marginMode === MarginMode.ISOLATED ? (
+        <Text className="oui-pb-2" intensity={54} size="2xs">
+          {t("transfer.LTV.isolatedMarginOrderHint")}
+        </Text>
+      ) : null}
       <Button
         fullWidth
         size={"md"}

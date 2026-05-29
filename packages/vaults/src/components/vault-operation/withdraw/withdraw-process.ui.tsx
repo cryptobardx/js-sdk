@@ -51,7 +51,7 @@ const WithdrawProcess: FC = () => {
         <ProcessText className="oui-text-center">
           {t("vaults.withdraw.process.vaultProcess")}
         </ProcessText>
-        <ProcessText className="oui-text-right">
+        <ProcessText className="oui-text-end">
           {t("vaults.withdraw.process.transferred")}
         </ProcessText>
       </div>

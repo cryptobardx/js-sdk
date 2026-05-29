@@ -25,5 +25,7 @@
   "extend.swap.warning": "Os swaps spot são executados usando os ativos da sua carteira Web3 conectada. Os fundos da conta de perps são separados e não serão afetados.",
   "extend.viewAll": "Ver tudo",
   "extend.meme": "Meme",
-  "extend.hot": "Em alta"
+  "extend.hot": "Em alta",
+  "extend.name": "Nome",
+  "extend.apr": "APR"
 }

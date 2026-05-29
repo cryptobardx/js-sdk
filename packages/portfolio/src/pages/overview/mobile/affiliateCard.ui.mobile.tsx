@@ -78,7 +78,7 @@ export const AffiliateCardMobile: FC<AffiliateCardMobileProps> = (props) => {
         <ChevronRightIcon
           size={18}
           color="white"
-          className="oui-ml-auto"
+          className="oui-ms-auto"
           onClick={() => {
             routerAdapter?.onRouteChange({
               href: "/rewards/affiliate?tab=affiliate",

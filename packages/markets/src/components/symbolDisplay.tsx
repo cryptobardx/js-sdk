@@ -18,7 +18,7 @@ export const SymbolDisplay = memo((props: SymbolDisplayProps) => {
 
   const suffix =
     record?.isRwa || showBadge ? (
-      <Flex gapX={0} itemAlign="center">
+      <Flex as="span" display="inlineFlex" gapX={0} itemAlign="center">
         {record?.isRwa && <RwaDotTooltip record={record} />}
         {showBadge && <SymbolBadge symbol={symbol} />}
       </Flex>

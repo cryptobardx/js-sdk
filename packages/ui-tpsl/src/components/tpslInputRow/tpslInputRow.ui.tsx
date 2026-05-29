@@ -40,8 +40,8 @@ export const TPSLInputRowUI: FC<TPSLInputRowProps> = (props) => {
           className={cn(
             "oui-text-sm",
             props.disableEnableCheckbox
-              ? "oui-ml-0 oui-text-base-contrast"
-              : "oui-ml-1  oui-text-base-contrast-36",
+              ? "oui-ms-0 oui-text-base-contrast"
+              : "oui-ms-1  oui-text-base-contrast-36",
           )}
         >
           {props.type === "tp" ? t("tpsl.takeProfit") : t("tpsl.stopLoss")}
@@ -172,7 +172,7 @@ const RenderROI: React.FC<{
             <Text.numeral
               className="oui-px-1 oui-text-base-contrast"
               dp={dp}
-              suffix={<Text className="oui-pl-0.5">USDC</Text>}
+              suffix={<Text className="oui-ps-0.5">USDC</Text>}
             >
               {price}
             </Text.numeral>
@@ -189,7 +189,7 @@ const RenderROI: React.FC<{
               coloring
               className="oui-whitespace-nowrap oui-px-1"
               dp={2}
-              suffix={<Text className="oui-pl-0.5">USDC</Text>}
+              suffix={<Text className="oui-ps-0.5">USDC</Text>}
             >
               {pnl}
             </Text.numeral>

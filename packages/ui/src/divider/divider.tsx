@@ -1,6 +1,6 @@
-import { tv } from "../utils/tv";
 import React from "react";
 import { VariantProps } from "tailwind-variants";
+import { tv } from "../utils/tv";
 
 const dividerVariants = tv({
   base: ["oui-pointer-events-none oui-box-content"],
@@ -14,7 +14,7 @@ const dividerVariants = tv({
     },
     direction: {
       horizontal: ["oui-border-b"],
-      vertical: ["oui-border-l"],
+      vertical: ["oui-border-s"],
     },
     lineStyle: {
       // solid: "oui-border-solid",

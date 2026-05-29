@@ -198,7 +198,7 @@ export function SplitRenderer(
         <SplitNodeRenderer node={rootNode} path={[]} rootNode={rootNode} />
       </SplitLayoutConfigProvider>
       <div
-        className="oui-fixed oui-bottom-5 oui-right-2 oui-flex oui-flex-col oui-items-end oui-text-lg oui-text-trade-loss"
+        className="oui-fixed oui-bottom-5 oui-end-2 oui-flex oui-flex-col oui-items-end oui-text-lg oui-text-trade-loss"
         style={{ zIndex: 1000 }}
       >
         <span>{breakpoint}</span>

@@ -47,14 +47,14 @@ export const NetworkTokenSelect: FC<NetworkTokenSelectProps> = ({
         <Text size="xs" intensity={36}>
           {t("common.network")}
         </Text>
-        <Box className="oui-ml-auto">
+        <Box className="oui-ms-auto">
           <Select
             size="xs"
             value={selectedNetwork || undefined}
             onValueChange={onNetworkChange}
             placeholder={t("transfer.exclusiveDeposit.selectNetwork")}
             variant="text"
-            classNames={{ trigger: "oui-pr-0" }}
+            classNames={{ trigger: "oui-pe-0" }}
             maxHeight={128}
             contentProps={selectContentProps}
           >
@@ -75,14 +75,14 @@ export const NetworkTokenSelect: FC<NetworkTokenSelectProps> = ({
         <Text size="xs" intensity={36}>
           {t("common.token")}
         </Text>
-        <Box className="oui-ml-auto">
+        <Box className="oui-ms-auto">
           <Select
             size="xs"
             value={selectedToken || undefined}
             onValueChange={onTokenChange}
             placeholder={t("transfer.exclusiveDeposit.selectToken")}
             variant="text"
-            classNames={{ trigger: "oui-pr-0" }}
+            classNames={{ trigger: "oui-pe-0" }}
             maxHeight={128}
             contentProps={selectContentProps}
           >

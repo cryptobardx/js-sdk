@@ -40,6 +40,6 @@ export const tradingPageConfig: TradingPageConfigProps = {
 
     // ref
     refLink: "https://orderly.network",
-    refSlogan: "NEW BE222",
+    refSlogan: "Trade with Orderly",
   },
 };

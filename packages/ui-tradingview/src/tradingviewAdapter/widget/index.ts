@@ -45,6 +45,7 @@ declare let TradingView: any;
 
 const DEFAULT_SETTINGS_KEY = "chartProp_default";
 const DEBOUNCE_SAVE_TIME = 300;
+type TradingViewDirection = "ltr" | "rtl";
 
 export interface WidgetOptions {
   fullscreen?: TradingTerminalWidgetOptions["fullscreen"];
@@ -62,6 +63,7 @@ export interface WidgetOptions {
   libraryPath: TradingTerminalWidgetOptions["library_path"];
   customCssUrl: TradingTerminalWidgetOptions["custom_css_url"];
   customFontFamily: TradingTerminalWidgetOptions["custom_font_family"];
+  direction?: TradingViewDirection;
   datafeed: AbstractDatafeed;
   positionControlCallback: (...args: any[]) => void;
   getBroker?(
@@ -246,7 +248,9 @@ export class Widget {
   }: WidgetProps) {
     const getBroker = options.getBroker;
 
-    const widgetOptions: TradingTerminalWidgetOptions = {
+    const widgetOptions: TradingTerminalWidgetOptions & {
+      direction?: TradingViewDirection;
+    } = {
       fullscreen: options.fullscreen ?? true,
       autosize: options.autosize ?? false,
       timezone: options.timezone as TradingTerminalWidgetOptions["timezone"],
@@ -258,6 +262,7 @@ export class Widget {
       datafeed: options.datafeed,
       studies_overrides: options.studiesOverrides,
       locale: options.locale as LanguageCode,
+      direction: options.direction,
       theme: options.theme,
       loading_screen: options.loadingScreen,
       toolbar_bg: options.toolbarBg,

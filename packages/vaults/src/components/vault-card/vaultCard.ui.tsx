@@ -146,7 +146,7 @@ export const VaultCard: FC<VaultCardScript> = (props) => {
 
       <div
         className={cn(
-          "oui-absolute oui-left-0 oui-top-0 oui-z-20 oui-size-full oui-p-6",
+          "oui-absolute oui-start-0 oui-top-0 oui-z-20 oui-size-full oui-p-6",
           "oui-overflow-y-auto oui-custom-scrollbar",
         )}
       >
@@ -323,7 +323,7 @@ const LpInfoItem: FC<{
         {...textProps}
         dp={2}
         suffix={
-          <span className="oui-ml-1 oui-text-base-contrast-36">USDC</span>
+          <span className="oui-ms-1 oui-text-base-contrast-36">USDC</span>
         }
       >
         {value}

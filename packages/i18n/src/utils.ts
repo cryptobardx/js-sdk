@@ -3,6 +3,24 @@ import i18n from "./i18n";
 import type { LocaleCode } from "./types";
 
 /**
+ * Whether the active UI language uses right-to-left layout for `document.dir`.
+ * Matches primary subtags and common regional variants (e.g. `fa-IR`, `he-IL`).
+ */
+export const isRTLDirectionLanguage = (lang?: string) =>
+  /^(?:ar|fa|he)(?:-|$)/i.test(lang ?? "");
+
+export const syncDocumentDirection = (lang?: string) => {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  document.documentElement.setAttribute(
+    "dir",
+    isRTLDirectionLanguage(lang) ? "rtl" : "ltr",
+  );
+};
+
+/**
  * transform browser language to you given i18n locale codes
  * @param lang - browser language
  * @param localeCodes - locale codes to check

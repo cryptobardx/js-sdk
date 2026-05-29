@@ -6,7 +6,7 @@ import {
   usePrivateQuery,
   useSymbolsInfo,
 } from "@orderly.network/hooks";
-import { i18n } from "@orderly.network/i18n";
+import { useTranslation } from "@orderly.network/i18n";
 import { useDataTap } from "@orderly.network/react-app";
 import { type API } from "@orderly.network/types";
 import { formatAddress, usePagination } from "@orderly.network/ui";
@@ -36,6 +36,7 @@ export const useCombinePositionsScript = (props: PositionsProps) => {
   const symbolsInfo = useSymbolsInfo();
 
   const { state } = useAccount();
+  const { t } = useTranslation();
 
   const [mainAccountPositions, , { isLoading }] = usePositionStream(symbol, {
     calcMode,
@@ -108,9 +109,10 @@ export const useCombinePositionsScript = (props: PositionsProps) => {
   const groupDataSource = useMemo(() => {
     return groupDataByAccount(filtered, {
       mainAccountId: state.mainAccountId,
+      mainAccountLabel: t("common.mainAccount"),
       subAccounts: state.subAccounts,
     });
-  }, [filtered, state.mainAccountId, state.subAccounts]);
+  }, [filtered, state.mainAccountId, state.subAccounts, t]);
 
   const loading = isLoading || isPositionLoading || isAccountInfoLoading;
 
@@ -143,10 +145,11 @@ const groupDataByAccount = (
   data: API.PositionExt[],
   options: {
     mainAccountId?: string;
+    mainAccountLabel: string;
     subAccounts?: SubAccount[];
   },
 ) => {
-  const { mainAccountId = "", subAccounts = [] } = options;
+  const { mainAccountId = "", mainAccountLabel, subAccounts = [] } = options;
 
   const map = new Map<
     PropertyKey,
@@ -168,7 +171,7 @@ const groupDataByAccount = (
         account_id: accountId,
         description:
           accountId === mainAccountId
-            ? i18n.t("common.mainAccount")
+            ? mainAccountLabel
             : findSubAccount?.description ||
               formatAddress(findSubAccount?.id || ""),
         children: [item],

@@ -59,6 +59,7 @@ export const AssetAreaChart: React.FC<PnlAreaChartProps> = (props) => {
       width={530}
       height={180}
       data={props.data}
+      style={{ direction: "ltr" }}
       margin={{ top: 20, right: 10, left: -20, bottom: -10 }}
     >
       <CartesianGrid

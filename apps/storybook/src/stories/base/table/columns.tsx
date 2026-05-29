@@ -24,7 +24,7 @@ export const Columns: Column[] = [
     //     </Text.formatted>
     //   );
     // },
-    fixed: "left",
+    fixed: "start",
   },
   {
     title: "Price",
@@ -151,6 +151,6 @@ export const Columns: Column[] = [
         </Button>
       );
     },
-    fixed: "right",
+    fixed: "end",
   },
 ];

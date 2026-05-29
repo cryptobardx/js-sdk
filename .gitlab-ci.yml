@@ -1,4 +1,8 @@
 include:
   - project: "orderlynetwork/orderly-fe/common-ci"
     ref: main
-    file: "momorepo-release.yaml"
+    file: "js-sdk.yaml"
+
+variables: 
+  SERVICE_NAME: storybook
+  IMAGE_NAME: storybook

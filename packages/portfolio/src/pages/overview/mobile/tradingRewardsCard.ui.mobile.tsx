@@ -117,11 +117,11 @@ export const TradingRewardsCardMobile: FC<TradingRewardsCardMobileProps> = (
         >
           {props?.curEpochEstimate?.est_r_wallet ?? "--"}
         </Text>
-        <Flex className="oui-ml-auto">
+        <Flex className="oui-ms-auto">
           <ChevronRightIcon
             size={18}
             color="white"
-            className="oui-ml-auto"
+            className="oui-ms-auto"
             onClick={onClaim}
           />
         </Flex>

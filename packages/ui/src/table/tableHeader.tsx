@@ -16,6 +16,7 @@ type TableHeaderProps = {
   headerGroups: HeaderGroup<any>[];
   showLeftShadow?: boolean;
   showRightShadow?: boolean;
+  isRTL?: boolean;
   sorting?: SortingState;
 } & Pick<DataTableProps<any>, "bordered">;
 
@@ -35,7 +36,7 @@ export const TableHeader: FC<TableHeaderProps> = (props) => {
           className={cnBase(
             "oui-table-thead-tr",
             "oui-h-10",
-            "[&>th:first-child]:oui-pl-3 [&>th:last-child]:oui-pr-3",
+            "[&>th:first-child]:oui-ps-3 [&>th:last-child]:oui-pe-3",
             props.className,
           )}
         >
@@ -48,7 +49,7 @@ export const TableHeader: FC<TableHeaderProps> = (props) => {
             } = column.columnDef.meta || ({} as any);
 
             const { style: pinStyle, classNames: pinClassNames } =
-              getColumnPinningProps(column, true);
+              getColumnPinningProps(column, !!props.isRTL);
 
             const canSort = column.getCanSort();
             const isSorted = column.getIsSorted();
@@ -62,7 +63,7 @@ export const TableHeader: FC<TableHeaderProps> = (props) => {
                   "oui-whitespace-nowrap",
                   "oui-px-1",
                   props.bordered &&
-                    "after:oui-absolute after:oui-left-0 after:oui-top-0 after:oui-z-[-1] after:oui-block after:oui-size-full after:oui-border-b after:oui-border-line",
+                    "after:oui-absolute after:oui-start-0 after:oui-top-0 after:oui-z-[-1] after:oui-block after:oui-size-full after:oui-border-b after:oui-border-line",
                   // use border-b will show bottom element content
                   // props.bordered && "oui-border-b oui-border-line"
                   alignVariants({ align }),

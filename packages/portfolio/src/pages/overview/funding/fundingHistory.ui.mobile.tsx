@@ -44,7 +44,7 @@ export const FundingHistoryMobile: FC<FundingHistoryProps> = (props) => {
           <Text.formatted
             rule="symbol"
             formatString="base"
-            className="oui-text-base-contrast oui-mr-1 oui-text-sm"
+            className="oui-text-base-contrast oui-me-1 oui-text-sm"
             suffix={
               <Flex direction="row" gap={1}>
                 {" "}
@@ -60,7 +60,7 @@ export const FundingHistoryMobile: FC<FundingHistoryProps> = (props) => {
 
           <Text.formatted
             rule="date"
-            className="oui-text-base-contrast-36 oui-text-2xs oui-ml-auto"
+            className="oui-text-base-contrast-36 oui-text-2xs oui-ms-auto"
           >
             {item.created_time}
           </Text.formatted>

@@ -43,7 +43,7 @@ export const PnlFormatView: FC<{
         size="xs"
         intensity={54}
         className={cn(
-          "oui-ml-2 ",
+          "oui-ms-2 ",
           // isSelected && "oui-text-base-contrast"
         )}
       >

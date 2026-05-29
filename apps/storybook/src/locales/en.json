@@ -25,5 +25,7 @@
   "extend.swap.warning": "Spot swaps are executed using your connected Web3 wallet assets. Perp account funds are separate and will not be affected.",
   "extend.viewAll": "View all",
   "extend.meme": "Meme",
-  "extend.hot": "Hot"
+  "extend.hot": "Hot",
+  "extend.name": "Name",
+  "extend.apr": "APR"
 }

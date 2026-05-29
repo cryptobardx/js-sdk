@@ -103,8 +103,8 @@ export const TradingVolumeProgress: FC<TradingVolumeProgressProps> = (
               width: `${progressPercentage}%`,
             }}
             className={cn(
-              "oui-tradingVolumeProgress-bar oui-h-full oui-rounded-l-full oui-bg-primary-light",
-              progressPercentage === 100 && "oui-rounded-r-full",
+              "oui-tradingVolumeProgress-bar oui-h-full oui-rounded-s-full oui-bg-primary-light",
+              progressPercentage === 100 && "oui-rounded-e-full",
             )}
           />
         </div>

@@ -20,7 +20,7 @@ type StepItemProps = {
 export const StepItem = (props: StepItemProps) => {
   const { title, description, showDivider } = props;
   return (
-    <Box position="relative" className="oui-pl-8">
+    <Box position="relative" className="oui-ps-8">
       <Box>
         <Text as="div" intensity={98} size={"sm"}>
           {title}
@@ -29,11 +29,17 @@ export const StepItem = (props: StepItemProps) => {
           {description}
         </Text>
       </Box>
-      <div className="oui-absolute oui-left-0 oui-top-1 oui-z-10">
+      <div className="oui-absolute oui-start-0 oui-top-1 oui-z-10">
         <Identifier {...props} />
       </div>
       {showDivider && (
-        <Box position={"absolute"} left={12} top={23} bottom={-21} zIndex={0}>
+        <Box
+          position={"absolute"}
+          className="oui-start-3"
+          top={23}
+          bottom={-21}
+          zIndex={0}
+        >
           <Divider
             lineStyle={"dashed"}
             direction={"vertical"}
@@ -54,7 +60,7 @@ const Identifier = (props: {
   const { active, isLoading, isCompleted } = props;
 
   if (isLoading) {
-    return <Spinner size={"sm"} className={"oui-ml-1"} />;
+    return <Spinner size={"sm"} className={"oui-ms-1"} />;
   }
 
   if (isCompleted) {
@@ -65,7 +71,7 @@ const Identifier = (props: {
 
   // return (
   //   <Match
-  //     className={"oui-absolute oui-left-0 oui-top-1 oui-z-10"}
+  //     className={"oui-absolute oui-start-0 oui-top-1 oui-z-10"}
   //     value={() => {
   //       if (isCompleted) {
   //         return "completed";
@@ -83,7 +89,7 @@ const Identifier = (props: {
   //     case={{
   //       loading: (
   //         <div>
-  //           <Spinner size={"sm"} className={"oui-ml-1"} />
+  //           <Spinner size={"sm"} className={"oui-ms-1"} />
   //         </div>
   //       ),
   //       completed: (
@@ -104,7 +110,7 @@ const Dot: FC<{ active: boolean; className?: string }> = ({
   return (
     <div
       className={cn(
-        "oui-w-[8.3px] oui-h-[8.3px] oui-rounded-full oui-ml-2 oui-mt-1",
+        "oui-w-[8.3px] oui-h-[8.3px] oui-rounded-full oui-ms-2 oui-mt-1",
         className,
         active ? "oui-bg-primary-light" : "oui-bg-base-2",
       )}

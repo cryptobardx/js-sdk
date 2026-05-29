@@ -88,7 +88,7 @@ export const SingleSwap: FC<SwapProps> = (props) => {
         setStatus(SwapProcessStatus.DepositFailed);
         toast.error(error?.message || "Error");
       });
-  }, [transaction, mode, dst, src, ee]);
+  }, [chain, depositFee, dst, ee, mode, src, t, transaction]);
 
   const statusUrl = useMemo(() => {
     if (status < SwapProcessStatus.Depositing || !tx) {

@@ -24,7 +24,7 @@ export const ScaledOrderInput = (props: ScaledOrderInputProps) => {
 
       <Grid
         cols={2}
-        className="oui-scaledOrderInput-qtyAndOrders oui-group oui-space-x-1"
+        className="oui-scaledOrderInput-qtyAndOrders oui-group oui-gap-1"
       >
         <ScaledQuantityInput
           order_quantity={values.order_quantity}

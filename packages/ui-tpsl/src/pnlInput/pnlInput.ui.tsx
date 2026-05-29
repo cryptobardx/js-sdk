@@ -89,7 +89,7 @@ export const PNLInput = (props: PNLInputProps) => {
               <Text
                 size={"2xs"}
                 color="inherit"
-                className={cn("oui-ml-[2px]", color)}
+                className={cn("oui-ms-[2px]", color)}
               >
                 %
               </Text>

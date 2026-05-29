@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { cnBase } from "tailwind-variants";
 import { ButtonProps, buttonVariants } from "../button";
 import { Flex } from "../flex";
+import { useDocumentDirection } from "../hooks";
 import { ChevronLeftIcon, ChevronRightIcon } from "../icon";
 import { useLocale } from "../locale";
 import { Select } from "../select";
@@ -77,10 +78,10 @@ const PaginationPrevious = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
-    className={cnBase("oui-gap-1 oui-pl-2.5", className)}
+    className={cnBase("oui-gap-1 oui-ps-2.5", className)}
     {...props}
   >
-    <ChevronLeftIcon className="oui-h-4 oui-w-4" color="white" />
+    <PaginationPreviousIcon />
   </PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
@@ -91,13 +92,25 @@ const PaginationNext = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to next page"
-    className={cnBase("oui-gap-1 oui-pr-2.5", className)}
+    className={cnBase("oui-gap-1 oui-pe-2.5", className)}
     {...props}
   >
-    <ChevronRightIcon className="oui-h-4 oui-w-4" color="white" />
+    <PaginationNextIcon />
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";
+
+const PaginationPreviousIcon = () => {
+  const dir = useDocumentDirection();
+  const Icon = dir === "rtl" ? ChevronRightIcon : ChevronLeftIcon;
+  return <Icon className="oui-h-4 oui-w-4" color="white" />;
+};
+
+const PaginationNextIcon = () => {
+  const dir = useDocumentDirection();
+  const Icon = dir === "rtl" ? ChevronLeftIcon : ChevronRightIcon;
+  return <Icon className="oui-h-4 oui-w-4" color="white" />;
+};
 
 const PaginationEllipsis = ({
   className,
@@ -158,12 +171,12 @@ const Paginations = (props: PaginationProps) => {
   return (
     <Pagination className={cnBase(classNames?.pagination, className)}>
       {!hideRowsPerPage ? (
-        <Flex mr={4}>
+        <Flex className="oui-me-4">
           <Text
             as="div"
             size="2xs"
             intensity={54}
-            className="oui-text-nowrap oui-mr-2"
+            className="oui-text-nowrap oui-me-2"
           >
             {locale.rowsPerPage}
           </Text>

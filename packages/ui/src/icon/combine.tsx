@@ -1,7 +1,7 @@
-import { FC, PropsWithChildren, ReactNode, cloneElement, useMemo } from "react";
+import { FC, PropsWithChildren, ReactNode, useMemo } from "react";
+import { cnBase } from "tailwind-variants";
 import { ChainIcon, ChainIconProps } from "./chainIcon";
 import { TokenIcon, TokenIconProps } from "./tokenIcon";
-import { cnBase } from "tailwind-variants";
 
 export type CombineIconProps = {
   secondary: (ChainIconProps | TokenIconProps) & {
@@ -14,7 +14,7 @@ export const CombineIcon: FC<PropsWithChildren<CombineIconProps>> = (props) => {
 
   const subElement = useMemo(() => {
     const className =
-      "oui-bg-base-6 oui-absolute oui-bottom-0 oui-right-0 oui-outline oui-outline-2 oui-outline-base-1 oui-z-10";
+      "oui-bg-base-6 oui-absolute oui-bottom-0 oui-end-0 oui-outline oui-outline-2 oui-outline-base-1 oui-z-10";
 
     if (secondary.component) {
       return (

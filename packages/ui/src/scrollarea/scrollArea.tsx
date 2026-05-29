@@ -18,7 +18,7 @@ const scrollAreaVariants = tv({
   variants: {
     orientation: {
       vertical: {
-        bar: "oui-h-full oui-w-2 oui-border-l oui-border-l-transparent oui-p-[1px]",
+        bar: "oui-h-full oui-w-2 oui-border-s oui-border-s-transparent oui-p-[1px]",
       },
       horizontal: {
         bar: "oui-h-2 oui-flex-col oui-border-t oui-border-t-transparent oui-p-[1px]",
@@ -28,7 +28,8 @@ const scrollAreaVariants = tv({
 });
 
 interface ScrollAreaProps
-  extends React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>,
+  extends
+    React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>,
     VariantProps<typeof scrollAreaVariants> {
   classNames?: {
     viewport?: string;

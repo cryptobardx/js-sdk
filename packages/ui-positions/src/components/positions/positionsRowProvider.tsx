@@ -166,7 +166,7 @@ export const PositionsRowProvider: FC<PositionsRowProviderProps> = (props) => {
         }
         return false;
       });
-  }, [submit]);
+  }, [mutatePositions, quantity, submit, symbol, symbolInfo, t]);
 
   const memoizedValue = useMemo<PositionsRowContextState>(() => {
     return {

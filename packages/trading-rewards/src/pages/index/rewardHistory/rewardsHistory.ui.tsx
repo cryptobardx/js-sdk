@@ -184,7 +184,7 @@ const DesktopList: FC<RewardsHistoryReturns> = (props) => {
     {
       title: t("tradingRewards.epoch"),
       dataIndex: "epoch_id",
-      className: "oui-w-1/4 oui-pl-0 oui-pr-0",
+      className: "oui-w-1/4 oui-px-0",
       render: (value) => {
         return <Text>{`${t("tradingRewards.epoch")} ${value}`}</Text>;
       },
@@ -192,7 +192,7 @@ const DesktopList: FC<RewardsHistoryReturns> = (props) => {
     {
       title: t("tradingRewards.rewardHistory.column.start&EndDate"),
       dataIndex: "time",
-      className: "oui-w-1/4 oui-pl-0 oui-pr-0",
+      className: "oui-w-1/4 oui-px-0",
       render: (value, record) => {
         return (
           <Flex
@@ -220,7 +220,7 @@ const DesktopList: FC<RewardsHistoryReturns> = (props) => {
     {
       title: t("tradingRewards.epochRewards"),
       dataIndex: "max_reward_amount",
-      className: "oui-w-1/4 oui-pl-0 oui-pr-0",
+      className: "oui-w-1/4 oui-px-0",
       render: (value, record) => {
         const isOrder =
           `${record?.info?.epoch_token || record.epoch_token}`.toLowerCase() ===
@@ -236,7 +236,7 @@ const DesktopList: FC<RewardsHistoryReturns> = (props) => {
     {
       title: t("tradingRewards.rewardsEarned"),
       dataIndex: "earned",
-      className: "oui-w-1/4 oui-pl-0 oui-pr-0",
+      className: "oui-w-1/4 oui-px-0",
       render: (value, record) => {
         const isOrder =
           `${record?.info?.epoch_token || record.epoch_token}`.toLowerCase() ===

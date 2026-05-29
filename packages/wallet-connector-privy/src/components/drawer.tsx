@@ -48,7 +48,7 @@ export function Drawer({ children, isOpen, onClose }: DrawerProps) {
       <div
         style={{ height: `${drawerHeight}px` }}
         className={cn(
-          "oui-fixed oui-top-0 oui-right-0",
+          "oui-fixed oui-top-0 oui-end-0",
           "oui-bg-base-9 oui-shadow-lg",
           "oui-border oui-border-line-12",
           "oui-w-[276px]",

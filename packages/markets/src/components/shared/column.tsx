@@ -19,6 +19,7 @@ export function getSymbolColumn(
     title: i18n.t("common.symbol"),
     dataIndex: "symbol",
     width: 150,
+    className: "oui-z-10",
     onSort: true,
     render: (value, record) => {
       let favoritesIcon: ReactNode;
@@ -30,7 +31,7 @@ export function getSymbolColumn(
               height={12}
               justify="center"
               itemAlign="center"
-              className="oui-mr-1 oui-cursor-pointer"
+              className="oui-me-1 oui-cursor-pointer"
             >
               {record.isFavorite ? (
                 <FavoritesIcon2 className="oui-size-3" />
@@ -210,7 +211,7 @@ export function getLastAnd24hPercentageColumn(
       const actions = (
         <div
           className={cn(
-            "oui-absolute oui-right-0 oui-top-[6.5px]",
+            "oui-absolute oui-end-0 oui-top-[6.5px]",
             "oui-hidden group-hover:oui-block",
           )}
         >

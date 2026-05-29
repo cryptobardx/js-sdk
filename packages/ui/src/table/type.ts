@@ -12,7 +12,7 @@ export {
   type Table,
 } from "@tanstack/react-table";
 
-export type ColumnFixed = "left" | "right";
+export type ColumnFixed = "left" | "right" | "start" | "end";
 
 export type SortOrder = "asc" | "desc";
 

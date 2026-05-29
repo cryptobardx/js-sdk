@@ -202,7 +202,7 @@ export const NavItem: FC<
             {item.label ?? item.name}
           </Text.gradient>
           {hasSubMenu && (
-            <span className={"oui-ml-1 group-data-[open=true]:oui-rotate-180"}>
+            <span className={"oui-ms-1 group-data-[open=true]:oui-rotate-180"}>
               {isActive ? (
                 <ActiveIcon />
               ) : (
@@ -432,7 +432,7 @@ const Tag: React.FC<{ item: MainNavItem }> = (props) => {
   return (
     <div
       className={
-        "oui-ml-1 oui-inline-flex oui-rounded oui-bg-gradient-to-r oui-from-[rgb(var(--oui-gradient-brand-start)_/_0.12)] oui-to-[rgb(var(--oui-gradient-brand-end)_/_0.12)] oui-px-2 oui-py-1"
+        "oui-ms-1 oui-inline-flex oui-rounded oui-bg-gradient-to-r oui-from-[rgb(var(--oui-gradient-brand-start)_/_0.12)] oui-to-[rgb(var(--oui-gradient-brand-end)_/_0.12)] oui-px-2 oui-py-1"
       }
     >
       <Text.gradient
@@ -447,7 +447,7 @@ const Tag: React.FC<{ item: MainNavItem }> = (props) => {
 };
 
 const ICON_CLASSNAME =
-  "oui-flex oui-border oui-border-line oui-w-6 oui-h-6 oui-rounded-md oui-justify-center oui-items-center oui-absolute oui-left-0 oui-top-0";
+  "oui-flex oui-border oui-border-line oui-w-6 oui-h-6 oui-rounded-md oui-justify-center oui-items-center oui-absolute oui-start-0 oui-top-0";
 
 const ItemIcon: React.FC<{ item: MainNavItem; isActive: boolean }> = (
   props,
@@ -458,7 +458,7 @@ const ItemIcon: React.FC<{ item: MainNavItem; isActive: boolean }> = (
   }
   if (typeof props.item.icon === "string") {
     return (
-      <span className={"oui-mr-1 oui-size-[20px]"}>
+      <span className={"oui-me-1 oui-size-[20px]"}>
         {
           <img
             src={
@@ -504,7 +504,7 @@ const OutlinkIcon: React.FC = () => {
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="oui-absolute oui-right-0 oui-top-0 group-hover:oui-invisible"
+        className="oui-absolute oui-end-0 oui-top-0 group-hover:oui-invisible"
       >
         <path
           className="oui-fill-base-contrast-20"
@@ -519,7 +519,7 @@ const OutlinkIcon: React.FC = () => {
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="oui-invisible oui-absolute oui-right-0 oui-top-0 group-hover:oui-visible"
+        className="oui-invisible oui-absolute oui-end-0 oui-top-0 group-hover:oui-visible"
       >
         <path
           d="M14.159 17.492a3.333 3.333 0 0 0 3.333-3.333V5.826a3.333 3.333 0 0 0-3.333-3.334H5.826a3.333 3.333 0 0 0-3.334 3.334v8.333a3.333 3.333 0 0 0 3.334 3.333zm-6.667-4.166a.85.85 0 0 1-.599-.235.86.86 0 0 1 0-1.198l3.333-3.333-1.9-1.901h5v5l-1.901-1.9L8.09 13.09a.84.84 0 0 1-.599.235"

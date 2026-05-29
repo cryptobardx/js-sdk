@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Badge } from "../badge/badge";
-import { Box } from "../box";
 import { useScreen } from "../hooks";
-import { modal } from "../modal";
+import { Popover } from "../popover";
 import { Tooltip } from "../tooltip/tooltip";
 import { FormattedText, FormattedTextProps } from "./formatted";
 import { TextElement } from "./text";
@@ -39,35 +38,69 @@ export const SymbolBadgeText = React.forwardRef<
 
 SymbolBadgeText.displayName = "SymbolBadgeText";
 
+/** Mobile-only: click-triggered popover; remounted via parent key when badge/fullName changes so open resets. */
+const SymbolBadgeMobileTruncatedPopover = (props: {
+  fullName: string;
+  badgeEl: React.ReactElement;
+}) => {
+  const { fullName, badgeEl } = props;
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover
+      arrow
+      content={fullName}
+      open={open}
+      onOpenChange={setOpen}
+      contentProps={{
+        side: "top",
+        align: "center",
+        className:
+          "oui-w-auto oui-border-0 oui-px-2 oui-py-1 oui-text-xs oui-text-base-contrast",
+      }}
+    >
+      <span
+        className="oui-inline-flex oui-cursor-pointer"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        {badgeEl}
+      </span>
+    </Popover>
+  );
+};
+
 export const SymbolBadge = (props: { badge?: string; fullName?: string }) => {
   const { badge, fullName } = props;
   const { isMobile } = useScreen();
+
   if (!badge) return null;
 
   const badgeEl = (
-    <Badge color="neutral" size="xs" className="oui-ml-1">
+    <Badge color="neutral" size="xs" className="oui-ms-1">
       {badge}
     </Badge>
   );
 
   if (!fullName) return badgeEl;
 
+  // Truncation format must stay in sync with useBadgeBySymbol (slice(0, 7) + "...")
+  const isTruncated = badge.endsWith("...");
+
   if (isMobile) {
+    if (!isTruncated) return badgeEl;
+
     return (
-      <Box
-        className="oui-inline-flex oui-cursor-pointer"
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          modal.alert({
-            message: fullName,
-          });
-        }}
-      >
-        {badgeEl}
-      </Box>
+      <SymbolBadgeMobileTruncatedPopover
+        key={`${badge}-${fullName}-${isMobile}`}
+        fullName={fullName}
+        badgeEl={badgeEl}
+      />
     );
   }
+
+  if (!isTruncated) return badgeEl;
 
   return (
     <Tooltip content={fullName}>

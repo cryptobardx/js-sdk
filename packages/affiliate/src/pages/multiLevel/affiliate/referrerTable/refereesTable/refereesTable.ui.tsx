@@ -254,7 +254,7 @@ export const RefereesTableUI: FC<RefereesTableUIProps> = (props) => {
               </Text>
               {!record.is_default_rate && (
                 <Text
-                  className="oui-refereesTable-reset-btn oui-ml-2 oui-cursor-pointer oui-text-primary-light"
+                  className="oui-refereesTable-reset-btn oui-ms-2 oui-cursor-pointer oui-text-primary-light"
                   onClick={() =>
                     props.onEditReferee(ReferralCodeFormType.Reset, record)
                   }
