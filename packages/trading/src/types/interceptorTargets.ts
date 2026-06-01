@@ -11,6 +11,7 @@ import type { Props as OrderBookDesktopBidsProps } from "../components/desktop/o
 import type { AccountState } from "../components/mobile/bottomNavBar/account/account.script";
 import type { DataListMobileTabsProps } from "../components/mobile/dataList/dataList.injectable";
 import type { DesktopLayoutProps } from "../pages/trading/trading.ui.desktop";
+import type { MobileLayoutProps } from "../pages/trading/trading.ui.mobile";
 
 declare module "@orderly.network/plugin-core" {
   interface InterceptorTargetPropsMap {
@@ -20,6 +21,7 @@ declare module "@orderly.network/plugin-core" {
     "Trading.DataList.Desktop.Tabs": DataListDesktopTabsProps;
     "Trading.DataList.Mobile.Tabs": DataListMobileTabsProps;
     "Trading.Layout.Desktop": DesktopLayoutProps;
+    "Trading.Layout.Mobile": MobileLayoutProps;
     "Trading.SymbolInfoBar.Desktop": SymbolInfoBarFullProps;
   }
 }

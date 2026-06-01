@@ -55,3 +55,4 @@ Add interceptor sockets so plugins can extend the trading screen without forking
 - `Trading.Chart.Overlay`: render over the chart once the TradingView widget is ready (receives the live widget and current symbol).
 - `Trading.DataList.Desktop.Tabs`: add custom tabs to the desktop data-list strip.
 - `Trading.DataList.Mobile.Tabs`: add custom tabs to the mobile data-list strip.
+- `Trading.Layout.Mobile`: mobile counterpart to `Trading.Layout.Desktop`. Lets a plugin mount a context provider (e.g. a grid-bot or basis-trade provider) above the mobile trading layout, so feature UI rendered by other interceptors (`OrderEntry.MobileTypeSelect`, `OrderEntry.Body`, `DataList.Mobile.Tabs`, `Chart.Overlay`) can read that context.

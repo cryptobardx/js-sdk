@@ -52,7 +52,9 @@ const MaybeEqual: React.FC = () => {
   );
 };
 
-export const MobileLayout: React.FC<TradingState> = (props) => {
+export type MobileLayoutProps = TradingState;
+
+export const MobileLayout: React.FC<MobileLayoutProps> = (props) => {
   const { t } = useTranslation();
 
   const { isRwa, open, closeTimeInterval } = useGetRwaSymbolInfo(props.symbol);
