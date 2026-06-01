@@ -1,15 +1,11 @@
 import { useMemo } from "react";
 import { useTranslation } from "@orderly.network/i18n";
 import { OrderSide, OrderType } from "@orderly.network/types";
+import { cn, modal, Text, Tooltip, useScreen } from "@orderly.network/ui";
 import {
-  cn,
-  modal,
-  Select,
-  Text,
-  Tooltip,
-  useScreen,
-} from "@orderly.network/ui";
-import { OrderTypeAdvancedSelectInjectabled } from "../orderEntry.injectabled";
+  OrderTypeAdvancedSelectInjectabled,
+  OrderTypeMobileSelectInjectabled,
+} from "../orderEntry.injectabled";
 
 const isRealOrderType = (value: string): value is OrderType =>
   (Object.values(OrderType) as string[]).includes(value);
@@ -70,17 +66,6 @@ export const OrderTypeSelect = (props: {
         value: OrderType.TRAILING_STOP,
       },
     ];
-  }, [t]);
-
-  const displayLabelMap = useMemo(() => {
-    return {
-      [OrderType.LIMIT]: t("orderEntry.orderType.limit"),
-      [OrderType.MARKET]: t("common.marketPrice"),
-      [OrderType.STOP_LIMIT]: t("orderEntry.orderType.stopLimit"),
-      [OrderType.STOP_MARKET]: t("orderEntry.orderType.stopMarket"),
-      [OrderType.SCALED]: t("orderEntry.orderType.scaledOrder"),
-      [OrderType.TRAILING_STOP]: t("orderEntry.orderType.trailingStop"),
-    };
   }, [t]);
 
   // Must run on every render; do not place after `if (!isMobile) return` or hook order breaks when isMobile toggles.
@@ -192,7 +177,16 @@ export const OrderTypeSelect = (props: {
     );
   }
 
-  const handleMobileValueChange = (value: OrderType) => {
+  const mobileItems = mobileOptions.map((o) => ({
+    value: o.value as string,
+    label: o.label,
+  }));
+  const mobileValue = props.selectedExtraId ?? props.type;
+  const routeMobileChange = (value: string) => {
+    if (!isRealOrderType(value)) {
+      props.onExtraSelect?.(value);
+      return;
+    }
     if (
       marketOrderDisabled &&
       value === OrderType.MARKET &&
@@ -204,43 +198,16 @@ export const OrderTypeSelect = (props: {
       });
       return;
     }
+    props.onExtraSelect?.(null);
     props.onChange(value);
   };
 
   return (
-    <Select.options
-      testid="oui-testid-orderEntry-orderType-button"
-      currentValue={props.type}
-      value={props.type}
-      options={mobileOptions}
-      onValueChange={handleMobileValueChange}
-      contentProps={{
-        className: cn(
-          "oui-orderEntry-orderTypeSelect-content",
-          "oui-bg-base-8",
-        ),
-      }}
-      classNames={{
-        trigger: cn(
-          "oui-orderEntry-orderTypeSelect-btn",
-          "oui-bg-base-7 oui-border-line-12 oui-h-8 oui-rounded-md",
-        ),
-      }}
-      valueFormatter={(value, option) => {
-        const item = allOptions.find((o) => o.value === value);
-        if (!item) {
-          return <Text size={"xs"}>{option.placeholder}</Text>;
-        }
-
-        const label = displayLabelMap[value as keyof typeof displayLabelMap];
-
-        return (
-          <Text size={"xs"} className="oui-text-base-contrast-80">
-            {label}
-          </Text>
-        );
-      }}
-      size={"md"}
+    <OrderTypeMobileSelectInjectabled
+      items={mobileItems}
+      value={mobileValue}
+      disabled={!props.canTrade}
+      onValueChange={routeMobileChange}
     />
   );
 };

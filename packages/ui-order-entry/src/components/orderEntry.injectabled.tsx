@@ -14,7 +14,7 @@ import { Available } from "./available";
 import { OrderTypeSelect } from "./orderTypeSelect";
 import { QuantitySlider } from "./quantitySlider";
 
-/** One entry in the Advanced order-type dropdown. */
+/** One entry in the order-type dropdown. */
 export type OrderTypeOption = { value: string; label: string };
 
 /** Props for the Advanced order-type dropdown interceptor target. */
@@ -23,6 +23,15 @@ export type OrderTypeAdvancedSelectProps = {
   /** Current selection: a real OrderType value, or a custom-type id. */
   value: string;
   placeholder: string;
+  disabled?: boolean;
+  onValueChange: (value: string) => void;
+};
+
+/** Props for the mobile order-type dropdown interceptor target. */
+export type MobileTypeSelectProps = {
+  items: OrderTypeOption[];
+  /** Current selection: a real OrderType value, or a custom-type id. */
+  value: string;
   disabled?: boolean;
   onValueChange: (value: string) => void;
 };
@@ -129,6 +138,42 @@ export const OrderTypeAdvancedSelectInjectabled =
   injectable<OrderTypeAdvancedSelectProps>(
     OrderTypeAdvancedSelect,
     "Trading.OrderEntry.AdvancedSelect",
+  );
+
+/** Default renderer for the mobile order-type dropdown. */
+const MobileTypeSelect = (props: MobileTypeSelectProps) => (
+  <Select.options
+    testid="oui-testid-orderEntry-orderType-button"
+    currentValue={props.value}
+    value={props.value}
+    options={props.items}
+    onValueChange={(v: string) => props.onValueChange(v)}
+    disabled={props.disabled}
+    contentProps={{
+      className: cn("oui-orderEntry-orderTypeSelect-content", "oui-bg-base-8"),
+    }}
+    classNames={{
+      trigger: cn(
+        "oui-orderEntry-orderTypeSelect-btn",
+        "oui-bg-base-7 oui-border-line-12 oui-h-8 oui-rounded-md",
+      ),
+    }}
+    valueFormatter={(value, option) => {
+      const item = props.items.find((i) => i.value === value);
+      return (
+        <Text size="xs" className="oui-text-base-contrast-80">
+          {item ? item.label : option.placeholder}
+        </Text>
+      );
+    }}
+    size="md"
+  />
+);
+
+export const OrderTypeMobileSelectInjectabled =
+  injectable<MobileTypeSelectProps>(
+    MobileTypeSelect,
+    "Trading.OrderEntry.MobileTypeSelect",
   );
 
 /** Wraps the order-entry form body; default renders children unchanged. */

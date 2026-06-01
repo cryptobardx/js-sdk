@@ -51,5 +51,7 @@ Add interceptor sockets so plugins can extend the trading screen without forking
 - `Trading.OrderEntry.AdvancedSelect`: add a custom entry to the order-type Advanced dropdown. A value that isn't a real OrderType is routed via `onExtraSelect`/`selectedExtraId` instead of `order_type`.
 - `Trading.OrderEntry.Body`: replace the order-entry form body with a custom panel while the type selector stays in place.
 - `Trading.OrderEntry.BuySellSwitch`: new `selectedCustomTypeId` prop lets a plugin hide the Buy/Sell switch for its own type only.
+- `Trading.OrderEntry.MobileTypeSelect`: add a custom entry to the mobile order-type dropdown (same routing model as `AdvancedSelect`; preserves the `marketOrderDisabled` modal).
 - `Trading.Chart.Overlay`: render over the chart once the TradingView widget is ready (receives the live widget and current symbol).
 - `Trading.DataList.Desktop.Tabs`: add custom tabs to the desktop data-list strip.
+- `Trading.DataList.Mobile.Tabs`: add custom tabs to the mobile data-list strip.
