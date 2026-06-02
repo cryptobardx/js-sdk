@@ -4,6 +4,7 @@ import { createCommunityBrokerFilter } from "../../hooks/useCommunityTabs";
 import { MarketsTabName } from "../../type";
 import { CommunityBrokerTabs } from "../communityBrokerTabs";
 import { useMarketsContext } from "../marketsProvider";
+import { RwaSubcategoryTabs } from "../rwaSubcategoryTabs";
 import { RwaTab } from "../rwaTab";
 import { useFavoritesProps } from "../shared/hooks/useFavoritesExtraProps";
 import {
@@ -63,6 +64,46 @@ export const ExpandMarkets: React.FC<ExpandMarketsProps> = (props) => {
 
   const renderBuiltInContent = (type: string) => {
     const tabType = type as MarketsTabName;
+
+    if (tabType === MarketsTabName.Rwa) {
+      return (
+        <RwaSubcategoryTabs
+          storageKey="orderly_expand_markets_rwa_sel_sub_tab"
+          classNames={{
+            tabsList: "oui-px-3 oui-pt-1 oui-pb-2",
+            tabsListContainer: "oui-shrink-0",
+            tabsContent:
+              "oui-min-h-0 oui-min-w-0 oui-w-full oui-flex-1 oui-overflow-hidden",
+          }}
+          className={cn(
+            "oui-expandMarkets-rwa-tabs",
+            "oui-flex oui-size-full oui-min-h-0 oui-min-w-0 oui-flex-col",
+          )}
+          showScrollIndicator
+          renderPanel={(_, dataFilter) => (
+            <ExpandMarketsListPanel>
+              <React.Suspense fallback={null}>
+                <LazyMarketsListWidget
+                  type={tabType}
+                  dataFilter={dataFilter}
+                  initialSort={tabSort[type]}
+                  onSort={onTabSort(tabType)}
+                  tableClassNames={{
+                    root: expandListTableClassNames.root,
+                    scroll: cn(
+                      expandListTableClassNames.scroll,
+                      "oui-px-1",
+                      "oui-pb-2",
+                    ),
+                  }}
+                />
+              </React.Suspense>
+            </ExpandMarketsListPanel>
+          )}
+        />
+      );
+    }
+
     return (
       <ExpandMarketsListPanel>
         <React.Suspense fallback={null}>

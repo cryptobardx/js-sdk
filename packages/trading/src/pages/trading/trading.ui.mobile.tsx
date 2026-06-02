@@ -56,15 +56,14 @@ export const MobileLayout: React.FC<TradingState> = (props) => {
   const { t } = useTranslation();
 
   const { isRwa, open, closeTimeInterval } = useGetRwaSymbolInfo(props.symbol);
-  const { brokerId, brokerName, brokerNameRaw, displayName } = useBadgeBySymbol(
-    props.symbol,
-  );
+  const { brokerId, brokerName, brokerNameRaw, displaySymbolName } =
+    useBadgeBySymbol(props.symbol);
   const isCommunityListed = Boolean(brokerId ?? brokerName);
   const baseFromSymbol = props.symbol?.split("_")[1] ?? props.symbol ?? "";
   const symbolWithBroker =
     brokerName != null
       ? `${baseFromSymbol}-${brokerNameRaw}`
-      : (displayName ?? props.symbol ?? "");
+      : (displaySymbolName ?? props.symbol ?? "");
 
   useEffect(() => {
     if (isRwa && !open) {

@@ -32,7 +32,7 @@ export const DropDownMarkets: Story = {
   render: (args) => {
     return (
       <DropDownMarketsWidget
-        contentClassName="oui-w-[429px] oui-h-[496px]"
+        contentClassName="oui-w-[620px] oui-h-[496px]"
         symbol="PERP_BTC_USDC"
         onSymbolChange={(symbol) => {
           console.log("onSymbolChange", symbol);

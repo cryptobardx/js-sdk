@@ -137,6 +137,7 @@
   "markets.recent": "Недавние",
   "markets.newListings": "Новые листинги",
   "markets.community": "Community",
+  "markets.tradFi": "Традиционные финансы",
   "markets.allMarkets": "Все рынки",
   "markets.openInterest": "Открытый интерес",
   "markets.openInterest.tooltip": "Общий размер позиций на сторону.",

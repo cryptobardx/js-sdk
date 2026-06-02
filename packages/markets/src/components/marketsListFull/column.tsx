@@ -68,7 +68,7 @@ export const useMarketsListFullColumns = (
         render: (value, record) => {
           return (
             <Flex gapX={1} itemAlign="center">
-              <SymbolDisplay formatString="base" showIcon>
+              <SymbolDisplay formatString="base" showIcon record={record}>
                 {value}
               </SymbolDisplay>
               {typeof record.leverage === "number" && (

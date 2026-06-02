@@ -5,6 +5,7 @@ import { MarketsTabName } from "../../type";
 import { CommunityBrokerTabs } from "../communityBrokerTabs";
 import { MarketsListWidget } from "../marketsList";
 import { useMarketsContext } from "../marketsProvider";
+import { RwaSubcategoryTabs } from "../rwaSubcategoryTabs";
 import { RwaTab } from "../rwaTab";
 import { SearchInput } from "../searchInput";
 import { useFavoritesProps } from "../shared/hooks/useFavoritesExtraProps";
@@ -34,6 +35,39 @@ export const MarketsSheet: React.FC<MarketsSheetProps> = (props) => {
 
   const renderBuiltInContent = (tabType: MarketsTabName) => {
     const isFavorites = tabType === MarketsTabName.Favorites;
+
+    if (tabType === MarketsTabName.Rwa) {
+      return (
+        <RwaSubcategoryTabs
+          storageKey="orderly_markets_sheet_rwa_sel_sub_tab"
+          classNames={{
+            tabsList: "oui-px-3 oui-pt-1 oui-pb-2",
+            tabsContent: "oui-h-full",
+          }}
+          className={cn(
+            "oui-marketsSheet-rwa-tabs",
+            "oui-h-[calc(100%_-_36px)]",
+          )}
+          showScrollIndicator
+          renderPanel={(_, dataFilter) => (
+            <MarketsListWidget
+              type={tabType}
+              dataFilter={dataFilter}
+              initialSort={tabSort[tabType]}
+              onSort={onTabSort(tabType)}
+              getColumns={getMarketsSheetColumns}
+              tableClassNames={{
+                root: cn("oui-marketsSheet-list", "!oui-bg-base-8"),
+                scroll: cn(
+                  "oui-pb-[env(safe-area-inset-bottom,_20px)]",
+                  "oui-h-[calc(100%_-_40px)]",
+                ),
+              }}
+            />
+          )}
+        />
+      );
+    }
 
     return (
       <MarketsListWidget

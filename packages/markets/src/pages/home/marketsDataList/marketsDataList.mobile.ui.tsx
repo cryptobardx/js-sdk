@@ -4,6 +4,7 @@ import { Box, cn, Column, TabPanel, Tabs } from "@orderly.network/ui";
 import { CommunityBrokerTabs } from "../../../components/communityBrokerTabs";
 import { MarketsListWidget } from "../../../components/marketsList";
 import { useMarketsContext } from "../../../components/marketsProvider";
+import { RwaSubcategoryTabs } from "../../../components/rwaSubcategoryTabs";
 import { RwaIconTab } from "../../../components/rwaTab";
 import { SearchInput } from "../../../components/searchInput";
 import {
@@ -26,6 +27,8 @@ import { FavoriteInstance, MarketsTabName } from "../../../type";
 import { UseMarketsDataListScript } from "./marketsDataList.script";
 
 export type MobileMarketsDataListProps = UseMarketsDataListScript;
+
+const TWO_LINE_MARKET_ROW_CLASS = "!oui-h-[54px]";
 
 type BuiltInTabMeta = {
   title: React.ReactNode;
@@ -90,24 +93,52 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
   );
 
   const renderTab = (type: MarketsTabName) => {
+    const list = (
+      <MarketsListWidget
+        type={type}
+        initialSort={tabSort[type]}
+        onSort={onTabSort(type)}
+        getColumns={getColumns}
+        rowClassName={TWO_LINE_MARKET_ROW_CLASS}
+        {...getFavoritesProps(type)}
+      />
+    );
+
     return (
       <>
         <SearchInput
           classNames={{
             root: cn(
-              "oui-mx-3 oui-mb-4 oui-mt-5",
-              activeTab !== MarketsTabName.Favorites && "oui-mb-2",
+              "oui-mx-3 oui-mt-5",
+              activeTab === MarketsTabName.Favorites ? "oui-mb-4" : "oui-mb-2",
             ),
           }}
         />
-        <MarketsListWidget
-          type={type}
-          initialSort={tabSort[type]}
-          onSort={onTabSort(type)}
-          getColumns={getColumns}
-          rowClassName="!oui-h-[34px]"
-          {...getFavoritesProps(type)}
-        />
+        {type === MarketsTabName.Rwa ? (
+          <RwaSubcategoryTabs
+            storageKey="orderly_mobile_markets_datalist_rwa_sel_sub_tab"
+            size="md"
+            classNames={{
+              tabsList: "oui-px-3 oui-pt-1 oui-pb-2",
+              tabsContent: "oui-h-full",
+              scrollIndicator: "oui-mx-3",
+            }}
+            className="oui-mobileMarketsDataList-rwa-tabs"
+            showScrollIndicator
+            renderPanel={(_, dataFilter) => (
+              <MarketsListWidget
+                type={type}
+                dataFilter={dataFilter}
+                initialSort={tabSort[type]}
+                onSort={onTabSort(type)}
+                getColumns={getColumns}
+                rowClassName={TWO_LINE_MARKET_ROW_CLASS}
+              />
+            )}
+          />
+        ) : (
+          list
+        )}
       </>
     );
   };
@@ -119,7 +150,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
         initialSort={tabSort[MarketsTabName.Community]}
         onSort={onTabSort(MarketsTabName.Community)}
         getColumns={getColumns}
-        rowClassName="!oui-h-[34px]"
+        rowClassName={TWO_LINE_MARKET_ROW_CLASS}
         dataFilter={createCommunityBrokerFilter(selected)}
       />
     );
@@ -171,7 +202,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
                   <>
                     <SearchInput
                       classNames={{
-                        root: cn("oui-mx-3 oui-mb-4 oui-mt-5", "oui-mb-2"),
+                        root: "oui-mx-3 oui-mb-2 oui-mt-5",
                       }}
                     />
                     <CommunityBrokerTabs
@@ -206,7 +237,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
             >
               <SearchInput
                 classNames={{
-                  root: cn("oui-mx-3 oui-mb-4 oui-mt-5", "oui-mb-2"),
+                  root: "oui-mx-3 oui-mb-2 oui-mt-5",
                 }}
               />
               <MarketsListWidget
@@ -215,7 +246,7 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
                 initialSort={tabSort[key as MarketsTabName]}
                 onSort={onTabSort(key as MarketsTabName)}
                 getColumns={getColumns}
-                rowClassName="!oui-h-[34px]"
+                rowClassName={TWO_LINE_MARKET_ROW_CLASS}
               />
             </TabPanel>
           );

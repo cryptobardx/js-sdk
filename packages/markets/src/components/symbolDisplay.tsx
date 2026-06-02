@@ -6,6 +6,7 @@ import { SymbolBadge } from "./symbolBadge";
 
 type SymbolDisplayProps = FormattedTextProps & {
   showBadge?: boolean;
+  /** Market row data used for RWA status fields. */
   record?: any;
 };
 
@@ -14,7 +15,8 @@ export const SymbolDisplay = memo((props: SymbolDisplayProps) => {
   const symbol = children as string;
 
   const symbolsInfo = useSymbolsInfo();
-  const displayName = symbolsInfo[symbol]("displayName");
+  const info = symbolsInfo[symbol];
+  const displayName = info("display_symbol_name")?.trim?.();
 
   const suffix =
     record?.isRwa || showBadge ? (

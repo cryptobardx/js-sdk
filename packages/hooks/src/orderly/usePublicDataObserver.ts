@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { type API } from "@orderly.network/types";
 import { getPrecisionByNumber } from "@orderly.network/utils";
-import { DEFAULT_SYMBOL_DISPLAY_NAMES } from "../constants";
 import { useSymbolStore } from "../provider/store/symbolStore";
+import { getSymbolDisplayName } from "../useBadgeBySymbol";
 import { useQuery } from "../useQuery";
 import { useAppStore } from "./appStore";
+import { RWA_SYMBOLS_INFO_QUERY_KEY } from "./rwaSymbolsInfoRevalidator";
 import { useFutures } from "./useFutures";
 import { useMarketStore } from "./useMarket/market.store";
 
@@ -16,6 +17,13 @@ const publicQueryOptions = {
   revalidateOnFocus: false,
   // 24 hours
   dedupingInterval: 1000 * 60 * 60 * 24,
+};
+
+const rwaSymbolsInfoQueryOptions = {
+  ...publicQueryOptions,
+  revalidateOnFocus: true,
+  focusThrottleInterval: 1000 * 60,
+  dedupingInterval: 1000 * 30,
 };
 
 export const usePublicDataObserver = () => {
@@ -61,7 +69,10 @@ export const usePublicDataObserver = () => {
         quote: arr[2],
         type: arr[0],
         name: `${arr[1]}-${arr[0]}`,
-        displayName: DEFAULT_SYMBOL_DISPLAY_NAMES[symbol],
+        display_symbol_name: getSymbolDisplayName(
+          symbol,
+          item.display_symbol_name,
+        ),
       };
     }
     setSymbolsInfo(obj);
@@ -71,8 +82,8 @@ export const usePublicDataObserver = () => {
    * symbol config
    * TODO: remove onSuccess because it can't be called when trigger multiple times
    */
-  useQuery<Record<string, API.RwaSymbol>>(`/v1/public/rwa/info`, {
-    ...publicQueryOptions,
+  useQuery<API.RwaSymbol[]>(RWA_SYMBOLS_INFO_QUERY_KEY, {
+    ...rwaSymbolsInfoQueryOptions,
     onSuccess(data: API.RwaSymbol[]) {
       if (!data || !data?.length) {
         return {};

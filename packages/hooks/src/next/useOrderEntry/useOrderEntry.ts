@@ -17,8 +17,8 @@ import { useAccountInfo } from "../../orderly/appStore";
 import {
   useCollateral,
   useFundingRatesStore,
-  useLeverageBySymbol,
   useMaxQty,
+  useSymbolLeverageMap,
   useSymbolsInfo,
 } from "../../orderly/orderlyHooks";
 import { useMarkPriceActions } from "../../orderly/useMarkPrice/useMarkPriceStore";
@@ -48,6 +48,7 @@ import {
 } from "./helper";
 import type { FullOrderState } from "./orderEntry.store";
 import { useOrderEntryNextInternal } from "./useOrderEntry.internal";
+import { useRwaLeverageSync } from "./useRwaLeverageSync";
 
 type OrderEntryParameters = Parameters<typeof useOrderEntryNextInternal>;
 type Options = Omit<OrderEntryParameters["1"], "symbolInfo">;
@@ -226,7 +227,10 @@ const useOrderEntry = (
   const effectiveMarginMode =
     (options as OrderEntryParameters[1])?.initialOrder?.margin_mode ??
     MarginMode.CROSS;
-  const symbolLeverage = useLeverageBySymbol(symbol, effectiveMarginMode);
+  const { getSymbolLeverage, refresh: refreshSymbolLeverages } =
+    useSymbolLeverageMap();
+  const symbolLeverage = getSymbolLeverage(symbol, effectiveMarginMode);
+  useRwaLeverageSync(symbol, refreshSymbolLeverages);
 
   const symbolInfo: API.SymbolExt = symbolConfig[symbol]();
   const markPrice = actions.getMarkPriceBySymbol(symbol);

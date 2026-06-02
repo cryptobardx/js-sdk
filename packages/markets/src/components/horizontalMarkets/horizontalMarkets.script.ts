@@ -23,6 +23,7 @@ export type MarketType =
   | "all"
   | "recent"
   | "newListing"
+  | "rwa"
   | "favorites"
   | (string & {});
 
@@ -61,6 +62,7 @@ export const useHorizontalMarketsScript = (
     recent: MarketsType.RECENT,
     newListing: MarketsType.NEW_LISTING,
     favorites: MarketsType.FAVORITES,
+    rwa: MarketsType.RWA,
   };
 
   // For custom categories, fetch all markets and filter by tab match rule.

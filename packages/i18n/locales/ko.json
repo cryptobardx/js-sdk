@@ -137,6 +137,7 @@
   "markets.recent": "최근",
   "markets.newListings": "신규 상장",
   "markets.community": "Community",
+  "markets.tradFi": "전통 금융",
   "markets.allMarkets": "모든 마켓",
   "markets.openInterest": "미결제약정",
   "markets.openInterest.tooltip": "측별 포지션 총 규모.",

@@ -1,30 +1,54 @@
 import { useMemo, useEffect } from "react";
+import { mutate } from "swr";
 import { create } from "zustand";
 import { API } from "@orderly.network/types";
 import { createGetter } from "../utils/createGetter";
 import { useAppStore } from "./appStore";
+import {
+  RWA_SYMBOLS_INFO_QUERY_KEY,
+  getRwaSymbolsInfoRefreshState,
+} from "./rwaSymbolsInfoRevalidator";
 
 /**
  * Check if currently trading based on next_open/next_close timestamps
- * @param nextOpen - Next open time timestamp
  * @param nextClose - Next close time timestamp
+ * @param status - RWA status from API
  * @param currentTime - Current time timestamp
+ * @param nextOpen - Next open time timestamp
  * @returns boolean - true if currently trading
  */
 export const isCurrentlyTrading = (
-  nextClose: number,
+  nextClose: number | undefined,
   status: "open" | "close",
   currentTime: number = Date.now(),
+  nextOpen?: number,
 ): boolean => {
-  return currentTime < nextClose && status === "open";
+  const hasNextClose = isValidTimestamp(nextClose);
+
+  if (status === "open") {
+    return !hasNextClose || currentTime < nextClose;
+  }
+
+  const hasNextOpen = isValidTimestamp(nextOpen);
+
+  return (
+    hasNextOpen &&
+    currentTime >= nextOpen &&
+    (!hasNextClose || currentTime < nextClose)
+  );
 };
 
 export const isCurrentlyClosed = (
   nextOpen: number,
   status: "open" | "close",
   currentTime: number = Date.now(),
+  nextClose?: number,
 ): boolean => {
-  return currentTime < nextOpen && status === "close";
+  return !isCurrentlyTrading(nextClose, status, currentTime, nextOpen);
+};
+
+const isValidTimestamp = (timestamp?: number): timestamp is number => {
+  return typeof timestamp === "number" && timestamp > 0;
 };
 
 /**
@@ -97,6 +121,8 @@ interface RwaSymbolsRuntimeState {
   currentTime: number;
   // Timer reference
   timerId?: NodeJS.Timeout;
+  // Refresh keys that have already triggered a revalidation
+  triggeredRefreshKeys: Record<string, true>;
   // Start the timer
   startTimer: () => void;
   // Stop the timer
@@ -115,17 +141,13 @@ const computeSymbolState = (
   const { status, next_close, next_open } = rwaSymbol;
 
   // Use isCurrentlyTrading function to determine if currently tradeable
-  const isOpen = isCurrentlyTrading(next_close, status, currentTime);
+  const isOpen = isCurrentlyTrading(next_close, status, currentTime, next_open);
 
   let closeTimeInterval: number | undefined;
   let openTimeInterval: number | undefined;
 
   // Calculate countdown to closing time
-  if (
-    next_close &&
-    typeof next_close === "number" &&
-    next_close > currentTime
-  ) {
+  if (isOpen && isValidTimestamp(next_close) && next_close > currentTime) {
     closeTimeInterval = Math.max(
       0,
       Math.floor((next_close - currentTime) / 1000),
@@ -133,7 +155,7 @@ const computeSymbolState = (
   }
 
   // Calculate countdown to opening time
-  if (next_open && typeof next_open === "number" && next_open > currentTime) {
+  if (!isOpen && isValidTimestamp(next_open) && next_open > currentTime) {
     openTimeInterval = Math.max(
       0,
       Math.floor((next_open - currentTime) / 1000),
@@ -159,6 +181,7 @@ const useRwaSymbolsRuntimeStore = create<RwaSymbolsRuntimeState>(
     computedStates: {},
     currentTime: Date.now(),
     timerId: undefined,
+    triggeredRefreshKeys: {},
 
     startTimer: () => {
       const state = get();
@@ -178,14 +201,7 @@ const useRwaSymbolsRuntimeStore = create<RwaSymbolsRuntimeState>(
           return;
         }
 
-        // Compute states for all RWA symbols
-        const computedStates: Record<string, ComputedRwaSymbolState> = {};
-
-        Object.entries(rwaSymbolsInfo).forEach(([symbol, rwaSymbol]) => {
-          computedStates[symbol] = computeSymbolState(rwaSymbol, currentTime);
-        });
-
-        set({ computedStates, currentTime });
+        updateRwaSymbolsRuntimeState(rwaSymbolsInfo, currentTime, get, set);
       }, 1000);
 
       set({ timerId });
@@ -201,16 +217,51 @@ const useRwaSymbolsRuntimeStore = create<RwaSymbolsRuntimeState>(
 
     updateComputedStates: (rwaSymbolsInfo: Record<string, API.RwaSymbol>) => {
       const currentTime = get().currentTime;
-      const computedStates: Record<string, ComputedRwaSymbolState> = {};
-
-      Object.entries(rwaSymbolsInfo).forEach(([symbol, rwaSymbol]) => {
-        computedStates[symbol] = computeSymbolState(rwaSymbol, currentTime);
-      });
-
-      set({ computedStates });
+      updateRwaSymbolsRuntimeState(rwaSymbolsInfo, currentTime, get, set);
     },
   }),
 );
+
+const updateRwaSymbolsRuntimeState = (
+  rwaSymbolsInfo: Record<string, API.RwaSymbol>,
+  currentTime: number,
+  get: () => RwaSymbolsRuntimeState,
+  set: (
+    partial:
+      | Partial<RwaSymbolsRuntimeState>
+      | ((state: RwaSymbolsRuntimeState) => Partial<RwaSymbolsRuntimeState>),
+  ) => void,
+) => {
+  const state = get();
+  const computedStates: Record<string, ComputedRwaSymbolState> = {};
+
+  Object.entries(rwaSymbolsInfo).forEach(([symbol, rwaSymbol]) => {
+    computedStates[symbol] = computeSymbolState(rwaSymbol, currentTime);
+  });
+
+  const refreshState = getRwaSymbolsInfoRefreshState(
+    rwaSymbolsInfo,
+    currentTime,
+    state.triggeredRefreshKeys,
+  );
+
+  if (!refreshState.shouldRefresh) {
+    set({ computedStates, currentTime });
+    return;
+  }
+
+  set({
+    computedStates,
+    currentTime,
+    triggeredRefreshKeys: refreshState.triggeredRefreshKeys,
+  });
+
+  try {
+    Promise.resolve(mutate(RWA_SYMBOLS_INFO_QUERY_KEY)).catch(() => undefined);
+  } catch {
+    // Ignore refresh failures. The stale snapshot is marked as triggered by design.
+  }
+};
 
 /**
  * Hook to initialize and manage the global timer

@@ -100,6 +100,8 @@ export * from "use-debounce";
 export { useMediaQuery } from "./useMediaQuery";
 export {
   formatSymbolWithBroker,
+  getSymbolBase,
+  getSymbolDisplayName,
   useBadgeBySymbol,
   useSymbolWithBroker,
   type UseBadgeBySymbolReturn,

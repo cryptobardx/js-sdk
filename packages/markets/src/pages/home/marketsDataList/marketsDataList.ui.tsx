@@ -5,6 +5,7 @@ import { CommunityBrokerTabs } from "../../../components/communityBrokerTabs";
 import { FavoritesEmpty } from "../../../components/favoritesEmpty";
 import type { MarketsListFullType } from "../../../components/marketsListFull/marketsListFull.script";
 import { useMarketsContext } from "../../../components/marketsProvider";
+import { RwaSubcategoryTabs } from "../../../components/rwaSubcategoryTabs";
 import { RwaIconTab } from "../../../components/rwaTab";
 import {
   composeTabTitle,
@@ -180,6 +181,26 @@ export const MarketsDataList: React.FC<MarketsDataListProps> = (props) => {
                             type="all"
                             initialSort={meta.initialSort}
                             dataFilter={createCommunityBrokerFilter(selected)}
+                          />
+                        </React.Suspense>
+                      )}
+                    />
+                  ) : tab.type === "rwa" ? (
+                    <RwaSubcategoryTabs
+                      storageKey="orderly_markets_datalist_rwa_sel_sub_tab"
+                      size="md"
+                      classNames={{
+                        tabsList: "oui-px-3 oui-pt-1 oui-pb-2",
+                        tabsContent: "oui-h-full",
+                      }}
+                      className="oui-marketsDataList-rwa-tabs"
+                      showScrollIndicator
+                      renderPanel={(_, dataFilter) => (
+                        <React.Suspense fallback={null}>
+                          <LazyMarketsListFullWidget
+                            type="rwa"
+                            initialSort={meta.initialSort}
+                            dataFilter={dataFilter}
                           />
                         </React.Suspense>
                       )}

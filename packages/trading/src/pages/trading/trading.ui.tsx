@@ -19,7 +19,7 @@ export const Trading: FC<TradingState> = (props) => {
   //   const status = symbolsInfo[symbol]("status");
   //   if (status === "DELISTING") {
   //     const displaySymbol =
-  //       symbolsInfo[symbol]("displayName") ??
+  //       symbolsInfo[symbol]("display_symbol_name") ??
   //       symbolsInfo[symbol]("name") ??
   //       symbol;
   //     toast(t("trading.symbolDelisting", { symbol: displaySymbol }), {

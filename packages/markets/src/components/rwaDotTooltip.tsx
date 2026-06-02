@@ -1,4 +1,7 @@
-import { isCurrentlyTrading } from "@orderly.network/hooks";
+import {
+  isCurrentlyTrading,
+  useGetRwaSymbolOpenStatus,
+} from "@orderly.network/hooks";
 import { useTranslation } from "@orderly.network/i18n";
 import { Text, Tooltip, Box } from "@orderly.network/ui";
 
@@ -8,11 +11,15 @@ export type RwaDotTooltipProps = {
 
 export const RwaDotTooltip = ({ record }: RwaDotTooltipProps) => {
   const { t } = useTranslation();
-
-  const isInTradingHours = isCurrentlyTrading(
-    record.rwaNextClose,
-    record.rwaStatus,
-  );
+  const { open: computedOpen } = useGetRwaSymbolOpenStatus(record.symbol);
+  const open =
+    computedOpen ??
+    isCurrentlyTrading(
+      record.rwaNextClose,
+      record.rwaStatus,
+      undefined,
+      record.rwaNextOpen,
+    );
 
   if (!record.isRwa) {
     return null;
@@ -23,8 +30,8 @@ export const RwaDotTooltip = ({ record }: RwaDotTooltipProps) => {
       className="oui-pointer-events-none"
       disableHoverableContent
       content={
-        <Text color={isInTradingHours ? "success" : "danger"}>
-          {isInTradingHours
+        <Text color={open ? "success" : "danger"}>
+          {open
             ? t("trading.rwa.marketHours")
             : t("trading.rwa.outsideMarketHours")}
         </Text>
@@ -41,7 +48,7 @@ export const RwaDotTooltip = ({ record }: RwaDotTooltipProps) => {
           width={4}
           height={4}
           r="full"
-          className={isInTradingHours ? "oui-bg-success" : "oui-bg-danger"}
+          className={open ? "oui-bg-success" : "oui-bg-danger"}
         />
       </Box>
     </Tooltip>
