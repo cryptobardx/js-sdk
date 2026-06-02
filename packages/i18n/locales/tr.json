@@ -137,6 +137,7 @@
   "markets.recent": "Son",
   "markets.newListings": "Yeni listeler",
   "markets.community": "Community",
+  "markets.tradFi": "Geleneksel finans",
   "markets.allMarkets": "Tüm piyasalar",
   "markets.openInterest": "Açık ilgi",
   "markets.openInterest.tooltip": "Taraf başına toplam pozisyon büyüklüğü.",

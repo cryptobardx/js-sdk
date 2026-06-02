@@ -137,6 +137,7 @@
   "markets.recent": "Terbaru",
   "markets.newListings": "Listing baru",
   "markets.community": "Community",
+  "markets.tradFi": "Keuangan tradisional",
   "markets.allMarkets": "Semua pasar",
   "markets.openInterest": "Open interest",
   "markets.openInterest.tooltip": "Total ukuran posisi per sisi.",

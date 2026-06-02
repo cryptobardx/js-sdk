@@ -51,19 +51,20 @@ export const MarketTypeFilter: React.FC<MarketTypeFilterProps> = (props) => {
   const [, favorite] = useMarkets(MarketsType.FAVORITES);
   const hasFavorites = (favorite?.favorites?.length || 0) > 0;
 
-  const titleOverrides = React.useMemo(
+  const titleOverrides = React.useMemo<Record<string, string>>(
     () => ({
       all: t("markets.allMarkets"),
       newListing: t("markets.newListings"),
       recent: t("markets.recent"),
+      rwa: t("markets.tradFi"),
     }),
     [t],
   );
 
   const getOptionLabel = useCallback(
     (tab: MarketTabConfig) =>
-      resolveTabTitle(tab, titleOverrides, t("common.rwa")),
-    [t, titleOverrides],
+      resolveTabTitle(tab, titleOverrides, titleOverrides.rwa),
+    [titleOverrides],
   );
 
   // Handle click outside to close dropdown

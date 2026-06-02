@@ -137,6 +137,7 @@
   "markets.recent": "Recent",
   "markets.newListings": "New listings",
   "markets.community": "Community",
+  "markets.tradFi": "TradFi",
   "markets.allMarkets": "All markets",
   "markets.openInterest": "Open interest",
   "markets.openInterest.tooltip": "Total size of positions per side.",

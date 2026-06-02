@@ -2,6 +2,7 @@ import { useContext, useEffect, useId, useState } from "react";
 import { API, WSMessage } from "@orderly.network/types";
 import { Decimal } from "@orderly.network/utils";
 import { OrderlyContext } from "../orderlyContext";
+import { getSymbolDisplayName } from "../useBadgeBySymbol";
 import { useEventEmitter } from "../useEventEmitter";
 import { MarketStoreKey } from "./useMarket";
 import { useMarketsStream } from "./useMarketsStream";
@@ -75,7 +76,6 @@ export type MarketsKey = keyof MarketsData;
 
 export type MarketsItem = {
   symbol: string;
-  displayName?: string;
   /** Permissionless listing: display name without broker_id suffix */
   display_symbol_name?: string;
   /** Permissionless listing: broker id; null for non-community-listed symbols */
@@ -102,6 +102,7 @@ export type MarketsItem = {
   isFavorite: boolean;
   leverage?: number;
   isRwa: boolean;
+  market_session?: API.RwaSymbol["market_session"];
   rwaNextOpen?: number;
   rwaNextClose?: number;
   rwaStatus?: "open" | "close";
@@ -323,7 +324,15 @@ export const useMarkets = (
       type,
     });
     setMarkets(filterList);
-  }, [futures, symbolsInfo, favorites, recent, newListing, type]);
+  }, [
+    futures,
+    symbolsInfo,
+    rwaSymbolsInfo,
+    favorites,
+    recent,
+    newListing,
+    type,
+  ]);
 
   return [markets, store];
 };
@@ -348,10 +357,12 @@ const addFieldToMarkets = (
     return {
       ...item,
       broker_id: item.broker_id,
-      display_symbol_name: item.display_symbol_name,
+      display_symbol_name: getSymbolDisplayName(
+        item.symbol,
+        info("display_symbol_name"),
+      ),
       quote_dp: info("quote_dp"),
       created_time: info("created_time"),
-      displayName: info("displayName"),
       leverage: getLeverage(info("base_imr")),
       openInterest: getOpenInterest(item.open_interest, item.index_price),
       "8h_funding": get8hFunding(item.est_funding_rate, info("funding_period")),
@@ -361,6 +372,7 @@ const addFieldToMarkets = (
         open: item["24h_open"],
       }),
       isRwa: !!rwaInfo,
+      market_session: rwaInfo?.market_session,
       rwaNextOpen: rwaInfo?.next_open,
       rwaNextClose: rwaInfo?.next_close,
       rwaStatus: rwaInfo?.status,

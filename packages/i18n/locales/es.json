@@ -137,6 +137,7 @@
   "markets.recent": "Recientes",
   "markets.newListings": "Nuevas listas",
   "markets.community": "Community",
+  "markets.tradFi": "Finanzas tradicionales",
   "markets.allMarkets": "Todos los mercados",
   "markets.openInterest": "Interés abierto",
   "markets.openInterest.tooltip": "Tamaño total de posiciones por lado.",

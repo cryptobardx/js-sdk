@@ -1,8 +1,10 @@
 import React from "react";
 import { Box, cn } from "@orderly.network/ui";
+import { MarketsTabName } from "../../type";
 import { ExpandMarketsWidget } from "../expandMarkets";
 import { MarketsListWidget } from "../marketsList";
 import { useMarketsContext } from "../marketsProvider";
+import { RwaSubcategoryTabs } from "../rwaSubcategoryTabs";
 import { useFavoritesProps } from "../shared/hooks/useFavoritesExtraProps";
 import type { SideMarketsScriptReturn } from "./sideMarkets.script";
 
@@ -28,6 +30,29 @@ export const SideMarkets: React.FC<SideMarketsProps> = (props) => {
         />
       );
     }
+    if (activeTab === MarketsTabName.Rwa) {
+      return (
+        <RwaSubcategoryTabs
+          storageKey="orderly_side_markets_rwa_sel_sub_tab"
+          classNames={{
+            tabsList: "oui-px-1 oui-pt-1 oui-pb-2",
+            tabsContent: "oui-h-full",
+            scrollIndicator: "oui-mx-1",
+          }}
+          className="oui-sideMarkets-rwa-tabs oui-h-full"
+          showScrollIndicator
+          renderPanel={(_, dataFilter) => (
+            <MarketsListWidget
+              type={activeTab}
+              dataFilter={dataFilter}
+              initialSort={tabSort[activeTab]}
+              panelSize={"middle"}
+            />
+          )}
+        />
+      );
+    }
+
     return (
       <MarketsListWidget
         type={activeTab}

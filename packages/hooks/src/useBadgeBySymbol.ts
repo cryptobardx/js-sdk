@@ -2,6 +2,23 @@ import { useMemo } from "react";
 import { useSymbolsInfo } from "./orderly/useSymbolsInfo";
 import { useAllBrokers } from "./trading-rewards/useAllBrokers";
 
+export function getSymbolBase(symbol: string | undefined): string {
+  if (!symbol) return "";
+  const parts = symbol.split("_");
+  return parts.length >= 3
+    ? (parts[1] ?? "")
+    : (symbol.match(/^([A-Za-z]+)/)?.[1] ?? symbol);
+}
+
+export function getSymbolDisplayName(
+  symbol: string | undefined,
+  displaySymbolName?: string | null,
+): string {
+  const trimmedDisplayName = displaySymbolName?.trim();
+  if (trimmedDisplayName) return trimmedDisplayName;
+  return getSymbolBase(symbol);
+}
+
 /**
  * First segment of raw broker name when split by space, hyphen, or underscore
  * (e.g. ` Orderly Agent`, `Orderly-Agent`, `Orderly_Agent` → `Orderly`). No length truncation.
@@ -16,7 +33,7 @@ function brokerNameBaseFromRaw(
 
 export interface UseBadgeBySymbolReturn {
   /** Display name of the symbol. API.display_symbol_name */
-  displayName: string;
+  displaySymbolName: string;
   /** Broker ID of the symbol. */
   brokerId: string | undefined;
   /** Badge label: first segment of raw name, truncated to 7 chars with "...". */
@@ -26,8 +43,8 @@ export interface UseBadgeBySymbolReturn {
 }
 
 /**
- * Match the given `symbol` in `symbolsInfo` and return `displayName`, `brokerId`,
- * and the mapped `brokerName`.
+ * Match the given `symbol` in `symbolsInfo` and return `displaySymbolName`,
+ * `brokerId`, and the mapped `brokerName`.
  *
  * `brokerName` comes from the `/v1/public/broker/name` broker list
  * (SWR shared cache).
@@ -39,7 +56,7 @@ export const useBadgeBySymbol = (symbol: string): UseBadgeBySymbolReturn => {
   return useMemo(() => {
     if (!symbol || symbolsInfo.isNil) {
       return {
-        displayName: symbol ?? "",
+        displaySymbolName: symbol ?? "",
         brokerId: undefined,
         brokerName: undefined,
         brokerNameRaw: undefined,
@@ -49,11 +66,11 @@ export const useBadgeBySymbol = (symbol: string): UseBadgeBySymbolReturn => {
     const getter = symbolsInfo[symbol];
     const info = typeof getter === "function" ? getter() : undefined;
 
-    const displayName =
-      info?.displayName ??
+    const displaySymbolName = getSymbolDisplayName(
+      symbol,
       (info as { display_symbol_name?: string } | undefined)
-        ?.display_symbol_name ??
-      symbol;
+        ?.display_symbol_name,
+    );
 
     const brokerId: string | undefined = info?.broker_id ?? undefined;
     const rawBrokerName = brokerId ? brokers?.[brokerId] : undefined;
@@ -65,7 +82,7 @@ export const useBadgeBySymbol = (symbol: string): UseBadgeBySymbolReturn => {
       : undefined;
 
     return {
-      displayName,
+      displaySymbolName,
       brokerId,
       brokerName,
       brokerNameRaw: rawBrokerName,
@@ -94,11 +111,7 @@ export function formatSymbolWithBroker(
     brokerNameBase = brokerNameBaseFromRaw(rawBrokerName);
   }
 
-  const parts = symbol.split("_");
-  const base =
-    parts.length >= 3
-      ? (parts[1] ?? "")
-      : (symbol.match(/^([A-Za-z]+)/)?.[1] ?? symbol);
+  const base = getSymbolBase(symbol);
 
   const hasBrokerSuffix = symbol.includes("-") || symbol.split("_").length > 3;
 

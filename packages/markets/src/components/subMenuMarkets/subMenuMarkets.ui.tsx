@@ -19,6 +19,7 @@ import { CommunityBrokerTabs } from "../communityBrokerTabs";
 import { FavoritesTabWidget } from "../favoritesTabs";
 import { MarketsListWidget } from "../marketsList";
 import { useMarketsContext } from "../marketsProvider";
+import { RwaSubcategoryTabs } from "../rwaSubcategoryTabs";
 import { RwaIconTab } from "../rwaTab";
 import { useFavoritesProps } from "../shared/hooks/useFavoritesExtraProps";
 import {
@@ -122,6 +123,30 @@ export const SubMenuMarkets: React.FC<SubMenuMarketsProps> = (props) => {
   };
 
   const renderBuiltInContent = (tabType: MarketsTabName) => {
+    if (tabType === MarketsTabName.Rwa) {
+      return (
+        <RwaSubcategoryTabs
+          storageKey="orderly_submenu_markets_rwa_sel_sub_tab"
+          classNames={{
+            tabsList: "oui-px-1 oui-pt-1 oui-pb-2",
+            tabsContent: "oui-h-full",
+            scrollIndicator: "oui-mx-1",
+          }}
+          className={cn("oui-subMenuMarkets-rwa-tabs", cls)}
+          showScrollIndicator
+          renderPanel={(_, dataFilter) => (
+            <MarketTabPanel
+              type={tabType}
+              getColumns={getColumns}
+              dataFilter={dataFilter}
+              initialSort={tabSort[tabType]}
+              onSort={onTabSort(tabType)}
+            />
+          )}
+        />
+      );
+    }
+
     if (tabType === MarketsTabName.Favorites) {
       const favProps = getFavoritesProps(MarketsTabName.Favorites) as {
         dataFilter?: any;

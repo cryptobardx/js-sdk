@@ -137,6 +137,7 @@
   "markets.recent": "Recent",
   "markets.newListings": "Nieuwe noteringen",
   "markets.community": "Community",
+  "markets.tradFi": "Traditionele financiën",
   "markets.allMarkets": "Alle markten",
   "markets.openInterest": "Open interest",
   "markets.openInterest.tooltip": "Totale omvang van posities per zijde.",
