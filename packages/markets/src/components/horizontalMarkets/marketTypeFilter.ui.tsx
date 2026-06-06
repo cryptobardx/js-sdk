@@ -57,6 +57,7 @@ export const MarketTypeFilter: React.FC<MarketTypeFilterProps> = (props) => {
       newListing: t("markets.newListings"),
       recent: t("markets.recent"),
       rwa: t("markets.tradFi"),
+      preTge: t("markets.preTge"),
     }),
     [t],
   );

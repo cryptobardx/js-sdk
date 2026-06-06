@@ -138,6 +138,7 @@
   "markets.newListings": "新上市",
   "markets.community": "社区",
   "markets.tradFi": "传统金融",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "所有市场",
   "markets.openInterest": "未平仓合约",
   "markets.openInterest.tooltip": "每边持仓的总规模。",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "常规更新",
   "notification.maintenanceTitle": "系统维护",
   "notification.empty": "暂无公告",
-  "tradingPoints.points": "积分"
+  "tradingPoints.points": "积分",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

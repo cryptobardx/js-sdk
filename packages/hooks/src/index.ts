@@ -11,7 +11,7 @@ export {
   type MarketCategoryComponentKey,
   type MarketCategoryContext,
   type MarketCategoriesConfigProviderProps,
-} from "./marketCategories";
+} from "./orderly/markets/marketCategories";
 
 export { default as version } from "./version";
 export { fetcher, noCacheConfig, type useQueryOptions } from "./utils/fetcher";

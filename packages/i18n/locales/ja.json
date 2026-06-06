@@ -138,6 +138,7 @@
   "markets.newListings": "新規上場",
   "markets.community": "Community",
   "markets.tradFi": "伝統金融",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "すべての市場",
   "markets.openInterest": "オープンインタレスト",
   "markets.openInterest.tooltip": "サイドごとのポジションの合計サイズ。",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "一般アップデート",
   "notification.maintenanceTitle": "システムメンテナンス",
   "notification.empty": "お知らせはありません",
-  "tradingPoints.points": "ポイント"
+  "tradingPoints.points": "ポイント",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

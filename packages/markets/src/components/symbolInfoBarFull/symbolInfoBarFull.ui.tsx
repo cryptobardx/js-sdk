@@ -1,5 +1,9 @@
 import React, { ReactNode } from "react";
-import { useBadgeBySymbol, useFundingRate } from "@orderly.network/hooks";
+import {
+  useBadgeBySymbol,
+  useFundingRate,
+  useSymbolsInfo,
+} from "@orderly.network/hooks";
 import { useTranslation } from "@orderly.network/i18n";
 import {
   TokenIcon,
@@ -53,11 +57,22 @@ export const SymbolInfoBarRiskNotice: React.FC<{
   visible: boolean;
   symbolWithBroker: string;
   brokerName: string;
+  isPreTge?: boolean;
   /** When true, height follows content instead of fixed 46px (e.g. for mobile) */
   autoHeight?: boolean;
-}> = ({ className, visible, symbolWithBroker, brokerName, autoHeight }) => {
+}> = ({
+  className,
+  visible,
+  symbolWithBroker,
+  brokerName,
+  isPreTge,
+  autoHeight,
+}) => {
   const { t } = useTranslation();
   if (!visible) return null;
+  const contentKey = isPreTge
+    ? "markets.symbolInfoBar.riskNotice.preLaunch.content"
+    : "markets.symbolInfoBar.riskNotice.content";
   return (
     <a
       href={RISK_NOTICE_LEARN_MORE_URL}
@@ -77,7 +92,7 @@ export const SymbolInfoBarRiskNotice: React.FC<{
       >
         <WarningIcon className="oui-shrink-0 oui-size-4 oui-text-warning-darken" />
         <Text size="xs" className="oui-text-warning-darken oui-flex-1">
-          {t("markets.symbolInfoBar.riskNotice.content", {
+          {t(contentKey, {
             symbolWithBroker,
             brokerName,
           })}{" "}
@@ -189,8 +204,10 @@ export const SymbolInfoBarFull: React.FC<SymbolInfoBarFullProps> = (props) => {
   } = props;
 
   const { t } = useTranslation();
+  const symbolsInfo = useSymbolsInfo();
   const { brokerId, brokerName, brokerNameRaw, displaySymbolName } =
     useBadgeBySymbol(symbol);
+  const isPreTge = Boolean(symbolsInfo[symbol]?.("is_pretge"));
   const isCommunityListed = Boolean(brokerId ?? brokerName);
   const baseFromSymbol = symbol?.split("_")[1] ?? symbol;
   const symbolWithBroker =
@@ -381,6 +398,7 @@ export const SymbolInfoBarFull: React.FC<SymbolInfoBarFullProps> = (props) => {
         visible={isCommunityListed}
         symbolWithBroker={symbolWithBroker}
         brokerName={brokerNameRaw ?? brokerName ?? ""}
+        isPreTge={isPreTge}
         autoHeight
       />
       <SymbolInfoBarDesktop

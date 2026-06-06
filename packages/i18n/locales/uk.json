@@ -138,6 +138,7 @@
   "markets.newListings": "Нові лістинги",
   "markets.community": "Community",
   "markets.tradFi": "Традиційні фінанси",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "Всі ринки",
   "markets.openInterest": "Відкритий інтерес",
   "markets.openInterest.tooltip": "Загальний розмір позицій на сторону.",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "Загальне оновлення",
   "notification.maintenanceTitle": "Обслуговування системи",
   "notification.empty": "Немає оголошень",
-  "tradingPoints.points": "Бали"
+  "tradingPoints.points": "Бали",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

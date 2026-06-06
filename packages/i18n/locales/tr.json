@@ -138,6 +138,7 @@
   "markets.newListings": "Yeni listeler",
   "markets.community": "Community",
   "markets.tradFi": "Geleneksel finans",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "Tüm piyasalar",
   "markets.openInterest": "Açık ilgi",
   "markets.openInterest.tooltip": "Taraf başına toplam pozisyon büyüklüğü.",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "Genel güncelleme",
   "notification.maintenanceTitle": "Sistem bakımı",
   "notification.empty": "Duyuru yok",
-  "tradingPoints.points": "Puanlar"
+  "tradingPoints.points": "Puanlar",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

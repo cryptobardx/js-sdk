@@ -138,6 +138,7 @@
   "markets.newListings": "Listing baru",
   "markets.community": "Community",
   "markets.tradFi": "Keuangan tradisional",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "Semua pasar",
   "markets.openInterest": "Open interest",
   "markets.openInterest.tooltip": "Total ukuran posisi per sisi.",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "Pembaruan umum",
   "notification.maintenanceTitle": "Pemeliharaan sistem",
   "notification.empty": "Tidak ada pengumuman",
-  "tradingPoints.points": "Poin"
+  "tradingPoints.points": "Poin",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

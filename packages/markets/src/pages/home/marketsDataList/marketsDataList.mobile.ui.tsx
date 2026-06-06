@@ -82,6 +82,11 @@ export const MobileMarketsDataList: React.FC<MobileMarketsDataListProps> = (
         value: "rwa",
         tabName: MarketsTabName.Rwa,
       },
+      preTge: {
+        title: t("markets.preTge"),
+        value: "preTge",
+        tabName: MarketsTabName.PreTge,
+      },
       newListing: {
         title: t("markets.newListings"),
         icon: <NewListingsIcon />,

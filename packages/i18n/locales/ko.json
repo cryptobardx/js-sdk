@@ -138,6 +138,7 @@
   "markets.newListings": "신규 상장",
   "markets.community": "Community",
   "markets.tradFi": "전통 금융",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "모든 마켓",
   "markets.openInterest": "미결제약정",
   "markets.openInterest.tooltip": "측별 포지션 총 규모.",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "일반 업데이트",
   "notification.maintenanceTitle": "시스템 점검",
   "notification.empty": "공지사항이 없습니다",
-  "tradingPoints.points": "포인트"
+  "tradingPoints.points": "포인트",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

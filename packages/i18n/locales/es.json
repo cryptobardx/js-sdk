@@ -138,6 +138,7 @@
   "markets.newListings": "Nuevas listas",
   "markets.community": "Community",
   "markets.tradFi": "Finanzas tradicionales",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "Todos los mercados",
   "markets.openInterest": "Interés abierto",
   "markets.openInterest.tooltip": "Tamaño total de posiciones por lado.",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "Actualización general",
   "notification.maintenanceTitle": "Mantenimiento del sistema",
   "notification.empty": "No hay anuncios",
-  "tradingPoints.points": "Puntos"
+  "tradingPoints.points": "Puntos",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

@@ -1,18 +1,13 @@
 import { useContext, useMemo, useState } from "react";
 import { API, EMPTY_LIST } from "@orderly.network/types";
 import { Decimal } from "@orderly.network/utils";
-import { OrderlyContext } from "../orderlyContext";
-import { useFundingRates } from "./useFundingRates";
-import { useMarketsStream } from "./useMarketsStream";
-import { useSymbolsInfo } from "./useSymbolsInfo";
+import { OrderlyContext } from "../../orderlyContext";
+import { useFundingRates } from "../useFundingRates";
+import { useMarketsStream } from "../useMarketsStream";
+import { useSymbolsInfo } from "../useSymbolsInfo";
+import { MarketsType } from "./marketTypes";
 
-export enum MarketsType {
-  FAVORITES,
-  RECENT,
-  ALL,
-  NEW_LISTING,
-  COMMUNITY,
-}
+export { MarketsType } from "./marketTypes";
 
 export interface FavoriteTab {
   name: string;
@@ -253,6 +248,7 @@ export const useMarket = (type: MarketsType) => {
         "8h_funding": get8hFunding(est_funding_rate, funding_period),
         quote_dp: info("quote_dp"),
         created_time: info("created_time"),
+        isPreTge: Boolean(item.is_pretge ?? info("is_pretge")),
         openInterest: new Decimal(open_interest || 0)
           .mul(index_price || 0)
           .toNumber(),
@@ -270,7 +266,9 @@ export const useMarket = (type: MarketsType) => {
     const filter =
       type == MarketsType.ALL || type == MarketsType.COMMUNITY
         ? marketsList
-        : marketsList?.filter((item) => keys.includes(item.symbol));
+        : type == MarketsType.PRE_TGE
+          ? marketsList?.filter((item) => item.isPreTge)
+          : marketsList?.filter((item) => keys.includes(item.symbol));
 
     const favoritesData = [...favorites];
     const favoriteKeys = favoritesData.map((item) => item.name);

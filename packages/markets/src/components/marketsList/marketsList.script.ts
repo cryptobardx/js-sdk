@@ -13,6 +13,7 @@ const MarketsTypeMap = {
   [MarketsTabName.All]: MarketsType.ALL,
   [MarketsTabName.Community]: MarketsType.COMMUNITY,
   [MarketsTabName.Rwa]: MarketsType.RWA,
+  [MarketsTabName.PreTge]: MarketsType.PRE_TGE,
   [MarketsTabName.Favorites]: MarketsType.FAVORITES,
   [MarketsTabName.Recent]: MarketsType.RECENT,
   [MarketsTabName.NewListing]: MarketsType.NEW_LISTING,

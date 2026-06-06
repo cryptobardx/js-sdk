@@ -138,6 +138,7 @@
   "markets.newListings": "Nuove quotazioni",
   "markets.community": "Community",
   "markets.tradFi": "Finanza tradizionale",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "Tutti i mercati",
   "markets.openInterest": "Interesse aperto",
   "markets.openInterest.tooltip": "Dimensione totale delle posizioni per lato.",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "Aggiornamento generale",
   "notification.maintenanceTitle": "Manutenzione sistema",
   "notification.empty": "Nessun annuncio",
-  "tradingPoints.points": "Punti"
+  "tradingPoints.points": "Punti",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

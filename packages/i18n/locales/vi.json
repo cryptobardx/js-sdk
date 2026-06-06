@@ -138,6 +138,7 @@
   "markets.newListings": "Danh sách mới",
   "markets.community": "Community",
   "markets.tradFi": "Tài chính truyền thống",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "Tất cả thị trường",
   "markets.openInterest": "Lãi suất mở",
   "markets.openInterest.tooltip": "Tổng kích thước vị thế mỗi bên.",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "Cập nhật chung",
   "notification.maintenanceTitle": "Bảo trì hệ thống",
   "notification.empty": "Không có thông báo",
-  "tradingPoints.points": "Điểm"
+  "tradingPoints.points": "Điểm",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

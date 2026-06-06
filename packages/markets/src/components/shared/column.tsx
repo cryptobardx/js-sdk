@@ -47,9 +47,9 @@ export function getSymbolColumn(
 
       const stackLeverageInSecondRow = options?.stackLeverageInSecondRow;
       const hasLeverage = typeof record.leverage === "number";
-      const showBrokerBadgeInLeverageRow =
+      const showSymbolBadgeInLeverageRow =
         stackLeverageInSecondRow && Boolean(record.broker_id);
-      const showSecondRow = hasLeverage || showBrokerBadgeInLeverageRow;
+      const showSecondRow = hasLeverage || showSymbolBadgeInLeverageRow;
 
       return (
         <Flex gapX={1} itemAlign="center">
@@ -74,7 +74,7 @@ export function getSymbolColumn(
             {stackLeverageInSecondRow
               ? showSecondRow && (
                   <Flex gapX={1} itemAlign="center">
-                    {showBrokerBadgeInLeverageRow && (
+                    {showSymbolBadgeInLeverageRow && (
                       <SymbolBadge symbol={value} />
                     )}
                     {hasLeverage && (

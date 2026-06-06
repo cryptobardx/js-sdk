@@ -138,6 +138,7 @@
   "markets.newListings": "لیستینگ‌های جدید",
   "markets.community": "کامیونیتی",
   "markets.tradFi": "مالی سنتی",
+  "markets.preTge": "Pre-launch",
   "markets.allMarkets": "همه مارکت‌ها",
   "markets.openInterest": "موقعیت باز",
   "markets.openInterest.tooltip": "مجموع اندازه موقعیت‌ها به ازای هر طرف.",
@@ -1268,5 +1269,6 @@
   "notification.generalTitle": "به‌روزرسانی عمومی",
   "notification.maintenanceTitle": "نگهداری سیستم",
   "notification.empty": "اعلامی‌ای نیست",
-  "tradingPoints.points": "امتیاز"
+  "tradingPoints.points": "امتیاز",
+  "markets.symbolInfoBar.riskNotice.preLaunch.content": "{{symbolWithBroker}} is a Pre-launch permissionless listing supported on Isolated Margin only, deployed and operated independently by {{brokerName}}. The underlying token has not yet launched. Please be aware of elevated risks, including low liquidity, high volatility, and increased liquidation risk. No funding fee is charged during the pre-launch phase."
 }

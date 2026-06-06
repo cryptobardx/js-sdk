@@ -34,6 +34,7 @@ export enum MarketsTabName {
   Recent = "recent",
   All = "all",
   Rwa = "rwa",
+  PreTge = "preTge",
   NewListing = "newListing",
   Community = "community",
 }
