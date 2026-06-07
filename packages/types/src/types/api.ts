@@ -725,6 +725,9 @@ export declare namespace API {
       referral_code: string;
       max_rebate_rate: number;
       default_referee_rebate_rate: number;
+      bonus_max_rebate_rate?: number;
+      base_rebate_rate?: number;
+      default_bonus_referee_rebate_rate?: number;
       direct_invites?: number;
       indirect_invites?: number;
       direct_volume?: number;

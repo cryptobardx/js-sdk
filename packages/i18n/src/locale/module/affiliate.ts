@@ -149,9 +149,14 @@ export const affiliate = {
     "This action will remove custom settings for {{accountId}} and apply the default configuration.",
   "affiliate.resetRebateRate.rateAfterReset": "Rate after reset",
 
-  "affiliate.revenueSplitStrategy": "Revenue split strategy",
   "affiliate.youKeep": "You keep",
   "affiliate.refereesGet": "Referees get",
+  "affiliate.yourCommissionRates": "Your commission rates",
+  "affiliate.directTrades": "Direct trades",
+  "affiliate.indirectTrades": "Indirect trades",
+  "affiliate.directTradesDescription": "When your direct referee trades.",
+  "affiliate.indirectTradesDescription":
+    "When your referee's recruits (or deeper) trade.",
   "affiliate.extraBonusOnDirectReferrals":
     "<0>+ {{amount}}%</0> extra bonus on direct referrals",
   "affiliate.earnReferralCommissions": "Earn referral commissions",

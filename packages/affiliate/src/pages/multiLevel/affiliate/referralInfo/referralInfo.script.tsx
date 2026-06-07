@@ -24,16 +24,22 @@ export const useReferralInfoScript = () => {
     return generateReferralLink(referralLinkUrl, referralCode);
   }, [referralCode]);
 
-  const referrerRebateRate = useMemo(() => {
-    return new Decimal(multiLevelRebateInfo?.referrer_rebate_rate || 0)
+  const directTradesRate = useMemo(() => {
+    return new Decimal(multiLevelRebateInfo?.bonus_max_rebate_rate ?? 0)
+      .add(multiLevelRebateInfo?.base_rebate_rate ?? 0)
       .mul(100)
       .toNumber();
   }, [multiLevelRebateInfo]);
 
-  const refereeRebateRate = useMemo(() => {
-    return new Decimal(multiLevelRebateInfo?.referee_rebate_rate || 0)
+  const indirectTradesRate = useMemo(() => {
+    return new Decimal(multiLevelRebateInfo?.bonus_max_rebate_rate ?? 0)
+      .sub(multiLevelRebateInfo?.default_bonus_referee_rebate_rate ?? 0)
       .mul(100)
       .toNumber();
+  }, [multiLevelRebateInfo]);
+
+  const showIndirectTrades = useMemo(() => {
+    return !new Decimal(multiLevelRebateInfo?.bonus_max_rebate_rate ?? 0).eq(0);
   }, [multiLevelRebateInfo]);
 
   const directBonusRebateRate = useMemo(() => {
@@ -62,8 +68,9 @@ export const useReferralInfoScript = () => {
     referralCode,
     referralLink,
     multiLevelRebateInfo,
-    referrerRebateRate,
-    refereeRebateRate,
+    directTradesRate,
+    indirectTradesRate,
+    showIndirectTrades,
     directBonusRebateRate,
   };
 };
