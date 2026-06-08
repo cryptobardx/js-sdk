@@ -9,21 +9,32 @@ import { ReferralCodeFormWidgetProps } from "./referralCodeForm.widget";
 export const useReferralCodeFormScript = (
   options: ReferralCodeFormWidgetProps,
 ) => {
-  const { type, referralCode, maxRebateRate, referrerRebateRate, accountId } =
-    options;
+  const { type, referralCode, referrerRebateRate, accountId } = options;
   const { t } = useTranslation();
 
   const [newCode, setNewCode] = useState<string>(referralCode || "");
   const [isReview, setIsReview] = useState(false);
 
-  const maxRebatePercentage = useMemo(() => {
-    return new Decimal(maxRebateRate).mul(100).toNumber();
-  }, [maxRebateRate]);
+  const bonusMaxRebatePercentage = useMemo(() => {
+    return new Decimal(options.bonusMaxRebateRate ?? options.maxRebateRate ?? 0)
+      .mul(100)
+      .toNumber();
+  }, [options.bonusMaxRebateRate, options.maxRebateRate]);
+
+  const baseRebatePercentage = useMemo(() => {
+    return new Decimal(options.baseRebateRate ?? 0).mul(100).toNumber();
+  }, [options.baseRebateRate]);
+
+  const totalSplitPercentage = useMemo(() => {
+    return new Decimal(bonusMaxRebatePercentage)
+      .add(baseRebatePercentage)
+      .toNumber();
+  }, [bonusMaxRebatePercentage, baseRebatePercentage]);
 
   const [referrerRebatePercentage, setReferrerRebatePercentage] = useState(
     () => {
       if (type === ReferralCodeFormType.Create) {
-        return Math.ceil(maxRebatePercentage / 2);
+        return bonusMaxRebatePercentage;
       }
       if (referrerRebateRate) {
         return new Decimal(referrerRebateRate).mul(100).toNumber();
@@ -40,12 +51,24 @@ export const useReferralCodeFormScript = (
     isMutating,
   } = useReferralCode();
 
-  const refereeRebatePercentage = useMemo(() => {
+  const refereeBonusRebatePercentage = useMemo(() => {
     return Math.max(
       0,
-      new Decimal(maxRebatePercentage).sub(referrerRebatePercentage).toNumber(),
+      new Decimal(bonusMaxRebatePercentage)
+        .sub(referrerRebatePercentage)
+        .toNumber(),
     );
-  }, [maxRebatePercentage, referrerRebatePercentage]);
+  }, [bonusMaxRebatePercentage, referrerRebatePercentage]);
+
+  const refereeRebatePercentage = useMemo(() => {
+    return new Decimal(baseRebatePercentage)
+      .add(refereeBonusRebatePercentage)
+      .toNumber();
+  }, [baseRebatePercentage, refereeBonusRebatePercentage]);
+
+  const directTradesPercentage = totalSplitPercentage;
+
+  const indirectTradesPercentage = referrerRebatePercentage;
 
   const codeChanged = useMemo(() => {
     return newCode !== referralCode;
@@ -88,7 +111,7 @@ export const useReferralCodeFormScript = (
     };
 
     const updateRebateRateParams = {
-      referee_rebate_rate: new Decimal(refereeRebatePercentage)
+      referee_rebate_rate: new Decimal(refereeBonusRebatePercentage)
         .div(100)
         .toNumber(),
       account_ids: accountId ? [accountId] : undefined,
@@ -117,11 +140,11 @@ export const useReferralCodeFormScript = (
 
   const onCreate = async () => {
     try {
-      const referee_rebate_rate = new Decimal(refereeRebatePercentage)
-        .div(100)
-        .toNumber();
-
-      const res = await createReferralCode({ referee_rebate_rate });
+      const res = await createReferralCode({
+        referee_rebate_rate: new Decimal(refereeBonusRebatePercentage)
+          .div(100)
+          .toNumber(),
+      });
       if (res.success) {
         toast.success(t("affiliate.referralCode.create.success"));
         options.onSuccess?.();
@@ -146,10 +169,14 @@ export const useReferralCodeFormScript = (
   const onClick = () => {
     switch (type) {
       case ReferralCodeFormType.Create:
-        onCreate();
+        if (isReview) {
+          onCreate();
+        } else {
+          setIsReview(true);
+        }
         break;
       case ReferralCodeFormType.Edit:
-        if (isReview) {
+        if (accountId || isReview) {
           onEdit();
         } else {
           setIsReview(true);
@@ -161,18 +188,27 @@ export const useReferralCodeFormScript = (
     }
   };
 
-  const buttonDisabled =
-    type === ReferralCodeFormType.Edit && !codeChanged && !rateChanged;
+  const buttonDisabled = useMemo(() => {
+    if (type !== ReferralCodeFormType.Edit) {
+      return false;
+    }
+    return !codeChanged && !rateChanged;
+  }, [codeChanged, rateChanged, type]);
 
   const confirmButtonLoading = isMutating;
 
   return {
     type,
     onClick,
-    maxRebatePercentage,
+    maxRebatePercentage: bonusMaxRebatePercentage,
+    baseRebatePercentage,
+    totalSplitPercentage,
+    directTradesPercentage,
+    indirectTradesPercentage,
     referrerRebatePercentage,
     setReferrerRebatePercentage,
     refereeRebatePercentage,
+    refereeBonusRebatePercentage,
     confirmButtonLoading,
     newCode,
     setNewCode,

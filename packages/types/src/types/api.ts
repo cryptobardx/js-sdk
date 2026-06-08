@@ -718,6 +718,8 @@ export declare namespace API {
     /** /v1/referral/multi_level/max_rebate_rate */
     export interface MaxRebateRate {
       max_rebate_rate: number;
+      bonus_max_rebate_rate?: number;
+      base_rebate_rate?: number;
     }
 
     /** /v1/referral/multi_level/rebate_info */

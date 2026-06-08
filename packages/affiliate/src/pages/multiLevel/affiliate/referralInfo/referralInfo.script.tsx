@@ -54,6 +54,10 @@ export const useReferralInfoScript = () => {
       focusField,
       referralCode: multiLevelRebateInfo?.referral_code,
       maxRebateRate,
+      bonusMaxRebateRate: multiLevelRebateInfo?.bonus_max_rebate_rate,
+      baseRebateRate: multiLevelRebateInfo?.base_rebate_rate,
+      defaultBonusRefereeRebateRate:
+        multiLevelRebateInfo?.default_bonus_referee_rebate_rate,
       referrerRebateRate: multiLevelRebateInfo?.referrer_rebate_rate,
       directInvites: multiLevelRebateInfo?.direct_invites,
       directBonusRebateRate,
