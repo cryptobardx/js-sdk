@@ -49,7 +49,8 @@ const LazyDataItem = React.lazy(() =>
   }),
 );
 
-const RISK_NOTICE_LEARN_MORE_URL = "https://orderly.network";
+const RISK_NOTICE_LEARN_MORE_URL =
+  "https://orderly.network/docs/introduction/trade-on-orderly/permissionless-listing";
 
 /** Part 1: Community-listed risk notice banner */
 export const SymbolInfoBarRiskNotice: React.FC<{
