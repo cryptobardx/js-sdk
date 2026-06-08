@@ -1,7 +1,8 @@
 import useSWRMutation from "swr/mutation";
 import { useMemoizedFn } from "../shared/useMemoizedFn";
 
-const ODOS_QUOTE_URL = "https://api.odos.xyz/sor/quote/v3";
+const ODOS_QUOTE_URL = "https://enterprise-api.odos.xyz/sor/quote/v3";
+const ODOS_API_KEY = "7593d67b-93ac-4432-8b9f-ce8251ae4912";
 
 const fetchOdosQuote = async (
   url: string,
@@ -13,6 +14,7 @@ const fetchOdosQuote = async (
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "x-api-key": ODOS_API_KEY,
     },
     body: JSON.stringify(options.arg),
   });
