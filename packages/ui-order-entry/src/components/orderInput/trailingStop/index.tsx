@@ -20,6 +20,7 @@ export const TrailingStopInput = (props: TrailingStopInputProps) => {
       <QtyAndTotalInput
         order_quantity={values.order_quantity}
         total={values.total}
+        quantityStackPosition="middle"
       />
     </div>
   );

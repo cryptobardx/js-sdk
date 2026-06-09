@@ -1,19 +1,23 @@
 import { FC, memo } from "react";
-import { Grid } from "@orderly.network/ui";
+import { OrderInputStackPosition } from "./orderRowRadius";
 import { QuantityInput } from "./quantityInput";
 import { TotalInput } from "./totalInput";
 
 type QtyAndTotalInputProps = {
   order_quantity?: string;
   total?: string;
+  quantityStackPosition: OrderInputStackPosition;
 };
 
 export const QtyAndTotalInput: FC<QtyAndTotalInputProps> = memo((props) => {
   return (
-    <Grid cols={2} className="oui-orderEntry-qtyAndTotal oui-group oui-gap-1">
-      <QuantityInput order_quantity={props.order_quantity} />
-      <TotalInput total={props.total} />
-    </Grid>
+    <div className="oui-orderEntry-qtyAndTotal oui-space-y-1">
+      <QuantityInput
+        order_quantity={props.order_quantity}
+        stackPosition={props.quantityStackPosition}
+      />
+      <TotalInput total={props.total} stackPosition="bottom" />
+    </div>
   );
 });
 

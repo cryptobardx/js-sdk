@@ -5,11 +5,16 @@ import { inputFormatter } from "@orderly.network/ui";
 import { InputType } from "../../../types";
 import { CustomInput } from "../../customInput";
 import { useOrderEntryContext } from "../../orderEntryContext";
+import {
+  OrderInputStackPosition,
+  stackedOrderInputRoundedCn,
+} from "../qtyAndTotal/orderRowRadius";
 import { ScaledQuantityUnit } from "./scaledQuantityUnit";
 
 type ScaledQuantityInputProps = {
   order_quantity?: string;
   total?: string;
+  stackPosition: OrderInputStackPosition;
 };
 
 export const ScaledQuantityInput = memo((props: ScaledQuantityInputProps) => {
@@ -45,7 +50,7 @@ export const ScaledQuantityInput = memo((props: ScaledQuantityInputProps) => {
         suffix={suffix}
         id="order_quantity_input"
         name="order_quantity_input"
-        className="oui-orderEntry-scaledOrder-quantityInput !oui-rounded-e"
+        className={stackedOrderInputRoundedCn(props.stackPosition)}
         value={props.order_quantity}
         error={getErrorMsg(
           "order_quantity",
@@ -57,6 +62,9 @@ export const ScaledQuantityInput = memo((props: ScaledQuantityInputProps) => {
         formatters={[inputFormatter.dpFormatter(base_dp)]}
         onFocus={onFocus(InputType.QUANTITY)}
         onBlur={onBlur(InputType.QUANTITY)}
+        classNames={{
+          root: "oui-orderEntry-scaledOrder-quantityInput",
+        }}
       />
     );
   }
@@ -67,7 +75,7 @@ export const ScaledQuantityInput = memo((props: ScaledQuantityInputProps) => {
       suffix={suffix}
       id="order_total_input"
       name="order_total_input"
-      className="oui-orderEntry-scaledOrder-totalInput !oui-rounded-e"
+      className={stackedOrderInputRoundedCn(props.stackPosition)}
       value={props.total}
       error={getErrorMsg("order_quantity", `${errors?.total?.value} ${quote}`)}
       onChange={(val) => {
@@ -76,6 +84,9 @@ export const ScaledQuantityInput = memo((props: ScaledQuantityInputProps) => {
       formatters={[inputFormatter.dpFormatter(quote_dp)]}
       onFocus={onFocus(InputType.TOTAL)}
       onBlur={onBlur(InputType.TOTAL)}
+      classNames={{
+        root: "oui-orderEntry-scaledOrder-totalInput",
+      }}
     />
   );
 });
