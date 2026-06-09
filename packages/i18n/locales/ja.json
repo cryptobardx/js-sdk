@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "総手数料率は最大手数料率制限と等しくなければなりません",
   "affiliate.referralRate.editRateModal.success": "紹介率が正常に更新されました",
   "affiliate.direct": "直接紹介の下部から",
-  "affiliate.directInclBonus": "{{amount}} 追加分成含む",
   "affiliate.indirect": "間接紹介の下部から",
   "affiliate.referredBy": "{{name}} からの紹介",
   "affiliate.referrals": "紹介",

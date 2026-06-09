@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "Le taux de commission total doit être égal à votre limite de taux de commission maximum",
   "affiliate.referralRate.editRateModal.success": "Taux de parrainage mis à jour avec succès",
   "affiliate.direct": "Des filleuls directs",
-  "affiliate.directInclBonus": "Incl. {{amount}} de bonus extra",
   "affiliate.indirect": "Des filleuls indirects",
   "affiliate.referredBy": "Parrainé par {{name}}",
   "affiliate.referrals": "Parrainages",

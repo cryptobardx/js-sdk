@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "يجب أن يساوي إجمالي معدّل العمولة الحدّ الأقصى لمعدّل عمولتك المسموح به",
   "affiliate.referralRate.editRateModal.success": "تم تحديث معدّل الإحالة بنجاح",
   "affiliate.direct": "مباشر",
-  "affiliate.directInclBonus": "يشمل مكافأة {{amount}}",
   "affiliate.indirect": "غير مباشر",
   "affiliate.referredBy": "تمت الإحالة بواسطة {{name}}",
   "affiliate.referrals": "الإحالات",

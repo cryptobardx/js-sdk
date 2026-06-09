@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "Całkowita stawka prowizji musi być równa Twojemu maksymalnemu limitowi prowizji",
   "affiliate.referralRate.editRateModal.success": "Stawka polecającego została pomyślnie zaktualizowana",
   "affiliate.direct": "Z poleconych bezpośrednich",
-  "affiliate.directInclBonus": "W tym {{amount}} bonus dodatkowy",
   "affiliate.indirect": "Z poleconych pośrednich",
   "affiliate.referredBy": "Polecony przez {{name}}",
   "affiliate.referrals": "Polecenia",

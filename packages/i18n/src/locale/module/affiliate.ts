@@ -117,7 +117,6 @@ export const affiliate = {
     "Referral rate updated successfully",
 
   "affiliate.direct": "Direct",
-  "affiliate.directInclBonus": "Incl. {{amount}} bonus",
   "affiliate.indirect": "Indirect",
   "affiliate.referredBy": "Referred by {{name}}",
   "affiliate.referrals": "Referrals",
@@ -162,8 +161,9 @@ export const affiliate = {
   "affiliate.yourCommissionRates": "Your commission rates",
   "affiliate.directTrades": "Direct trades",
   "affiliate.indirectTrades": "Indirect trades",
-  "affiliate.directTradesDescription": "Trades by your direct referrals",
-  "affiliate.indirectTradesDescription": "Trades by your indirect referrals",
+  "affiliate.directTradesDescription": "When your direct referee trades.",
+  "affiliate.indirectTradesDescription":
+    "When your referee's recruits (or deeper) trade.",
   "affiliate.extraBonusOnDirectReferrals":
     "<0>+ {{amount}}%</0> extra bonus on direct referrals",
   "affiliate.earnReferralCommissions": "Earn referral commissions",

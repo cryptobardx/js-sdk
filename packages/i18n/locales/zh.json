@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "总佣金率必须等于您的最高佣金率限制",
   "affiliate.referralRate.editRateModal.success": "推荐费率更新成功",
   "affiliate.direct": "来自直邀下级",
-  "affiliate.directInclBonus": "含 {{amount}} 额外分成",
   "affiliate.indirect": "来自间接下级",
   "affiliate.referredBy": "由 {{name}} 推荐",
   "affiliate.referrals": "推荐",

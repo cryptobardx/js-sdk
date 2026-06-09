@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "مجموع نرخ کمیسیون باید برابر حداکثر نرخ کمیسیون مجاز شما باشد",
   "affiliate.referralRate.editRateModal.success": "نرخ معرفی با موفقیت به‌روزرسانی شد",
   "affiliate.direct": "مستقیم",
-  "affiliate.directInclBonus": "شامل پاداش {{amount}}",
   "affiliate.indirect": "غیرمستقیم",
   "affiliate.referredBy": "معرفی‌شده توسط {{name}}",
   "affiliate.referrals": "معرفی‌ها",

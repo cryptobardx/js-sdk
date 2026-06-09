@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "Het totale commissiepercentage moet gelijk zijn aan uw maximale commissielimiet",
   "affiliate.referralRate.editRateModal.success": "Verwijzingspercentage succesvol bijgewerkt",
   "affiliate.direct": "Van directe verwijzingen",
-  "affiliate.directInclBonus": "Incl. {{amount}} extra bonus",
   "affiliate.indirect": "Van indirecte verwijzingen",
   "affiliate.referredBy": "Doorverwezen door {{name}}",
   "affiliate.referrals": "Verwijzingen",

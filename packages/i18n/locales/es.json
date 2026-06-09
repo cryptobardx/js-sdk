@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "La tasa total de comisión debe ser igual a su límite máximo de tasa de comisión",
   "affiliate.referralRate.editRateModal.success": "Tasa de referidos actualizada con éxito",
   "affiliate.direct": "De referidos directos",
-  "affiliate.directInclBonus": "Incl. {{amount}} de bono extra",
   "affiliate.indirect": "De referidos indirectos",
   "affiliate.referredBy": "Referido por {{name}}",
   "affiliate.referrals": "Referencias",

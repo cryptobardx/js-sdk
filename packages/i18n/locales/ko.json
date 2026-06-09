@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "총 수수료율은 최대 수수료율 한도와 같아야 합니다",
   "affiliate.referralRate.editRateModal.success": "추천 수수료율이 성공적으로 업데이트되었습니다",
   "affiliate.direct": "직접 추천 하위에서",
-  "affiliate.directInclBonus": "{{amount}} 추가 분배 포함",
   "affiliate.indirect": "간접 추천 하위에서",
   "affiliate.referredBy": "{{name}}님의 추천",
   "affiliate.referrals": "추천",

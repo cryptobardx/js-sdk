@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "Tổng tỷ lệ hoa hồng phải bằng với giới hạn tỷ lệ hoa hồng tối đa của bạn",
   "affiliate.referralRate.editRateModal.success": "Cập nhật tỷ lệ giới thiệu thành công",
   "affiliate.direct": "Từ người được giới thiệu trực tiếp",
-  "affiliate.directInclBonus": "Bao gồm {{amount}} tiền thưởng thêm",
   "affiliate.indirect": "Từ người được giới thiệu gián tiếp",
   "affiliate.referredBy": "Được giới thiệu bởi {{name}}",
   "affiliate.referrals": "Giới thiệu",

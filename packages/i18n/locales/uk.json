@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "Загальна комісія повинна дорівнювати вашому максимальному ліміту комісії",
   "affiliate.referralRate.editRateModal.success": "Реферальну ставку успішно оновлено",
   "affiliate.direct": "Від прямих рефералів",
-  "affiliate.directInclBonus": "Вкл. {{amount}} дод. бонус",
   "affiliate.indirect": "Від непрямих рефералів",
   "affiliate.referredBy": "Запрошено користувачем {{name}}",
   "affiliate.referrals": "Реферали",

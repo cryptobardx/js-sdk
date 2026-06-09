@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "Общая комиссия должна быть равна вашему максимальному лимиту комиссии",
   "affiliate.referralRate.editRateModal.success": "Реферальная ставка успешно обновлена",
   "affiliate.direct": "От прямых рефералов",
-  "affiliate.directInclBonus": "Вкл. {{amount}} доп. бонус",
   "affiliate.indirect": "От косвенных рефералов",
   "affiliate.referredBy": "Приглашён пользователем {{name}}",
   "affiliate.referrals": "Рефералы",

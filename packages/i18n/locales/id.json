@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "Total tingkat komisi harus sama dengan batas tingkat komisi maksimum Anda",
   "affiliate.referralRate.editRateModal.success": "Tingkat referensi berhasil diperbarui",
   "affiliate.direct": "Dari referral langsung",
-  "affiliate.directInclBonus": "Termasuk {{amount}} bonus tambahan",
   "affiliate.indirect": "Dari referral tidak langsung",
   "affiliate.referredBy": "Dirujuk oleh {{name}}",
   "affiliate.referrals": "Referensi",

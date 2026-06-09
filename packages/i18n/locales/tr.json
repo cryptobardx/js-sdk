@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "Toplam komisyon oranı maksimum komisyon oranı limitinize eşit olmalıdır",
   "affiliate.referralRate.editRateModal.success": "Yönlendirme oranı başarıyla güncellendi",
   "affiliate.direct": "Doğrudan yönlendirmelerden",
-  "affiliate.directInclBonus": "{{amount}} ek bonus dahil",
   "affiliate.indirect": "Dolaylı yönlendirmelerden",
   "affiliate.referredBy": "{{name}} tarafından yönlendirildi",
   "affiliate.referrals": "Yönlendirmeler",

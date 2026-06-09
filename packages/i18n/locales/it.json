@@ -1028,7 +1028,6 @@
   "affiliate.referralRate.editRateModal.helpText.max": "La percentuale totale di commissione deve essere uguale al tuo limite massimo di commissione",
   "affiliate.referralRate.editRateModal.success": "Percentuale di referral aggiornata con successo",
   "affiliate.direct": "Da referral diretti",
-  "affiliate.directInclBonus": "Incl. {{amount}} bonus extra",
   "affiliate.indirect": "Da referral indiretti",
   "affiliate.referredBy": "Segnalato da {{name}}",
   "affiliate.referrals": "Riferimenti",
