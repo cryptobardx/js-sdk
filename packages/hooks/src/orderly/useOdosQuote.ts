@@ -1,63 +1,39 @@
-import useSWRMutation from "swr/mutation";
+import { useMemo } from "react";
 import { useMemoizedFn } from "../shared/useMemoizedFn";
+import { useMutation } from "../useMutation";
 
-const ODOS_QUOTE_URL = "https://enterprise-api.odos.xyz/sor/quote/v3";
-const ODOS_API_KEY = "7593d67b-93ac-4432-8b9f-ce8251ae4912";
+const ODOS_QUOTE_URL = "/v1/odos/quote";
 
-const fetchOdosQuote = async (
-  url: string,
-  options: {
-    arg: Record<string, any> | null;
-  },
-) => {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": ODOS_API_KEY,
-    },
-    body: JSON.stringify(options.arg),
-  });
+const unwrapOdosQuoteResponse = (response: any) => {
+  if (response && typeof response === "object" && "success" in response) {
+    return response.success === false ? undefined : response.data;
+  }
 
-  const responseText = await response.text();
-  let data: any = null;
+  return response;
+};
 
-  if (responseText) {
-    try {
-      data = JSON.parse(responseText);
-    } catch {
-      data = responseText;
+const normalizeOdosQuoteResponse = (response: any) => {
+  if (response && typeof response === "object" && "success" in response) {
+    if (response.success === false) {
+      throw new Error(response.message || response.code || "Quote failed");
     }
   }
 
-  if (!response.ok) {
-    const errorMessage =
-      typeof data === "object" && data !== null
-        ? data?.detail || data?.message || data?.code
-        : data;
-
-    throw new Error(
-      errorMessage ||
-        response.statusText ||
-        `Request failed: ${response.status}`,
-    );
-  }
-
-  return data;
+  return unwrapOdosQuoteResponse(response);
 };
 
 export const useOdosQuote = () => {
-  const { trigger, data, error, reset, isMutating } = useSWRMutation(
-    ODOS_QUOTE_URL,
-    fetchOdosQuote,
-  );
+  const [trigger, { data, error, reset, isMutating }] =
+    useMutation(ODOS_QUOTE_URL);
 
   const postQuote = (data: Record<string, any> | null) => {
-    return trigger(data);
+    return trigger(data).then(normalizeOdosQuoteResponse);
   };
+
+  const quoteData = useMemo(() => unwrapOdosQuoteResponse(data), [data]);
 
   return [
     useMemoizedFn(postQuote),
-    { data, error, reset, isMutating },
+    { data: quoteData, error, reset, isMutating },
   ] as const;
 };

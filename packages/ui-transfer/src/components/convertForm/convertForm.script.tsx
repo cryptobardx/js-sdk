@@ -120,7 +120,8 @@ export const useConvertFormScript = (options: ConvertFormScriptOptions) => {
       !quoteChainId ||
       !contract_address ||
       typeof decimals === "undefined" ||
-      !targetAddress
+      !targetAddress ||
+      !address
     ) {
       return null;
     }
@@ -145,6 +146,7 @@ export const useConvertFormScript = (options: ConvertFormScriptOptions) => {
             tokenAddress: targetAddress,
           },
         ],
+        userAddr: address,
         // simple: true,
       },
     };
@@ -155,6 +157,7 @@ export const useConvertFormScript = (options: ConvertFormScriptOptions) => {
     sourceToken?.decimals,
     targetChainInfo?.contract_address,
     targetChainInfo?.decimals,
+    address,
   ]);
 
   useEffect(() => {
@@ -181,7 +184,7 @@ export const useConvertFormScript = (options: ConvertFormScriptOptions) => {
         }
 
         if (message === "Failed to fetch") {
-          message = t("transfer.convert.quoteFailed");
+          message = t("transfer.convert.failed");
         }
 
         console.error("[convertForm] Odos quote failed:", error);
