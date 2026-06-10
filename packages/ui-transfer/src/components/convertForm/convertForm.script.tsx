@@ -21,6 +21,7 @@ const { calcMinimumReceived } = account;
 export type ConvertFormScriptReturn = ReturnType<typeof useConvertFormScript>;
 
 const ORDERLY_CONVERT_SLIPPAGE_KEY = "orderly_convert_slippage";
+const ODOS_QUOTE_DEBOUNCE_MS = 300;
 
 export interface ConvertFormScriptOptions {
   token?: string;
@@ -104,20 +105,38 @@ export const useConvertFormScript = (options: ConvertFormScriptOptions) => {
       });
   };
 
-  const [postQuote, { data: quoteData, isMutating: isQuoteLoading }] =
-    useOdosQuote();
+  const [
+    postQuote,
+    { data: quoteData, reset: resetQuote, isMutating: isQuoteLoading },
+  ] = useOdosQuote();
 
-  useEffect(() => {
+  const quoteRequest = useMemo(() => {
     const { quoteChainId, contract_address, decimals } = sourceToken || {};
     const targetAddress = targetChainInfo?.contract_address;
 
-    if (quantity && quoteChainId && contract_address && targetAddress) {
-      // https://docs.odos.xyz/build/api-docs
-      postQuote({
+    if (
+      !quantity ||
+      new Decimal(quantity).lte(0) ||
+      !quoteChainId ||
+      !contract_address ||
+      typeof decimals === "undefined" ||
+      !targetAddress ||
+      !address
+    ) {
+      return null;
+    }
+
+    const inputAmount = normalizeAmount(quantity, decimals);
+
+    return {
+      inputAmount,
+      inputTokenAddress: contract_address.toLowerCase(),
+      outputTokenAddress: targetAddress.toLowerCase(),
+      body: {
         chainId: parseInt(quoteChainId),
         inputTokens: [
           {
-            amount: normalizeAmount(quantity, decimals!),
+            amount: inputAmount,
             tokenAddress: contract_address,
           },
         ],
@@ -127,45 +146,122 @@ export const useConvertFormScript = (options: ConvertFormScriptOptions) => {
             tokenAddress: targetAddress,
           },
         ],
+        userAddr: address,
         // simple: true,
-      });
+      },
+    };
+  }, [
+    quantity,
+    sourceToken?.quoteChainId,
+    sourceToken?.contract_address,
+    sourceToken?.decimals,
+    targetChainInfo?.contract_address,
+    targetChainInfo?.decimals,
+    address,
+  ]);
+
+  useEffect(() => {
+    resetQuote();
+
+    if (!quoteRequest) {
+      return;
     }
-  }, [quantity, sourceToken, targetChainInfo, postQuote]);
+
+    let active = true;
+    const timer = window.setTimeout(() => {
+      // https://docs.odos.xyz/build/api-docs
+      postQuote(quoteRequest.body).catch((error) => {
+        if (!active) {
+          return;
+        }
+
+        let message = t("transfer.convert.failed");
+
+        if (error instanceof Error) {
+          message = error.message;
+        } else if (error) {
+          message = String(error);
+        }
+
+        if (message === "Failed to fetch") {
+          message = t("transfer.convert.failed");
+        }
+
+        console.error("[convertForm] Odos quote failed:", error);
+        toast.error(message);
+        resetQuote();
+      });
+    }, ODOS_QUOTE_DEBOUNCE_MS);
+
+    return () => {
+      active = false;
+      window.clearTimeout(timer);
+    };
+  }, [postQuote, quoteRequest, resetQuote, t]);
+
+  const isQuoteDataMatched = useMemo(() => {
+    if (!quoteData || !quoteRequest) {
+      return false;
+    }
+
+    const inAmount = quoteData?.inAmounts?.[0]?.toString();
+    const inToken = quoteData?.inTokens?.[0]?.toLowerCase();
+    const outToken = quoteData?.outTokens?.[0]?.toLowerCase();
+
+    return (
+      inAmount === quoteRequest.inputAmount &&
+      inToken === quoteRequest.inputTokenAddress &&
+      outToken === quoteRequest.outputTokenAddress
+    );
+  }, [quoteData, quoteRequest]);
+
+  useEffect(() => {
+    if (quoteData && !isQuoteDataMatched) {
+      resetQuote();
+    }
+  }, [isQuoteDataMatched, quoteData, resetQuote]);
 
   const memoizedOutAmounts = useMemo<string>(() => {
-    if (!quoteData || isQuoteLoading) {
-      return "-";
+    if (quoteData && !isQuoteLoading && isQuoteDataMatched) {
+      return quoteData?.outAmounts[0];
     }
-    return quoteData?.outAmounts[0];
-  }, [quoteData, isQuoteLoading]);
+
+    return "-";
+  }, [quoteData, isQuoteDataMatched, isQuoteLoading]);
 
   const memoizedConvertRate = useMemo(() => {
-    if (!quoteData || isQuoteLoading) {
-      return "-";
+    if (quoteData && !isQuoteLoading && isQuoteDataMatched) {
+      return new Decimal(
+        unnormalizeAmount(
+          quoteData.outAmounts[0],
+          targetChainInfo?.decimals ?? 6,
+        ),
+      )
+        .div(
+          unnormalizeAmount(quoteData.inAmounts[0], sourceToken?.decimals ?? 6),
+        )
+        .toString();
     }
 
-    const rate = new Decimal(
-      unnormalizeAmount(
-        quoteData.outAmounts[0],
-        targetChainInfo?.decimals ?? 6,
-      ),
-    )
-      .div(
-        unnormalizeAmount(quoteData.inAmounts[0], sourceToken?.decimals ?? 6),
-      )
-      .toString();
-    return rate;
-  }, [isQuoteLoading, quoteData, sourceToken, targetChainInfo]);
+    return "-";
+  }, [
+    isQuoteDataMatched,
+    isQuoteLoading,
+    quoteData,
+    sourceToken,
+    targetChainInfo,
+  ]);
 
   const memoizedMinimumReceived = useMemo(() => {
-    if (!quoteData || isQuoteLoading) {
+    if (!quoteData || isQuoteLoading || !isQuoteDataMatched) {
       return 0;
     }
+
     return calcMinimumReceived({
       amount: quoteData?.outAmounts[0],
       slippage: Number(slippage),
     });
-  }, [quoteData, isQuoteLoading, slippage]);
+  }, [quoteData, isQuoteDataMatched, isQuoteLoading, slippage]);
 
   const currentLtv = useComputedLTV();
 
