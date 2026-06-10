@@ -1,18 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useMainTokenStore } from "@orderly.network/hooks";
-import {
-  Arbitrum,
-  defaultMainnetChains,
-  type API,
-} from "@orderly.network/types";
+import { Arbitrum, type API } from "@orderly.network/types";
 
 const nativeTokenAddress = "0x0000000000000000000000000000000000000000";
-const mainnetQuoteChainIds = [
-  Arbitrum.id,
-  ...defaultMainnetChains
-    .map((chain) => chain.id)
-    .filter((chainId) => chainId !== Arbitrum.id),
-];
 
 const splitTokenBySymbol = <T extends { token?: string }>(items: T[]) => {
   return items.reduce<Record<"usdc" | "others", T[]>>(
@@ -29,22 +19,35 @@ const splitTokenBySymbol = <T extends { token?: string }>(items: T[]) => {
 };
 
 export const findMainnetQuoteChainInfo = (tokenInfo: API.Token) => {
-  const chainInfo = mainnetQuoteChainIds
-    .map((chainId) =>
-      tokenInfo.chain_details.find(
-        (item) => parseInt(item.chain_id) === chainId,
-      ),
-    )
-    .find((item): item is API.ChainDetail => Boolean(item));
+  const arbitrumChainInfo = tokenInfo.chain_details.find(
+    (item) => parseInt(item.chain_id) === Arbitrum.id,
+  );
 
-  if (!chainInfo) {
-    return undefined;
+  const nativeTokenChainInfo = tokenInfo.chain_details.find(
+    (item) => !item.contract_address,
+  );
+
+  if (arbitrumChainInfo) {
+    return {
+      contract_address:
+        arbitrumChainInfo.contract_address || nativeTokenAddress,
+      quoteChainId: arbitrumChainInfo.chain_id,
+      decimals: arbitrumChainInfo.decimals,
+    };
+  }
+
+  if (nativeTokenChainInfo) {
+    return {
+      contract_address: nativeTokenAddress,
+      quoteChainId: nativeTokenChainInfo.chain_id,
+      decimals: nativeTokenChainInfo.decimals,
+    };
   }
 
   return {
-    contract_address: chainInfo.contract_address || nativeTokenAddress,
-    quoteChainId: chainInfo.chain_id,
-    decimals: chainInfo.decimals,
+    contract_address: tokenInfo.chain_details[0]?.contract_address,
+    quoteChainId: tokenInfo.chain_details[0]?.chain_id,
+    decimals: tokenInfo.chain_details[0]?.decimals,
   };
 };
 
