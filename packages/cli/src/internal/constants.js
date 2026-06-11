@@ -21,10 +21,9 @@ const MODULE_TYPES = ["page", "component", "hook", "utils", "module"];
 
 const MARKETPLACE_API_BASE_URL =
   process.env.ORDERLY_API_URL ||
-  "https://orderly-plugin-marketplace-server.vercel.app";
+  "https://marketplace-api.dev.orderly-i.network";
 const MARKETPLACE_WEB_BASE_URL =
-  process.env.ORDERLY_WEB_URL ||
-  "https://orderly-plugin-marketplace.vercel.app";
+  process.env.ORDERLY_WEB_URL || "https://marketplace.dev.orderly-i.network";
 
 const MARKETPLACE_API_PLUGINS_URL = `${MARKETPLACE_API_BASE_URL}/plugins`;
 const MARKETPLACE_API_MY_PLUGINS_URL = `${MARKETPLACE_API_BASE_URL}/my-plugins`;
@@ -67,6 +66,7 @@ module.exports = {
   INTERCEPTOR_TARGETS,
   MODULE_TYPES,
   MARKETPLACE_API_BASE_URL,
+  MARKETPLACE_WEB_BASE_URL,
   MARKETPLACE_API_PLUGINS_URL,
   MARKETPLACE_API_MY_PLUGINS_URL,
   getMarketplaceApiPluginUrl,

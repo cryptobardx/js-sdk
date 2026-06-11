@@ -19,11 +19,11 @@ module.exports = {
         default: false,
       })
       .example(
-        "orderly view trading-plugin-id",
+        "orderly-devkit view trading-plugin-id",
         "Fetch and print plugin details",
       )
       .example(
-        "orderly view trading-plugin-id --json",
+        "orderly-devkit view trading-plugin-id --json",
         "Fetch and print plugin details as JSON (flag currently does not alter output)",
       );
   },

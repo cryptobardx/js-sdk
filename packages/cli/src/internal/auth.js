@@ -219,4 +219,6 @@ module.exports = {
   logout,
   authenticatedFetch,
   refreshCliToken,
+  fetchWithTimeout,
+  getHttpTimeoutMs,
 };

@@ -12,61 +12,17 @@ const {
   authenticatedFetch,
 } = require("../internal/auth");
 const { MARKETPLACE_API_MY_PLUGINS_URL } = require("../internal/constants");
+const {
+  normalizePlugins,
+  truncate,
+  renderTable,
+} = require("../internal/formatting");
 
-/**
- * Convert unknown plugin payload into a list shape safely.
- * This keeps CLI output stable across minor API response changes.
- */
-function normalizePlugins(data) {
-  if (Array.isArray(data)) {
-    return data;
-  }
+const LIST_COLUMNS = {
+  headers: ["ID", "Name", "Version", "Status", "Description"],
+  keys: ["id", "name", "version", "status", "description"],
+};
 
-  if (Array.isArray(data?.data)) {
-    return data.data;
-  }
-
-  if (Array.isArray(data?.plugins)) {
-    return data.plugins;
-  }
-
-  if (Array.isArray(data?.items)) {
-    return data.items;
-  }
-
-  if (Array.isArray(data?.results)) {
-    return data.results;
-  }
-
-  if (Array.isArray(data?.data?.items)) {
-    return data.data.items;
-  }
-
-  if (Array.isArray(data?.data?.plugins)) {
-    return data.data.plugins;
-  }
-
-  if (Array.isArray(data?.data?.results)) {
-    return data.data.results;
-  }
-
-  return [];
-}
-
-/**
- * Keep table columns compact so terminal output stays readable.
- */
-function truncate(value, maxLength = 64) {
-  const text = String(value ?? "-");
-  if (text.length <= maxLength) {
-    return text;
-  }
-  return `${text.slice(0, maxLength - 3)}...`;
-}
-
-/**
- * Select common plugin fields with graceful fallbacks.
- */
 function mapRow(plugin) {
   return {
     id: plugin?.id || plugin?.pluginId || "-",
@@ -75,36 +31,6 @@ function mapRow(plugin) {
     status: plugin?.status || "-",
     description: truncate(plugin?.description || "-", 72),
   };
-}
-
-/**
- * Render simple aligned table without extra dependencies.
- */
-function renderTable(rows) {
-  const headers = ["ID", "Name", "Version", "Status", "Description"];
-  const keys = ["id", "name", "version", "status", "description"];
-
-  const widths = keys.map((key, index) => {
-    const headerWidth = headers[index].length;
-    const maxValueWidth = rows.reduce((max, row) => {
-      const width = String(row[key] ?? "-").length;
-      return width > max ? width : max;
-    }, 0);
-    return Math.max(headerWidth, maxValueWidth);
-  });
-
-  const buildLine = (values) =>
-    values
-      .map((value, index) => String(value).padEnd(widths[index]))
-      .join("  ");
-
-  const headerLine = buildLine(headers);
-  const dividerLine = widths.map((width) => "-".repeat(width)).join("  ");
-  const rowLines = rows.map((row) =>
-    buildLine(keys.map((key) => row[key] ?? "-")),
-  );
-
-  return [headerLine, dividerLine, ...rowLines].join("\n");
 }
 
 module.exports = {
@@ -118,9 +44,12 @@ module.exports = {
           "boolean; when true, output the raw marketplace response as JSON (otherwise prints a compact table)",
         default: false,
       })
-      .example("orderly list", "List your submitted plugins as a compact table")
       .example(
-        "orderly list --json",
+        "orderly-devkit list",
+        "List your submitted plugins as a compact table",
+      )
+      .example(
+        "orderly-devkit list --json",
         "Output the raw JSON payload (useful for debugging/agents)",
       );
   },
@@ -181,7 +110,7 @@ module.exports = {
       }
 
       const rows = plugins.map(mapRow);
-      console.log(renderTable(rows));
+      console.log(renderTable(rows, LIST_COLUMNS));
       success(`\nTotal: ${plugins.length} plugin(s)`);
     } catch (e) {
       // Surface target endpoint to make network/runtime failures actionable.
