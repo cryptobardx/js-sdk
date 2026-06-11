@@ -33,7 +33,7 @@ export const ScaledQuantityUnit: FC<QuantityUnitProps> = (props) => {
         trigger: cn(
           "oui-orderEntry-scaledQuantityUnit-btn",
           "oui-absolute oui-end-0 oui-top-1",
-          "oui-w-full oui-justify-end",
+          "oui-w-auto oui-justify-end",
           "oui-shadow-none",
         ),
       }}

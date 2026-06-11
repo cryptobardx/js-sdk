@@ -15,13 +15,13 @@ export { useSymbolInfo } from "./useSymbolInfo";
 export { useAccountInfo } from "./useAccountInfo";
 
 export { useMarketsStream } from "./useMarketsStream";
-export { useMarket } from "./useMarket";
+export { useMarket } from "./markets/useMarket";
 export {
   useMarkets,
   useMarketsStore,
   MarketsStorageKey,
   MarketsType,
-} from "./useMarkets";
+} from "./markets/useMarkets";
 export type {
   FavoriteTab,
   Favorite,
@@ -29,7 +29,7 @@ export type {
   NewListing,
   MarketsStore,
   MarketsItem,
-} from "./useMarkets";
+} from "./markets/useMarkets";
 export { useMarkPricesStream } from "./useMarkPricesStream";
 export { useIndexPricesStream } from "./useIndexPricesStream";
 export { useMarkPrice } from "./useMarkPrice";

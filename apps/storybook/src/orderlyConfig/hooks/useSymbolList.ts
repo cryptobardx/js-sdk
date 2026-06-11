@@ -9,7 +9,9 @@ export const useSymbolList = (isRwaRoute?: boolean) => {
   return useCallback<SymbolListType>(
     (original, { rwaSymbolsInfo }) => {
       if (isRwaRoute) {
-        return original.filter((item) => !!rwaSymbolsInfo[item.symbol]);
+        return original.filter((item) =>
+          Boolean(rwaSymbolsInfo?.[item.symbol]),
+        );
       }
       return original;
     },

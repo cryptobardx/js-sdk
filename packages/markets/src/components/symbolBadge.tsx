@@ -1,13 +1,24 @@
 import { type FC } from "react";
 import { useBadgeBySymbol } from "@orderly.network/hooks";
-import { SymbolBadge as UISymbolBadge } from "@orderly.network/ui";
+import { Flex, SymbolBadge as UISymbolBadge } from "@orderly.network/ui";
 
-export const BrokerIdBadge: FC<{ symbol: string }> = (props) => {
+export const BrokerIdBadge: FC<{ symbol: string; className?: string }> = (
+  props,
+) => {
   const { brokerId, brokerName, brokerNameRaw } = useBadgeBySymbol(
     props.symbol,
   );
   const badge = brokerName ?? brokerId ?? undefined;
-  return <UISymbolBadge badge={badge} fullName={brokerNameRaw} />;
+
+  if (!badge) {
+    return null;
+  }
+
+  return (
+    <Flex as="span" display="inlineFlex" className={props.className}>
+      <UISymbolBadge badge={badge} fullName={brokerNameRaw} />
+    </Flex>
+  );
 };
 
 export const SymbolBadge = BrokerIdBadge;

@@ -15,6 +15,7 @@ const MarketsTypeMap = {
   all: MarketsType.ALL,
   new: MarketsType.NEW_LISTING,
   rwa: MarketsType.RWA,
+  preTge: MarketsType.PRE_TGE,
 };
 
 export type MarketsListFullType = keyof typeof MarketsTypeMap;

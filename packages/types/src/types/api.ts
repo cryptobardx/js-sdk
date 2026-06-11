@@ -73,6 +73,8 @@ export declare namespace API {
     display_symbol_name?: string;
     /** Permissionless listing: broker id; null for non-community-listed symbols */
     broker_id?: string | null;
+    /** Pre-TGE listing flag; controlled explicitly by broker/listing metadata. */
+    is_pretge?: boolean;
     /** Trading status: POST_ONLY / ACTIVE / REDUCE_ONLY / DELISTING */
     status?: SymbolTradingStatus;
   }
@@ -127,6 +129,8 @@ export declare namespace API {
     display_symbol_name?: string;
     /** Permissionless listing: broker id; null for non-community-listed symbols */
     broker_id?: string | null;
+    /** Pre-TGE listing flag; controlled explicitly by broker/listing metadata. */
+    is_pretge?: boolean;
     /** Trading status: POST_ONLY / ACTIVE / REDUCE_ONLY / DELISTING */
     status?: SymbolTradingStatus;
   }

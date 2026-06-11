@@ -6,10 +6,15 @@ import { Decimal } from "@orderly.network/utils";
 import { InputType } from "../../../types";
 import { CustomInput } from "../../customInput";
 import { useOrderEntryContext } from "../../orderEntryContext";
+import {
+  OrderInputStackPosition,
+  stackedOrderInputRoundedCn,
+} from "./orderRowRadius";
 import { OrderTotalType, TotalTypeSelect } from "./totalTypeSelect";
 
 type TotalInputProps = {
   total?: string;
+  stackPosition: OrderInputStackPosition;
 };
 
 /**
@@ -74,8 +79,9 @@ export const TotalInput: FC<TotalInputProps> = memo((props) => {
         formatters={[inputFormatter.dpFormatter(2)]}
         onFocus={onFocus(InputType.MARGIN)}
         onBlur={onBlur(InputType.MARGIN)}
-        className="oui-orderEntry-marginInput !oui-rounded-s"
+        className={stackedOrderInputRoundedCn(props.stackPosition)}
         classNames={{
+          root: "oui-orderEntry-marginInput",
           suffix: "oui-justify-end",
         }}
       />
@@ -94,8 +100,9 @@ export const TotalInput: FC<TotalInputProps> = memo((props) => {
       onChange={(val) => {
         setOrderValue("total", val);
       }}
-      className="oui-orderEntry-totalInput !oui-rounded-s"
+      className={stackedOrderInputRoundedCn(props.stackPosition)}
       classNames={{
+        root: "oui-orderEntry-totalInput",
         suffix: "oui-justify-end",
       }}
       // national precision is 2
