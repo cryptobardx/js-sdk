@@ -78,6 +78,9 @@ export const ReferralProvider: FC<PropsWithChildren<ReferralContextProps>> = (
     isMultiLevelReferralUnlocked,
     multiLevelRebateInfoMutate,
     maxRebateRate,
+    maxRebateRateInfo,
+    bonusMaxRebateRate,
+    baseRebateRate,
     maxRebateRateMutate,
     isLoading: isMultiLevelLoading,
   } = useMultiLevelReferralData();
@@ -210,6 +213,9 @@ export const ReferralProvider: FC<PropsWithChildren<ReferralContextProps>> = (
       isMultiLevelReferralUnlocked,
       multiLevelRebateInfoMutate,
       maxRebateRate,
+      maxRebateRateInfo,
+      bonusMaxRebateRate,
+      baseRebateRate,
       maxRebateRateMutate,
     };
   }, [
@@ -241,6 +247,9 @@ export const ReferralProvider: FC<PropsWithChildren<ReferralContextProps>> = (
     isMultiLevelReferralUnlocked,
     multiLevelRebateInfoMutate,
     maxRebateRate,
+    maxRebateRateInfo,
+    bonusMaxRebateRate,
+    baseRebateRate,
     isMultiLevelLoading,
     maxRebateRateMutate,
   ]);

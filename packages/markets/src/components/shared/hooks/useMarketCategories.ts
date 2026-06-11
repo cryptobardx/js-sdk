@@ -5,6 +5,7 @@ import {
   type MarketTabConfig,
   useMarketList,
   useRwaSymbolsInfo,
+  useSymbolsInfo,
 } from "@orderly.network/hooks";
 import { useTranslation } from "@orderly.network/i18n";
 import {
@@ -25,6 +26,7 @@ export function useMarketCategories(
   const { i18n } = useTranslation();
   const symbolList = useMarketList();
   const rwaSymbolsInfo = useRwaSymbolsInfo();
+  const symbolsInfo = useSymbolsInfo();
 
   return useMemo(() => {
     const original = componentDefaultTabs[componentKey];
@@ -33,7 +35,15 @@ export function useMarketCategories(
       : original;
 
     return resolved.filter(
-      (tab) => tab.isVisible?.(symbolList, { rwaSymbolsInfo }) ?? true,
+      (tab) =>
+        tab.isVisible?.(symbolList, { rwaSymbolsInfo, symbolsInfo }) ?? true,
     );
-  }, [marketTabs, componentKey, i18n.language, symbolList, rwaSymbolsInfo]);
+  }, [
+    marketTabs,
+    componentKey,
+    i18n.language,
+    symbolList,
+    rwaSymbolsInfo,
+    symbolsInfo,
+  ]);
 }

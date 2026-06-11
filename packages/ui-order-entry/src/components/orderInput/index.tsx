@@ -48,6 +48,7 @@ export function OrderInput(props: OrderInputProps) {
       <QtyAndTotalInput
         order_quantity={values.order_quantity}
         total={values.total}
+        quantityStackPosition={showTriggerPrice || showPrice ? "middle" : "top"}
       />
     </div>
   );

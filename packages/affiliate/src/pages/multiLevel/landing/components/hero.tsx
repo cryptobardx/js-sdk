@@ -12,13 +12,25 @@ import type { BindReferralCodeSuccessPayload } from "../../components/bindReferr
 import { BindReferralCodeDialogId } from "../../components/bindReferralCode/modal";
 import { TradingVolumeProgress } from "../../components/tradingVolumeProgress";
 
-/** SWR mutate may resolve to various shapes — only treat numeric max_rebate_rate as valid. */
-function parseMaxRebateRateFromSettled(
+/** SWR mutate may resolve to various shapes — only treat object rebate configs as valid. */
+function parseMaxRebateRateInfoFromSettled(
   result: PromiseSettledResult<unknown>,
-): number | undefined {
+):
+  | {
+      max_rebate_rate?: number;
+      bonus_max_rebate_rate?: number;
+      base_rebate_rate?: number;
+    }
+  | undefined {
   if (result.status !== "fulfilled") return undefined;
-  const num = (result.value as { max_rebate_rate?: unknown })?.max_rebate_rate;
-  return typeof num === "number" ? num : undefined;
+  if (typeof result.value !== "object" || result.value === null) {
+    return undefined;
+  }
+  return result.value as {
+    max_rebate_rate?: number;
+    bonus_max_rebate_rate?: number;
+    base_rebate_rate?: number;
+  };
 }
 
 export const Hero = () => {
@@ -34,9 +46,13 @@ export const Hero = () => {
     multiLevelRebateInfo,
     multiLevelRebateInfoMutate,
     maxRebateRate,
+    maxRebateRateInfo,
+    bonusMaxRebateRate,
+    baseRebateRate,
     maxRebateRateMutate,
     mutate,
     referralInfo,
+    generateCode,
   } = useReferralContext();
 
   const boundReferralCode =
@@ -51,10 +67,19 @@ export const Hero = () => {
     });
   };
 
-  const showCreateReferralCodeModal = (maxRateOverride?: number) => {
+  const showCreateReferralCodeModal = (maxRateInfoOverride?: {
+    max_rebate_rate?: number;
+    bonus_max_rebate_rate?: number;
+    base_rebate_rate?: number;
+  }) => {
+    const latestMaxRateInfo = maxRateInfoOverride ?? maxRebateRateInfo;
     modal.show(ReferralCodeFormDialogId, {
       type: ReferralCodeFormType.Create,
-      maxRebateRate: maxRateOverride ?? maxRebateRate ?? 0,
+      maxRebateRate: latestMaxRateInfo?.max_rebate_rate ?? maxRebateRate ?? 0,
+      bonusMaxRebateRate:
+        latestMaxRateInfo?.bonus_max_rebate_rate ?? bonusMaxRebateRate,
+      baseRebateRate: latestMaxRateInfo?.base_rebate_rate ?? baseRebateRate,
+      referralCode: generateCode?.code,
       directBonusRebateRate: 0,
       onSuccess: () => {
         multiLevelRebateInfoMutate();
@@ -77,10 +102,11 @@ export const Hero = () => {
             mutate(),
           ]);
 
-          const latestMaxRebateRate =
-            parseMaxRebateRateFromSettled(results[0]) ?? maxRebateRate;
+          const latestMaxRebateRateInfo = parseMaxRebateRateInfoFromSettled(
+            results[0],
+          );
 
-          showCreateReferralCodeModal(latestMaxRebateRate);
+          showCreateReferralCodeModal(latestMaxRebateRateInfo);
         },
       });
       return;

@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo } from "react";
-import { useBadgeBySymbol, useGetRwaSymbolInfo } from "@orderly.network/hooks";
+import {
+  useBadgeBySymbol,
+  useGetRwaSymbolInfo,
+  useSymbolsInfo,
+} from "@orderly.network/hooks";
 import { useTranslation } from "@orderly.network/i18n";
 import {
   MarketsSheetWidget,
@@ -56,6 +60,8 @@ export const MobileLayout: React.FC<TradingState> = (props) => {
   const { t } = useTranslation();
 
   const { isRwa, open, closeTimeInterval } = useGetRwaSymbolInfo(props.symbol);
+  const symbolsInfo = useSymbolsInfo();
+  const isPreTge = Boolean(symbolsInfo[props.symbol]?.("is_pretge"));
   const { brokerId, brokerName, brokerNameRaw, displaySymbolName } =
     useBadgeBySymbol(props.symbol);
   const isCommunityListed = Boolean(brokerId ?? brokerName);
@@ -168,6 +174,7 @@ export const MobileLayout: React.FC<TradingState> = (props) => {
           visible={isCommunityListed}
           symbolWithBroker={symbolWithBroker}
           brokerName={brokerNameRaw ?? brokerName ?? ""}
+          isPreTge={isPreTge}
           autoHeight
           className="oui-my-1"
         />

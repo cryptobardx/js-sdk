@@ -40,7 +40,13 @@ export const MarketsListFull: FC<MarketsListFullProps> = (props) => {
             favorite.addToHistory(record);
           },
           "data-testid": `oui-testid-markets-${
-            type === "new" ? "newListing" : type === "rwa" ? "rwa" : "all"
+            type === "new"
+              ? "newListing"
+              : type === "rwa"
+                ? "rwa"
+                : type === "preTge"
+                  ? "preTge"
+                  : "all"
           }-tr-${record.symbol}`,
         };
       }}

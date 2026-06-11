@@ -71,6 +71,7 @@ export const affiliate = {
   "affiliate.referralCodes.remaining": "Remaining referral codes",
   "affiliate.referralCodes.column.defaultSplit": "Default split",
   "affiliate.referralCodes.column.you&Referee": "You / Referee",
+  "affiliate.referralCodes.column.you&DirectReferees": "You / Direct referees",
   "affiliate.referralCodes.column.traders": "Traders",
   "affiliate.referralCodes.column.referees&Traders": "Referees / Traders",
   "affiliate.referralCodes.copyLink": "Copy link",
@@ -116,11 +117,11 @@ export const affiliate = {
     "Referral rate updated successfully",
 
   "affiliate.direct": "Direct",
-  "affiliate.directInclBonus": "Incl. {{amount}} bonus",
   "affiliate.indirect": "Indirect",
   "affiliate.referredBy": "Referred by {{name}}",
   "affiliate.referrals": "Referrals",
   "affiliate.referralCode.edit.modal.title": "Configure your referral settings",
+  "affiliate.referralCode.review.modal.title": "Save changes?",
   "affiliate.referralCode.create": "Create referral code",
   "affiliate.referralCode.create.modal.title": "Create new referral code",
   "affiliate.referralCode.create.success": "Referral code created!",
@@ -149,9 +150,20 @@ export const affiliate = {
     "This action will remove custom settings for {{accountId}} and apply the default configuration.",
   "affiliate.resetRebateRate.rateAfterReset": "Rate after reset",
 
-  "affiliate.revenueSplitStrategy": "Revenue split strategy",
   "affiliate.youKeep": "You keep",
   "affiliate.refereesGet": "Referees get",
+  "affiliate.directReferee": "Direct referee",
+  "affiliate.directRefereesGet": "Direct referees get",
+  "affiliate.affiliateGet": "Affiliate get",
+  "affiliate.totalToSplit": "Total to split",
+  "affiliate.atLeastPassesDown":
+    "At least {{amount}} passes down to your direct referees.",
+  "affiliate.yourCommissionRates": "Your commission rates",
+  "affiliate.directTrades": "Direct trades",
+  "affiliate.indirectTrades": "Indirect trades",
+  "affiliate.directTradesDescription": "When your direct referee trades.",
+  "affiliate.indirectTradesDescription":
+    "When your referee's recruits (or deeper) trade.",
   "affiliate.extraBonusOnDirectReferrals":
     "<0>+ {{amount}}%</0> extra bonus on direct referrals",
   "affiliate.earnReferralCommissions": "Earn referral commissions",

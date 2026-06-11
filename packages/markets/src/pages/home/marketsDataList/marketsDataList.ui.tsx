@@ -87,6 +87,13 @@ export const MarketsDataList: React.FC<MarketsDataListProps> = (props) => {
         listType: "rwa",
         initialSort: DEFAULT_SORT,
       },
+      preTge: {
+        title: t("markets.preTge"),
+        value: "preTge",
+        testid: "oui-testid-markets-preTge-tab",
+        listType: "preTge",
+        initialSort: DEFAULT_SORT,
+      },
       newListing: {
         title: t("markets.newListings"),
         icon: <NewListingsIcon />,

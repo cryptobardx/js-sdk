@@ -1,5 +1,5 @@
 import { ConfigKey, DefaultConfigStore } from "@orderly.network/core";
-import { MarketsStorageKey } from "./orderly/useMarkets";
+import { MarketsStorageKey } from "./orderly/markets/useMarkets";
 
 export class ExtendedConfigStore extends DefaultConfigStore {
   constructor(init: Partial<Record<ConfigKey, any>>) {
@@ -12,7 +12,7 @@ export class ExtendedConfigStore extends DefaultConfigStore {
       if (!jsonStr) {
         // get old storage key data
         const oldJsonStr = localStorage.getItem(
-          MarketsStorageKey.replace("orderly_", "")
+          MarketsStorageKey.replace("orderly_", ""),
         );
         return oldJsonStr ? JSON.parse(oldJsonStr) : ("" as T);
       }

@@ -73,6 +73,8 @@ export declare namespace API {
     display_symbol_name?: string;
     /** Permissionless listing: broker id; null for non-community-listed symbols */
     broker_id?: string | null;
+    /** Pre-TGE listing flag; controlled explicitly by broker/listing metadata. */
+    is_pretge?: boolean;
     /** Trading status: POST_ONLY / ACTIVE / REDUCE_ONLY / DELISTING */
     status?: SymbolTradingStatus;
   }
@@ -127,6 +129,8 @@ export declare namespace API {
     display_symbol_name?: string;
     /** Permissionless listing: broker id; null for non-community-listed symbols */
     broker_id?: string | null;
+    /** Pre-TGE listing flag; controlled explicitly by broker/listing metadata. */
+    is_pretge?: boolean;
     /** Trading status: POST_ONLY / ACTIVE / REDUCE_ONLY / DELISTING */
     status?: SymbolTradingStatus;
   }
@@ -718,6 +722,8 @@ export declare namespace API {
     /** /v1/referral/multi_level/max_rebate_rate */
     export interface MaxRebateRate {
       max_rebate_rate: number;
+      bonus_max_rebate_rate?: number;
+      base_rebate_rate?: number;
     }
 
     /** /v1/referral/multi_level/rebate_info */
@@ -725,6 +731,9 @@ export declare namespace API {
       referral_code: string;
       max_rebate_rate: number;
       default_referee_rebate_rate: number;
+      bonus_max_rebate_rate?: number;
+      base_rebate_rate?: number;
+      default_bonus_referee_rebate_rate?: number;
       direct_invites?: number;
       indirect_invites?: number;
       direct_volume?: number;

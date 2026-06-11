@@ -4,9 +4,14 @@ import { inputFormatter } from "@orderly.network/ui";
 import { InputType } from "../../../types";
 import { CustomInput } from "../../customInput";
 import { useOrderEntryContext } from "../../orderEntryContext";
+import {
+  OrderInputStackPosition,
+  stackedOrderInputRoundedCn,
+} from "./orderRowRadius";
 
 type QuantityInputProps = {
   order_quantity?: string;
+  stackPosition: OrderInputStackPosition;
 };
 
 export const QuantityInput: FC<QuantityInputProps> = memo((props) => {
@@ -31,8 +36,9 @@ export const QuantityInput: FC<QuantityInputProps> = memo((props) => {
       formatters={[inputFormatter.dpFormatter(base_dp)]}
       onFocus={onFocus(InputType.QUANTITY)}
       onBlur={onBlur(InputType.QUANTITY)}
-      className="oui-orderEntry-quantityInput !oui-rounded-e"
+      className={stackedOrderInputRoundedCn(props.stackPosition)}
       classNames={{
+        root: "oui-orderEntry-quantityInput",
         suffix: "oui-justify-end",
       }}
     />

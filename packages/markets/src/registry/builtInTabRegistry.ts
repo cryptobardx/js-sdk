@@ -19,6 +19,14 @@ export const builtInTabs: Record<MarketBuiltInTabType, BuiltInMarketTab> = {
   },
   all: { type: "all" },
   rwa: { type: "rwa" },
+  preTge: {
+    type: "preTge",
+    isVisible: (symbolList, { symbolsInfo }) => {
+      return symbolList.some((m) =>
+        Boolean(m?.is_pretge ?? symbolsInfo?.[m.symbol]?.("is_pretge")),
+      );
+    },
+  },
   newListing: { type: "newListing" },
   recent: { type: "recent" },
 };
@@ -35,6 +43,7 @@ export const componentDefaultTabs: Record<
     { type: "all" },
     { type: "rwa" },
     { ...builtInTabs.community },
+    { ...builtInTabs.preTge },
   ],
   expandMarkets: [
     { type: "favorites" },
@@ -43,6 +52,7 @@ export const componentDefaultTabs: Record<
     { ...builtInTabs.community },
     { type: "newListing" },
     { type: "recent" },
+    { ...builtInTabs.preTge },
   ],
   dropDownMarkets: [
     { type: "favorites" },
@@ -51,6 +61,7 @@ export const componentDefaultTabs: Record<
     { ...builtInTabs.community },
     { type: "newListing" },
     { type: "recent" },
+    { ...builtInTabs.preTge },
   ],
   subMenuMarkets: [
     { type: "favorites" },
@@ -59,6 +70,7 @@ export const componentDefaultTabs: Record<
     { ...builtInTabs.community },
     { type: "newListing" },
     { type: "recent" },
+    { ...builtInTabs.preTge },
   ],
   marketsDataList: [
     { type: "favorites" },
@@ -66,6 +78,7 @@ export const componentDefaultTabs: Record<
     { type: "rwa" },
     { ...builtInTabs.community },
     { type: "newListing" },
+    { ...builtInTabs.preTge },
   ],
   horizontalMarkets: [
     { type: "all" },

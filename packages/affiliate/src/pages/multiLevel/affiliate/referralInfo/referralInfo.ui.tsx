@@ -1,7 +1,6 @@
 import { FC } from "react";
-import { Trans, useTranslation } from "@orderly.network/i18n";
-import { Flex, Text, Button, Box, cn, toast } from "@orderly.network/ui";
-import { GiftIcon } from "../../../../icons/giftIcon";
+import { useTranslation } from "@orderly.network/i18n";
+import { Flex, Text, Button, cn, toast } from "@orderly.network/ui";
 import { ReferralCodeFormField } from "../../../../types";
 import { ReferralInfoReturns } from "./referralInfo.script";
 
@@ -17,6 +16,7 @@ export const ReferralInfo: FC<ReferralInfoReturns> = (props) => {
       gap={4}
       p={5}
       direction={"column"}
+      itemAlign="start"
       intensity={900}
       className="oui-affiliate-referralInfo oui-border oui-border-line-6"
     >
@@ -64,61 +64,89 @@ export const ReferralInfo: FC<ReferralInfoReturns> = (props) => {
         <CopyButton value={props.referralLink} />
       </Container>
 
-      <Box
-        width={"100%"}
-        r="2xl"
-        className="oui-bg-base-contrast-4 oui-p-5 md:oui-py-7"
+      <Text
+        size="lg"
+        intensity={98}
+        className="oui-w-full oui-text-left oui-tracking-[0.03em]"
       >
-        <Flex direction={"row"} justify={"between"} width={"100%"}>
-          <Text size="sm">{t("affiliate.revenueSplitStrategy")}</Text>
-          <Button
-            size="xs"
-            color="secondary"
-            className="oui-affiliate-referralInfo-editSplit-btn"
-            onClick={() => props.onEdit()}
+        {t("affiliate.yourCommissionRates")}
+      </Text>
+
+      <Flex
+        width={"100%"}
+        gap={4}
+        itemAlign="stretch"
+        direction={"row"}
+        className="oui-affiliate-referralInfo-commissionRates"
+      >
+        <CommissionRateCard
+          title={t("affiliate.directTrades")}
+          rate={props.directTradesRate}
+          description={t("affiliate.directTradesDescription")}
+          className="oui-affiliate-referralInfo-directTrades"
+        />
+        {props.showIndirectTrades ? (
+          <CommissionRateCard
+            title={t("affiliate.indirectTrades")}
+            rate={props.indirectTradesRate}
+            description={t("affiliate.indirectTradesDescription")}
+            className="oui-affiliate-referralInfo-indirectTrades"
+          />
+        ) : null}
+      </Flex>
+    </Flex>
+  );
+};
+
+type CommissionRateCardProps = {
+  title: string;
+  rate: number;
+  description: string;
+  className?: string;
+};
+
+const CommissionRateCard: FC<CommissionRateCardProps> = (props) => {
+  return (
+    <Flex
+      r="2xl"
+      direction={"column"}
+      itemAlign="start"
+      justify="center"
+      p={5}
+      className={cn(
+        "oui-min-w-0 oui-flex-1 oui-bg-base-contrast-4",
+        props.className,
+      )}
+    >
+      <Flex direction={"column"} gap={4} width={"100%"} itemAlign="start">
+        <Text
+          size="sm"
+          intensity={98}
+          weight="semibold"
+          className="oui-w-full oui-tracking-[0.03em]"
+        >
+          {props.title}
+        </Text>
+
+        <Flex direction={"column"} gap={2} width={"100%"} itemAlign="start">
+          <Text
+            size="3xl"
+            weight="semibold"
+            color="success"
+            className="oui-leading-9 oui-tracking-[0.03em]"
           >
-            {t("common.edit")}
-          </Button>
-        </Flex>
-
-        <Flex justify={"between"} width={"100%"} mt={4}>
-          <Text size="sm" intensity={54}>
-            {t("affiliate.youKeep")}
+            {props.rate}%
           </Text>
-          <Text size="sm" intensity={54}>
-            {t("affiliate.refereesGet")}
+          <Text
+            size="sm"
+            intensity={54}
+            weight="semibold"
+            className="oui-w-full oui-leading-5 oui-tracking-[0.03em]"
+          >
+            {props.description}
           </Text>
         </Flex>
-
-        <Flex justify={"between"} width={"100%"} mt={2}>
-          <Text.formatted size="3xl" intensity={80}>
-            {props.referrerRebateRate}%
-          </Text.formatted>
-          <Text.formatted size="3xl" intensity={36}>
-            {props.refereeRebateRate}%
-          </Text.formatted>
-        </Flex>
-
-        {props.directBonusRebateRate > 0 && (
-          <Flex gap={2} mt={4} width={"100%"} className="oui-items-center">
-            <GiftIcon
-              size={16}
-              className="oui-shrink-0 oui-text-base-contrast oui-mt-[1px]"
-            />
-            <Text
-              intensity={54}
-              as="span"
-              className="oui-flex-1 oui-min-w-0 oui-tracking-[0.03em]"
-            >
-              <Trans
-                i18nKey="affiliate.extraBonusOnDirectReferrals"
-                values={{ amount: props.directBonusRebateRate }}
-                components={[<Text as="span" color="primaryLight" key="0" />]}
-              />
-            </Text>
-          </Flex>
-        )}
-      </Box>
+      </Flex>
     </Flex>
   );
 };

@@ -1,22 +1,17 @@
 import { useContext, useEffect, useId, useState } from "react";
 import { API, WSMessage } from "@orderly.network/types";
 import { Decimal } from "@orderly.network/utils";
-import { OrderlyContext } from "../orderlyContext";
-import { getSymbolDisplayName } from "../useBadgeBySymbol";
-import { useEventEmitter } from "../useEventEmitter";
+import { OrderlyContext } from "../../orderlyContext";
+import { getSymbolDisplayName } from "../../useBadgeBySymbol";
+import { useEventEmitter } from "../../useEventEmitter";
+import { useMarketsStream } from "../useMarketsStream";
+import { RwaSymbolsInfo, useRwaSymbolsInfo } from "../useRwaSymbolsInfo";
+import { SymbolsInfo, useSymbolsInfo } from "../useSymbolsInfo";
+import { filterMarkets } from "./marketFilter";
+import { MarketsType } from "./marketTypes";
 import { MarketStoreKey } from "./useMarket";
-import { useMarketsStream } from "./useMarketsStream";
-import { RwaSymbolsInfo, useRwaSymbolsInfo } from "./useRwaSymbolsInfo";
-import { SymbolsInfo, useSymbolsInfo } from "./useSymbolsInfo";
 
-export enum MarketsType {
-  FAVORITES,
-  RECENT,
-  ALL,
-  RWA,
-  NEW_LISTING,
-  COMMUNITY,
-}
+export { MarketsType } from "./marketTypes";
 
 export interface FavoriteTab {
   name: string;
@@ -102,6 +97,7 @@ export type MarketsItem = {
   isFavorite: boolean;
   leverage?: number;
   isRwa: boolean;
+  isPreTge: boolean;
   market_session?: API.RwaSymbol["market_session"];
   rwaNextOpen?: number;
   rwaNextClose?: number;
@@ -372,6 +368,7 @@ const addFieldToMarkets = (
         open: item["24h_open"],
       }),
       isRwa: !!rwaInfo,
+      isPreTge: Boolean(item.is_pretge ?? info("is_pretge")),
       market_session: rwaInfo?.market_session,
       rwaNextOpen: rwaInfo?.next_open,
       rwaNextClose: rwaInfo?.next_close,
@@ -380,61 +377,9 @@ const addFieldToMarkets = (
   });
 };
 
-/**
- * Filters markets based on type and updates favorite status
- * @param params - Filter parameters including markets list and type
- * @returns Filtered and processed markets list
- */
-const filterMarkets = (params: {
-  markets: MarketsItem[];
-  favorites: Favorite[];
-  recent: Recent[];
-  newListing: NewListing[];
-  type: MarketsType;
-}) => {
-  const { markets, favorites, recent, newListing, type } = params;
-  let curData: MarketsItem[] = [];
-
-  if (type === MarketsType.ALL || type === MarketsType.COMMUNITY) {
-    curData = markets;
-  } else if (type === MarketsType.RWA) {
-    curData = markets.filter((item) => item.isRwa);
-  } else if (type === MarketsType.NEW_LISTING) {
-    curData = markets
-      .filter((item) => isNewListing(item.created_time))
-      .sort((a, b) => b.created_time - a.created_time);
-  } else {
-    const storageData =
-      type === MarketsType.FAVORITES
-        ? favorites
-        : type === MarketsType.RECENT
-          ? recent
-          : newListing;
-
-    const keys = storageData.map((item) => item.name);
-    curData = markets?.filter((item) => keys.includes(item.symbol));
-  }
-
-  const favoriteKeys = favorites.map((item) => item.name);
-
-  return curData?.map((item) => ({
-    ...item,
-    isFavorite:
-      type === MarketsType.FAVORITES
-        ? true
-        : favoriteKeys.includes(item.symbol),
-  }));
-};
-
 function isEmpty(value: any) {
   return value === undefined || value === null;
 }
-
-const isNewListing = (createdTime: number): boolean => {
-  const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
-  const now = Date.now();
-  return now - createdTime < thirtyDaysInMs;
-};
 
 function get8hFunding(est_funding_rate: number, funding_period: number) {
   let funding8h = 0;

@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { useTokensInfo } from "@orderly.network/hooks";
+import { useMainTokenStore } from "@orderly.network/hooks";
 import { Arbitrum, type API } from "@orderly.network/types";
 
-const splitTokenBySymbol = <T extends API.Chain>(items: T[]) => {
+const nativeTokenAddress = "0x0000000000000000000000000000000000000000";
+
+const splitTokenBySymbol = <T extends { token?: string }>(items: T[]) => {
   return items.reduce<Record<"usdc" | "others", T[]>>(
     (result, item) => {
       if (item.token?.toUpperCase() === "USDC") {
@@ -16,7 +18,7 @@ const splitTokenBySymbol = <T extends API.Chain>(items: T[]) => {
   );
 };
 
-const findChainInfo = (tokenInfo: API.Chain) => {
+export const findMainnetQuoteChainInfo = (tokenInfo: API.Token) => {
   const arbitrumChainInfo = tokenInfo.chain_details.find(
     (item) => parseInt(item.chain_id) === Arbitrum.id,
   );
@@ -24,8 +26,6 @@ const findChainInfo = (tokenInfo: API.Chain) => {
   const nativeTokenChainInfo = tokenInfo.chain_details.find(
     (item) => !item.contract_address,
   );
-
-  const nativeTokenAddress = "0x0000000000000000000000000000000000000000";
 
   if (arbitrumChainInfo) {
     return {
@@ -55,10 +55,47 @@ interface Options {
   defaultValue?: string;
 }
 
-type ConvertTokenInfo = API.Chain & {
+type ConvertTokenInfo = API.Token & {
   contract_address: string;
   quoteChainId: string;
   precision: number;
+  symbol: string;
+};
+
+export const getMainnetConvertTokenInfo = (
+  tokenInfo: API.Token,
+): ConvertTokenInfo | undefined => {
+  const chainInfo = findMainnetQuoteChainInfo(tokenInfo);
+
+  if (!chainInfo) {
+    return undefined;
+  }
+
+  return {
+    ...tokenInfo,
+    symbol: tokenInfo.token,
+    precision: tokenInfo.decimals ?? 6,
+    ...chainInfo,
+  };
+};
+
+export const findQuoteTargetChainInfo = (
+  targetToken: ConvertTokenInfo | undefined,
+  quoteChainId: string | undefined,
+) => {
+  const info = targetToken?.chain_details?.find(
+    (item) => item.chain_id === quoteChainId,
+  );
+
+  if (!info) {
+    return undefined;
+  }
+
+  return {
+    ...info,
+    contract_address: info.contract_address || nativeTokenAddress,
+    precision: targetToken?.precision,
+  };
 };
 
 export const useToken = (options: Options) => {
@@ -68,20 +105,24 @@ export const useToken = (options: Options) => {
   const [targetToken, setTargetToken] = useState<ConvertTokenInfo>();
   const [sourceTokens, setSourceTokens] = useState<ConvertTokenInfo[]>([]);
 
-  const tokensInfo = useTokensInfo();
+  const tokensInfo = useMainTokenStore((state) => state.data);
 
   const newTokensInfo = useMemo(() => {
-    const filteredTokensInfo = tokensInfo.filter((item) => item.on_chain_swap);
+    const filteredTokensInfo = (tokensInfo ?? []).filter(
+      (item) => item.on_chain_swap,
+    );
 
-    return filteredTokensInfo.map((item) => {
-      const chainInfo = findChainInfo(item);
-      return {
-        ...item,
-        symbol: item.token,
-        precision: item.decimals ?? 6,
-        ...chainInfo,
-      };
-    });
+    return filteredTokensInfo.reduce<ConvertTokenInfo[]>((result, item) => {
+      const tokenInfo = getMainnetConvertTokenInfo(item);
+
+      if (!tokenInfo) {
+        return result;
+      }
+
+      result.push(tokenInfo);
+
+      return result;
+    }, []);
   }, [tokensInfo]);
 
   useEffect(() => {
@@ -98,13 +139,7 @@ export const useToken = (options: Options) => {
   }, [defaultValue, newTokensInfo]);
 
   const targetChainInfo = useMemo(() => {
-    const info = targetToken?.chain_details?.find(
-      (item) => item.chain_id === sourceToken?.quoteChainId,
-    );
-    return {
-      ...info,
-      precision: targetToken?.precision,
-    };
+    return findQuoteTargetChainInfo(targetToken, sourceToken?.quoteChainId);
   }, [sourceToken, targetToken]);
 
   return {
