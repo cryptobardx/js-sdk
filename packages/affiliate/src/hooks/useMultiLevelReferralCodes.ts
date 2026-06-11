@@ -14,6 +14,7 @@ export type ReferralCodesRow = {
   indirect_rebate: number;
   direct_bonus_rebate?: number;
   max_rebate_rate: number;
+  base_rebate_rate?: number;
   referee_rebate_rate: number;
   referrer_rebate_rate: number;
   total_invites: number;
@@ -66,11 +67,16 @@ export const useMultiLevelReferralCodes =
       // Add multi-level code if present
       if (multiLevelRebateInfo?.referral_code) {
         const maxRebateRate = multiLevelRebateInfo.max_rebate_rate ?? 0;
+        const bonusMaxRebateRate =
+          multiLevelRebateInfo.bonus_max_rebate_rate ?? maxRebateRate;
+        const baseRebateRate = multiLevelRebateInfo.base_rebate_rate ?? 0;
         const defaultRefereeRebateRate =
-          multiLevelRebateInfo.default_referee_rebate_rate ?? 0;
+          multiLevelRebateInfo.default_bonus_referee_rebate_rate ??
+          multiLevelRebateInfo.default_referee_rebate_rate ??
+          0;
         const referrerRebateRate = Math.max(
           0,
-          maxRebateRate - defaultRefereeRebateRate,
+          bonusMaxRebateRate - defaultRefereeRebateRate,
         );
 
         const directInvites = multiLevelRebateInfo?.direct_invites ?? 0;
@@ -92,6 +98,7 @@ export const useMultiLevelReferralCodes =
           indirect_rebate: indirectRebate,
           direct_bonus_rebate: directBonusRebate,
           max_rebate_rate: maxRebateRate,
+          base_rebate_rate: baseRebateRate,
           referee_rebate_rate: defaultRefereeRebateRate,
           referrer_rebate_rate: referrerRebateRate,
           total_invites: directInvites + indirectInvites,
@@ -128,6 +135,7 @@ export const useMultiLevelReferralCodes =
                 direct_rebate: totalRebate,
                 indirect_rebate: 0,
                 max_rebate_rate: item.max_rebate_rate ?? 0,
+                base_rebate_rate: 0,
                 referee_rebate_rate: item.referee_rebate_rate ?? 0,
                 referrer_rebate_rate: item.referrer_rebate_rate ?? 0,
                 total_invites: totalInvites,

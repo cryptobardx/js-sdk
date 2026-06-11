@@ -8,6 +8,9 @@ export type ReferralCodeFormWidgetProps = {
   onSuccess?: () => void | Promise<void>;
   referralCode?: string;
   maxRebateRate: number;
+  bonusMaxRebateRate?: number;
+  baseRebateRate?: number;
+  defaultBonusRefereeRebateRate?: number;
   referrerRebateRate?: number;
   focusField?: ReferralCodeFormField;
   accountId?: string;
