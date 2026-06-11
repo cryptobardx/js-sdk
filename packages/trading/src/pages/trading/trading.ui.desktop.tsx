@@ -134,6 +134,20 @@ const scaleModifier: Modifier = ({
   return transform;
 };
 
+function getClampedPanelWidth(
+  size: string | null | undefined,
+  minWidth: number,
+  maxWidth: number,
+) {
+  const width = Number.parseFloat(size ?? "");
+
+  if (!Number.isFinite(width)) {
+    return minWidth;
+  }
+
+  return Math.min(Math.max(width, minWidth), maxWidth);
+}
+
 export const DesktopLayout: React.FC<DesktopLayoutProps> = (props) => {
   const {
     resizeable,
@@ -681,15 +695,41 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (props) => {
     return tradingViewAndOrderbookView;
   };
 
+  const orderEntryPanelWidth =
+    max4XL && horizontalDraggable
+      ? getClampedPanelWidth(
+          mainSplitSize,
+          orderEntryMinWidth,
+          orderEntryMaxWidth,
+        )
+      : orderEntryMinWidth;
+
+  const orderBookPanelWidth =
+    max4XL && horizontalDraggable
+      ? getClampedPanelWidth(
+          orderBookSplitSize,
+          orderbookMinWidth,
+          orderbookMaxWidth,
+        )
+      : orderbookMinWidth;
+
+  const mainViewMinWidth = max4XL
+    ? marketsWidth + tradingViewMinWidth + orderBookPanelWidth + space * 2
+    : tradingViewMinWidth + orderBookPanelWidth + space;
+
+  const mainContentMinWidth =
+    mainViewMinWidth +
+    orderEntryPanelWidth +
+    space +
+    (!max4XL && marketLayout === "left" ? marketsWidth + space : 0);
+
   const mainView = (
     <Flex
       direction="column"
       className="oui-flex-1 oui-overflow-hidden"
       gap={2}
       style={{
-        minWidth: max4XL
-          ? marketsWidth + tradingViewMinWidth + orderbookMinWidth + space * 2
-          : tradingViewMinWidth + orderbookMinWidth + space,
+        minWidth: mainViewMinWidth,
       }}
     >
       {symbolInfoBarView}
@@ -964,7 +1004,9 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (props) => {
         <Flex
           style={{
             minHeight: minScreenHeight,
-            minWidth: 1440 - scrollBarWidth,
+            minWidth: max4XL
+              ? Math.max(1440 - scrollBarWidth, mainContentMinWidth + space * 2)
+              : 1440 - scrollBarWidth,
           }}
           className={cn(
             props.className,
@@ -993,6 +1035,7 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (props) => {
             {!max4XL && marketLayout === "left" && marketsView}
             <SplitLayout
               className={cn("oui-flex oui-flex-1 oui-overflow-hidden")}
+              style={max4XL ? { minWidth: mainContentMinWidth } : undefined}
               onSizeChange={onSizeChange}
               disable={!horizontalDraggable}
             >

@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Trans, useTranslation } from "@orderly.network/i18n";
+import { type ReactNode, useMemo } from "react";
+import { useTranslation } from "@orderly.network/i18n";
 import {
   Box,
   Button,
@@ -7,11 +7,10 @@ import {
   Slider,
   Text,
   Divider,
+  Tooltip,
   formatAddress,
 } from "@orderly.network/ui";
-import { GiftIcon } from "../../../../icons/giftIcon";
 import { ReferralCodeFormField, ReferralCodeFormType } from "../../../../types";
-import { WarningBox } from "../../components/warningBox";
 import { ReferralCodeFormReturns } from "./referralCodeForm.script";
 import { ReferralCodeFormWidgetProps } from "./referralCodeForm.widget";
 import { ReferralCodeInput } from "./referralCodeInput";
@@ -28,15 +27,17 @@ export const ReferralCodeForm = (props: ReferralCodeFormProps) => {
 
   const isEditingRefereeRebateRate = !!props.accountId;
 
-  const noCommissionAvailable = props.maxRebateRate === 0;
+  const noCommissionAvailable = props.maxRebatePercentage === 0;
 
   const { title, description, buttonText } = useMemo(() => {
     switch (type) {
       case ReferralCodeFormType.Create:
         return {
-          title: t("affiliate.referralCode.create.modal.title"),
-          description: t("affiliate.referralCode.create.warning"),
-          buttonText: t("affiliate.confirmAndGenerate"),
+          title: isReview
+            ? t("affiliate.referralCode.review.modal.title")
+            : t("affiliate.referralCode.create.modal.title"),
+          description: null,
+          buttonText: isReview ? t("common.save") : t("affiliate.review"),
         };
       case ReferralCodeFormType.Edit:
         return {
@@ -44,17 +45,15 @@ export const ReferralCodeForm = (props: ReferralCodeFormProps) => {
             ? t("affiliate.refereeRebateRate.modal.title", {
                 accountId: formatAddress(props.accountId!),
               })
-            : t("affiliate.referralCode.edit.modal.title"),
-          description: isEditingRefereeRebateRate
-            ? isReview
-              ? t("affiliate.refereeRebateRate.review.warning")
-              : t("affiliate.refereeRebateRate.edit.warning")
             : isReview
-              ? t("affiliate.rebateRate.review.warning")
-              : t("affiliate.rebateRate.edit.warning"),
-          buttonText: isReview
-            ? t("affiliate.confirmChanges")
-            : t("affiliate.review"),
+              ? t("affiliate.referralCode.review.modal.title")
+              : t("affiliate.referralCode.edit.modal.title"),
+          description: null,
+          buttonText: isEditingRefereeRebateRate
+            ? t("common.save")
+            : isReview
+              ? t("common.save")
+              : t("affiliate.review"),
         };
       case ReferralCodeFormType.Reset:
         return {
@@ -92,8 +91,6 @@ export const ReferralCodeForm = (props: ReferralCodeFormProps) => {
     </Flex>
   );
 
-  const descriptionView = <WarningBox>{description}</WarningBox>;
-
   const referralCodeInput = (
     <ReferralCodeInput
       value={props.newCode}
@@ -104,52 +101,37 @@ export const ReferralCodeForm = (props: ReferralCodeFormProps) => {
     />
   );
 
-  const commissionConfiguration = (
-    <>
-      <Text size="2xs" intensity={54}>
-        {t("affiliate.commissionConfiguration")}
-      </Text>
-
-      {!isReview && (
-        <Text size="2xs" intensity={54}>
-          {t("affiliate.totalCommissionAvailable")}:{" "}
-          <Text className="oui-text-warning">{props.maxRebatePercentage}%</Text>
-        </Text>
-      )}
-    </>
-  );
-
-  const rebateRateSlider = (
-    <RebateRateSlider
-      value={props.referrerRebatePercentage}
-      restValue={props.refereeRebatePercentage}
+  const rateEditor = (
+    <CommissionRatesCard
+      directTradesRate={props.directTradesPercentage}
+      indirectTradesRate={props.indirectTradesPercentage}
+      totalSplitRate={props.totalSplitPercentage}
+      youKeepRate={props.referrerRebatePercentage}
+      refereeGetRate={props.refereeRebatePercentage}
+      baseRebateRate={props.baseRebatePercentage}
+      maxBonusRate={props.maxRebatePercentage}
       onChange={props.setReferrerRebatePercentage}
-      max={props.maxRebatePercentage}
-      disabled={noCommissionAvailable || isReview || isReset}
-      disabledIncrease={hasBoundReferee}
-      directBonusRebateRate={props.directBonusRebateRate}
-      noCommissionAvailable={noCommissionAvailable}
+      showTradeRates={!isEditingRefereeRebateRate}
+      showSlider={!isReview && !isReset}
+      bordered={isEditingRefereeRebateRate ? false : true}
+      rightLabel={
+        isEditingRefereeRebateRate
+          ? t("affiliate.affiliateGet")
+          : t("affiliate.directRefereesGet")
+      }
     />
   );
 
   const refereeInfo = (
     <Flex width={"100%"} justify="between" gap={2}>
       <Text size="2xs" intensity={54}>
-        {t("affiliate.referees")}
+        {t("affiliate.directReferee")}
       </Text>
 
       <Text.formatted rule="address" size="2xs" intensity={98}>
         {props.accountId}
       </Text.formatted>
     </Flex>
-  );
-
-  const noCommissionAvailableWarning = noCommissionAvailable && (
-    <Text size="2xs" className="oui-text-warning">
-      {isEditingRefereeRebateRate
-        ? t("affiliate.rebateRate.noCommissionRate")
-        : t("affiliate.rebateRate.noCommissionAvailable")}
-    </Text>
   );
 
   const resetRebateRateLabel = (
@@ -159,7 +141,7 @@ export const ReferralCodeForm = (props: ReferralCodeFormProps) => {
   );
 
   const buttons = (
-    <Flex direction={"row"} gap={2} width={"100%"} mt={0} pt={5}>
+    <Flex direction={"row"} gap={3} width={"100%"} mt={0} pt={2}>
       <Button
         variant="contained"
         color="gray"
@@ -187,31 +169,29 @@ export const ReferralCodeForm = (props: ReferralCodeFormProps) => {
     switch (type) {
       case ReferralCodeFormType.Create:
         return (
-          <Flex width={"100%"} direction="column" itemAlign="start" gap={2}>
-            {commissionConfiguration}
-            {rebateRateSlider}
-            {noCommissionAvailableWarning}
+          <Flex width={"100%"} direction="column" itemAlign="start" gap={6}>
+            {!noCommissionAvailable && rateEditor}
             {buttons}
           </Flex>
         );
       case ReferralCodeFormType.Edit:
         return (
-          <>
+          <Flex width={"100%"} direction="column" itemAlign="start" gap={6}>
             {isEditingRefereeRebateRate ? refereeInfo : referralCodeInput}
-
-            <Flex width={"100%"} direction="column" itemAlign="start" gap={2}>
-              {commissionConfiguration}
-              {rebateRateSlider}
-              {noCommissionAvailableWarning}
-              {buttons}
-            </Flex>
-          </>
+            {!noCommissionAvailable && rateEditor}
+            {buttons}
+          </Flex>
         );
       case ReferralCodeFormType.Reset:
         return (
-          <Flex width={"100%"} direction="column" itemAlign="start" gap={2}>
+          <Flex width={"100%"} direction="column" itemAlign="start" gap={6}>
+            {description}
             {resetRebateRateLabel}
-            {rebateRateSlider}
+            <RateSplitValues
+              youKeepRate={props.referrerRebatePercentage}
+              refereeGetRate={props.refereeRebatePercentage}
+              rightLabel={t("affiliate.directRefereesGet")}
+            />
             {buttons}
           </Flex>
         );
@@ -228,136 +208,223 @@ export const ReferralCodeForm = (props: ReferralCodeFormProps) => {
       className="oui-affiliate-referralCodeForm oui-font-semibold"
     >
       {titleView}
-      {descriptionView}
       {renderContent()}
     </Flex>
   );
 };
 
-const NoCommissionCard = (props: { directBonusRebateRate?: number }) => {
-  const { t } = useTranslation();
-  const amount = props.directBonusRebateRate;
-
-  if (!amount || amount <= 0) {
-    return null;
+const formatPercent = (value: number) => {
+  if (Number.isInteger(value)) {
+    return `${value}%`;
   }
+  return `${Number(value.toFixed(2))}%`;
+};
+
+type CommissionRatesCardProps = {
+  directTradesRate: number;
+  indirectTradesRate: number;
+  totalSplitRate: number;
+  youKeepRate: number;
+  refereeGetRate: number;
+  baseRebateRate: number;
+  maxBonusRate: number;
+  onChange: (value: number) => void;
+  showTradeRates: boolean;
+  showSlider: boolean;
+  bordered: boolean;
+  rightLabel: string;
+};
+
+const CommissionRatesCard = (props: CommissionRatesCardProps) => {
+  const { t } = useTranslation();
+  const selectablePercent =
+    props.totalSplitRate > 0
+      ? Math.min(100, (props.maxBonusRate / props.totalSplitRate) * 100)
+      : 100;
+
+  return (
+    <Flex width={"100%"} direction="column" itemAlign="start" gap={2}>
+      {props.showTradeRates && (
+        <>
+          <Text size="2xs" intensity={54}>
+            {t("affiliate.yourCommissionRates")}
+          </Text>
+          <RateRow
+            label={t("affiliate.directTrades")}
+            tooltip={t("affiliate.directTradesDescription")}
+            value={props.directTradesRate}
+          />
+        </>
+      )}
+
+      <Flex
+        width={"100%"}
+        direction="column"
+        itemAlign="start"
+        gap={2}
+        p={props.bordered ? 2 : 0}
+        r="lg"
+        className={props.bordered ? "oui-border oui-border-line-6" : ""}
+      >
+        {props.showTradeRates && (
+          <>
+            <RateRow
+              label={t("affiliate.indirectTrades")}
+              tooltip={t("affiliate.indirectTradesDescription")}
+              value={props.indirectTradesRate}
+              bordered={false}
+            />
+            <Divider intensity={8} className="oui-w-full" />
+          </>
+        )}
+
+        <Text size="2xs" intensity={54} className="oui-w-full oui-text-start">
+          {t("affiliate.totalToSplit")}:{" "}
+          <Text as="span" intensity={98}>
+            {formatPercent(props.totalSplitRate)}
+          </Text>
+        </Text>
+
+        {props.showSlider && (
+          <Box width={"100%"} my={1} className="oui-relative">
+            <Slider
+              min={0}
+              max={props.totalSplitRate}
+              step={1}
+              value={[props.youKeepRate]}
+              onValueChange={(value) => {
+                const newValue = value[0] as number;
+                const nextValue = Math.min(newValue, props.maxBonusRate);
+                props.onChange(nextValue);
+              }}
+              classNames={{
+                range: "oui-bg-success-darken oui-h-2 oui-top-[0px]",
+                trackInner: "oui-h-2 oui-top-[0px] oui-bg-base-contrast-12",
+                thumb: "oui-border-[#d9d9d9] oui-bg-[#d9d9d9] oui-size-4",
+              }}
+            />
+            {selectablePercent < 100 && (
+              <div
+                className="oui-pointer-events-none oui-absolute oui-end-0 oui-top-1/2 oui-h-2 oui-translate-y-[-50%] oui-rounded-e-full oui-bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.08)_0,rgba(255,255,255,0.08)_4px,transparent_4px,transparent_8px)]"
+                style={{ left: `${selectablePercent}%` }}
+              />
+            )}
+          </Box>
+        )}
+
+        <RateSplitValues
+          youKeepRate={props.youKeepRate}
+          refereeGetRate={props.refereeGetRate}
+          rightLabel={props.rightLabel}
+        />
+
+        <PassDownHint amount={props.baseRebateRate} />
+      </Flex>
+    </Flex>
+  );
+};
+
+const RateRow = (props: {
+  label: string;
+  tooltip?: ReactNode;
+  value: number;
+  bordered?: boolean;
+}) => {
+  const label = (
+    <Text
+      size="2xs"
+      intensity={98}
+      className="oui-cursor-pointer oui-underline oui-decoration-dotted oui-underline-offset-4"
+    >
+      {props.label}
+    </Text>
+  );
 
   return (
     <Flex
-      direction="column"
-      gap={2}
-      mt={2}
       width={"100%"}
-      p={4}
+      justify="between"
+      itemAlign="center"
+      gap={2}
+      p={props.bordered === false ? 0 : 2}
       r="lg"
-      className="oui-border oui-border-base-contrast/[0.08] oui-tracking-[0.03em]"
+      className={props.bordered === false ? "" : "oui-border oui-border-line-6"}
     >
-      <Flex justify="between" width={"100%"} itemAlign="center">
-        <Flex direction="column" itemAlign="start" gap={1}>
-          <Text size="2xs" intensity={54}>
-            {t("affiliate.noCommissionCard.title")}
-          </Text>
-          <Text size="lg" className="oui-font-semibold oui-text-primary-light">
-            + {amount}%
-          </Text>
-        </Flex>
-        <GiftIcon size={24} className="oui-shrink-0 oui-text-primary-light" />
-      </Flex>
-      <Text size="2xs" intensity={98} className="oui-leading-[15px]">
-        {t("affiliate.noCommissionCard.content", { amount })}
+      {props.tooltip ? (
+        <Tooltip
+          content={props.tooltip}
+          className="oui-max-w-[200px] oui-bg-base-6"
+          arrow={{ className: "oui-fill-base-6" }}
+        >
+          {label}
+        </Tooltip>
+      ) : (
+        label
+      )}
+      <Text size="lg" className="oui-text-success-darken">
+        {formatPercent(props.value)}
       </Text>
     </Flex>
   );
 };
 
-type RebateRateSliderProps = {
-  value: number;
-  onChange: (value: number) => void;
-  max: number;
-  disabled: boolean;
-  restValue: number;
-  disabledIncrease?: boolean;
-  directBonusRebateRate?: number;
-  noCommissionAvailable?: boolean;
-};
-
-const RebateRateSlider = (props: RebateRateSliderProps) => {
+const RateSplitValues = (props: {
+  youKeepRate: number;
+  refereeGetRate: number;
+  rightLabel: string;
+}) => {
   const { t } = useTranslation();
-  const [maxValue] = useState(props.value);
 
   return (
-    <>
-      {!props.disabled && (
-        <Box width={"100%"} my={2}>
-          <Slider
-            min={0}
-            max={props.max}
-            step={1}
-            value={[props.value]}
-            onValueChange={(value) => {
-              const newValue = value[0] as number;
-              props.onChange(
-                props.disabledIncrease
-                  ? Math.min(newValue, maxValue)
-                  : newValue,
-              );
-            }}
-            classNames={{
-              range: "oui-bg-success-darken oui-h-2 oui-top-[0px]",
-              trackInner: "oui-bg-success-darken/30 oui-h-2 oui-top-[0px]",
-              thumb: "oui-border-[#d9d9d9] oui-bg-[#d9d9d9] oui-size-4",
-            }}
-          />
-        </Box>
-      )}
+    <Flex width={"100%"} gap={2}>
+      <Flex
+        direction="column"
+        itemAlign="start"
+        className="oui-min-w-0 oui-flex-1"
+      >
+        <Text size="2xs" intensity={54}>
+          {t("affiliate.youKeep")}
+        </Text>
+        <Text size="lg" className="oui-text-success-darken">
+          {formatPercent(props.youKeepRate)}
+        </Text>
+      </Flex>
+      <Flex
+        direction="column"
+        itemAlign="end"
+        className="oui-min-w-0 oui-flex-1"
+      >
+        <Text size="2xs" intensity={54} className="oui-text-right">
+          {props.rightLabel}
+        </Text>
+        <Text size="lg" intensity={54} className="oui-text-right">
+          {formatPercent(props.refereeGetRate)}
+        </Text>
+      </Flex>
+    </Flex>
+  );
+};
 
-      <div className="oui-w-full">
-        <Flex justify={"between"} width={"100%"}>
-          <Text size="sm" intensity={54}>
-            {t("affiliate.youKeep")}
-          </Text>
-          <Text size="sm" intensity={54}>
-            {t("affiliate.refereesGet")}
-          </Text>
-        </Flex>
+const PassDownHint = (props: { amount: number }) => {
+  const { t } = useTranslation();
 
-        <Flex justify={"between"} width={"100%"}>
-          <Text.formatted size="lg" className="oui-text-success-darken">
-            {props.value}%
-          </Text.formatted>
-          <Text.formatted size="lg" className="oui-text-success-darken/50">
-            {props.restValue}%
-          </Text.formatted>
-        </Flex>
+  if (props.amount <= 0) {
+    return null;
+  }
 
-        {props.noCommissionAvailable ? (
-          <NoCommissionCard
-            directBonusRebateRate={props.directBonusRebateRate}
-          />
-        ) : (
-          props.directBonusRebateRate != null &&
-          props.directBonusRebateRate > 0 && (
-            <Flex gap={2} mt={2} width={"100%"}>
-              <GiftIcon
-                size={16}
-                className="oui-mt-px oui-text-base-contrast"
-              />
-              <Text
-                size="sm"
-                intensity={54}
-                as="span"
-                className="oui-inline-flex oui-items-center oui-gap-1 oui-tracking-[0.03em]"
-              >
-                <Trans
-                  i18nKey="affiliate.extraBonusOnDirectReferrals"
-                  values={{ amount: props.directBonusRebateRate }}
-                  components={[<Text as="span" color="primaryLight" key="0" />]}
-                />
-              </Text>
-            </Flex>
-          )
-        )}
-      </div>
-    </>
+  return (
+    <Flex
+      width={"100%"}
+      itemAlign="center"
+      gap={2}
+      className="oui-overflow-hidden"
+    >
+      <div className="oui-h-3 oui-w-6 oui-shrink-0 oui-rounded-[2px] oui-border oui-border-line-6 oui-bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.08)_0,rgba(255,255,255,0.08)_4px,transparent_4px,transparent_8px)]" />
+      <Text size="2xs" intensity={36} className="oui-leading-[15px]">
+        {t("affiliate.atLeastPassesDown", {
+          amount: formatPercent(props.amount),
+        })}
+      </Text>
+    </Flex>
   );
 };

@@ -20,6 +20,13 @@ import { ReferralCodesTableScriptReturns } from "./referralCodesTable.script";
 
 type ReferralCodesTableUIProps = ReferralCodesTableScriptReturns;
 
+const getRefereeRebateRateText = (
+  refereeRate: number,
+  baseRebateRate: number,
+) => {
+  return new Decimal(refereeRate).add(baseRebateRate).mul(100).toFixed(0);
+};
+
 const getReferralCodeType = (referralType?: "single" | "multi") => {
   const { t } = useTranslation();
   if (referralType === "multi") {
@@ -43,9 +50,10 @@ const MobileReferralCodeItem: FC<{
   const referrerRate = new Decimal(item.referrer_rebate_rate ?? 0)
     .mul(100)
     .toFixed(0);
-  const refereeRate = new Decimal(item.referee_rebate_rate ?? 0)
-    .mul(100)
-    .toFixed(0);
+  const refereeRate = getRefereeRebateRateText(
+    item.referee_rebate_rate ?? 0,
+    item.base_rebate_rate ?? 0,
+  );
   const typeInfo = getReferralCodeType(item.referral_type);
 
   return (
@@ -61,7 +69,7 @@ const MobileReferralCodeItem: FC<{
         />
       </MobileCell>
       <MobileCell
-        label={t("affiliate.referralCodes.column.you&Referee")}
+        label={t("affiliate.referralCodes.column.you&DirectReferees")}
         align="end"
       >
         <Text>
@@ -143,17 +151,20 @@ export const ReferralCodesTableUI: FC<ReferralCodesTableUIProps> = (props) => {
         title: (
           <Text>
             {t("affiliate.referralCodes.column.defaultSplit")}
-            <br />({t("affiliate.referralCodes.column.you&Referee")})
+            <br />({t("affiliate.referralCodes.column.you&DirectReferees")})
           </Text>
         ),
         dataIndex: "rate",
+        width: 180,
+        className: "!oui-whitespace-normal",
         render: (_: unknown, record: ReferralCodesRow) => {
           const referrerRate = new Decimal(record.referrer_rebate_rate ?? 0)
             .mul(100)
             .toFixed(0);
-          const refereeRate = new Decimal(record.referee_rebate_rate ?? 0)
-            .mul(100)
-            .toFixed(0);
+          const refereeRate = getRefereeRebateRateText(
+            record.referee_rebate_rate ?? 0,
+            record.base_rebate_rate ?? 0,
+          );
           return (
             <Text>
               {referrerRate}%

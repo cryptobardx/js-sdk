@@ -55,6 +55,14 @@ export const useRefereesTableScript = (
   const { multiLevelRebateInfo, maxRebateRate, multiLevelRebateInfoMutate } =
     useReferralContext();
 
+  const showActionColumn = useMemo(() => {
+    return !new Decimal(multiLevelRebateInfo?.bonus_max_rebate_rate ?? 0).eq(0);
+  }, [multiLevelRebateInfo]);
+
+  const baseRebateRate = useMemo(() => {
+    return multiLevelRebateInfo?.base_rebate_rate ?? 0;
+  }, [multiLevelRebateInfo]);
+
   const onEditReferee = useCallback(
     (type: ReferralCodeFormType, item: RefereeDataType) => {
       const referrerRebateRate =
@@ -66,6 +74,10 @@ export const useRefereesTableScript = (
         type,
         referralCode: multiLevelRebateInfo?.referral_code,
         maxRebateRate,
+        bonusMaxRebateRate: multiLevelRebateInfo?.bonus_max_rebate_rate,
+        baseRebateRate: multiLevelRebateInfo?.base_rebate_rate,
+        defaultBonusRefereeRebateRate:
+          multiLevelRebateInfo?.default_bonus_referee_rebate_rate,
         referrerRebateRate,
         onSuccess: () => {
           multiLevelRebateInfoMutate();
@@ -83,6 +95,11 @@ export const useRefereesTableScript = (
     },
     [
       maxRebateRate,
+      multiLevelRebateInfo?.base_rebate_rate,
+      multiLevelRebateInfo?.bonus_max_rebate_rate,
+      multiLevelRebateInfo?.default_bonus_referee_rebate_rate,
+      multiLevelRebateInfo?.direct_bonus_rebate_rate,
+      multiLevelRebateInfo?.direct_invites,
       multiLevelRebateInfo?.referral_code,
       multiLevelRebateInfo?.referrer_rebate_rate,
       multiLevelRebateInfoMutate,
@@ -136,6 +153,8 @@ export const useRefereesTableScript = (
     isRefereesLoading,
     onEditReferee,
     onRefereesSort,
+    showActionColumn,
+    baseRebateRate,
   };
 };
 

@@ -47,7 +47,12 @@ export const Summary: FC<SummaryReturns> = (props) => {
         }}
       />
 
-      <Flex width={"100%"} gap={6} className="oui-flex-col md:oui-flex-row">
+      <Flex
+        width={"100%"}
+        gap={6}
+        itemAlign="stretch"
+        className="oui-flex-col md:oui-flex-row"
+      >
         <SummaryItem
           prefix="$"
           rule="human"
@@ -56,7 +61,7 @@ export const Summary: FC<SummaryReturns> = (props) => {
           direct={statistics.direct_volume}
           indirect={statistics.indirect_volume}
           classNames={{
-            root: "oui-w-full md:oui-w-1/2",
+            root: "oui-w-full md:oui-w-1/2 md:oui-h-full",
           }}
         />
         <SummaryItem
@@ -66,7 +71,7 @@ export const Summary: FC<SummaryReturns> = (props) => {
           direct={statistics.direct_invites}
           indirect={statistics.indirect_invites}
           classNames={{
-            root: "oui-w-full md:oui-w-1/2",
+            root: "oui-w-full md:oui-w-1/2 md:oui-h-full",
           }}
         />
       </Flex>
