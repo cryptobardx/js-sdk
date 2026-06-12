@@ -1,22 +1,21 @@
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
+const { CLI_BIN_NAME } = require("./constants");
 
 const MANIFEST_FILENAME = ".orderly-manifest.json";
 
 /**
- * 从 git remote 获取 repoUrl
+ * Read repoUrl from git remote origin.
  */
 function getRepoUrl() {
   try {
-    // Use execSync with git command - safer approach
     const remoteUrl = execSync("git remote get-url origin", {
       encoding: "utf-8",
       stdio: ["pipe", "pipe", "pipe"],
       windowsHide: true,
     }).trim();
 
-    // Convert git@github.com:user/repo.git to https://github.com/user/repo
     if (remoteUrl.startsWith("git@")) {
       return remoteUrl
         .replace("git@", "")
@@ -24,7 +23,6 @@ function getRepoUrl() {
         .replace(".git", "");
     }
 
-    // Remove .git suffix if present
     return remoteUrl.replace(/\.git$/, "");
   } catch (e) {
     return null;
@@ -32,7 +30,7 @@ function getRepoUrl() {
 }
 
 /**
- * 从 package.json 读取 npmName
+ * Read npm package name from package.json.
  */
 function getNpmName(packageJsonPath) {
   try {
@@ -44,9 +42,9 @@ function getNpmName(packageJsonPath) {
 }
 
 /**
- * 生成 manifest 文件
- * @param {string} pluginDir - 插件目录
- * @param {Object} pluginInfo - 插件信息 (pluginId, tags, storybookUrl 等)
+ * Generate `.orderly-manifest.json` in the plugin directory.
+ * @param {string} pluginDir - Plugin root directory
+ * @param {Object} pluginInfo - pluginId, tags, storybookUrl, etc.
  */
 function generateManifest(pluginDir, pluginInfo = {}) {
   const packageJsonPath = path.join(pluginDir, "package.json");
@@ -74,9 +72,9 @@ function generateManifest(pluginDir, pluginInfo = {}) {
 }
 
 /**
- * 读取 manifest 文件
- * @param {string} pluginDir - 插件目录
- * @returns {Object|null} manifest 对象，如果不存在则返回 null
+ * Read `.orderly-manifest.json` from the plugin directory.
+ * @param {string} pluginDir - Plugin root directory
+ * @returns {Object|null} Manifest object, or null when missing
  */
 function readManifest(pluginDir) {
   const manifestPath = path.join(pluginDir, MANIFEST_FILENAME);
@@ -125,17 +123,16 @@ function resolvePluginManifest(pluginDir) {
 }
 
 /**
- * 更新 manifest 文件中的字段
- * @param {string} pluginDir - 插件目录
- * @param {Object} updates - 要更新的字段
+ * Update fields in an existing manifest file.
+ * @param {string} pluginDir - Plugin root directory
+ * @param {Object} updates - Fields to merge into the manifest
  */
 function updateManifest(pluginDir, updates) {
-  const manifestPath = path.join(pluginDir, MANIFEST_FILENAME);
   const manifest = readManifest(pluginDir);
 
   if (!manifest) {
     throw new Error(
-      "Manifest file not found. Run 'orderly create plugin' first.",
+      `Manifest file not found. Run '${CLI_BIN_NAME} create plugin' first.`,
     );
   }
 
@@ -145,14 +142,15 @@ function updateManifest(pluginDir, updates) {
     updatedAt: new Date().toISOString(),
   };
 
+  const manifestPath = path.join(pluginDir, MANIFEST_FILENAME);
   fs.writeFileSync(manifestPath, JSON.stringify(updatedManifest, null, 2));
 
   return updatedManifest;
 }
 
 /**
- * 检查 manifest 是否包含必需的提交字段
- * @param {string} pluginDir - 插件目录
+ * Check whether the manifest contains required submit fields.
+ * @param {string} pluginDir - Plugin root directory
  * @returns {{ valid: boolean, missing: string[] }}
  */
 function validateManifest(pluginDir) {

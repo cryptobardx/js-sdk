@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "link-global": "pnpm link --global"
+    "link-global": "pnpm link --global",
+    "test": "node --test src/**/*.test.js"
   },
   "engines": {
     "node": ">=20.19.0"

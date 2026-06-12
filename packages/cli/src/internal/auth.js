@@ -1,11 +1,13 @@
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
-const { MARKETPLACE_API_BASE_URL } = require("./constants");
+const { CLI_BIN_NAME, MARKETPLACE_API_BASE_URL } = require("./constants");
 
-const AUTH_DIR = path.join(
-  process.env.HOME || process.env.USERPROFILE,
-  ".orderly",
-);
+const authHome =
+  process.env.HOME ||
+  process.env.USERPROFILE ||
+  path.join(os.tmpdir(), ".orderly-cli");
+const AUTH_DIR = path.join(authHome, ".orderly");
 const AUTH_FILE = path.join(AUTH_DIR, "auth.json");
 const DEFAULT_HTTP_TIMEOUT_MS = 15000;
 const HTTP_TIMEOUT_MS = Number.parseInt(
@@ -32,7 +34,12 @@ function readAuth() {
 
 function writeAuth(data) {
   ensureAuthDir();
-  fs.writeFileSync(AUTH_FILE, JSON.stringify(data, null, 2));
+  fs.writeFileSync(AUTH_FILE, JSON.stringify(data, null, 2), { mode: 0o600 });
+  try {
+    fs.chmodSync(AUTH_FILE, 0o600);
+  } catch {
+    // Best-effort on platforms that do not support chmod (e.g. some Windows FS).
+  }
 }
 
 function saveToken(token, email = null) {
@@ -209,6 +216,31 @@ function logout() {
   }
 }
 
+/**
+ * Ensure the user is logged in; sets process.exitCode on failure.
+ * @returns {string | null} Bearer token, or null when unauthenticated.
+ */
+function requireAuth() {
+  const { warn, error, info } = require("../shared");
+
+  if (!isLoggedIn()) {
+    warn("You are not logged in.");
+    info(`Please run '${CLI_BIN_NAME} login' first to authenticate.`);
+    process.exitCode = 1;
+    return null;
+  }
+
+  const token = getToken();
+  if (!token) {
+    error("Authentication token not found.");
+    info(`Please run '${CLI_BIN_NAME} login' again.`);
+    process.exitCode = 1;
+    return null;
+  }
+
+  return token;
+}
+
 module.exports = {
   saveToken,
   saveOAuthToken,
@@ -221,4 +253,5 @@ module.exports = {
   refreshCliToken,
   fetchWithTimeout,
   getHttpTimeoutMs,
+  requireAuth,
 };

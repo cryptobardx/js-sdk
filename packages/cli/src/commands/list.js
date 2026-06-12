@@ -1,17 +1,9 @@
+const { heading, info, error, success, getErrorMessage } = require("../shared");
+const { requireAuth, authenticatedFetch } = require("../internal/auth");
 const {
-  heading,
-  info,
-  warn,
-  error,
-  success,
-  getErrorMessage,
-} = require("../shared");
-const {
-  isLoggedIn,
-  getToken,
-  authenticatedFetch,
-} = require("../internal/auth");
-const { MARKETPLACE_API_MY_PLUGINS_URL } = require("../internal/constants");
+  CLI_BIN_NAME,
+  MARKETPLACE_API_MY_PLUGINS_URL,
+} = require("../internal/constants");
 const {
   normalizePlugins,
   truncate,
@@ -54,33 +46,20 @@ module.exports = {
       );
   },
   handler: async (argv) => {
-    heading("My Plugins");
-
-    if (!isLoggedIn()) {
-      warn("You are not logged in.");
-      info("Please run 'orderly login' first to authenticate.");
-      process.exitCode = 1;
-      return;
+    if (!argv.json) {
+      heading("My Plugins");
     }
 
-    const token = getToken();
-    if (!token) {
-      error("Authentication token not found.");
-      info("Please run 'orderly login' again.");
-      process.exitCode = 1;
+    if (!requireAuth()) {
       return;
     }
 
     try {
-      // Use Headers to merge defaults safely and inject auth token consistently.
-      const headers = new Headers({ Accept: "application/json" });
-      headers.set("Authorization", `Bearer ${token}`);
-
       const response = await authenticatedFetch(
         MARKETPLACE_API_MY_PLUGINS_URL,
         {
           method: "GET",
-          headers,
+          headers: { Accept: "application/json" },
         },
       );
 
@@ -96,7 +75,6 @@ module.exports = {
       const plugins = normalizePlugins(responseData);
 
       if (argv.json) {
-        // Print real server payload for troubleshooting response shape mismatches.
         console.log(JSON.stringify(responseData, null, 2));
         return;
       }
@@ -104,7 +82,7 @@ module.exports = {
       if (plugins.length === 0) {
         info("You have not submitted any plugins yet.");
         info(
-          "If Marketplace Web shows records, run `orderly whoami` to confirm account consistency and `orderly list --json` to inspect the raw API response.",
+          `If Marketplace Web shows records, run \`${CLI_BIN_NAME} whoami\` to confirm account consistency and \`${CLI_BIN_NAME} list --json\` to inspect the raw API response.`,
         );
         return;
       }
@@ -113,7 +91,6 @@ module.exports = {
       console.log(renderTable(rows, LIST_COLUMNS));
       success(`\nTotal: ${plugins.length} plugin(s)`);
     } catch (e) {
-      // Surface target endpoint to make network/runtime failures actionable.
       const cause = e?.message || String(e);
       error(
         `Request failed while calling ${MARKETPLACE_API_MY_PLUGINS_URL}: ${cause}`,

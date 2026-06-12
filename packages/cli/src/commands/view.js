@@ -1,9 +1,10 @@
 const { heading, info, error, getErrorMessage } = require("../shared");
-const { MARKETPLACE_API_BASE_URL } = require("../internal/constants");
+const { fetchWithTimeout, getHttpTimeoutMs } = require("../internal/auth");
+const { getMarketplaceApiPluginUrl } = require("../internal/constants");
 
 module.exports = {
   command: "view <id>",
-  describe: "View plugin details by ID from Marketplace",
+  describe: "View plugin details by ID from Marketplace (JSON output)",
   builder: (yargs) => {
     return yargs
       .positional("id", {
@@ -12,23 +13,15 @@ module.exports = {
           "string; plugin ID used to fetch details from Marketplace (required)",
         demandOption: true,
       })
-      .option("json", {
-        type: "boolean",
-        describe:
-          "boolean; currently does not change output (the command always prints the full JSON payload)",
-        default: false,
-      })
       .example(
         "orderly-devkit view trading-plugin-id",
-        "Fetch and print plugin details",
-      )
-      .example(
-        "orderly-devkit view trading-plugin-id --json",
-        "Fetch and print plugin details as JSON (flag currently does not alter output)",
+        "Fetch and print plugin details as JSON",
       );
   },
   handler: async (argv) => {
-    heading("Marketplace Plugin Details");
+    if (process.stdout.isTTY) {
+      heading("Marketplace Plugin Details");
+    }
 
     const pluginId = String(argv.id || "").trim();
     if (!pluginId) {
@@ -37,16 +30,15 @@ module.exports = {
       return;
     }
 
-    const url = `${MARKETPLACE_API_BASE_URL}/plugins/${encodeURIComponent(pluginId)}`;
+    const url = getMarketplaceApiPluginUrl(pluginId);
 
     try {
-      // Use explicit Accept header for consistent JSON responses across API gateways.
       const headers = new Headers({ Accept: "application/json" });
-
-      const response = await fetch(url, {
-        method: "GET",
-        headers,
-      });
+      const response = await fetchWithTimeout(
+        url,
+        { method: "GET", headers },
+        getHttpTimeoutMs(),
+      );
 
       const responseData = await response.json().catch(() => null);
 
@@ -63,10 +55,8 @@ module.exports = {
         return;
       }
 
-      // Always print full payload to avoid losing fields in formatted output.
       console.log(JSON.stringify(responseData ?? {}, null, 2));
     } catch (e) {
-      // Show the exact request target so operators can debug network/env issues quickly.
       const cause = e?.message || String(e);
       error(`Request failed while calling ${url}: ${cause}`);
       info("Please verify network connectivity and API availability.");
