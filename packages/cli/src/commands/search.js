@@ -46,12 +46,7 @@ const SEARCH_COLUMNS = {
 
 function formatGithubCell(repoUrl) {
   const repo = parseGithubRepoUrl(repoUrl);
-  if (!repo) {
-    return "-";
-  }
-
-  const label = truncate(repo.label, 42);
-  return terminalLink(label, repo.url);
+  return repo ? repo.url : "-";
 }
 
 function formatPackageCell(plugin) {
