@@ -49,6 +49,7 @@
     "@orderly.network/web3-provider-ethers": "3.1.1"
   },
   "changesets": [
+    "plenty-comics-dream",
     "selfish-donkeys-admire"
   ]
 }
