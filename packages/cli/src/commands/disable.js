@@ -7,57 +7,13 @@ const {
   select,
   getApiErrorInfo,
 } = require("../shared");
+const { requireAuth, authenticatedFetch } = require("../internal/auth");
 const {
-  isLoggedIn,
-  getToken,
-  authenticatedFetch,
-} = require("../internal/auth");
-const {
+  CLI_BIN_NAME,
   MARKETPLACE_API_MY_PLUGINS_URL,
   getMarketplaceApiPluginSelfStatusUrl,
 } = require("../internal/constants");
-
-/**
- * Normalize unknown list payloads into an array.
- * Keeps this command resilient to small response shape changes.
- * @param {unknown} data
- * @returns {Array<Record<string, unknown>>}
- */
-function normalizePlugins(data) {
-  if (Array.isArray(data)) {
-    return data;
-  }
-
-  if (Array.isArray(data?.data)) {
-    return data.data;
-  }
-
-  if (Array.isArray(data?.plugins)) {
-    return data.plugins;
-  }
-
-  if (Array.isArray(data?.items)) {
-    return data.items;
-  }
-
-  if (Array.isArray(data?.results)) {
-    return data.results;
-  }
-
-  if (Array.isArray(data?.data?.items)) {
-    return data.data.items;
-  }
-
-  if (Array.isArray(data?.data?.plugins)) {
-    return data.data.plugins;
-  }
-
-  if (Array.isArray(data?.data?.results)) {
-    return data.data.results;
-  }
-
-  return [];
-}
+const { normalizePlugins } = require("../internal/formatting");
 
 /**
  * Format a compact prompt label so users can identify the target plugin quickly.
@@ -82,38 +38,24 @@ module.exports = {
           "string; plugin ID to delist directly. If omitted, an interactive selector is shown",
         demandOption: false,
       })
-      .example("orderly disable", "Select one of your plugins and delist it")
       .example(
-        "orderly disable --pluginId my-plugin-id",
-        "Delist a specific plugin directly without selection",
+        "orderly-devkit disable",
+        "Select one of your plugins and delist it",
       )
       .example(
-        "orderly disable --help",
-        "Show command help and usage for plugin delisting",
+        "orderly-devkit disable --pluginId my-plugin-id",
+        "Delist a specific plugin directly without selection",
       );
   },
   handler: async (argv) => {
     heading("Disable My Plugin");
     info("This command will delist one of your submitted plugins.\n");
 
-    // Require login first because both listing and status update are owner-scoped operations.
-    if (!isLoggedIn()) {
-      warn("You are not logged in.");
-      info("Please run 'orderly login' first to authenticate.");
-      process.exitCode = 1;
-      return;
-    }
-
-    const token = getToken();
-    if (!token) {
-      error("Authentication token not found.");
-      info("Please run 'orderly login' again.");
-      process.exitCode = 1;
+    if (!requireAuth()) {
       return;
     }
 
     try {
-      // Skip interactive selection when pluginId is provided explicitly.
       let selectedPluginId =
         typeof argv.pluginId === "string" ? argv.pluginId.trim() : "";
       if (!selectedPluginId) {
@@ -122,10 +64,7 @@ module.exports = {
           MARKETPLACE_API_MY_PLUGINS_URL,
           {
             method: "GET",
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Accept: "application/json" },
           },
         );
 
@@ -141,7 +80,7 @@ module.exports = {
         if (plugins.length === 0) {
           info("You have not submitted any plugins yet.");
           info(
-            "If Marketplace Web shows records, run `orderly whoami` to confirm account consistency and `orderly list --json` to inspect the raw API response.",
+            `If Marketplace Web shows records, run \`${CLI_BIN_NAME} whoami\` to confirm account consistency and \`${CLI_BIN_NAME} list --json\` to inspect the raw API response.`,
           );
           return;
         }
@@ -182,7 +121,6 @@ module.exports = {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ status: "disabled" }),
       });
@@ -209,7 +147,6 @@ module.exports = {
       info(`Plugin Name: ${updatedName}`);
       info(`Status: ${updatedStatus}`);
     } catch (e) {
-      // Include endpoint context so users can triage connectivity issues quickly.
       const cause = e?.message || String(e);
       error(`Request failed while calling marketplace APIs: ${cause}`);
       info("Please verify network connectivity and API availability.");

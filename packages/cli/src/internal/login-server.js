@@ -34,10 +34,31 @@ function setCorsHeaders(res) {
 }
 
 function startCallbackServer({ port, state }) {
+  let settled = false;
   let resolveToken;
-  const waitForToken = new Promise((resolve) => {
+  let rejectToken;
+
+  const waitForToken = new Promise((resolve, reject) => {
     resolveToken = resolve;
+    rejectToken = reject;
   });
+
+  /**
+   * Reject the login wait (e.g. timeout) and close the server once.
+   * @param {Error | string} reason
+   */
+  function cancel(reason) {
+    if (settled) {
+      return;
+    }
+    settled = true;
+    const error =
+      reason instanceof Error
+        ? reason
+        : new Error(String(reason || "Cancelled"));
+    rejectToken(error);
+    server.close();
+  }
 
   const server = http.createServer((req, res) => {
     const url = new URL(req.url, `http://localhost:${port}`);
@@ -94,6 +115,14 @@ function startCallbackServer({ port, state }) {
       return;
     }
 
+    if (settled) {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      res.end(SUCCESS_HTML);
+      return;
+    }
+
+    settled = true;
+
     // Success — respond first, then resolve
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.end(SUCCESS_HTML);
@@ -108,7 +137,7 @@ function startCallbackServer({ port, state }) {
     server.close();
   });
 
-  return { server, waitForToken };
+  return { server, waitForToken, cancel };
 }
 
 module.exports = { startCallbackServer };

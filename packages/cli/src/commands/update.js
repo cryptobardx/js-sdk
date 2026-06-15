@@ -8,62 +8,14 @@ const {
   input,
   getErrorMessage,
 } = require("../shared");
-const {
-  isLoggedIn,
-  getToken,
-  authenticatedFetch,
-} = require("../internal/auth");
+const { requireAuth, authenticatedFetch } = require("../internal/auth");
 const { MARKETPLACE_API_PLUGINS_URL } = require("../internal/constants");
 const { resolvePluginManifest } = require("../internal/manifest");
-
-// Keep the same tag whitelist as submit to ensure local validation stays consistent.
-const VALID_TAGS = [
-  "UI",
-  "Indicator",
-  "Order Entry",
-  "Trading",
-  "Chart",
-  "Portfolio",
-  "Analytics",
-  "Tool",
-  "Widget",
-];
-
-const MAX_TAGS = 5;
-const MAX_COVER_IMAGES = 10;
-const MAX_USAGE_PROMPT_LENGTH = 8192;
-
-/**
- * Validate update payload against marketplace schema constraints.
- * @param {object} payload
- * @returns {{ valid: boolean, errors: string[] }}
- */
-function validateUpdatePayload(payload) {
-  const errors = [];
-
-  if (payload.tags && payload.tags.length > MAX_TAGS) {
-    errors.push(
-      `Too many tags (${payload.tags.length}), maximum is ${MAX_TAGS}`,
-    );
-  }
-
-  if (payload.coverImages && payload.coverImages.length > MAX_COVER_IMAGES) {
-    errors.push(
-      `Too many cover images (${payload.coverImages.length}), maximum is ${MAX_COVER_IMAGES}`,
-    );
-  }
-
-  if (
-    payload.usagePrompt &&
-    payload.usagePrompt.length > MAX_USAGE_PROMPT_LENGTH
-  ) {
-    errors.push(
-      `usagePrompt is too long (${payload.usagePrompt.length} chars), maximum is ${MAX_USAGE_PROMPT_LENGTH}`,
-    );
-  }
-
-  return { valid: errors.length === 0, errors };
-}
+const {
+  VALID_TAGS,
+  partitionTags,
+  validateUpdatePayload,
+} = require("../internal/marketplaceSchema");
 
 /**
  * Include only user-editable fields supported by PATCH /plugins/{id}.
@@ -92,9 +44,7 @@ function buildUpdatePayload(manifest) {
 
   const tags = Array.isArray(manifest.tags) ? manifest.tags : [];
   if (tags.length > 0) {
-    // Filter unexpected values locally so users get clear feedback before request.
-    const validTags = tags.filter((tag) => VALID_TAGS.includes(tag));
-    const invalidTags = tags.filter((tag) => !VALID_TAGS.includes(tag));
+    const { validTags, invalidTags } = partitionTags(tags);
 
     if (invalidTags.length > 0) {
       warn(`Ignored invalid tags from manifest: ${invalidTags.join(", ")}`);
@@ -129,25 +79,14 @@ module.exports = {
         default: false,
       })
       .example(
-        "orderly update --path ./my-plugin --dry-run",
+        "orderly-devkit update --path ./my-plugin --dry-run",
         "Validate the update payload from a local plugin folder",
       );
   },
   handler: async (argv) => {
     heading("Update plugin on Orderly Marketplace");
 
-    if (!isLoggedIn()) {
-      warn("You are not logged in.");
-      info("Please run 'orderly login' first to authenticate.");
-      process.exitCode = 1;
-      return;
-    }
-
-    const token = getToken();
-    if (!token) {
-      error("Authentication token not found.");
-      info("Please run 'orderly login' again.");
-      process.exitCode = 1;
+    if (!requireAuth()) {
       return;
     }
 
@@ -155,7 +94,6 @@ module.exports = {
     const resolvedPath = path.resolve(targetPath);
     info(`Reading plugin metadata from ${resolvedPath}...`);
 
-    // Resolve metadata with manifest-first behavior for plugin projects.
     const manifest = resolvePluginManifest(resolvedPath);
     if (!manifest) {
       error("No plugin metadata found.");
@@ -212,7 +150,7 @@ module.exports = {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
         },
         body: JSON.stringify(payload),
       });
@@ -230,7 +168,6 @@ module.exports = {
       info(`Plugin ID: ${responseData?.id || pluginId}`);
       info(`Status: ${responseData?.status || "N/A"}`);
     } catch (requestError) {
-      // Include request target so operators can triage connectivity issues.
       const cause = requestError?.message || String(requestError);
       error(`Request failed while calling ${apiUrl}: ${cause}`);
       info("Please verify network connectivity and API availability.");

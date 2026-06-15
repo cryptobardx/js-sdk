@@ -8,57 +8,13 @@ const {
   confirm,
   getApiErrorInfo,
 } = require("../shared");
+const { requireAuth, authenticatedFetch } = require("../internal/auth");
 const {
-  isLoggedIn,
-  getToken,
-  authenticatedFetch,
-} = require("../internal/auth");
-const {
+  CLI_BIN_NAME,
   MARKETPLACE_API_MY_PLUGINS_URL,
   getMarketplaceApiPluginUrl,
 } = require("../internal/constants");
-
-/**
- * Normalize unknown list payloads into an array.
- * This keeps delete flow stable across minor API response shape changes.
- * @param {unknown} data
- * @returns {Array<Record<string, unknown>>}
- */
-function normalizePlugins(data) {
-  if (Array.isArray(data)) {
-    return data;
-  }
-
-  if (Array.isArray(data?.data)) {
-    return data.data;
-  }
-
-  if (Array.isArray(data?.plugins)) {
-    return data.plugins;
-  }
-
-  if (Array.isArray(data?.items)) {
-    return data.items;
-  }
-
-  if (Array.isArray(data?.results)) {
-    return data.results;
-  }
-
-  if (Array.isArray(data?.data?.items)) {
-    return data.data.items;
-  }
-
-  if (Array.isArray(data?.data?.plugins)) {
-    return data.data.plugins;
-  }
-
-  if (Array.isArray(data?.data?.results)) {
-    return data.data.results;
-  }
-
-  return [];
-}
+const { normalizePlugins } = require("../internal/formatting");
 
 /**
  * Render a compact plugin label for the selection prompt.
@@ -83,14 +39,13 @@ module.exports = {
           "string; plugin ID to delete directly. If omitted, an interactive selector is shown",
         demandOption: false,
       })
-      .example("orderly delete", "Select one of your plugins and delete it")
       .example(
-        "orderly delete --pluginId my-plugin-id",
-        "Delete a specific plugin directly without selection",
+        "orderly-devkit delete",
+        "Select one of your plugins and delete it",
       )
       .example(
-        "orderly delete --help",
-        "Show command help and usage for plugin deletion",
+        "orderly-devkit delete --pluginId my-plugin-id",
+        "Delete a specific plugin directly without selection",
       );
   },
   handler: async (argv) => {
@@ -99,24 +54,11 @@ module.exports = {
       "This command will permanently delete one of your submitted plugins.\n",
     );
 
-    // Deletion is author-scoped and requires authenticated identity.
-    if (!isLoggedIn()) {
-      warn("You are not logged in.");
-      info("Please run 'orderly login' first to authenticate.");
-      process.exitCode = 1;
-      return;
-    }
-
-    const token = getToken();
-    if (!token) {
-      error("Authentication token not found.");
-      info("Please run 'orderly login' again.");
-      process.exitCode = 1;
+    if (!requireAuth()) {
       return;
     }
 
     try {
-      // Skip interactive selection when pluginId is provided explicitly.
       let selectedPluginId =
         typeof argv.pluginId === "string" ? argv.pluginId.trim() : "";
       if (!selectedPluginId) {
@@ -125,10 +67,7 @@ module.exports = {
           MARKETPLACE_API_MY_PLUGINS_URL,
           {
             method: "GET",
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Accept: "application/json" },
           },
         );
 
@@ -144,7 +83,7 @@ module.exports = {
         if (plugins.length === 0) {
           info("You have not submitted any plugins yet.");
           info(
-            "If Marketplace Web shows records, run `orderly whoami` to confirm account consistency and `orderly list --json` to inspect the raw API response.",
+            `If Marketplace Web shows records, run \`${CLI_BIN_NAME} whoami\` to confirm account consistency and \`${CLI_BIN_NAME} list --json\` to inspect the raw API response.`,
           );
           return;
         }
@@ -190,10 +129,7 @@ module.exports = {
       info(`Submitting delete request to ${endpoint} ...`);
       const deleteResponse = await authenticatedFetch(endpoint, {
         method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Accept: "application/json" },
       });
 
       if (deleteResponse.status === 204) {
@@ -214,7 +150,6 @@ module.exports = {
       info("Please verify plugin ownership and API availability.");
       process.exitCode = 1;
     } catch (e) {
-      // Include endpoint context to help diagnose request/runtime failures.
       const cause = e?.message || String(e);
       error(`Request failed while calling marketplace APIs: ${cause}`);
       info("Please verify network connectivity and API availability.");

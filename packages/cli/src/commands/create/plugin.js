@@ -143,11 +143,11 @@ module.exports = {
           "boolean; if true, do not prompt. Requires `--name` and `--interceptor`. If `--id`/`--target` are omitted, they default from `--name`. Prompts are also skipped when `--name --id --interceptor --target` are all provided",
       })
       .example(
-        "orderly create plugin --no-interactive --name MyPlugin --id my-plugin --interceptor Trading.Layout.Desktop --target ./my-plugin --skip-install",
+        "orderly-devkit create plugin --no-interactive --name MyPlugin --id my-plugin --interceptor Trading.Layout.Desktop --target ./my-plugin --skip-install",
         "Create plugin without prompts (explicit id/target) and skip npm install",
       )
       .example(
-        "orderly create plugin",
+        "orderly-devkit create plugin",
         "Interactive mode: prompt for name, id, interceptor, and target directory",
       );
   },
