@@ -1,3 +1,6 @@
+/** Published CLI binary name (see package.json bin field). */
+const CLI_BIN_NAME = "orderly-devkit";
+
 // Known interceptor targets from the plugin system
 const INTERCEPTOR_TARGETS = [
   "Trading.Layout.Desktop",
@@ -20,11 +23,9 @@ const INTERCEPTOR_TARGETS = [
 const MODULE_TYPES = ["page", "component", "hook", "utils", "module"];
 
 const MARKETPLACE_API_BASE_URL =
-  process.env.ORDERLY_API_URL ||
-  "https://orderly-plugin-marketplace-server.vercel.app";
+  process.env.ORDERLY_API_URL || "https://marketplace-api.orderly.network";
 const MARKETPLACE_WEB_BASE_URL =
-  process.env.ORDERLY_WEB_URL ||
-  "https://orderly-plugin-marketplace.vercel.app";
+  process.env.ORDERLY_WEB_URL || "https://marketplace.orderly.network";
 
 const MARKETPLACE_API_PLUGINS_URL = `${MARKETPLACE_API_BASE_URL}/plugins`;
 const MARKETPLACE_API_MY_PLUGINS_URL = `${MARKETPLACE_API_BASE_URL}/my-plugins`;
@@ -64,9 +65,11 @@ const ORDERLY_PLUGIN_SKILL_NAMES = [
 const DEFAULT_ORDERLY_SDK_DOCS_MCP_NAME = "orderly-sdk-docs";
 
 module.exports = {
+  CLI_BIN_NAME,
   INTERCEPTOR_TARGETS,
   MODULE_TYPES,
   MARKETPLACE_API_BASE_URL,
+  MARKETPLACE_WEB_BASE_URL,
   MARKETPLACE_API_PLUGINS_URL,
   MARKETPLACE_API_MY_PLUGINS_URL,
   getMarketplaceApiPluginUrl,

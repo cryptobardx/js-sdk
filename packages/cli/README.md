@@ -64,9 +64,9 @@ orderly-devkit create module
 orderly-devkit create module --name my-module
 ```
 
-### Marketplace: `submit`, `list`, `update`, `view`
+### Marketplace: `submit`, `search`, `list`, `update`, `view`
 
-These commands use the Marketplace API. You must be logged in (`orderly-devkit login`).
+These commands use the Marketplace API. Public read commands (`search`, `view`) do not require login. Owner-scoped commands (`submit`, `list`, `update`) require login (`orderly-devkit login`).
 
 **`submit`** — register a new plugin from a local directory.
 
@@ -79,6 +79,15 @@ orderly-devkit submit
 orderly-devkit submit --path ./my-plugin
 orderly-devkit submit -p ./my-plugin --tags UI,Trading --dry-run
 orderly-devkit submit -p ./my-plugin --storybook-url https://example.com/storybook
+```
+
+**`search`** — search public available plugins in Marketplace.
+
+```bash
+orderly-devkit search
+orderly-devkit search orderbook
+orderly-devkit search orderbook --tag trading --limit 5
+orderly-devkit search funding --sort updated --order desc --json
 ```
 
 **`list`** — list plugins associated with your account.

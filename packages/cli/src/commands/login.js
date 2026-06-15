@@ -4,6 +4,7 @@ const { heading, info, success, warn, error } = require("../shared");
 const { saveOAuthToken, isLoggedIn } = require("../internal/auth");
 const { startCallbackServer } = require("../internal/login-server");
 const {
+  CLI_BIN_NAME,
   CLI_CALLBACK_PORT,
   CLI_LOGIN_TIMEOUT_MS,
   MARKETPLACE_WEB_LOGIN_URL,
@@ -46,9 +47,12 @@ module.exports = {
           "boolean; if true, force re-login even if you're already logged in",
         default: false,
       })
-      .example("orderly login", "Open the browser and complete GitHub OAuth")
       .example(
-        "orderly login --force --port 9877",
+        `${CLI_BIN_NAME} login`,
+        "Open the browser and complete GitHub OAuth",
+      )
+      .example(
+        `${CLI_BIN_NAME} login --force --port 9877`,
         "Re-authenticate and use a custom callback port",
       );
   },
@@ -58,7 +62,7 @@ module.exports = {
 
     if (isLoggedIn() && !argv.force) {
       warn("You are already logged in.");
-      info("Use 'orderly login --force' to re-authenticate.");
+      info(`Use '${CLI_BIN_NAME} login --force' to re-authenticate.`);
       return;
     }
 
@@ -68,7 +72,10 @@ module.exports = {
     const browserUrl = `${MARKETPLACE_WEB_LOGIN_URL}?port=${port}&state=${state}`;
 
     // Start local callback server
-    const { server, waitForToken } = startCallbackServer({ port, state });
+    const { server, waitForToken, cancel } = startCallbackServer({
+      port,
+      state,
+    });
 
     // Handle server errors (e.g. port in use)
     const serverReady = new Promise((resolve, reject) => {
@@ -92,6 +99,7 @@ module.exports = {
     } catch (err) {
       error(err.message);
       server.close();
+      process.exitCode = 1;
       return;
     }
 
@@ -107,26 +115,23 @@ module.exports = {
 
     info("Waiting for authentication...");
 
-    // Timeout
     let timedOut = false;
     const timeout = setTimeout(() => {
       timedOut = true;
       error("Login timed out after 3 minutes.");
+      cancel(new Error("Login timed out"));
     }, CLI_LOGIN_TIMEOUT_MS);
 
-    // Handle Ctrl+C during login
     const onSigInt = () => {
       info("\nLogin cancelled.");
       clearTimeout(timeout);
-      server.close();
-      process.exit(1);
+      cancel(new Error("Login cancelled"));
+      process.exit(130);
     };
     process.on("SIGINT", onSigInt);
 
     try {
       const tokenData = await waitForToken;
-      clearTimeout(timeout);
-      process.removeListener("SIGINT", onSigInt);
 
       saveOAuthToken(tokenData);
 
@@ -135,12 +140,15 @@ module.exports = {
       if (displayName) {
         info(`Logged in as: ${displayName}`);
       }
-      info("Use 'orderly-devkit whoami' to verify your account.");
+      info(`Use '${CLI_BIN_NAME} whoami' to verify your account.`);
     } catch (err) {
       if (!timedOut) {
         error(`Login failed: ${err.message}`);
       }
+      process.exitCode = 1;
     } finally {
+      clearTimeout(timeout);
+      process.removeListener("SIGINT", onSigInt);
       server.close();
     }
   },

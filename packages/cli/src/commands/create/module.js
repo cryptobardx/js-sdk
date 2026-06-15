@@ -21,11 +21,11 @@ module.exports = {
         default: "my-module",
       })
       .example(
-        "orderly create module",
+        "orderly-devkit create module",
         "Run guided module creation (prompt for module type)",
       )
       .example(
-        "orderly create module --name my-module",
+        "orderly-devkit create module --name my-module",
         "Provide a module name (still prompts for module type)",
       );
   },

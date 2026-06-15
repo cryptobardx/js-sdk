@@ -1,8 +1,6 @@
-const fs = require("fs");
 const path = require("path");
 const {
   input,
-  select,
   heading,
   info,
   success,
@@ -11,39 +9,24 @@ const {
   getApiErrorInfo,
 } = require("../shared");
 const {
-  isLoggedIn,
-  getToken,
+  requireAuth,
+  getEmail,
   authenticatedFetch,
 } = require("../internal/auth");
-const { MARKETPLACE_API_PLUGINS_URL } = require("../internal/constants");
+const {
+  CLI_BIN_NAME,
+  MARKETPLACE_API_PLUGINS_URL,
+} = require("../internal/constants");
 const { resolvePluginManifest, getRepoUrl } = require("../internal/manifest");
+const {
+  VALID_TAGS,
+  partitionTags,
+  validateSubmission,
+} = require("../internal/marketplaceSchema");
 const {
   maybePrintOrderlyDevEnvironmentHints,
 } = require("../internal/orderlySdkDocsMcpDetect");
 
-// Valid tags from the API
-const VALID_TAGS = [
-  "UI",
-  "Indicator",
-  "Order Entry",
-  "Trading",
-  "Chart",
-  "Portfolio",
-  "Analytics",
-  "Tool",
-  "Widget",
-];
-
-// Regex patterns & limits matching backend createPluginSchema
-const NPM_NAME_REGEX =
-  /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
-const GITHUB_URL_REGEX = /^https:\/\/github\.com\/[\w-]+\/[\w-]+$/;
-// pluginId: first char letter, then letters, digits, or hyphens
-const PLUGIN_ID_REGEX = /^[a-zA-Z][a-zA-Z0-9-]*$/;
-const UPLOADS_PATH_REGEX = /^\/uploads\/.+$/;
-const MAX_TAGS = 5;
-const MAX_COVER_IMAGES = 10;
-const MAX_USAGE_PROMPT_LENGTH = 8192;
 const SUBMIT_PROGRESS_TOTAL_STEPS = 7;
 
 /**
@@ -65,16 +48,14 @@ function printSubmitFailure(status, errorCode, serverMessage) {
   const normalizedCode = (errorCode || "").toUpperCase();
   const normalizedMessage = serverMessage || `HTTP ${status}`;
 
-  // Keep conflict guidance explicit since duplicate plugin IDs are common.
   if (status === 409 || normalizedCode === "CONFLICT") {
     error(`Plugin registration conflict: ${normalizedMessage}`);
     info(
-      "Try a different pluginId in your manifest, then rerun 'orderly submit'.",
+      `Try a different pluginId in your manifest, then rerun '${CLI_BIN_NAME} submit'.`,
     );
     return;
   }
 
-  // Distinguish missing upstream resources from generic failures.
   if (status === 404 || normalizedCode === "NOT_FOUND") {
     error(`Resource not found: ${normalizedMessage}`);
     info(
@@ -83,7 +64,6 @@ function printSubmitFailure(status, errorCode, serverMessage) {
     return;
   }
 
-  // Bad request means user input can be fixed without retrying infrastructure.
   if (status === 400 || normalizedCode === "BAD_REQUEST") {
     error(`Invalid submission data: ${normalizedMessage}`);
     info("Please correct your manifest fields and run submit again.");
@@ -91,7 +71,7 @@ function printSubmitFailure(status, errorCode, serverMessage) {
   }
 
   if (status === 401) {
-    error("Unauthorized. Please run 'orderly login' again.");
+    error(`Unauthorized. Please run '${CLI_BIN_NAME} login' again.`);
     return;
   }
 
@@ -101,79 +81,6 @@ function printSubmitFailure(status, errorCode, serverMessage) {
   }
 
   error(`Submission failed (HTTP ${status}): ${normalizedMessage}`);
-}
-
-/**
- * Validate submission payload against backend schema rules.
- * @returns {{ valid: boolean, errors: string[] }}
- */
-function validateSubmission({
-  npmName,
-  repoUrl,
-  pluginId,
-  tags,
-  coverImages,
-  usagePrompt,
-}) {
-  const errors = [];
-
-  if (!npmName) {
-    errors.push("npmName is required (set in package.json)");
-  } else if (!NPM_NAME_REGEX.test(npmName)) {
-    errors.push(`npmName "${npmName}" is not a valid npm package name`);
-  }
-
-  if (!repoUrl) {
-    errors.push(
-      "repoUrl is required (configure git remote or set in manifest)",
-    );
-  } else if (!GITHUB_URL_REGEX.test(repoUrl)) {
-    errors.push(
-      `repoUrl must be a valid GitHub URL (https://github.com/<owner>/<repo>), got: ${repoUrl}`,
-    );
-  }
-
-  if (!pluginId) {
-    errors.push("pluginId is required (set in manifest or pass interactively)");
-  } else if (!PLUGIN_ID_REGEX.test(pluginId)) {
-    errors.push(
-      `pluginId must start with a letter and contain only letters, digits, or hyphens, got: ${pluginId}`,
-    );
-  }
-
-  if (tags.length > MAX_TAGS) {
-    errors.push(`Too many tags (${tags.length}), maximum is ${MAX_TAGS}`);
-  }
-
-  if (coverImages && coverImages.length > MAX_COVER_IMAGES) {
-    errors.push(
-      `Too many cover images (${coverImages.length}), maximum is ${MAX_COVER_IMAGES}`,
-    );
-  }
-  if (coverImages && coverImages.length > 0) {
-    const invalidCoverImage = coverImages.find((image) => {
-      if (typeof image !== "string" || image.length === 0) {
-        return true;
-      }
-
-      // Keep parity with backend schema: each item must be a URL or /uploads/* path.
-      return !URL.canParse(image) && !UPLOADS_PATH_REGEX.test(image);
-    });
-
-    if (invalidCoverImage) {
-      errors.push(
-        `coverImages contains an invalid value: ${invalidCoverImage}. Each value must be an absolute URL or a path that starts with /uploads/`,
-      );
-    }
-  }
-
-  if (usagePrompt && usagePrompt.length > MAX_USAGE_PROMPT_LENGTH) {
-    errors.push(
-      `usagePrompt is too long (${usagePrompt.length} chars), maximum is ${MAX_USAGE_PROMPT_LENGTH}`,
-    );
-  }
-
-  return { valid: errors.length === 0, errors };
 }
 
 module.exports = {
@@ -209,11 +116,11 @@ module.exports = {
         default: false,
       })
       .example(
-        "orderly submit --path ./my-plugin --dry-run",
+        "orderly-devkit submit --path ./my-plugin --dry-run",
         "Validate the plugin payload from a local folder",
       )
       .example(
-        "orderly submit --path ./my-plugin --tags UI,Trading --storybook-url https://example.com/storybook",
+        "orderly-devkit submit --path ./my-plugin --tags UI,Trading --storybook-url https://example.com/storybook",
         "Submit with tags and a Storybook URL",
       );
   },
@@ -222,34 +129,29 @@ module.exports = {
     info("This command will submit your plugin to the marketplace.\n");
     printProgress(1, "Checking authentication status...");
 
-    // Check if user is logged in
-    if (!isLoggedIn()) {
-      warn("You are not logged in.");
-      info("Please run 'orderly login' first to authenticate.");
+    if (!requireAuth()) {
       return;
     }
 
-    const token = getToken();
-    info(`Authenticated as: (token starts with ${token.substring(0, 8)}...)\n`);
+    const displayName = getEmail();
+    info(`Authenticated as: ${displayName || "(unknown user)"}\n`);
 
-    // Step 1: Path
     printProgress(2, "Resolving plugin path...");
     const targetPath = argv.path || (await input("Path to plugin:", "./"));
     const resolvedPath = path.resolve(targetPath);
 
-    // Step 2: Resolve metadata (.orderly-manifest.json optional; package.json + git is enough)
     printProgress(3, `Reading plugin metadata from ${resolvedPath}...`);
 
     const manifest = resolvePluginManifest(resolvedPath);
     if (!manifest) {
       error("No plugin metadata found.");
       info(
-        "Add a package.json with a valid \"name\" field, or create .orderly-manifest.json (e.g. via 'orderly create plugin').",
+        `Add a package.json with a valid "name" field, or create .orderly-manifest.json (e.g. via '${CLI_BIN_NAME} create plugin').`,
       );
+      process.exitCode = 1;
       return;
     }
 
-    // Step 3: Try to auto-fill repoUrl from git remote if missing
     if (!manifest.repoUrl) {
       const repoUrl = getRepoUrl();
       if (repoUrl) {
@@ -271,26 +173,23 @@ module.exports = {
       info(`Repository: ${manifest.repoUrl}`);
     }
 
-    // Step 4: Collect optional fields
     let tags = manifest.tags || [];
     if (argv.tags) {
       tags = argv.tags.split(",").map((t) => t.trim());
     }
 
-    // Validate tag values
-    const invalidTags = tags.filter((t) => !VALID_TAGS.includes(t));
+    const { validTags, invalidTags } = partitionTags(tags);
     if (invalidTags.length > 0) {
       warn(`Invalid tags: ${invalidTags.join(", ")}`);
       info(`Valid tags: ${VALID_TAGS.join(", ")}`);
-      tags = tags.filter((t) => VALID_TAGS.includes(t));
     }
+    tags = validTags;
 
     const storybookUrl = argv.storybookUrl || manifest.storybookUrl || null;
     const storybookTooltip = manifest.storybookTooltip || null;
     const usagePrompt = manifest.usagePrompt || null;
     const coverImages = manifest.coverImages || [];
 
-    // Step 5: Validate all fields against backend schema
     printProgress(5, "Validating submission payload...");
     const submission = validateSubmission({
       npmName: manifest.npmName,
@@ -304,6 +203,7 @@ module.exports = {
     if (!submission.valid) {
       error("\nValidation failed. Please fix the following issues:");
       submission.errors.forEach((e) => info(`  - ${e}`));
+      process.exitCode = 1;
       return;
     }
 
@@ -329,7 +229,6 @@ module.exports = {
       return;
     }
 
-    // Step 6: Submit to marketplace
     printProgress(
       6,
       `Submitting request to Orderly Marketplace (${MARKETPLACE_API_PLUGINS_URL})...`,
@@ -343,7 +242,6 @@ module.exports = {
       coverImages,
     };
 
-    // Add optional fields if present
     if (storybookUrl) {
       payload.storybookUrl = storybookUrl;
     }
@@ -361,12 +259,11 @@ module.exports = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
           },
           body: JSON.stringify(payload),
         },
         {
-          // Expose auth refresh lifecycle so users can see why step [6/7] is taking longer.
           onAuthEvent: (event, details = {}) => {
             if (event === "request_unauthorized") {
               info(
@@ -389,7 +286,7 @@ module.exports = {
 
             if (event === "refresh_missing") {
               warn(
-                "[6/7] No refresh token found. Please run 'orderly login' again if submit fails.",
+                `[6/7] No refresh token found. Please run '${CLI_BIN_NAME} login' again if submit fails.`,
               );
               return;
             }
@@ -444,14 +341,16 @@ module.exports = {
         if (errorCode) {
           info(`Error code: ${errorCode}`);
         }
+
+        process.exitCode = 1;
       }
     } catch (e) {
-      // Include endpoint context so publish users can diagnose non-local failures.
       const cause = e?.message || String(e);
       error(
         `Submission failed while calling ${MARKETPLACE_API_PLUGINS_URL}: ${cause}`,
       );
       info("Please verify network connectivity and API availability.");
+      process.exitCode = 1;
     }
   },
 };
